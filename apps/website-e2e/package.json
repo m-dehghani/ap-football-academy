@@ -1,0 +1,10 @@
+{
+  "name": "@ap-football-academy/website-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "@ap-football-academy/website"
+    ]
+  }
+}

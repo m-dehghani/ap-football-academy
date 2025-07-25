@@ -1,0 +1,92 @@
+{
+  "name": "آکادمی فوتبال AP",
+  "short_name": "AP Football",
+  "description": "آکادمی فوتبال AP - بهترین آموزش فوتبال برای همه سنین",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
+  "orientation": "portrait-primary",
+  "lang": "fa-IR",
+  "dir": "rtl",
+  "scope": "/",
+  "categories": ["sports", "education", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.ap.football"
+    }
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "ثبت نام",
+      "short_name": "ثبت نام",
+      "description": "ثبت نام در برنامه های آموزشی",
+      "url": "/register",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "برنامه ها",
+      "short_name": "برنامه ها",
+      "description": "مشاهده برنامه های آموزشی",
+      "url": "/programs",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "تماس",
+      "short_name": "تماس",
+      "description": "تماس با آکادمی",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+} 

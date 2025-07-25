@@ -1,0 +1,178 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  phone     String?
+  role      String   @default("STUDENT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  registrations Registration[]
+  payments     Payment[]
+  attendance   Attendance[]
+  evaluations  Evaluation[]
+  
+  @@map("users")
+}
+
+model Coach {
+  id          String   @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phone       String
+  specialization String
+  experience  Int      // Years of experience
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  programs    Program[]
+  sessions    Session[]
+  evaluations Evaluation[]
+  
+  @@map("coaches")
+}
+
+model Program {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  ageGroup    String      // "8-12", "13-17", "18-25", "26-30"
+  price       Int         // Price in Toman
+  duration    Int         // Duration in months
+  sessionCount Int         // Number of sessions
+  maxStudents Int         @default(15)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  coach         Coach          @relation(fields: [coachId], references: [id])
+  coachId       String
+  registrations Registration[]
+  sessions      Session[]
+  
+  @@map("programs")
+}
+
+model Registration {
+  id          String            @id @default(cuid())
+  status      String             @default("PENDING")
+  totalAmount Int
+  paidAmount  Int               @default(0)
+  registeredAt DateTime         @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  // Relations
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  program   Program @relation(fields: [programId], references: [id])
+  programId String
+  payments  Payment[]
+  
+  @@map("registrations")
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  amount      Int
+  status      String        @default("PENDING")
+  method      String        @default("ONLINE")
+  stripeId    String?       // Stripe payment ID
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  user           User         @relation(fields: [userId], references: [id])
+  userId         String
+  registration   Registration @relation(fields: [registrationId], references: [id])
+  registrationId String
+  
+  @@map("payments")
+}
+
+model Session {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  date        DateTime
+  duration    Int        // Duration in minutes
+  location    String
+  maxCapacity Int        @default(15)
+  status      String        @default("SCHEDULED")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  program     Program      @relation(fields: [programId], references: [id])
+  programId   String
+  coach       Coach        @relation(fields: [coachId], references: [id])
+  coachId     String
+  attendance  Attendance[]
+  
+  @@map("sessions")
+}
+
+model Attendance {
+  id        String           @id @default(cuid())
+  status    String           @default("PRESENT")
+  notes     String?
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  // Relations
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  session   Session @relation(fields: [sessionId], references: [id])
+  sessionId String
+  
+  @@unique([userId, sessionId])
+  @@map("attendance")
+}
+
+model Evaluation {
+  id          String   @id @default(cuid())
+  technical   Int      // 1-10 rating
+  physical    Int      // 1-10 rating
+  mental      Int      // 1-10 rating
+  teamwork    Int      // 1-10 rating
+  overall     Int      // 1-10 rating
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user    User  @relation(fields: [userId], references: [id])
+  userId  String
+  coach   Coach @relation(fields: [coachId], references: [id])
+  coachId String
+  
+  @@map("evaluations")
+}
+
+// SQLite doesn't support enums, so we use string fields with default values
+// UserRole: STUDENT, ADMIN, COACH
+// RegistrationStatus: PENDING, APPROVED, CANCELLED, COMPLETED
+// PaymentStatus: PENDING, COMPLETED, FAILED, REFUNDED
+// PaymentMethod: ONLINE, CASH, BANK_TRANSFER
+// SessionStatus: SCHEDULED, ONGOING, COMPLETED, CANCELLED
+// AttendanceStatus: PRESENT, ABSENT, LATE, EXCUSED
