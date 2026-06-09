@@ -1,3 +1,4 @@
+/*test jenkins file*/
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent { docker { image 'node:24.16.0-alpine3.23' } }
