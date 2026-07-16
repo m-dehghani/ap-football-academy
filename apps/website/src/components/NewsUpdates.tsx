@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarDaysIcon, ClockIcon, UserGroupIcon, TrophyIcon, CameraIcon, PlayIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ClockIcon, UserGroupIcon, CameraIcon, PlayIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function NewsUpdates() {
   const [selectedCategory, setSelectedCategory] = useState('all');

@@ -1,4 +1,6 @@
 {
     "nxConsole.generateAiAgentRules": true,
-    "nxConsole.nxWorkspacePath": ""
+    "nxConsole.nxWorkspacePath": "",
+    "prisma.pinToPrisma6": true,
+    "js/ts.tsdk.path": "node_modules\\typescript\\lib"
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarDaysIcon, UserGroupIcon, ClockIcon, TrophyIcon, StarIcon, CheckCircleIcon, ArrowRightIcon, SparklesIcon, AcademicCapIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, UserGroupIcon, ClockIcon, TrophyIcon, StarIcon, CheckCircleIcon, ArrowRightIcon, SparklesIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 
 export default function Programs() {
   const [selectedProgram, setSelectedProgram] = useState(0);

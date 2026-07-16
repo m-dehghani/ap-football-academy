@@ -1,6 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+} from '@heroicons/react/24/outline';
 
 const CTA: React.FC = () => {
   return (
@@ -18,11 +22,12 @@ const CTA: React.FC = () => {
               آماده شروع سفر فوتبال خود هستید؟
             </h2>
             <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
-              به بیش از ۵۰۰ بازیکن دیگر بپیوندید و مهارت‌های فوتبال خود را به سطح بعدی برسانید
+              به بیش از ۵۰۰ بازیکن دیگر بپیوندید و مهارت‌های فوتبال خود را به
+              سطح بعدی برسانید
             </p>
             <p className="text-lg text-primary-200 mb-12 max-w-3xl mx-auto">
-              با مربیان حرفه‌ای، امکانات مدرن و برنامه‌های آموزشی جامع، آکادمی فوتبال AP 
-              بهترین انتخاب برای شروع یا ادامه مسیر فوتبال شماست.
+              با مربیان حرفه‌ای، امکانات مدرن و برنامه‌های آموزشی جامع، آکادمی
+              فوتبال AP بهترین انتخاب برای شروع یا ادامه مسیر فوتبال شماست.
             </p>
           </motion.div>
 
@@ -67,9 +72,13 @@ const CTA: React.FC = () => {
                 <PhoneIcon className="h-6 w-6 text-white" />
               </div>
               <div className="text-right">
-                <h3 className="text-lg font-semibold text-white mb-1">تماس تلفنی</h3>
+                <h3 className="text-lg font-semibold text-white mb-1">
+                  تماس تلفنی
+                </h3>
                 <p className="text-primary-100 persian-numbers">۰۲۱-۱۲۳۴۵۶۷۸</p>
-                <p className="text-primary-200 text-sm">شنبه تا چهارشنبه: ۸:۰۰ - ۲۲:۰۰</p>
+                <p className="text-primary-200 text-sm">
+                  شنبه تا چهارشنبه: ۸:۰۰ - ۲۲:۰۰
+                </p>
               </div>
             </div>
 
@@ -80,7 +89,9 @@ const CTA: React.FC = () => {
               <div className="text-right">
                 <h3 className="text-lg font-semibold text-white mb-1">ایمیل</h3>
                 <p className="text-primary-100">info@ap-football.com</p>
-                <p className="text-primary-200 text-sm">پاسخگویی در کمتر از ۲۴ ساعت</p>
+                <p className="text-primary-200 text-sm">
+                  پاسخگویی در کمتر از ۲۴ ساعت
+                </p>
               </div>
             </div>
           </motion.div>
@@ -144,4 +155,4 @@ const CTA: React.FC = () => {
   );
 };
 
-export default CTA; 
+export default CTA;

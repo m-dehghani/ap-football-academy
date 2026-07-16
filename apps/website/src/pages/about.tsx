@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
-import { TrophyIcon, UserGroupIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline';
+import { TrophyIcon, HeartIcon, StarIcon } from '@heroicons/react/24/outline';
 
 const AboutPage: React.FC = () => {
   return (

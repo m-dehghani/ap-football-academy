@@ -5,7 +5,7 @@ import Layout from '@/components/Layout';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const SuccessPage: React.FC = () => {
-  const [sessionData, setSessionData] = useState<any>(null);
+  const [setSessionData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { session_id } = router.query;

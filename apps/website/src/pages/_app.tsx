@@ -2,9 +2,8 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../../next-seo.config';
+import SEO from './next-seo.config';
 import '@/styles/globals.css';
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -48,4 +47,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp; 
+export default MyApp;

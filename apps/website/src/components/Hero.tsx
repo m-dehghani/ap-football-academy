@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronRightIcon, TrophyIcon, StarIcon, UsersIcon, PlayIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { TrophyIcon, StarIcon, UsersIcon, PlayIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);

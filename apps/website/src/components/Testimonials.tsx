@@ -55,12 +55,12 @@ const Testimonials: React.FC = () => {
     }
   ];
 
-  const stats = [
-    { number: '۱۲۰+', label: 'بازیکن پسر فعال' },
-    { number: '۹۸%', label: 'رضایت خانواده‌ها' },
-    { number: '۱۵+', label: 'بازیکن به تیم‌های حرفه‌ای' },
-    { number: '۵', label: 'مدال طلا در مسابقات' },
-  ];
+  // const stats = [
+  //   { number: '۱۲۰+', label: 'بازیکن پسر فعال' },
+  //   { number: '۹۸%', label: 'رضایت خانواده‌ها' },
+  //   { number: '۱۵+', label: 'بازیکن به تیم‌های حرفه‌ای' },
+  //   { number: '۵', label: 'مدال طلا در مسابقات' },
+  // ];
 
   return (
     <section className="py-20 bg-gray-50">

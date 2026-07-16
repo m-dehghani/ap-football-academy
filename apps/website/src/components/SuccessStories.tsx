@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TrophyIcon, StarIcon, AcademicCapIcon, ArrowTrendingUpIcon, UserIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { TrophyIcon, StarIcon, ArrowTrendingUpIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 
 export default function SuccessStories() {
   const [activeTab, setActiveTab] = useState('achievements');

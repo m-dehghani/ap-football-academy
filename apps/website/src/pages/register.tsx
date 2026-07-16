@@ -9,16 +9,12 @@ import { toast } from 'react-hot-toast';
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'First name must be at least 2 characters'),
   lastName: z.string().min(2, 'Last name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  email: z.email('Invalid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
   dateOfBirth: z.string().min(1, 'Date of birth is required'),
-  ageGroup: z.enum(['8-12', '13-17', '18-25', '26-30'], {
-    required_error: 'Please select an age group',
-  }),
+  ageGroup: z.enum(['8-12', '13-17', '18-25', '26-30']),
   program: z.string().min(1, 'Please select a program'),
-  experience: z.enum(['beginner', 'intermediate', 'advanced'], {
-    required_error: 'Please select your experience level',
-  }),
+  experience: z.enum(['beginner', 'intermediate', 'advanced'], ),
   parentName: z.string().optional(),
   parentEmail: z.string().email().optional().or(z.literal('')),
   medicalConditions: z.string().optional(),

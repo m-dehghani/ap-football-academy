@@ -2,10 +2,13 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-08-16',
+  apiVersion: '2026-06-24.dahlia',
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -18,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const session = await stripe.checkout.sessions.retrieve(session_id);
-    
+
     // Return only the necessary data for the success page
     res.status(200).json({
       id: session.id,
@@ -30,4 +33,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error('Error retrieving session:', error);
     res.status(500).json({ message: 'Error retrieving session data' });
   }
-} 
+}
