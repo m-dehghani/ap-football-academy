@@ -195,7 +195,7 @@ const Testimonials: React.FC = () => {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-xl p-8 text-white">
+          <div className="bg-linear-to-r from-primary-600 to-primary-700 rounded-xl p-8 text-white">
             <h3 className="text-2xl font-bold mb-4">
               آماده نوشتن داستان موفقیت خود هستید؟
             </h3>

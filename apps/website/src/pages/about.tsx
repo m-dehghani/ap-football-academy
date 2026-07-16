@@ -31,7 +31,7 @@ const AboutPage: React.FC = () => {
         ]}
       />
       
-      <div className="section-padding bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="section-padding bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container-custom">
           {/* Header */}
           <div className="text-center mb-16">
@@ -128,7 +128,7 @@ const AboutPage: React.FC = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
+                <div className="w-32 h-32 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
                   AP
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">علی احمدی</h3>
@@ -138,7 +138,7 @@ const AboutPage: React.FC = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
+                <div className="w-32 h-32 bg-linear-to-br from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
                   MK
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">محمد کریمی</h3>
@@ -148,7 +148,7 @@ const AboutPage: React.FC = () => {
                 </p>
               </div>
               <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
+                <div className="w-32 h-32 bg-linear-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center text-white text-4xl font-bold mx-auto mb-4">
                   HM
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">حسن میرزایی</h3>

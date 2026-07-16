@@ -20,7 +20,7 @@ const PrivacyPage: React.FC = () => {
         ]}
       />
       
-      <div className="section-padding bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="section-padding bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container-custom max-w-4xl">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">

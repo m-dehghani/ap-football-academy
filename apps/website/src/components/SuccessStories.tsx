@@ -126,7 +126,7 @@ export default function SuccessStories() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-100">
+    <section className="py-20 bg-linear-to-br from-emerald-50 to-emerald-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -183,7 +183,7 @@ export default function SuccessStories() {
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {achievements.map((achievement) => (
               <div key={achievement.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 p-6 text-white">
+                <div className="bg-linear-to-r from-emerald-500 to-emerald-600 p-6 text-white">
                   <div className="flex items-center justify-between mb-4">
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
                       <TrophyIcon className="w-8 h-8" />
@@ -237,7 +237,7 @@ export default function SuccessStories() {
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow">
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl font-bold ml-4">
+                  <div className="w-16 h-16 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl font-bold ml-4">
                     {testimonial.name.split(' ')[0].charAt(0)}
                   </div>
                   <div>

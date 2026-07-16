@@ -53,7 +53,7 @@ export default function Hero() {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Enhanced Animated Background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${currentSlideData.bgGradient} transition-all duration-1000`}>
+      <div className={`absolute inset-0 bg-linear-to-br ${currentSlideData.bgGradient} transition-all duration-1000`}>
         {/* Modern Mesh Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-mesh opacity-30 animate-gradient-shift"></div>
         
@@ -103,7 +103,7 @@ export default function Hero() {
 
               {/* Modern CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in">
-                <button className="group btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white shadow-elegant-xl">
+                <button className="group btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white shadow-elegant-xl">
                   <span className="flex items-center">
                     {currentSlideData.cta}
                     <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -138,8 +138,8 @@ export default function Hero() {
             <div className="hidden lg:block relative">
               <div className="relative">
                 {/* Main Professional Circle */}
-                <div className="w-96 h-96 xl:w-112 xl:h-112 rounded-full glass-card flex items-center justify-center mx-auto animate-float">
-                  <div className="w-80 h-80 xl:w-96 xl:h-96 rounded-full bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-xl border-2 border-white/20 flex items-center justify-center">
+                <div className="w-96 h-96 xl:w-md xl:h-112 rounded-full glass-card flex items-center justify-center mx-auto animate-float">
+                  <div className="w-80 h-80 xl:w-96 xl:h-96 rounded-full bg-linear-to-br from-white/20 to-white/5 backdrop-blur-xl border-2 border-white/20 flex items-center justify-center">
                     <div className="text-center">
                       <div className="text-8xl xl:text-9xl mb-6 animate-bounce-slow">⚽</div>
                       <div className="text-white font-display font-bold text-2xl xl:text-3xl mb-2">آکادمی AP</div>

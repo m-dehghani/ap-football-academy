@@ -31,7 +31,7 @@ const ContactPage: React.FC = () => {
         ]}
       />
       
-      <div className="section-padding bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="section-padding bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container-custom">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">

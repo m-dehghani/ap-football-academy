@@ -8,7 +8,7 @@ import {
 
 const CTA: React.FC = () => {
   return (
-    <section className="section-padding bg-gradient-to-r from-primary-600 to-primary-700">
+    <section className="section-padding bg-linear-to-r from-primary-600 to-primary-700">
       <div className="container-custom">
         <div className="text-center text-white">
           <motion.div

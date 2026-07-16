@@ -49,7 +49,7 @@ const SuccessPage: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             {/* Success Header */}
-            <div className="bg-gradient-to-r from-green-500 to-green-600 px-8 py-12">
+            <div className="bg-linear-to-r from-green-500 to-green-600 px-8 py-12">
               <div className="text-center">
                 <CheckCircleIcon className="h-16 w-16 text-white mx-auto mb-4" />
                 <h1 className="text-4xl font-bold text-white mb-2">

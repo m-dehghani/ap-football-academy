@@ -143,7 +143,7 @@ export default function Programs() {
   const currentProgram = programs[selectedProgram];
 
   return (
-    <section className="section-padding bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+    <section className="section-padding bg-linear-to-br from-gray-50 to-gray-100 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-300 rounded-full blur-3xl"></div>
@@ -200,7 +200,7 @@ export default function Programs() {
           {/* Program Info Card */}
           <div className="space-y-8">
             {/* Main Program Card */}
-            <div className={`card-glass p-8 rounded-4xl bg-gradient-to-br ${currentProgram.color} text-white relative overflow-hidden`}>
+            <div className={`card-glass p-8 rounded-4xl bg-linear-to-br ${currentProgram.color} text-white relative overflow-hidden`}>
               {currentProgram.popular && (
                 <div className="absolute top-6 right-6 bg-accent-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                   Most Popular
@@ -260,7 +260,7 @@ export default function Programs() {
               <div className="grid grid-cols-1 gap-4">
                 {currentProgram.features.map((feature, index) => (
                   <div key={index} className="flex items-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors">
-                    <CheckCircleIcon className="w-5 h-5 text-emerald-500 mr-3 flex-shrink-0" />
+                    <CheckCircleIcon className="w-5 h-5 text-emerald-500 mr-3 shrink-0" />
                     <span className="text-gray-700 font-medium">{feature}</span>
                   </div>
                 ))}
@@ -277,7 +277,7 @@ export default function Programs() {
                 Your Coach
               </h4>
               <div className="flex items-center space-x-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold">
+                <div className="w-20 h-20 bg-linear-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold">
                   {currentProgram.coach.split(' ')[1]?.charAt(0) || 'C'}
                 </div>
                 <div>
@@ -347,7 +347,7 @@ export default function Programs() {
             </div>
 
             {/* Enrollment CTA */}
-            <div className="card-glass p-8 rounded-4xl bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-200">
+            <div className="card-glass p-8 rounded-4xl bg-linear-to-br from-primary-50 to-primary-100 border border-primary-200">
               <div className="text-center">
                 <h4 className="text-2xl font-bold text-gray-900 mb-4">Ready to Join?</h4>
                 <p className="text-gray-600 mb-6">

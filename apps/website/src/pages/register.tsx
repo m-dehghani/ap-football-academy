@@ -14,7 +14,7 @@ const registrationSchema = z.object({
   dateOfBirth: z.string().min(1, 'Date of birth is required'),
   ageGroup: z.enum(['8-12', '13-17', '18-25', '26-30']),
   program: z.string().min(1, 'Please select a program'),
-  experience: z.enum(['beginner', 'intermediate', 'advanced'], ),
+  experience: z.enum(['beginner', 'intermediate', 'advanced']),
   parentName: z.string().optional(),
   parentEmail: z.string().email().optional().or(z.literal('')),
   medicalConditions: z.string().optional(),
@@ -53,19 +53,39 @@ const RegisterPage: React.FC = () => {
   const programs = {
     '8-12': [
       { id: 'youth-basic', name: 'Youth Basic Skills', price: '$150/month' },
-      { id: 'youth-development', name: 'Youth Development', price: '$200/month' },
+      {
+        id: 'youth-development',
+        name: 'Youth Development',
+        price: '$200/month',
+      },
     ],
     '13-17': [
       { id: 'teen-competitive', name: 'Teen Competitive', price: '$250/month' },
-      { id: 'teen-advanced', name: 'Teen Advanced Training', price: '$300/month' },
+      {
+        id: 'teen-advanced',
+        name: 'Teen Advanced Training',
+        price: '$300/month',
+      },
     ],
     '18-25': [
-      { id: 'adult-recreational', name: 'Adult Recreational', price: '$200/month' },
-      { id: 'adult-competitive', name: 'Adult Competitive', price: '$350/month' },
+      {
+        id: 'adult-recreational',
+        name: 'Adult Recreational',
+        price: '$200/month',
+      },
+      {
+        id: 'adult-competitive',
+        name: 'Adult Competitive',
+        price: '$350/month',
+      },
     ],
     '26-30': [
       { id: 'masters-fitness', name: 'Masters Fitness', price: '$180/month' },
-      { id: 'masters-competitive', name: 'Masters Competitive', price: '$280/month' },
+      {
+        id: 'masters-competitive',
+        name: 'Masters Competitive',
+        price: '$280/month',
+      },
     ],
   };
 
@@ -108,14 +128,12 @@ const RegisterPage: React.FC = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-8 py-6">
+            <div className="bg-linear-to-r from-primary-600 to-primary-700 px-8 py-6">
               <div className="text-center">
                 <h1 className="text-3xl font-bold text-white mb-2">
-                  Join AP Football Academy
+                  به باشگاه افشین پیروانی بپیوندید
                 </h1>
-                <p className="text-primary-100">
-                  Start your football journey with professional training
-                </p>
+                <p className="text-primary-100">سفر خود را آغاز کنید</p>
               </div>
             </div>
 
@@ -139,7 +157,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter your first name"
                       />
                       {errors.firstName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.firstName.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.firstName.message}
+                        </p>
                       )}
                     </div>
 
@@ -154,7 +174,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter your last name"
                       />
                       {errors.lastName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.lastName.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.lastName.message}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -171,7 +193,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter your email"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.email.message}
+                        </p>
                       )}
                     </div>
 
@@ -186,7 +210,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter your phone number"
                       />
                       {errors.phone && (
-                        <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.phone.message}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -202,7 +228,9 @@ const RegisterPage: React.FC = () => {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       />
                       {errors.dateOfBirth && (
-                        <p className="mt-1 text-sm text-red-600">{errors.dateOfBirth.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.dateOfBirth.message}
+                        </p>
                       )}
                     </div>
 
@@ -221,7 +249,9 @@ const RegisterPage: React.FC = () => {
                         <option value="26-30">Masters (26-30 years)</option>
                       </select>
                       {errors.ageGroup && (
-                        <p className="mt-1 text-sm text-red-600">{errors.ageGroup.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.ageGroup.message}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -243,14 +273,18 @@ const RegisterPage: React.FC = () => {
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                         >
                           <option value="">Select program</option>
-                          {programs[watchedAgeGroup as keyof typeof programs]?.map((program) => (
+                          {programs[
+                            watchedAgeGroup as keyof typeof programs
+                          ]?.map((program) => (
                             <option key={program.id} value={program.id}>
                               {program.name} - {program.price}
                             </option>
                           ))}
                         </select>
                         {errors.program && (
-                          <p className="mt-1 text-sm text-red-600">{errors.program.message}</p>
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.program.message}
+                          </p>
                         )}
                       </div>
 
@@ -263,12 +297,20 @@ const RegisterPage: React.FC = () => {
                           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                         >
                           <option value="">Select experience level</option>
-                          <option value="beginner">Beginner - Just starting out</option>
-                          <option value="intermediate">Intermediate - Some experience</option>
-                          <option value="advanced">Advanced - Experienced player</option>
+                          <option value="beginner">
+                            Beginner - Just starting out
+                          </option>
+                          <option value="intermediate">
+                            Intermediate - Some experience
+                          </option>
+                          <option value="advanced">
+                            Advanced - Experienced player
+                          </option>
                         </select>
                         {errors.experience && (
-                          <p className="mt-1 text-sm text-red-600">{errors.experience.message}</p>
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.experience.message}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -293,7 +335,9 @@ const RegisterPage: React.FC = () => {
                           placeholder="Enter parent/guardian name"
                         />
                         {errors.parentName && (
-                          <p className="mt-1 text-sm text-red-600">{errors.parentName.message}</p>
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.parentName.message}
+                          </p>
                         )}
                       </div>
 
@@ -308,7 +352,9 @@ const RegisterPage: React.FC = () => {
                           placeholder="Enter parent/guardian email"
                         />
                         {errors.parentEmail && (
-                          <p className="mt-1 text-sm text-red-600">{errors.parentEmail.message}</p>
+                          <p className="mt-1 text-sm text-red-600">
+                            {errors.parentEmail.message}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -332,7 +378,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter emergency contact name"
                       />
                       {errors.emergencyContactName && (
-                        <p className="mt-1 text-sm text-red-600">{errors.emergencyContactName.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.emergencyContactName.message}
+                        </p>
                       )}
                     </div>
 
@@ -347,7 +395,9 @@ const RegisterPage: React.FC = () => {
                         placeholder="Enter emergency contact phone"
                       />
                       {errors.emergencyContact && (
-                        <p className="mt-1 text-sm text-red-600">{errors.emergencyContact.message}</p>
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.emergencyContact.message}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -369,7 +419,8 @@ const RegisterPage: React.FC = () => {
                       placeholder="Please list any medical conditions, allergies, or special requirements that our coaches should be aware of..."
                     />
                     <p className="mt-1 text-sm text-gray-500">
-                      This information will be kept confidential and used only for safety purposes.
+                      This information will be kept confidential and used only
+                      for safety purposes.
                     </p>
                   </div>
                 </div>
@@ -385,18 +436,27 @@ const RegisterPage: React.FC = () => {
                       />
                       <label className="ml-3 block text-sm text-gray-900">
                         I agree to the{' '}
-                        <a href="/terms" className="text-primary-600 hover:text-primary-500 underline">
+                        <a
+                          href="/terms"
+                          className="text-primary-600 hover:text-primary-500 underline"
+                        >
                           Terms and Conditions
-                        </a>
-                        {' '}and{' '}
-                        <a href="/privacy" className="text-primary-600 hover:text-primary-500 underline">
+                        </a>{' '}
+                        and{' '}
+                        <a
+                          href="/privacy"
+                          className="text-primary-600 hover:text-primary-500 underline"
+                        >
                           Privacy Policy
                         </a>
-                        . I understand that registration fees are non-refundable and that I am responsible for monthly payments.
+                        . I understand that registration fees are non-refundable
+                        and that I am responsible for monthly payments.
                       </label>
                     </div>
                     {errors.terms && (
-                      <p className="mt-2 text-sm text-red-600">{errors.terms.message}</p>
+                      <p className="mt-2 text-sm text-red-600">
+                        {errors.terms.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -408,10 +468,13 @@ const RegisterPage: React.FC = () => {
                     disabled={isSubmitting}
                     className="w-full bg-primary-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 text-lg"
                   >
-                    {isSubmitting ? 'Processing Registration...' : 'Complete Registration & Pay'}
+                    {isSubmitting
+                      ? 'Processing Registration...'
+                      : 'Complete Registration & Pay'}
                   </button>
                   <p className="mt-3 text-center text-sm text-gray-500">
-                    You will be redirected to a secure payment page to complete your registration.
+                    You will be redirected to a secure payment page to complete
+                    your registration.
                   </p>
                 </div>
               </form>
@@ -423,4 +486,4 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage; 
+export default RegisterPage;

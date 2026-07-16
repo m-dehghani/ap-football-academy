@@ -29,7 +29,7 @@ const Header: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="flex items-center space-x-3 space-x-reverse"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-elegant-lg">
+            <div className="w-12 h-12 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-elegant-lg">
               <span className="text-white font-bold text-xl">AP</span>
             </div>
             <div className="text-right">
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
                 className="text-navy-700 hover:text-primary-600 font-medium transition-all duration-300 relative group px-3 py-2 rounded-lg hover:bg-primary-50"
               >
                 {item.name}
-                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-gradient-to-r from-primary-600 to-primary-700 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-linear-to-r from-primary-600 to-primary-700 transition-all duration-300 group-hover:w-full rounded-full"></span>
               </motion.a>
             ))}
           </nav>
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
           >
             <a
               href="/register"
-              className="btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white shadow-elegant-lg"
+              className="btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white shadow-elegant-lg"
             >
               ثبت نام
             </a>
@@ -113,7 +113,7 @@ const Header: React.FC = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: navigation.length * 0.1 }}
-                className="btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white text-center shadow-elegant-lg mt-4"
+                className="btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white text-center shadow-elegant-lg mt-4"
                 onClick={() => setIsMenuOpen(false)}
               >
                 ثبت نام

@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
+    <footer className="bg-linear-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-pattern-dots animate-pulse-slow"></div>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             {/* Enhanced Company Info */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center space-x-3">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
+                <div className="w-14 h-14 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
                   ⚽
                 </div>
                 <div>
@@ -197,7 +197,7 @@ const Footer: React.FC = () => {
                   placeholder="آدرس ایمیل خود را وارد کنید"
                   className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 />
-                <button className="btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800">
+                <button className="btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800">
                   عضویت
                   <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </button>

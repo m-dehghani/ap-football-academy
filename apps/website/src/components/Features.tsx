@@ -123,7 +123,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+    <section className="section-padding bg-linear-to-br from-gray-50 to-gray-100 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNkYzI2MjYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSI0Ii8+PC9nPjwvZz48L3N2Zz4=')] animate-rotate-slow"></div>
@@ -187,7 +187,7 @@ const Features: React.FC = () => {
                 </div>
 
                 {/* Gradient Border Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
+                <div className={`absolute inset-0 bg-linear-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
               </div>
             </motion.div>
           ))}
@@ -201,7 +201,7 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="relative mb-20"
         >
-          <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-4xl p-8 md:p-12 text-white shadow-elegant-xl">
+          <div className="bg-linear-to-r from-primary-600 to-primary-700 rounded-4xl p-8 md:p-12 text-white shadow-elegant-xl">
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
                 Our Achievement Story
@@ -256,7 +256,7 @@ const Features: React.FC = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-4xl"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-4xl"></div>
               
               {/* Floating Stats */}
               <div className="absolute top-6 right-6 glass-card p-4 rounded-xl">
@@ -279,7 +279,7 @@ const Features: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {additionalFeatures.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center shrink-0 mt-1">
                       <feature.icon className="h-5 w-5 text-primary-600" />
                     </div>
                     <div>
@@ -313,7 +313,7 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-secondary-50 to-secondary-100 rounded-4xl p-12 border border-secondary-200">
+          <div className="bg-linear-to-r from-secondary-50 to-secondary-100 rounded-4xl p-12 border border-secondary-200">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
               Ready to Start Your Football Journey?
             </h3>

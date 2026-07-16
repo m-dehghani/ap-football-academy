@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap');
-@import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap')
+layer(base);
+@import 'tailwindcss' layer(base);
+@import 'tailwindcss';
 
 /* CSS Variables for Dynamic Theming */
 :root {
@@ -33,7 +32,16 @@ html {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   line-height: 1.6;
   color: #1f2937;
   background-color: #ffffff;
@@ -76,7 +84,12 @@ body {
 }
 
 /* Typography Enhancement */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Poppins', 'Inter', system-ui, sans-serif;
   font-weight: 700;
   line-height: 1.2;
@@ -143,11 +156,11 @@ p {
 }
 
 .btn-primary {
-  @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-blue-500 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95;
+  @apply bg-linear-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-blue-500 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95;
 }
 
 .btn-secondary {
-  @apply bg-gradient-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800 focus:ring-orange-500 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95;
+  @apply bg-linear-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800 focus:ring-orange-500 shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95;
 }
 
 .btn-outline {
@@ -186,18 +199,20 @@ p {
 
 /* Gradient Text Effects */
 .gradient-text {
-  @apply bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent;
+  @apply bg-linear-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent;
 }
 
 .gradient-text-secondary {
-  @apply bg-gradient-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent;
+  @apply bg-linear-to-r from-orange-600 to-orange-800 bg-clip-text text-transparent;
 }
 
 /* Animation Utilities */
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .animate-on-scroll.animate {
@@ -218,13 +233,22 @@ p {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 /* Responsive Design Enhancements */
@@ -232,19 +256,19 @@ p {
   .container-custom {
     @apply px-4;
   }
-  
+
   .section-padding {
     @apply py-12;
   }
-  
+
   h1 {
     font-size: 2.5rem;
   }
-  
+
   h2 {
     font-size: 2rem;
   }
-  
+
   .btn {
     @apply px-4 py-2 text-sm;
   }
@@ -254,7 +278,7 @@ p {
   .container-custom {
     @apply px-6;
   }
-  
+
   .section-padding {
     @apply py-14;
   }
@@ -264,7 +288,7 @@ p {
   .container-custom {
     @apply px-8;
   }
-  
+
   .section-padding {
     @apply py-16;
   }
@@ -308,11 +332,12 @@ p {
     background: transparent !important;
     box-shadow: none !important;
   }
-  
-  a, a:visited {
+
+  a,
+  a:visited {
     text-decoration: underline;
   }
-  
+
   .no-print {
     display: none !important;
   }
@@ -345,15 +370,15 @@ p {
 }
 
 /* RTL Support */
-[dir="rtl"] {
+[dir='rtl'] {
   text-align: right;
 }
 
-[dir="rtl"] .text-left {
+[dir='rtl'] .text-left {
   text-align: right;
 }
 
-[dir="rtl"] .text-right {
+[dir='rtl'] .text-right {
   text-align: left;
 }
 
@@ -379,14 +404,18 @@ p {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Intersection Observer Animations */
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .fade-in-up.visible {
@@ -397,7 +426,9 @@ p {
 .fade-in-left {
   opacity: 0;
   transform: translateX(-30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .fade-in-left.visible {
@@ -408,7 +439,9 @@ p {
 .fade-in-right {
   opacity: 0;
   transform: translateX(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .fade-in-right.visible {
@@ -419,7 +452,9 @@ p {
 .scale-in {
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .scale-in.visible {
@@ -439,12 +474,16 @@ p {
 
 /* Background Patterns */
 .bg-pattern-dots {
-  background-image: radial-gradient(circle, rgba(2, 132, 199, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(
+    circle,
+    rgba(2, 132, 199, 0.1) 1px,
+    transparent 1px
+  );
   background-size: 20px 20px;
 }
 
 .bg-pattern-grid {
-  background-image: 
+  background-image:
     linear-gradient(rgba(2, 132, 199, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(2, 132, 199, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
@@ -496,7 +535,8 @@ p {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -505,10 +545,15 @@ p {
 }
 
 @keyframes bounce {
-  0%, 20%, 53%, 80%, 100% {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
     transform: translateY(0);
   }
-  40%, 43% {
+  40%,
+  43% {
     transform: translateY(-30px);
   }
   70% {
@@ -560,11 +605,27 @@ p {
 
 /* Component-specific Styles */
 .hero-pattern {
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(2, 132, 199, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 75% 25%, rgba(234, 88, 12, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 25% 75%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(202, 138, 4, 0.1) 0%, transparent 50%);
+  background-image:
+    radial-gradient(
+      circle at 25% 25%,
+      rgba(2, 132, 199, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(234, 88, 12, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 25% 75%,
+      rgba(22, 163, 74, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(202, 138, 4, 0.1) 0%,
+      transparent 50%
+    );
 }
 
 .testimonial-card {
@@ -583,13 +644,21 @@ p {
 }
 
 .feature-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .feature-card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   transform: translateY(-5px);
 }
 
@@ -617,13 +686,21 @@ p {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Form Enhancements */
@@ -649,7 +726,7 @@ p {
 }
 
 .progress-fill {
-  @apply h-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full transition-all duration-300;
+  @apply h-2 bg-linear-to-r from-blue-600 to-blue-700 rounded-full transition-all duration-300;
 }
 
 /* Notification Styles */
@@ -693,4 +770,4 @@ p {
 
 .lazy-image.loaded {
   @apply blur-none;
-} 
+}

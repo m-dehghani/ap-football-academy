@@ -134,7 +134,7 @@ export default function NewsUpdates() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-navy-50 to-navy-100">
+    <section className="py-20 bg-linear-to-br from-navy-50 to-navy-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -157,7 +157,7 @@ export default function NewsUpdates() {
             {featuredNews.slice(0, 2).map((item) => (
               <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="relative">
-                  <div className="h-64 bg-gradient-to-r from-navy-500 to-navy-600 flex items-center justify-center">
+                  <div className="h-64 bg-linear-to-r from-navy-500 to-navy-600 flex items-center justify-center">
                     <div className="text-white text-6xl">📰</div>
                   </div>
                   <div className={`absolute top-4 right-4 ${getTypeColor(item.type)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center`}>
@@ -218,7 +218,7 @@ export default function NewsUpdates() {
           {filteredNews.map((item) => (
             <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
               <div className="relative">
-                <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <div className="h-48 bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                   <div className="text-gray-400 text-4xl">
                     {item.type === 'video' ? '🎥' : item.type === 'gallery' ? '📸' : '📰'}
                   </div>
@@ -272,7 +272,7 @@ export default function NewsUpdates() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-20 bg-gradient-to-r from-navy-600 to-navy-700 rounded-2xl p-8 text-white text-center">
+        <div className="mt-20 bg-linear-to-r from-navy-600 to-navy-700 rounded-2xl p-8 text-white text-center">
           <h3 className="text-2xl font-bold mb-4">از اخبار آکادمی مطلع شوید</h3>
           <p className="text-navy-100 mb-6 max-w-2xl mx-auto">
             برای دریافت آخرین اخبار، رویدادها و دستاوردهای آکادمی AP ایمیل خود را وارد کنید
