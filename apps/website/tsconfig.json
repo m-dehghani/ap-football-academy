@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-     "composite": true,
+    "composite": true,
     "declarationMap": true,
     "importHelpers": true,
     "isolatedModules": true,
@@ -12,8 +12,10 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["development"],
-    "jsx": "preserve",
+    "customConditions": [
+      "development"
+    ],
+    "jsx": "react-jsx",
     "noEmit": true,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,
