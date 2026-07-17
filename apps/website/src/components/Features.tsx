@@ -102,24 +102,24 @@ const Features: React.FC = () => {
   const additionalFeatures = [
     {
       icon: RocketLaunchIcon,
-      title: 'Goal-Oriented Training',
-      description: 'Structured programs designed to achieve specific objectives and measurable progress.'
+      title: 'آموزش هدفمند',
+      description: 'برنامه‌های ساختاریافته با اهداف مشخص و پیشرفت قابل اندازه‌گیری.',
     },
     {
       icon: HeartIcon,
-      title: 'Individual Attention',
-      description: 'Personalized coaching approach ensuring every player receives dedicated support.'
+      title: 'توجه فردی',
+      description: 'مربیگری شخصی‌سازی‌شده تا هر بازیکن پشتیبانی اختصاصی دریافت کند.',
     },
     {
       icon: CogIcon,
-      title: 'Team Spirit',
-      description: 'Building collaboration and teamwork skills essential for success on and off the field.'
+      title: 'روحیه تیمی',
+      description: 'تقویت همکاری و مهارت‌های کار گروهی در زمین و خارج از آن.',
     },
     {
       icon: SparklesIcon,
-      title: 'High Standards',
-      description: 'International-level training standards that prepare players for competitive excellence.'
-    }
+      title: 'استاندارد بالا',
+      description: 'استانداردهای آموزشی بین‌المللی برای آمادگی رقابتی.',
+    },
   ];
 
   return (
@@ -204,10 +204,10 @@ const Features: React.FC = () => {
           <div className="bg-linear-to-r from-primary-600 to-primary-700 rounded-4xl p-8 md:p-12 text-white shadow-elegant-xl">
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                Our Achievement Story
+                دستاوردهای ما
               </h3>
               <p className="text-primary-100 max-w-2xl mx-auto text-lg">
-                Numbers that speak to our commitment to excellence and player development
+                اعدادی که نشان‌دهنده تعهد ما به تعالی و رشد بازیکنان است
               </p>
             </div>
 
@@ -260,8 +260,8 @@ const Features: React.FC = () => {
               
               {/* Floating Stats */}
               <div className="absolute top-6 right-6 glass-card p-4 rounded-xl">
-                <div className="text-2xl font-bold text-white">4.9/5</div>
-                <div className="text-white/80 text-sm">Player Rating</div>
+                <div className="text-2xl font-bold text-white persian-numbers">۴.۹/۵</div>
+                <div className="text-white/80 text-sm">رضایت بازیکنان</div>
               </div>
             </div>
 
@@ -269,10 +269,10 @@ const Features: React.FC = () => {
             <div className="space-y-8">
               <div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">
-                  A Different Experience in Football Training
+                  تجربه‌ای متفاوت در آموزش فوتبال
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                  AP Football Academy combines scientific training methods with modern approaches to provide the best football education. From basic skills to professional preparation, every player can find their path to success.
+                  آکادمی فوتبال AP روش‌های علمی تمرین را با رویکردهای نوین ترکیب می‌کند تا بهترین آموزش فوتبال را ارائه دهد — از مهارت‌های پایه تا آمادگی حرفه‌ای.
                 </p>
               </div>
 
@@ -297,7 +297,7 @@ const Features: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary inline-flex items-center"
                 >
-                  Learn More About Us
+                  بیشتر بدانید
                   <SparklesIcon className="w-5 h-5 ml-2" />
                 </motion.a>
               </div>
@@ -315,10 +315,10 @@ const Features: React.FC = () => {
         >
           <div className="bg-linear-to-r from-secondary-50 to-secondary-100 rounded-4xl p-12 border border-secondary-200">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Ready to Start Your Football Journey?
+              آماده شروع سفر فوتبال خود هستید؟
             </h3>
             <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              Join hundreds of players who have transformed their game with professional training and expert guidance.
+              به صدها بازیکنی بپیوندید که با آموزش حرفه‌ای، بازی خود را متحول کرده‌اند.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
@@ -327,7 +327,7 @@ const Features: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary"
               >
-                Start Training Today
+                همین امروز شروع کنید
               </motion.a>
               <motion.a
                 href="/contact"
@@ -335,7 +335,7 @@ const Features: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="btn-outline"
               >
-                Schedule a Visit
+                رزرو بازدید
               </motion.a>
             </div>
           </div>

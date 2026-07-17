@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const navigation = [
     { name: 'صفحه اصلی', href: '/' },
@@ -14,116 +17,107 @@ const Header: React.FC = () => {
     { name: 'تماس', href: '/contact' },
   ];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const isActive = (href: string) =>
+    href === '/' ? router.pathname === '/' : router.pathname.startsWith(href);
 
   return (
-    <header className="bg-white/95 backdrop-blur-lg shadow-elegant-lg sticky top-0 z-50 border-b border-white/20">
+    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl shadow-sm">
+      <a href="#main-content" className="skip-to-content">
+        رفتن به محتوای اصلی
+      </a>
       <div className="container-custom">
-        <div className="flex justify-between items-center py-4">
-          {/* Enhanced Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center space-x-3 space-x-reverse"
-          >
-            <div className="w-12 h-12 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-elegant-lg">
-              <span className="text-white font-bold text-xl">AP</span>
+        <div className="flex items-center justify-between gap-4 py-3 md:py-4">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-primary-600 to-primary-800 text-lg font-bold text-white shadow-md">
+              AP
             </div>
-            <div className="text-right">
-              <h1 className="text-xl font-bold text-navy-800">آکادمی فوتبال</h1>
-              <p className="text-xs text-navy-600 font-medium">AP Football Academy</p>
+            <div>
+              <p className="text-base font-bold text-navy-900 leading-tight">
+                آکادمی فوتبال
+              </p>
+              <p className="text-xs font-medium text-slate-500">
+                AP Football Academy
+              </p>
             </div>
-          </motion.div>
+          </Link>
 
-          {/* Enhanced Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 space-x-reverse">
-            {navigation.map((item, index) => (
-              <motion.a
+          <nav className="hidden lg:flex items-center gap-1">
+            {navigation.map((item) => (
+              <Link
                 key={item.name}
                 href={item.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-navy-700 hover:text-primary-600 font-medium transition-all duration-300 relative group px-3 py-2 rounded-lg hover:bg-primary-50"
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'bg-primary-50 text-primary-700'
+                    : 'text-slate-600 hover:bg-slate-50 hover:text-primary-700'
+                }`}
               >
                 {item.name}
-                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-linear-to-r from-primary-600 to-primary-700 transition-all duration-300 group-hover:w-full rounded-full"></span>
-              </motion.a>
+              </Link>
             ))}
           </nav>
 
-          {/* Enhanced CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="hidden md:flex items-center space-x-4 space-x-reverse"
-          >
-            <a
-              href="/register"
-              className="btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white shadow-elegant-lg"
-            >
+          <div className="hidden lg:flex items-center gap-3">
+            <Link href="/contact" className="btn-outline px-4 py-2 text-sm">
+              مشاوره رایگان
+            </Link>
+            <Link href="/register" className="btn-secondary px-5 py-2.5 text-sm">
               ثبت نام
-            </a>
-          </motion.div>
+            </Link>
+          </div>
 
-          {/* Enhanced Mobile Menu Button */}
           <button
-            onClick={toggleMenu}
-            className="md:hidden p-3 rounded-xl hover:bg-navy-50 transition-all duration-300 border border-navy-200 hover:border-navy-300"
+            type="button"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden rounded-xl border border-slate-200 p-2.5 text-slate-700 hover:bg-slate-50"
             aria-label="منوی اصلی"
+            aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? (
-              <XMarkIcon className="h-6 w-6 text-navy-700" />
+              <XMarkIcon className="h-6 w-6" />
             ) : (
-              <Bars3Icon className="h-6 w-6 text-navy-700" />
+              <Bars3Icon className="h-6 w-6" />
             )}
           </button>
         </div>
 
-        {/* Enhanced Mobile Menu */}
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden border-t border-navy-200 py-6 bg-white/95 backdrop-blur-lg"
-          >
-            <div className="flex flex-col space-y-4">
-              {navigation.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="text-navy-700 hover:text-primary-600 font-medium py-3 px-4 rounded-lg hover:bg-primary-50 transition-all duration-300 flex items-center group"
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden border-t border-slate-200 lg:hidden"
+            >
+              <nav className="flex flex-col gap-1 py-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`rounded-lg px-4 py-3 font-medium transition-colors ${
+                      isActive(item.href)
+                        ? 'bg-primary-50 text-primary-700'
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/register"
                   onClick={() => setIsMenuOpen(false)}
+                  className="btn-secondary mt-2 text-center"
                 >
-                  <span className="w-2 h-2 bg-primary-600 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                  {item.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="/register"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: navigation.length * 0.1 }}
-                className="btn-primary bg-linear-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800 text-white text-center shadow-elegant-lg mt-4"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                ثبت نام
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
+                  ثبت نام
+                </Link>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

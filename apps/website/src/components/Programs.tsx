@@ -10,8 +10,8 @@ export default function Programs() {
       name: 'برنامه کودکان',
       ageRange: '8-12 سال',
       description: 'ایجاد مهارت‌های اساسی از طریق فعالیت‌های سرگرم‌کننده و جذاب طراحی شده برای بازیکنان جوان.',
-      price: '150',
-      currency: 'USD',
+      price: '۶',
+      currency: 'میلیون تومان',
       period: 'ماه',
       duration: '3 ماه',
       sessions: '12 جلسه',
@@ -43,8 +43,8 @@ export default function Programs() {
       name: 'برنامه نوجوانان',
       ageRange: '13-17 سال',
       description: 'تکنیک‌های پیشرفته و آموزش تاکتیکی برای بازیکنان جوان جدی که برای بازی رقابتی آماده هستند.',
-      price: '200',
-      currency: 'USD',
+      price: '۸',
+      currency: 'میلیون تومان',
       period: 'ماه',
       duration: '4 ماه',
       sessions: '16 جلسه',
@@ -76,8 +76,8 @@ export default function Programs() {
       name: 'برنامه بزرگسالان',
       ageRange: '18-25 سال',
       description: 'آموزش سطح حرفه‌ای برای بزرگسالانی که به دنبال رقابت در لیگ‌ها و تورنمنت‌های محلی هستند.',
-      price: '250',
-      currency: 'USD',
+      price: '۱۰',
+      currency: 'میلیون تومان',
       period: 'ماه',
       duration: '6 ماه',
       sessions: '24 جلسه',
@@ -110,8 +110,8 @@ export default function Programs() {
       name: 'برنامه استادان',
       ageRange: '26-35 سال',
       description: 'آموزش تخصصی برای بازیکنان باتجربه با تمرکز بر حفظ آمادگی و برتری رقابتی.',
-      price: '180',
-      currency: 'USD',
+      price: '۷',
+      currency: 'میلیون تومان',
       period: 'ماه',
       duration: '6 ماه',
       sessions: '20 جلسه',
@@ -155,13 +155,13 @@ export default function Programs() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-6">
             <TrophyIcon className="w-4 h-4 mr-2" />
-            Training Programs
+            برنامه‌های آموزشی
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6 text-balance">
-            Choose Your <span className="gradient-text">Training Path</span>
+            مسیر <span className="gradient-text">تمرین خود</span> را انتخاب کنید
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
-            Professional training programs for every age and skill level, with expert coaches and modern facilities
+            برنامه‌های حرفه‌ای برای هر سن و سطح مهارت، با مربیان متخصص و امکانات مدرن
           </p>
         </div>
 
@@ -203,7 +203,7 @@ export default function Programs() {
             <div className={`card-glass p-8 rounded-4xl bg-linear-to-br ${currentProgram.color} text-white relative overflow-hidden`}>
               {currentProgram.popular && (
                 <div className="absolute top-6 right-6 bg-accent-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                  Most Popular
+                  محبوب‌ترین
                 </div>
               )}
               
@@ -381,7 +381,7 @@ export default function Programs() {
               >
                 {program.popular && (
                   <div className="bg-accent-500 text-white px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
-                    Most Popular
+                    محبوب‌ترین
                   </div>
                 )}
                 <div className="text-center">
