@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 model User {
@@ -53,17 +53,27 @@ model Coach {
 }
 
 model Program {
-  id           String   @id @default(cuid())
-  name         String
-  description  String
-  ageGroup     String // "8-12", "13-17", "18-25", "26-30"
-  price        Int // Price in Toman
-  duration     Int // Duration in months
-  sessionCount Int // Number of sessions
-  maxStudents  Int      @default(15)
-  isActive     Boolean  @default(true)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String     @id @default(cuid())
+  name             String
+  description      String
+  // ageGroup         String // "8-12", "13-17", "18-25", "26-30"
+  price            Int // Price in Toman
+  duration         Int // Duration in months
+  sessionCount     Int // Number of sessions
+  maxStudents      Int        @default(15)
+  isActive         Boolean    @default(true)
+  popular          Boolean    @default(false)
+  icon             String
+  ageRange         String
+  color            String
+  period           String
+  rating           Float
+  studentsEnrolled Int
+  features         String[]
+  level            String
+  schedule         Schedule[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   // Relations
   coach         Coach          @relation(fields: [coachId], references: [id])
@@ -72,6 +82,16 @@ model Program {
   sessions      Session[]
 
   @@map("programs")
+}
+
+model Schedule {
+  id        String   @id @default(cuid())
+  day       String
+  time      String
+  program   Program? @relation(fields: [programId], references: [id])
+  programId String?
+
+  @@map("Schedules")
 }
 
 model Registration {

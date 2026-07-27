@@ -153,3 +153,13 @@ yarn-error.log
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+.nx/polygraph
+.claude/worktrees
+.claude/settings.local.json
+.github/skills/nx-import/references/VITE.md
+apps/website/test-results/
+
+
+
+.nx/migrate-runs
+.fallow/

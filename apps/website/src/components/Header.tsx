@@ -58,10 +58,10 @@ const Header: React.FC = () => {
           </nav>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/contact" className="btn-outline px-4 py-2 text-sm">
+            <Link href="/contact" className="btn btn-outline px-4 py-2 text-sm">
               مشاوره رایگان
             </Link>
-            <Link href="/register" className="btn-secondary px-5 py-2.5 text-sm">
+            <Link href="/register" className="btn btn-secondary px-5 py-2.5 text-sm">
               ثبت نام
             </Link>
           </div>
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                 <Link
                   href="/register"
                   onClick={() => setIsMenuOpen(false)}
-                  className="btn-secondary mt-2 text-center"
+                  className="btn btn-secondary mt-2 w-full text-center"
                 >
                   ثبت نام
                 </Link>

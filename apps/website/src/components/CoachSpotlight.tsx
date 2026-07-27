@@ -114,8 +114,8 @@ export default function CoachSpotlight() {
   const coach = coaches[currentCoach];
 
   return (
-    <section className="py-20 bg-linear-to-br from-navy-50 to-navy-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-linear-to-br from-slate-50 to-slate-100">
+      <div className="container-custom">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4">

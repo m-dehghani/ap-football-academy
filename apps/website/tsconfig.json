@@ -19,7 +19,7 @@
     "noEmit": true,
     "emitDeclarationOnly": false,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "lib": [
@@ -45,7 +45,7 @@
       "node"
     ],
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
   },
   "include": [
@@ -54,6 +54,7 @@
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.css",
+    "prisma/**/*.ts",
     "next-env.d.ts"
   ],
   "exclude": [

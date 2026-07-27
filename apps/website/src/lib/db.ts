@@ -1,9 +1,18 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../../prisma/generated/client';
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
+let prismaInstance: PrismaClient | null = null;
+
+export async function getPrisma(): Promise<PrismaClient> {
+  if (prismaInstance) return prismaInstance;
+
+  // Only import the pg adapter on the server side
+  const { PrismaPg } = await import('@prisma/adapter-pg');
+  const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  });
+  prismaInstance = new PrismaClient({ adapter });
+  return prismaInstance;
 }
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient()
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma 
+// For backward compatibility - use getPrisma() in new code
+export const prisma = getPrisma();

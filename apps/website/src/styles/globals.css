@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
-@config '../../tailwind.config.js';
+@config '../../tailwind.config.ts';
 
 :root {
   --primary-color: #0284c7;
@@ -178,9 +178,21 @@ p {
 
 .hero-pattern {
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(2, 132, 199, 0.25) 0%, transparent 45%),
-    radial-gradient(circle at 80% 10%, rgba(234, 88, 12, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 60% 80%, rgba(22, 163, 74, 0.15) 0%, transparent 45%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(2, 132, 199, 0.25) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(234, 88, 12, 0.2) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 60% 80%,
+      rgba(22, 163, 74, 0.15) 0%,
+      transparent 45%
+    );
 }
 
 .form-input {

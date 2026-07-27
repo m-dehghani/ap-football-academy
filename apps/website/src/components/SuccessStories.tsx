@@ -271,10 +271,12 @@ export default function SuccessStories() {
         {activeTab === 'statistics' && (
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {statistics.map((stat, index) => (
+              {statistics.map((stat, index) => {
+                const bgColors = ['bg-yellow-100', 'bg-green-100', 'bg-blue-100', 'bg-purple-100'];
+                return (
                 <div key={index} className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
                   <div className="mb-6">
-                    <div className={`w-16 h-16 ${stat.color} bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                    <div className={`w-16 h-16 ${bgColors[index]} rounded-full flex items-center justify-center mx-auto mb-4`}>
                       <stat.icon className={`w-8 h-8 ${stat.color}`} />
                     </div>
                     <div className="text-4xl font-bold text-gray-900 mb-2">{stat.number}</div>
@@ -282,35 +284,30 @@ export default function SuccessStories() {
                     <p className="text-sm text-gray-600">{stat.description}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Success Timeline */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">مسیر موفقیت آکادمی AP</h3>
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-emerald-200"></div>
-                <div className="space-y-12">
-                  {[
-                    { year: '1399', event: 'تأسیس آکادمی', description: 'شروع فعالیت با 20 دانش‌آموز' },
-                    { year: '1400', event: 'اولین قهرمانی', description: 'قهرمانی در لیگ جوانان منطقه' },
-                    { year: '1401', event: 'گسترش فعالیت', description: 'افزایش ظرفیت به 200 دانش‌آموز' },
-                    { year: '1402', event: 'موفقیت‌های بزرگ', description: 'انتقال اولین بازیکن به لیگ برتر' },
-                  ].map((milestone, index) => (
-                    <div key={index} className="flex items-center">
-                      <div className="flex-1 text-right ml-8">
-                        <div className="bg-emerald-50 rounded-lg p-4">
-                          <h4 className="font-bold text-emerald-600 mb-2">{milestone.event}</h4>
-                          <p className="text-gray-600 text-sm">{milestone.description}</p>
-                        </div>
-                      </div>
-                      <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                        {milestone.year}
-                      </div>
-                      <div className="flex-1 mr-8"></div>
+              <div className="space-y-4">
+                {[
+                  { year: '1399', event: 'تأسیس آکادمی', description: 'شروع فعالیت با 20 دانش‌آموز' },
+                  { year: '1400', event: 'اولین قهرمانی', description: 'قهرمانی در لیگ جوانان منطقه' },
+                  { year: '1401', event: 'گسترش فعالیت', description: 'افزایش ظرفیت به 200 دانش‌آموز' },
+                  { year: '1402', event: 'موفقیت‌های بزرگ', description: 'انتقال اولین بازیکن به لیگ برتر' },
+                ].map((milestone, index) => (
+                  <div key={index} className="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl">
+                    <div className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0">
+                      {milestone.year}
                     </div>
-                  ))}
-                </div>
+                    <div>
+                      <h4 className="font-bold text-emerald-700 mb-1">{milestone.event}</h4>
+                      <p className="text-gray-600 text-sm">{milestone.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
