@@ -1,9 +1,11 @@
-import React from 'react';
+'use server';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import Programs from '../components/Programs';
 
-const ProgramsPage: React.FC = () => {
+async function ProgramsPage() {
+  const { getPrograms } = await import('@/services/programs_svc');
+  const programs = await getPrograms();
   return (
     <Layout
       title="برنامه‌های آموزشی - آکادمی فوتبال AP"
@@ -11,7 +13,8 @@ const ProgramsPage: React.FC = () => {
       canonical="https://ap-football.com/programs"
       openGraph={{
         title: 'برنامه‌های آموزشی - آکادمی فوتبال AP',
-        description: 'برنامه‌های آموزشی جامع فوتبال برای تمام سنین از 8 تا 30 سال',
+        description:
+          'برنامه‌های آموزشی جامع فوتبال برای تمام سنین از 8 تا 30 سال',
         images: [
           {
             url: 'https://ap-football.com/images/programs-og.jpg',
@@ -26,13 +29,14 @@ const ProgramsPage: React.FC = () => {
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'برنامه آموزشی فوتبال, کلاس فوتبال, آموزش فوتبال کودکان, آموزش فوتبال نوجوانان, آموزش فوتبال بزرگسالان',
+            content:
+              'برنامه آموزشی فوتبال, کلاس فوتبال, آموزش فوتبال کودکان, آموزش فوتبال نوجوانان, آموزش فوتبال بزرگسالان',
           },
         ]}
       />
-      <Programs />
+      <Programs programs={programs} />
     </Layout>
   );
-};
+}
 
-export default ProgramsPage; 
+export default ProgramsPage;

@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 model User {
@@ -26,146 +26,166 @@ model User {
 
   // Relations
   registrations Registration[]
-  payments     Payment[]
-  attendance   Attendance[]
-  evaluations  Evaluation[]
-  
+  payments      Payment[]
+  attendance    Attendance[]
+  evaluations   Evaluation[]
+
   @@map("users")
 }
 
 model Coach {
-  id          String   @id @default(cuid())
-  firstName   String
-  lastName    String
-  email       String   @unique
-  phone       String
+  id             String   @id @default(cuid())
+  firstName      String
+  lastName       String
+  email          String   @unique
+  phone          String
   specialization String
-  experience  Int      // Years of experience
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  experience     Int // Years of experience
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   // Relations
   programs    Program[]
   sessions    Session[]
   evaluations Evaluation[]
-  
+
   @@map("coaches")
 }
 
 model Program {
-  id          String      @id @default(cuid())
-  name        String
-  description String
-  ageGroup    String      // "8-12", "13-17", "18-25", "26-30"
-  price       Int         // Price in Toman
-  duration    Int         // Duration in months
-  sessionCount Int         // Number of sessions
-  maxStudents Int         @default(15)
-  isActive    Boolean     @default(true)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id               String     @id @default(cuid())
+  name             String
+  description      String
+  // ageGroup         String // "8-12", "13-17", "18-25", "26-30"
+  price            Int // Price in Toman
+  duration         Int // Duration in months
+  sessionCount     Int // Number of sessions
+  maxStudents      Int        @default(15)
+  isActive         Boolean    @default(true)
+  popular          Boolean    @default(false)
+  icon             String
+  ageRange         String
+  color            String
+  period           String
+  rating           Float
+  studentsEnrolled Int
+  features         String[]
+  level            String
+  schedule         Schedule[]
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
 
   // Relations
   coach         Coach          @relation(fields: [coachId], references: [id])
   coachId       String
   registrations Registration[]
   sessions      Session[]
-  
+
   @@map("programs")
 }
 
+model Schedule {
+  id        String   @id @default(cuid())
+  day       String
+  time      String
+  program   Program? @relation(fields: [programId], references: [id])
+  programId String?
+
+  @@map("Schedules")
+}
+
 model Registration {
-  id          String            @id @default(cuid())
-  status      String             @default("PENDING")
-  totalAmount Int
-  paidAmount  Int               @default(0)
-  registeredAt DateTime         @default(now())
-  updatedAt   DateTime          @updatedAt
+  id           String   @id @default(cuid())
+  status       String   @default("PENDING")
+  totalAmount  Int
+  paidAmount   Int      @default(0)
+  registeredAt DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // Relations
-  user      User    @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
   userId    String
-  program   Program @relation(fields: [programId], references: [id])
+  program   Program   @relation(fields: [programId], references: [id])
   programId String
   payments  Payment[]
-  
+
   @@map("registrations")
 }
 
 model Payment {
-  id          String        @id @default(cuid())
-  amount      Int
-  status      String        @default("PENDING")
-  method      String        @default("ONLINE")
-  stripeId    String?       // Stripe payment ID
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id        String   @id @default(cuid())
+  amount    Int
+  status    String   @default("PENDING")
+  method    String   @default("ONLINE")
+  stripeId  String? // Stripe payment ID
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
   user           User         @relation(fields: [userId], references: [id])
   userId         String
   registration   Registration @relation(fields: [registrationId], references: [id])
   registrationId String
-  
+
   @@map("payments")
 }
 
 model Session {
-  id          String     @id @default(cuid())
+  id          String   @id @default(cuid())
   name        String
   description String?
   date        DateTime
-  duration    Int        // Duration in minutes
+  duration    Int // Duration in minutes
   location    String
-  maxCapacity Int        @default(15)
-  status      String        @default("SCHEDULED")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  maxCapacity Int      @default(15)
+  status      String   @default("SCHEDULED")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Relations
-  program     Program      @relation(fields: [programId], references: [id])
-  programId   String
-  coach       Coach        @relation(fields: [coachId], references: [id])
-  coachId     String
-  attendance  Attendance[]
-  
+  program    Program      @relation(fields: [programId], references: [id])
+  programId  String
+  coach      Coach        @relation(fields: [coachId], references: [id])
+  coachId    String
+  attendance Attendance[]
+
   @@map("sessions")
 }
 
 model Attendance {
-  id        String           @id @default(cuid())
-  status    String           @default("PRESENT")
+  id        String   @id @default(cuid())
+  status    String   @default("PRESENT")
   notes     String?
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
   user      User    @relation(fields: [userId], references: [id])
   userId    String
   session   Session @relation(fields: [sessionId], references: [id])
   sessionId String
-  
+
   @@unique([userId, sessionId])
   @@map("attendance")
 }
 
 model Evaluation {
-  id          String   @id @default(cuid())
-  technical   Int      // 1-10 rating
-  physical    Int      // 1-10 rating
-  mental      Int      // 1-10 rating
-  teamwork    Int      // 1-10 rating
-  overall     Int      // 1-10 rating
-  notes       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id @default(cuid())
+  technical Int // 1-10 rating
+  physical  Int // 1-10 rating
+  mental    Int // 1-10 rating
+  teamwork  Int // 1-10 rating
+  overall   Int // 1-10 rating
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  user    User  @relation(fields: [userId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
   userId  String
-  coach   Coach @relation(fields: [coachId], references: [id])
+  coach   Coach  @relation(fields: [coachId], references: [id])
   coachId String
-  
+
   @@map("evaluations")
 }
 

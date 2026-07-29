@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
+    <footer className="bg-linear-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-pattern-dots animate-pulse-slow"></div>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
             {/* Enhanced Company Info */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center space-x-3">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
+                <div className="w-14 h-14 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
                   ⚽
                 </div>
                 <div>
@@ -67,28 +67,28 @@ const Footer: React.FC = () => {
 
               {/* Enhanced Contact Info */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-primary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <PhoneIcon className="w-6 h-6 text-primary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">+1 (555) 123-4567</p>
+                    <p className="text-white font-medium">۰۲۱-۱۲۳۴۵۶۷۸</p>
                     <p className="text-gray-400 text-sm">24 ساعته در دسترس</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-secondary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-secondary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <EnvelopeIcon className="w-6 h-6 text-secondary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">info@apfootball.com</p>
+                    <p className="text-white font-medium">info@ap-football.com</p>
                     <p className="text-gray-400 text-sm">پاسخ سریع تضمینی</p>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-accent-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-accent-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <MapPinIcon className="w-6 h-6 text-accent-400" />
                   </div>
                   <div>
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
               </div>
 
               {/* Enhanced Social Links */}
-              <div className="flex space-x-4">
+              <div className="flex gap-3 flex-wrap">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
@@ -197,7 +197,7 @@ const Footer: React.FC = () => {
                   placeholder="آدرس ایمیل خود را وارد کنید"
                   className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 />
-                <button className="btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800">
+                <button className="btn btn-secondary shrink-0">
                   عضویت
                   <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </button>
@@ -210,7 +210,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 bg-black/20 backdrop-blur-sm">
           <div className="container-custom py-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2">
                 <p className="text-gray-400">
                   © {currentYear} آکادمی فوتبال AP. تمام حقوق محفوظ است.
                 </p>
@@ -220,7 +220,7 @@ const Footer: React.FC = () => {
                 </p>
               </div>
               
-              <div className="flex space-x-6">
+              <div className="flex gap-6">
                 <a href="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
                   حریم خصوصی
                 </a>

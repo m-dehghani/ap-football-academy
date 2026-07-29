@@ -1,4 +1,27 @@
 {
     "nxConsole.generateAiAgentRules": true,
-    "nxConsole.nxWorkspacePath": ""
+    "nxConsole.nxWorkspacePath": "",
+    "prisma.pinToPrisma6": false,
+    "js/ts.tsdk.path": "node_modules\\typescript\\lib",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "local",
+            "database": "${workspaceFolder:ap-football-academy}/apps/website/prisma/dev.db"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "ap",
+            "database": "ap",
+            "username": "postgres",
+            "password": "password"
+        }
+    ],
+    "prisma.fileWatcher": true,
+    "js/ts.experimental.useTsgo": false
 }

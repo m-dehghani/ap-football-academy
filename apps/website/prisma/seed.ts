@@ -22,8 +22,8 @@ async function main() {
         email: 'ahmad.karimi@apfootball.com',
         phone: '09123456789',
         specialization: 'آموزش کودکان و نوجوانان',
-        experience: 8
-      }
+        experience: 8,
+      },
     }),
     prisma.coach.create({
       data: {
@@ -32,8 +32,8 @@ async function main() {
         email: 'mohammad.rezaei@apfootball.com',
         phone: '09123456790',
         specialization: 'آموزش بزرگسالان و تاکتیک',
-        experience: 12
-      }
+        experience: 12,
+      },
     }),
     prisma.coach.create({
       data: {
@@ -42,8 +42,8 @@ async function main() {
         email: 'ali.ahmadi@apfootball.com',
         phone: '09123456791',
         specialization: 'آماده‌سازی جسمانی',
-        experience: 6
-      }
+        experience: 6,
+      },
     }),
     prisma.coach.create({
       data: {
@@ -52,9 +52,30 @@ async function main() {
         email: 'hassan.nouri@apfootball.com',
         phone: '09123456792',
         specialization: 'مربیگری حرفه‌ای',
-        experience: 15
-      }
-    })
+        experience: 15,
+      },
+    }),
+  ]);
+  await Promise.all([
+    prisma.schedule.create({
+      data: {
+        day: 'شنبه',
+        time: '16:00 - 17:30',
+      },
+    }),
+    prisma.schedule.create({
+      data: {
+        day: 'دوشنبه',
+        time: '16:00 - 17:30',
+      },
+    }),
+
+    prisma.schedule.create({
+      data: {
+        day: 'چهارشنبه',
+        time: '16:00 - 17:30',
+      },
+    }),
   ]);
 
   // Create programs
@@ -62,92 +83,102 @@ async function main() {
     prisma.program.create({
       data: {
         name: 'برنامه کودکان',
-        description: 'آموزش پایه و تکنیک‌های اولیه فوتبال برای پسران کودک',
-        ageGroup: '8-12',
-        price: 250000,
+        description:
+          'ایجاد مهارت‌های اساسی از طریق فعالیت‌های سرگرم‌کننده و جذاب طراحی شده برای بازیکنان جوان.',
+        price: 6,
+        period: 'ماه',
         duration: 3,
+        ageRange: '8-12',
+        ageGroup: '8-12',
         sessionCount: 12,
         maxStudents: 15,
-        coachId: coaches[0].id
-      }
+        coachId: coaches[0].id,
+        level: 'مبتدی',
+
+        features: [
+          'مهارت‌های حرکتی پایه',
+          'بازی‌ها و فعالیت‌های تیمی',
+          'توسعه هماهنگی',
+          'آشنایی با قوانین بازی',
+          'ارائه تجهیزات کامل',
+          'محیط یادگیری شاد',
+        ],
+        color: 'from-blue-500 to-blue-600',
+        icon: '⚽',
+        popular: false,
+        rating: 4.8,
+        studentsEnrolled: 45,
+      },
     }),
     prisma.program.create({
       data: {
         name: 'برنامه نوجوانان',
-        description: 'توسعه مهارت‌های فنی و تاکتیکی برای نوجوانان پسر',
-        ageGroup: '13-17',
-        price: 350000,
+        ageRange: '13-17 سال',
+        ageGroup: '13-17 سال',
+        description:
+          'تکنیک‌های پیشرفته و آموزش تاکتیکی برای بازیکنان جوان جدی که برای بازی رقابتی آماده هستند.',
+        price: 8,
+        period: 'ماه',
         duration: 4,
         sessionCount: 16,
-        maxStudents: 15,
-        coachId: coaches[0].id
-      }
+        maxStudents: 12,
+        coachId: coaches[0].id,
+        level: 'متوسط',
+        features: [
+          'مهارت‌های فردی پیشرفته',
+          'تاکتیک و استراتژی تیمی',
+          'آمادگی جسمانی',
+          'آموزش مهارت‌های ذهنی',
+          'آماده‌سازی برای مسابقات',
+          'تحلیل عملکرد',
+        ],
+        color: 'from-emerald-500 to-emerald-600',
+        icon: '🏃',
+        popular: true,
+        rating: 4.9,
+        studentsEnrolled: 38,
+      },
     }),
-    prisma.program.create({
-      data: {
-        name: 'برنامه بزرگسالان',
-        description: 'آموزش حرفه‌ای و تخصصی برای مردان جوان',
-        ageGroup: '18-25',
-        price: 450000,
-        duration: 5,
-        sessionCount: 20,
-        maxStudents: 15,
-        coachId: coaches[1].id
-      }
-    }),
-    prisma.program.create({
-      data: {
-        name: 'برنامه استادان',
-        description: 'حفظ آمادگی و تکنیک برای مردان با تجربه',
-        ageGroup: '26-30',
-        price: 300000,
-        duration: 3,
-        sessionCount: 12,
-        maxStudents: 15,
-        coachId: coaches[3].id
-      }
-    })
   ]);
 
   // Create some sample sessions
-  const now = new Date();
   const sessions = await Promise.all([
     prisma.session.create({
       data: {
         name: 'تمرین تکنیک پایه',
         description: 'آموزش پاس، دریبل و کنترل توپ',
-        date: new Date(now.getTime() + 24 * 60 * 60 * 1000), // Tomorrow
+        date: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
         duration: 90,
         location: 'زمین شماره 1',
         maxCapacity: 15,
         programId: programs[0].id,
-        coachId: coaches[0].id
-      }
+        coachId: coaches[0].id,
+      },
     }),
     prisma.session.create({
       data: {
         name: 'تمرین تاکتیکی',
         description: 'آموزش سیستم‌های بازی و موقعیت‌گیری',
-        date: new Date(now.getTime() + 2 * 24 * 60 * 60 * 1000), // Day after tomorrow
+        date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // Day after tomorrow
         duration: 120,
         location: 'زمین شماره 2',
         maxCapacity: 15,
         programId: programs[1].id,
-        coachId: coaches[0].id
-      }
+        coachId: coaches[0].id,
+      },
     }),
     prisma.session.create({
       data: {
         name: 'تمرین حرفه‌ای',
         description: 'تمرین شدید برای بازیکنان حرفه‌ای',
-        date: new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000), // Three days later
+        date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // Three days later
         duration: 150,
         location: 'زمین اصلی',
         maxCapacity: 15,
-        programId: programs[2].id,
-        coachId: coaches[1].id
-      }
-    })
+        programId: programs[1].id,
+        coachId: coaches[1].id,
+      },
+    }),
   ]);
 
   console.log('Database has been seeded with:');
@@ -163,4 +194,4 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect();
-  }); 
+  });

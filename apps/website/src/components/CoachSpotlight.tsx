@@ -114,8 +114,8 @@ export default function CoachSpotlight() {
   const coach = coaches[currentCoach];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-navy-50 to-navy-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-padding bg-linear-to-br from-slate-50 to-slate-100">
+      <div className="container-custom">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4">
@@ -137,7 +137,7 @@ export default function CoachSpotlight() {
             <div className="relative">
               <div className="bg-white rounded-3xl p-8 shadow-2xl">
                 <div className="text-center mb-8">
-                  <div className="w-48 h-48 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6">
+                  <div className="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6">
                     {coach.name.split(' ')[0].charAt(0)}
                   </div>
                   <h3 className="text-3xl font-bold text-gray-900 mb-2">{coach.name}</h3>
@@ -181,10 +181,10 @@ export default function CoachSpotlight() {
                 
                 {/* Social Media */}
                 <div className="flex space-x-4 space-x-reverse">
-                  <a href="#" className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow">
+                  <a href="#" className="bg-linear-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow">
                     📱 {coach.socialMedia.instagram}
                   </a>
-                  <a href="#" className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow">
+                  <a href="#" className="bg-linear-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow">
                     🐦 {coach.socialMedia.twitter}
                   </a>
                 </div>
@@ -215,7 +215,7 @@ export default function CoachSpotlight() {
                 <div className="grid grid-cols-1 gap-3">
                   {coach.achievements.map((achievement, index) => (
                     <div key={index} className="flex items-center p-3 bg-emerald-50 rounded-lg">
-                      <TrophyIcon className="w-4 h-4 text-emerald-600 ml-3 flex-shrink-0" />
+                      <TrophyIcon className="w-4 h-4 text-emerald-600 ml-3 shrink-0" />
                       <span className="text-gray-700">{achievement}</span>
                     </div>
                   ))}
@@ -227,7 +227,7 @@ export default function CoachSpotlight() {
                 <h4 className="text-xl font-bold text-gray-900 mb-4">برنامه‌های تدریس</h4>
                 <div className="flex flex-wrap gap-2">
                   {coach.programs.map((program, index) => (
-                    <span key={index} className="bg-gradient-to-r from-primary-500 to-primary-600 text-white px-4 py-2 rounded-full text-sm">
+                    <span key={index} className="bg-linear-to-r from-primary-500 to-primary-600 text-white px-4 py-2 rounded-full text-sm">
                       {program}
                     </span>
                   ))}
@@ -279,7 +279,7 @@ export default function CoachSpotlight() {
                 }`}
               >
                 <div className="text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                  <div className="w-20 h-20 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
                     {coachItem.name.split(' ')[0].charAt(0)}
                   </div>
                   <h4 className="text-lg font-bold text-gray-900 mb-2">{coachItem.name}</h4>

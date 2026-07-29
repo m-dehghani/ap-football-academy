@@ -102,28 +102,28 @@ const Features: React.FC = () => {
   const additionalFeatures = [
     {
       icon: RocketLaunchIcon,
-      title: 'Goal-Oriented Training',
-      description: 'Structured programs designed to achieve specific objectives and measurable progress.'
+      title: 'آموزش هدفمند',
+      description: 'برنامه‌های ساختاریافته با اهداف مشخص و پیشرفت قابل اندازه‌گیری.',
     },
     {
       icon: HeartIcon,
-      title: 'Individual Attention',
-      description: 'Personalized coaching approach ensuring every player receives dedicated support.'
+      title: 'توجه فردی',
+      description: 'مربیگری شخصی‌سازی‌شده تا هر بازیکن پشتیبانی اختصاصی دریافت کند.',
     },
     {
       icon: CogIcon,
-      title: 'Team Spirit',
-      description: 'Building collaboration and teamwork skills essential for success on and off the field.'
+      title: 'روحیه تیمی',
+      description: 'تقویت همکاری و مهارت‌های کار گروهی در زمین و خارج از آن.',
     },
     {
       icon: SparklesIcon,
-      title: 'High Standards',
-      description: 'International-level training standards that prepare players for competitive excellence.'
-    }
+      title: 'استاندارد بالا',
+      description: 'استانداردهای آموزشی بین‌المللی برای آمادگی رقابتی.',
+    },
   ];
 
   return (
-    <section className="section-padding bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+    <section className="section-padding bg-linear-to-br from-gray-50 to-gray-100 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNkYzI2MjYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSI0Ii8+PC9nPjwvZz48L3N2Zz4=')] animate-rotate-slow"></div>
@@ -187,7 +187,7 @@ const Features: React.FC = () => {
                 </div>
 
                 {/* Gradient Border Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
+                <div className={`absolute inset-0 bg-linear-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
               </div>
             </motion.div>
           ))}
@@ -201,13 +201,13 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="relative mb-20"
         >
-          <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-4xl p-8 md:p-12 text-white shadow-elegant-xl">
+          <div className="bg-linear-to-r from-primary-600 to-primary-700 rounded-4xl p-8 md:p-12 text-white shadow-elegant-xl">
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                Our Achievement Story
+                دستاوردهای ما
               </h3>
               <p className="text-primary-100 max-w-2xl mx-auto text-lg">
-                Numbers that speak to our commitment to excellence and player development
+                اعدادی که نشان‌دهنده تعهد ما به تعالی و رشد بازیکنان است
               </p>
             </div>
 
@@ -256,12 +256,12 @@ const Features: React.FC = () => {
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-4xl"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-4xl"></div>
               
               {/* Floating Stats */}
               <div className="absolute top-6 right-6 glass-card p-4 rounded-xl">
-                <div className="text-2xl font-bold text-white">4.9/5</div>
-                <div className="text-white/80 text-sm">Player Rating</div>
+                <div className="text-2xl font-bold text-white persian-numbers">۴.۹/۵</div>
+                <div className="text-white/80 text-sm">رضایت بازیکنان</div>
               </div>
             </div>
 
@@ -269,17 +269,17 @@ const Features: React.FC = () => {
             <div className="space-y-8">
               <div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-balance">
-                  A Different Experience in Football Training
+                  تجربه‌ای متفاوت در آموزش فوتبال
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                  AP Football Academy combines scientific training methods with modern approaches to provide the best football education. From basic skills to professional preparation, every player can find their path to success.
+                  آکادمی فوتبال AP روش‌های علمی تمرین را با رویکردهای نوین ترکیب می‌کند تا بهترین آموزش فوتبال را ارائه دهد — از مهارت‌های پایه تا آمادگی حرفه‌ای.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {additionalFeatures.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                    <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center shrink-0 mt-1">
                       <feature.icon className="h-5 w-5 text-primary-600" />
                     </div>
                     <div>
@@ -297,7 +297,7 @@ const Features: React.FC = () => {
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary inline-flex items-center"
                 >
-                  Learn More About Us
+                  بیشتر بدانید
                   <SparklesIcon className="w-5 h-5 ml-2" />
                 </motion.a>
               </div>
@@ -313,12 +313,12 @@ const Features: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center"
         >
-          <div className="bg-gradient-to-r from-secondary-50 to-secondary-100 rounded-4xl p-12 border border-secondary-200">
+          <div className="bg-linear-to-r from-secondary-50 to-secondary-100 rounded-4xl p-12 border border-secondary-200">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">
-              Ready to Start Your Football Journey?
+              آماده شروع سفر فوتبال خود هستید؟
             </h3>
             <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              Join hundreds of players who have transformed their game with professional training and expert guidance.
+              به صدها بازیکنی بپیوندید که با آموزش حرفه‌ای، بازی خود را متحول کرده‌اند.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
@@ -327,7 +327,7 @@ const Features: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary"
               >
-                Start Training Today
+                همین امروز شروع کنید
               </motion.a>
               <motion.a
                 href="/contact"
@@ -335,7 +335,7 @@ const Features: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
                 className="btn-outline"
               >
-                Schedule a Visit
+                رزرو بازدید
               </motion.a>
             </div>
           </div>

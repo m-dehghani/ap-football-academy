@@ -4,8 +4,7 @@ export default function Document() {
   return (
     <Html lang="fa" dir="rtl">
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#1e40af" />
+        <meta name="theme-color" content="#0284c7" />
         <meta name="description" content="آکادمی فوتبال AP - بهترین آموزش فوتبال برای همه سنین" />
         
         {/* Favicon */}
