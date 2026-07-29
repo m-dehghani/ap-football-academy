@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../lib/db';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
+import { TransactionClient } from '../../../prisma/generated/internal/prismaNamespace';
 
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
@@ -20,6 +21,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const db = await prisma;
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -29,7 +31,7 @@ export default async function handler(
     const validatedData = registrationSchema.parse(req.body);
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await db.user.findUnique({
       where: { email: validatedData.email },
     });
 
@@ -40,7 +42,7 @@ export default async function handler(
     }
 
     // Get program details
-    const program = await prisma.program.findUnique({
+    const program = await db.program.findUnique({
       where: { id: validatedData.programId },
       include: { coach: true },
     });
@@ -50,7 +52,7 @@ export default async function handler(
     }
 
     // Check if program has available slots
-    const currentRegistrations = await prisma.registration.count({
+    const currentRegistrations = await db.registration.count({
       where: {
         programId: validatedData.programId,
         status: { in: ['PENDING', 'APPROVED'] },
@@ -67,7 +69,7 @@ export default async function handler(
     const hashedPassword = await bcrypt.hash(validatedData.password, 10);
 
     // Create user and registration in a transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx: TransactionClient) => {
       // Create user
       const user = await tx.user.create({
         data: {

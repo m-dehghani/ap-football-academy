@@ -1,4 +1,4 @@
-import { useState, use } from 'react';
+import { use, useState } from 'react';
 import {
   CalendarDaysIcon,
   UserGroupIcon,
@@ -10,10 +10,43 @@ import {
   SparklesIcon,
   AcademicCapIcon,
 } from '@heroicons/react/24/outline';
-import { Program, Session } from '@prisma/client';
-import { Feature } from 'next/dist/build/webpack/plugins/telemetry-plugin/telemetry-plugin';
 
-export default function Programs({ progs }: { progs: Promise<any> }) {
+interface Program {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  duration: number;
+  sessionCount: number;
+  maxStudents?: number;
+  isActive: boolean;
+  popular: boolean;
+  icon: string;
+  ageRange: string;
+  color: string;
+  period: string;
+  rating: number;
+  studentsEnrolled: number;
+  features: string[];
+  level: string;
+  coach: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    specialization: string;
+    experience: number;
+  };
+  schedule: Schedule[];
+}
+
+interface Schedule {
+  id: string;
+  date: Date;
+  duration: string;
+}
+
+export default function Programs({ programs }: { programs: Program[] }) {
   const [selectedProgram, setSelectedProgram] = useState(0);
 
   // const old_programs = [
@@ -155,7 +188,6 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
   //     studentsEnrolled: 22,
   //   },
   // ];
-  const programs = use(progs);
   const currentProgram = programs[selectedProgram];
 
   return (
@@ -234,7 +266,7 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
                     <h3 className="text-3xl font-bold mb-2">
                       {currentProgram.name}
                     </h3>
-                    <p className="text-lg opacity-90">
+                    <p className="text-lg opacity-90 ">
                       {currentProgram.ageRange}
                     </p>
                   </div>
@@ -256,7 +288,7 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
                   </div>
                   <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 text-center">
                     <div className="text-3xl font-bold">
-                      {currentProgram.sessions}
+                      {currentProgram.sessionCount}
                     </div>
                     <div className="text-sm opacity-80">مجموع جلسات</div>
                   </div>
@@ -297,7 +329,7 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
               </h4>
               <div className="grid grid-cols-1 gap-4">
                 {currentProgram.features.map(
-                  (feature: Feature, index: number) => (
+                  (feature: string, index: number) => (
                     <div
                       key={index}
                       className="flex items-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
@@ -323,11 +355,12 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
               </h4>
               <div className="flex items-center space-x-6">
                 <div className="w-20 h-20 bg-linear-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold">
-                  {currentProgram.coach.split(' ')[1]?.charAt(0) || 'C'}
+                  {currentProgram.coach.firstName.split(' ')[1]?.charAt(0) ||
+                    'C'}
                 </div>
                 <div>
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    {currentProgram.coach}
+                    {currentProgram.coach.lastName}
                   </h5>
                   <p className="text-gray-600 mb-2">مربی دارای مدرک فیفا</p>
                   <div className="flex items-center space-x-3">
@@ -366,7 +399,7 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
               </h4>
               <div className="space-y-4">
                 {currentProgram.schedule.map(
-                  (session: Session, index: number) => (
+                  (value: Schedule, index: number) => (
                     <div
                       key={index}
                       className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
@@ -374,11 +407,11 @@ export default function Programs({ progs }: { progs: Promise<any> }) {
                       <div className="flex items-center">
                         <ClockIcon className="w-5 h-5 text-gray-400 mr-3" />
                         <span className="font-semibold text-gray-900">
-                          {session.date.toDateString()}
+                          {value.date.toDateString()}
                         </span>
                       </div>
                       <span className="text-primary-600 font-bold">
-                        {session.duration}
+                        {value.duration}
                       </span>
                     </div>
                   ),

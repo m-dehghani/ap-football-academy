@@ -1,3 +1,4 @@
+'use server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '../../lib/db';
 
@@ -10,25 +11,39 @@ export default async function handler(
   }
 
   try {
-    const programs = await prisma.program.findMany({
+    const db = await prisma;
+    const programs = await db.program.findMany({
       where: { isActive: true },
       include: { coach: true },
       orderBy: { createdAt: 'desc' },
     });
 
     res.status(200).json({
-      data: programs.map((program) => ({
-        id: program.id,
-        name: program.name,
-        description: program.description,
-        ageGroup: program.ageRange,
-        price: program.price,
-        duration: program.duration,
-        sessionCount: program.sessionCount,
-        maxStudents: program.maxStudents,
-        coach: `${program.coach.firstName} ${program.coach.lastName}`,
-        coachId: program.coachId,
-      })),
+      data: programs.map(
+        (program: {
+          id: string;
+          name: string;
+          description: string;
+          ageRange: string;
+          price: number;
+          duration: number;
+          sessionCount: number;
+          maxStudents: number;
+          coachId: string;
+          coach: { firstName: string; lastName: string };
+        }) => ({
+          id: program.id,
+          name: program.name,
+          description: program.description,
+          ageGroup: program.ageRange,
+          price: program.price,
+          duration: program.duration,
+          sessionCount: program.sessionCount,
+          maxStudents: program.maxStudents,
+          coach: `${program.coach.firstName} ${program.coach.lastName}`,
+          coachId: program.coachId,
+        }),
+      ),
     });
   } catch (error) {
     console.error('Error fetching programs:', error);

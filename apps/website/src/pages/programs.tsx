@@ -1,9 +1,10 @@
+'use server';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import Programs from '../components/Programs';
 
 async function ProgramsPage() {
-  const { getPrograms } = await import('@/servcies/programs_svc');
+  const { getPrograms } = await import('@/services/programs_svc');
   const programs = await getPrograms();
   return (
     <Layout
@@ -33,9 +34,9 @@ async function ProgramsPage() {
           },
         ]}
       />
-      <Programs progs={programs} />
+      <Programs programs={programs} />
     </Layout>
   );
-};
+}
 
 export default ProgramsPage;

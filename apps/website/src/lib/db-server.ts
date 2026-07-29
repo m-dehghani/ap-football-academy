@@ -1,7 +1,6 @@
 /**
  * Server-only Prisma client initialization.
  * This file must NEVER be statically imported from client-side code.
- * For new code, prefer using db-server.ts with dynamic imports.
  */
 
 let prismaInstance: any = null;
@@ -18,6 +17,3 @@ export async function getPrisma(): Promise<any> {
   prismaInstance = new PrismaClient({ adapter });
   return prismaInstance;
 }
-
-// Legacy export for API routes that import { prisma } from '../../lib/db'
-export const prisma = getPrisma();
