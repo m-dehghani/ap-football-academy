@@ -19,7 +19,7 @@ export async function getSiteInfo(): Promise<SiteInfo | null> {
 
   if (!academy) return null;
 
-  const toHour = ({ id, days, hours }: (typeof hours)[number]) => ({
+  const toHour = ({ id, days, hours }: { id: string; days: string; hours: string }) => ({
     id,
     days,
     hours,

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../lib/db';
+import { getPrisma } from '../../lib/db';
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,7 +13,7 @@ export default async function handler(
     return res.status(400).json({ message: 'programId is not provided' });
   }
   try {
-    //if Get program details
+    const prisma = await getPrisma();
     const program = await prisma.program.findUnique({
       where: { id: programId },
       include: { registrations: true },
@@ -23,7 +23,6 @@ export default async function handler(
       return res.status(404).json({ message: 'برنامه آموزشی یافت نشد' });
     }
 
-    // Return success response (without password)
     res.status(201).json({
       data: program,
     });

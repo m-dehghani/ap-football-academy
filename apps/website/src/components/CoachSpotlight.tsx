@@ -8,10 +8,6 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/24/outline';
 import Coach from '@/viewModels/coach';
-import { toPersianDigits } from '@/lib/format';
-
-const socialUrl = (base: string, handle: string) =>
-  `${base}${handle.replace(/^@/, '')}`;
 
 export default function CoachSpotlight({
   coaches = [],
