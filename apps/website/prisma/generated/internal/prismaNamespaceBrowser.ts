@@ -59,7 +59,20 @@ export const ModelName = {
   Payment: 'Payment',
   Session: 'Session',
   Attendance: 'Attendance',
-  Evaluation: 'Evaluation'
+  Evaluation: 'Evaluation',
+  AcademyInfo: 'AcademyInfo',
+  OpeningHour: 'OpeningHour',
+  SocialLink: 'SocialLink',
+  Statistic: 'Statistic',
+  Testimonial: 'Testimonial',
+  SuccessStory: 'SuccessStory',
+  Milestone: 'Milestone',
+  StaffMember: 'StaffMember',
+  Facility: 'Facility',
+  NewsCategory: 'NewsCategory',
+  NewsArticle: 'NewsArticle',
+  ContactMessage: 'ContactMessage',
+  NewsletterSubscriber: 'NewsletterSubscriber'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -85,6 +98,7 @@ export const UserScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   phone: 'phone',
+  birthDate: 'birthDate',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -101,6 +115,18 @@ export const CoachScalarFieldEnum = {
   phone: 'phone',
   specialization: 'specialization',
   experience: 'experience',
+  title: 'title',
+  bio: 'bio',
+  quote: 'quote',
+  certifications: 'certifications',
+  achievements: 'achievements',
+  rating: 'rating',
+  studentsCount: 'studentsCount',
+  image: 'image',
+  instagram: 'instagram',
+  twitter: 'twitter',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -120,12 +146,15 @@ export const ProgramScalarFieldEnum = {
   popular: 'popular',
   icon: 'icon',
   ageRange: 'ageRange',
+  minAge: 'minAge',
+  maxAge: 'maxAge',
   color: 'color',
   period: 'period',
   rating: 'rating',
   studentsEnrolled: 'studentsEnrolled',
   features: 'features',
   level: 'level',
+  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   coachId: 'coachId'
@@ -138,6 +167,7 @@ export const ScheduleScalarFieldEnum = {
   id: 'id',
   day: 'day',
   time: 'time',
+  displayOrder: 'displayOrder',
   programId: 'programId'
 } as const
 
@@ -149,6 +179,12 @@ export const RegistrationScalarFieldEnum = {
   status: 'status',
   totalAmount: 'totalAmount',
   paidAmount: 'paidAmount',
+  experienceLevel: 'experienceLevel',
+  parentName: 'parentName',
+  parentEmail: 'parentEmail',
+  emergencyContactName: 'emergencyContactName',
+  emergencyContactPhone: 'emergencyContactPhone',
+  medicalConditions: 'medicalConditions',
   registeredAt: 'registeredAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
@@ -219,6 +255,191 @@ export const EvaluationScalarFieldEnum = {
 } as const
 
 export type EvaluationScalarFieldEnum = (typeof EvaluationScalarFieldEnum)[keyof typeof EvaluationScalarFieldEnum]
+
+
+export const AcademyInfoScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  tagline: 'tagline',
+  description: 'description',
+  phone: 'phone',
+  email: 'email',
+  privacyEmail: 'privacyEmail',
+  address: 'address',
+  city: 'city',
+  foundedYear: 'foundedYear',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AcademyInfoScalarFieldEnum = (typeof AcademyInfoScalarFieldEnum)[keyof typeof AcademyInfoScalarFieldEnum]
+
+
+export const OpeningHourScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  days: 'days',
+  hours: 'hours',
+  displayOrder: 'displayOrder'
+} as const
+
+export type OpeningHourScalarFieldEnum = (typeof OpeningHourScalarFieldEnum)[keyof typeof OpeningHourScalarFieldEnum]
+
+
+export const SocialLinkScalarFieldEnum = {
+  id: 'id',
+  platform: 'platform',
+  name: 'name',
+  url: 'url',
+  icon: 'icon',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder'
+} as const
+
+export type SocialLinkScalarFieldEnum = (typeof SocialLinkScalarFieldEnum)[keyof typeof SocialLinkScalarFieldEnum]
+
+
+export const StatisticScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value',
+  label: 'label',
+  description: 'description',
+  displayOrder: 'displayOrder'
+} as const
+
+export type StatisticScalarFieldEnum = (typeof StatisticScalarFieldEnum)[keyof typeof StatisticScalarFieldEnum]
+
+
+export const TestimonialScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  role: 'role',
+  content: 'content',
+  image: 'image',
+  rating: 'rating',
+  category: 'category',
+  improvement: 'improvement',
+  date: 'date',
+  isPublished: 'isPublished',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  programId: 'programId'
+} as const
+
+export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
+
+
+export const SuccessStoryScalarFieldEnum = {
+  id: 'id',
+  playerName: 'playerName',
+  age: 'age',
+  achievement: 'achievement',
+  description: 'description',
+  quote: 'quote',
+  image: 'image',
+  date: 'date',
+  goals: 'goals',
+  assists: 'assists',
+  matches: 'matches',
+  isPublished: 'isPublished',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  programId: 'programId',
+  coachId: 'coachId'
+} as const
+
+export type SuccessStoryScalarFieldEnum = (typeof SuccessStoryScalarFieldEnum)[keyof typeof SuccessStoryScalarFieldEnum]
+
+
+export const MilestoneScalarFieldEnum = {
+  id: 'id',
+  year: 'year',
+  title: 'title',
+  description: 'description',
+  displayOrder: 'displayOrder'
+} as const
+
+export type MilestoneScalarFieldEnum = (typeof MilestoneScalarFieldEnum)[keyof typeof MilestoneScalarFieldEnum]
+
+
+export const StaffMemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  role: 'role',
+  bio: 'bio',
+  initials: 'initials',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder'
+} as const
+
+export type StaffMemberScalarFieldEnum = (typeof StaffMemberScalarFieldEnum)[keyof typeof StaffMemberScalarFieldEnum]
+
+
+export const FacilityScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  name: 'name',
+  displayOrder: 'displayOrder'
+} as const
+
+export type FacilityScalarFieldEnum = (typeof FacilityScalarFieldEnum)[keyof typeof FacilityScalarFieldEnum]
+
+
+export const NewsCategoryScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  icon: 'icon',
+  displayOrder: 'displayOrder'
+} as const
+
+export type NewsCategoryScalarFieldEnum = (typeof NewsCategoryScalarFieldEnum)[keyof typeof NewsCategoryScalarFieldEnum]
+
+
+export const NewsArticleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  excerpt: 'excerpt',
+  content: 'content',
+  category: 'category',
+  type: 'type',
+  author: 'author',
+  image: 'image',
+  tags: 'tags',
+  readTimeMinutes: 'readTimeMinutes',
+  likes: 'likes',
+  comments: 'comments',
+  featured: 'featured',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewsArticleScalarFieldEnum = (typeof NewsArticleScalarFieldEnum)[keyof typeof NewsArticleScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const NewsletterSubscriberScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  createdAt: 'createdAt'
+} as const
+
+export type NewsletterSubscriberScalarFieldEnum = (typeof NewsletterSubscriberScalarFieldEnum)[keyof typeof NewsletterSubscriberScalarFieldEnum]
 
 
 export const SortOrder = {

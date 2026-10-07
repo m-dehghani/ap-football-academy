@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../lib/db';
+import { getPrisma } from '../../lib/db';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { TransactionClient } from '../../../prisma/generated/internal/prismaNamespace';
@@ -21,7 +21,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const db = await prisma;
+  const db = await getPrisma();
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }

@@ -19,7 +19,7 @@ const CookiesPage: React.FC = () => {
           },
         ]}
       />
-      
+
       <div className="section-padding bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container-custom max-w-4xl">
           <div className="text-center mb-16">
@@ -36,38 +36,54 @@ const CookiesPage: React.FC = () => {
 
           <div className="card-glass p-8 rounded-4xl space-y-8">
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">کوکی چیست؟</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                کوکی چیست؟
+              </h2>
               <p className="text-gray-700">
-                کوکی فایل‌های کوچک متنی هستند که در مرورگر شما ذخیره می‌شوند تا تجربه کاربری بهتری داشته باشید.
+                کوکی فایل‌های کوچک متنی هستند که در مرورگر شما ذخیره می‌شوند تا
+                تجربه کاربری بهتری داشته باشید.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">انواع کوکی‌ها</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                انواع کوکی‌ها
+              </h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">کوکی‌های ضروری</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    کوکی‌های ضروری
+                  </h3>
                   <p className="text-gray-700">
-                    این کوکی‌ها برای عملکرد صحیح وب‌سایت ضروری هستند و غیرفعال نمی‌شوند.
+                    این کوکی‌ها برای عملکرد صحیح وب‌سایت ضروری هستند و غیرفعال
+                    نمی‌شوند.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">کوکی‌های تحلیلی</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    کوکی‌های تحلیلی
+                  </h3>
                   <p className="text-gray-700">
-                    برای بهبود عملکرد وب‌سایت و درک رفتار کاربران استفاده می‌شوند.
+                    برای بهبود عملکرد وب‌سایت و درک رفتار کاربران استفاده
+                    می‌شوند.
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">کوکی‌های تبلیغاتی</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    کوکی‌های تبلیغاتی
+                  </h3>
                   <p className="text-gray-700">
-                    برای نمایش تبلیغات مرتبط و شخصی‌سازی تجربه کاربری استفاده می‌شوند.
+                    برای نمایش تبلیغات مرتبط و شخصی‌سازی تجربه کاربری استفاده
+                    می‌شوند.
                   </p>
                 </div>
               </div>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">مدیریت کوکی‌ها</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                مدیریت کوکی‌ها
+              </h2>
               <p className="text-gray-700 mb-4">
                 شما می‌توانید کوکی‌ها را از طریق تنظیمات مرورگر خود مدیریت کنید:
               </p>
@@ -80,19 +96,25 @@ const CookiesPage: React.FC = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">کوکی‌های شخص ثالث</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                کوکی‌های شخص ثالث
+              </h2>
               <p className="text-gray-700">
-                ممکن است از خدمات شخص ثالث مانند Google Analytics استفاده کنیم که کوکی‌های خود را دارند.
+                ممکن است از خدمات شخص ثالث مانند Google Analytics استفاده کنیم
+                که کوکی‌های خود را دارند.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">تماس با ما</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                تماس با ما
+              </h2>
               <p className="text-gray-700">
                 برای سوالات مربوط به کوکی‌ها، با ما تماس بگیرید:
               </p>
               <p className="text-gray-700 mt-4">
-                ایمیل: info@ap-football.com<br/>
+                ایمیل: info@ap-football.com
+                <br />
                 تلفن: 021-12345678
               </p>
             </section>
@@ -109,4 +131,4 @@ const CookiesPage: React.FC = () => {
   );
 };
 
-export default CookiesPage; 
+export default CookiesPage;

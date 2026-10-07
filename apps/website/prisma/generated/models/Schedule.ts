@@ -20,14 +20,25 @@ export type ScheduleModel = runtime.Types.Result.DefaultSelection<Prisma.$Schedu
 
 export type AggregateSchedule = {
   _count: ScheduleCountAggregateOutputType | null
+  _avg: ScheduleAvgAggregateOutputType | null
+  _sum: ScheduleSumAggregateOutputType | null
   _min: ScheduleMinAggregateOutputType | null
   _max: ScheduleMaxAggregateOutputType | null
+}
+
+export type ScheduleAvgAggregateOutputType = {
+  displayOrder: number | null
+}
+
+export type ScheduleSumAggregateOutputType = {
+  displayOrder: number | null
 }
 
 export type ScheduleMinAggregateOutputType = {
   id: string | null
   day: string | null
   time: string | null
+  displayOrder: number | null
   programId: string | null
 }
 
@@ -35,6 +46,7 @@ export type ScheduleMaxAggregateOutputType = {
   id: string | null
   day: string | null
   time: string | null
+  displayOrder: number | null
   programId: string | null
 }
 
@@ -42,15 +54,25 @@ export type ScheduleCountAggregateOutputType = {
   id: number
   day: number
   time: number
+  displayOrder: number
   programId: number
   _all: number
 }
 
 
+export type ScheduleAvgAggregateInputType = {
+  displayOrder?: true
+}
+
+export type ScheduleSumAggregateInputType = {
+  displayOrder?: true
+}
+
 export type ScheduleMinAggregateInputType = {
   id?: true
   day?: true
   time?: true
+  displayOrder?: true
   programId?: true
 }
 
@@ -58,6 +80,7 @@ export type ScheduleMaxAggregateInputType = {
   id?: true
   day?: true
   time?: true
+  displayOrder?: true
   programId?: true
 }
 
@@ -65,6 +88,7 @@ export type ScheduleCountAggregateInputType = {
   id?: true
   day?: true
   time?: true
+  displayOrder?: true
   programId?: true
   _all?: true
 }
@@ -107,6 +131,18 @@ export type ScheduleAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ScheduleAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ScheduleSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ScheduleMinAggregateInputType
@@ -137,6 +173,8 @@ export type ScheduleGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: ScheduleCountAggregateInputType | true
+  _avg?: ScheduleAvgAggregateInputType
+  _sum?: ScheduleSumAggregateInputType
   _min?: ScheduleMinAggregateInputType
   _max?: ScheduleMaxAggregateInputType
 }
@@ -145,8 +183,11 @@ export type ScheduleGroupByOutputType = {
   id: string
   day: string
   time: string
+  displayOrder: number
   programId: string | null
   _count: ScheduleCountAggregateOutputType | null
+  _avg: ScheduleAvgAggregateOutputType | null
+  _sum: ScheduleSumAggregateOutputType | null
   _min: ScheduleMinAggregateOutputType | null
   _max: ScheduleMaxAggregateOutputType | null
 }
@@ -173,6 +214,7 @@ export type ScheduleWhereInput = {
   id?: Prisma.StringFilter<"Schedule"> | string
   day?: Prisma.StringFilter<"Schedule"> | string
   time?: Prisma.StringFilter<"Schedule"> | string
+  displayOrder?: Prisma.IntFilter<"Schedule"> | number
   programId?: Prisma.StringNullableFilter<"Schedule"> | string | null
   program?: Prisma.XOR<Prisma.ProgramNullableScalarRelationFilter, Prisma.ProgramWhereInput> | null
 }
@@ -181,6 +223,7 @@ export type ScheduleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   day?: Prisma.SortOrder
   time?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   programId?: Prisma.SortOrderInput | Prisma.SortOrder
   program?: Prisma.ProgramOrderByWithRelationInput
 }
@@ -192,6 +235,7 @@ export type ScheduleWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ScheduleWhereInput | Prisma.ScheduleWhereInput[]
   day?: Prisma.StringFilter<"Schedule"> | string
   time?: Prisma.StringFilter<"Schedule"> | string
+  displayOrder?: Prisma.IntFilter<"Schedule"> | number
   programId?: Prisma.StringNullableFilter<"Schedule"> | string | null
   program?: Prisma.XOR<Prisma.ProgramNullableScalarRelationFilter, Prisma.ProgramWhereInput> | null
 }, "id">
@@ -200,10 +244,13 @@ export type ScheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   day?: Prisma.SortOrder
   time?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   programId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ScheduleCountOrderByAggregateInput
+  _avg?: Prisma.ScheduleAvgOrderByAggregateInput
   _max?: Prisma.ScheduleMaxOrderByAggregateInput
   _min?: Prisma.ScheduleMinOrderByAggregateInput
+  _sum?: Prisma.ScheduleSumOrderByAggregateInput
 }
 
 export type ScheduleScalarWhereWithAggregatesInput = {
@@ -213,6 +260,7 @@ export type ScheduleScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   day?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   time?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
+  displayOrder?: Prisma.IntWithAggregatesFilter<"Schedule"> | number
   programId?: Prisma.StringNullableWithAggregatesFilter<"Schedule"> | string | null
 }
 
@@ -220,6 +268,7 @@ export type ScheduleCreateInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
   program?: Prisma.ProgramCreateNestedOneWithoutScheduleInput
 }
 
@@ -227,6 +276,7 @@ export type ScheduleUncheckedCreateInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
   programId?: string | null
 }
 
@@ -234,6 +284,7 @@ export type ScheduleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   program?: Prisma.ProgramUpdateOneWithoutScheduleNestedInput
 }
 
@@ -241,6 +292,7 @@ export type ScheduleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   programId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -248,6 +300,7 @@ export type ScheduleCreateManyInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
   programId?: string | null
 }
 
@@ -255,12 +308,14 @@ export type ScheduleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ScheduleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   programId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -278,13 +333,19 @@ export type ScheduleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   day?: Prisma.SortOrder
   time?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   programId?: Prisma.SortOrder
+}
+
+export type ScheduleAvgOrderByAggregateInput = {
+  displayOrder?: Prisma.SortOrder
 }
 
 export type ScheduleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   day?: Prisma.SortOrder
   time?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   programId?: Prisma.SortOrder
 }
 
@@ -292,7 +353,12 @@ export type ScheduleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   day?: Prisma.SortOrder
   time?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   programId?: Prisma.SortOrder
+}
+
+export type ScheduleSumOrderByAggregateInput = {
+  displayOrder?: Prisma.SortOrder
 }
 
 export type ScheduleCreateNestedManyWithoutProgramInput = {
@@ -341,12 +407,14 @@ export type ScheduleCreateWithoutProgramInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
 }
 
 export type ScheduleUncheckedCreateWithoutProgramInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
 }
 
 export type ScheduleCreateOrConnectWithoutProgramInput = {
@@ -382,6 +450,7 @@ export type ScheduleScalarWhereInput = {
   id?: Prisma.StringFilter<"Schedule"> | string
   day?: Prisma.StringFilter<"Schedule"> | string
   time?: Prisma.StringFilter<"Schedule"> | string
+  displayOrder?: Prisma.IntFilter<"Schedule"> | number
   programId?: Prisma.StringNullableFilter<"Schedule"> | string | null
 }
 
@@ -389,24 +458,28 @@ export type ScheduleCreateManyProgramInput = {
   id?: string
   day: string
   time: string
+  displayOrder?: number
 }
 
 export type ScheduleUpdateWithoutProgramInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ScheduleUncheckedUpdateWithoutProgramInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type ScheduleUncheckedUpdateManyWithoutProgramInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   day?: Prisma.StringFieldUpdateOperationsInput | string
   time?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -415,6 +488,7 @@ export type ScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   day?: boolean
   time?: boolean
+  displayOrder?: boolean
   programId?: boolean
   program?: boolean | Prisma.Schedule$programArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
@@ -423,6 +497,7 @@ export type ScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   day?: boolean
   time?: boolean
+  displayOrder?: boolean
   programId?: boolean
   program?: boolean | Prisma.Schedule$programArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
@@ -431,6 +506,7 @@ export type ScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   day?: boolean
   time?: boolean
+  displayOrder?: boolean
   programId?: boolean
   program?: boolean | Prisma.Schedule$programArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
@@ -439,10 +515,11 @@ export type ScheduleSelectScalar = {
   id?: boolean
   day?: boolean
   time?: boolean
+  displayOrder?: boolean
   programId?: boolean
 }
 
-export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "day" | "time" | "programId", ExtArgs["result"]["schedule"]>
+export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "day" | "time" | "displayOrder" | "programId", ExtArgs["result"]["schedule"]>
 export type ScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   program?: boolean | Prisma.Schedule$programArgs<ExtArgs>
 }
@@ -462,6 +539,7 @@ export type $SchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     day: string
     time: string
+    displayOrder: number
     programId: string | null
   }, ExtArgs["result"]["schedule"]>
   composites: {}
@@ -890,6 +968,7 @@ export interface ScheduleFieldRefs {
   readonly id: Prisma.FieldRef<"Schedule", 'String'>
   readonly day: Prisma.FieldRef<"Schedule", 'String'>
   readonly time: Prisma.FieldRef<"Schedule", 'String'>
+  readonly displayOrder: Prisma.FieldRef<"Schedule", 'Int'>
   readonly programId: Prisma.FieldRef<"Schedule", 'String'>
 }
     

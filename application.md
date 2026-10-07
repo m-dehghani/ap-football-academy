@@ -1,480 +1,357 @@
-# 🏆 AP Football Academy — Workspace Overview
+# AP Football Academy - Monorepo Overview
 
-## 1. General Information
+## 📋 Project Summary
 
-| Field | Value |
-|-------|-------|
-| **Project Name** | AP Football Academy (آکادمی فوتبال AP) |
-| **Location** | Shiraz, Iran (شیراز، ایران) |
-| **Domain** | Football (Soccer) Youth & Adult Training Academy |
-| **Workspace Type** | Nx Monorepo |
-| **Package Manager** | pnpm (preferred) |
-| **Primary Language** | TypeScript (all apps) / Python (crawler) |
-| **UI Direction** | RTL (Right-to-Left) — Persian/Farsi primary |
+**AP Football Academy** is a professional football (soccer) training academy based in Shiraz, Iran. This monorepo manages the entire digital ecosystem for the academy — from public-facing marketing website to internal management tools and mobile applications.
 
-## 2. High-Level Architecture
+The academy offers professional football training programs for ages 8–30, with expert coaches, modern facilities, and comprehensive development programs.
+
+---
+
+## 🏗️ Monorepo Structure
 
 ```
 ap-football-academy/
 ├── apps/
-│   ├── website/          ← Next.js public-facing website (RTL, Persian)
-│   ├── mobile/           ← Expo React Native mobile app
-│   └── crawler/          ← Python LLM crawler for Persian football intelligence
+│   ├── website/          # Next.js public-facing website (marketing + client portal)
+│   ├── admin/            # Admin dashboard (in development)
+│   └── mobile/           # React Native mobile app (in development)
 ├── packages/
-│   └── db/               ← Shared Prisma database layer (Prisma Client, schema, seed)
-├── prisma/               ← Prisma schema & migration files
-├── docs/                 ← Workspace documentation
-└── AGENTS.md             ← Agent-specific project guidelines
-```
-
-### Data Flow
-
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   Website    │────▶│   PostgreSQL │◀────│    Crawler   │
-│  (Next.js)   │     │   (Prisma)   │     │  (Python)    │
-└──────────────┘     └──────┬───────┘     └──────────────┘
-                            │
-                     ┌──────▼───────┐
-                     │   Mobile     │
-                     │   (Expo)     │
-                     └──────────────┘
+│   ├── database/         # Shared Prisma schema & database client
+│   └── shared/           # Shared utilities, types, and components
+├── .agents/              # AI agent skills and configurations
+├── nx.json               # Nx workspace configuration
+├── package.json
+└── tsconfig.base.json    # Base TypeScript configuration
 ```
 
 ---
 
-## 3. Project: `apps/website` (Next.js)
+# 🌐 apps/website — Public Website (Next.js)
 
-### 3.1 Overview
+## 📖 Description
 
-| Field | Value |
-|-------|-------|
-| **Package Name** | `@ap-football-academy/website` |
-| **Framework** | Next.js 15 (App Router) |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS v4 + custom design system |
-| **Direction** | RTL (Persian/Farsi) |
-| **Font Family** | Vazirmatn (Google Fonts — Persian-optimized) |
-| **Database** | PostgreSQL via Prisma ORM |
-| **Authentication** | NextAuth.js v5 (credentials provider) |
-| **Deployment Target** | Vercel (see `vercel.json`) |
+The `apps/website` is the public-facing marketing website for AP Football Academy. Built with **Next.js** using the **Pages Router**, it serves as the primary digital presence for the academy — showcasing training programs, coach profiles, facilities, and providing a client portal for student management.
 
-### 3.2 Technology Stack
+### Tech Stack
 
 | Category | Technology |
 |----------|------------|
-| **Framework** | Next.js 15 (App Router, Server Components) |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS v4 + `tailwindcss-animate` + `tailwindcss-textshadow` |
-| **Icons** | Heroicons (24/outline) + custom SVG icons |
-| **Fonts** | Vazirmatn (Google Fonts) + Next.js `next/font/google` |
-| **Database** | PostgreSQL + Prisma ORM |
-| **Auth** | NextAuth.js v5 (credentials) |
-| **Validation** | Zod schemas (in `src/validations/`) |
-| **Animations** | Tailwind utility classes (no external animation library) |
-| **Date** | `date-fns` + `date-fns-jalali` (Jalali/Persian calendar) |
-| **Number** | `safarirnd` (Persian numeral conversion) |
-| **Deployment** | Vercel |
+| Framework | **Next.js** (Pages Router) |
+| Language | **TypeScript** |
+| Styling | **Tailwind CSS** |
+| Database ORM | **Prisma** (PostgreSQL) |
+| UI Components | **shadcn/ui** + **Radix UI** |
+| Icons | **Heroicons** |
+| Forms | **React Hook Form** + **Zod** validation |
+| Notifications | **react-hot-toast** |
+| SEO | **next-seo** |
+| Animations | **Framer Motion** |
+| Charts | **Recharts** |
+| Map | **Leaflet** (for facility locations) |
+| State | **Zustand** |
+| Build Tool | **Turbopack** (via Nx) |
 
-### 3.3 Project Structure
+### Key Dependencies
+
+```
+next, react, react-dom, tailwindcss, postcss, autoprefixer
+@prisma/client, prisma
+@radix-ui/* (dialog, tabs, cards, select, etc.)
+shadcn/ui
+@heroicons/react
+framer-motion
+react-hook-form, zod
+zustand
+react-hot-toast
+next-seo
+recharts
+leaflet, react-leaflet
+```
+
+---
+
+## 📁 Directory Structure
 
 ```
 apps/website/
-├── public/                    # Static assets (images, icons, placeholders)
-│   ├── images/                # Academy photos, hero backgrounds, facility images
-│   ├── icons/                 # SVG icons (location, phone, email)
-│   └── ...
-├── src/
-│   ├── app/                   # Next.js App Router (page-based routing)
-│   │   ├── (auth)/            # Auth route group
-│   │   │   ├── sign-in/       # Login page
-│   │   │   ├── sign-up/       # Registration page
-│   │   │   └── layout.tsx     # Auth layout
-│   │   ├── admin/             # Admin dashboard (protected)
-│   │   │   ├── dashboard/     # Admin home
-│   │   │   ├── programs/      # Program CRUD
-│   │   │   ├── students/      # Student management
-│   │   │   ├── registrations/ # Registration management
-│   │   │   ├── news/          # News management
-│   │   │   ├── settings/      # Academy settings
-│   │   │   ├── coaches/       # Coach management
-│   │   │   ├── news-categories/
-│   │   │   ├── success-stories/
-│   │   │   ├── programs-categories/
-│   │   │   ├── testimonials/
-│   │   │   └── layout.tsx     # Admin layout with sidebar
-│   │   ├── programs/          # Public program pages
-│   │   │   ├── [slug]/        # Individual program detail page
-│   │   │   └── page.tsx       # Programs listing page
-│   │   ├── news/              # News section
-│   │   │   ├── [slug]/        # Individual news article
-│   │   │   └── page.tsx       # News listing
-│   │   ├── success-stories/   # Student success stories
-│   │   ├── about/             # Academy "About Us" page
-│   │   ├── contact/           # Contact page with form
-│   │   ├── faq/               # FAQ page
-│   │   ├── register/          # Public registration page
-│   │   ├── globals.css        # Global styles + Tailwind imports + custom CSS
-│   │   ├── layout.tsx         # Root layout (RTL dir="rtl", Vazirmatn font, metadata)
-│   │   ├── page.tsx           # Landing/hero page
-│   │   ├── sitemap.ts         # Dynamic sitemap generation
-│   │   └── robots.ts          # Robots.txt
-│   ├── components/            # Reusable React components
-│   │   ├── ui/                # Base UI components (Button, Card, Badge, Input, etc.)
-│   │   ├── layout/            # Layout components (Header, Footer, Navbar, Sidebar, etc.)
-│   │   ├── home/              # Landing page section components
-│   │   │   ├── Hero.tsx
-│   │   │   ├── Programs.tsx
-│   │   │   ├── CoachSpotlight.tsx
-│   │   │   ├── SuccessStories.tsx
-│   │   │   ├── Testimonials.tsx
-│   │   │   ├── Stats.tsx
-│   │   │   ├── WhyChooseUs.tsx
-│   │   │   ├── News.tsx
-│   │   │   ├── CTA.tsx
-│   │   │   └── ...
-│   │   ├── admin/             # Admin-specific components
-│   │   │   ├── DataTable.tsx
-│   │   │   ├── ProgramForm.tsx
-│   │   │   ├── StudentForm.tsx
-│   │   │   ├── CoachForm.tsx
-│   │   │   ├── NewsForm.tsx
-│   │   │   └── ...
-│   │   ├── programs/          # Program-related components
-│   │   ├── register/          # Registration form components
-│   │   ├── news/              # News-related components
-│   │   └── ...
-│   ├── lib/                   # Shared utilities
-│   │   ├── db.ts              # Prisma client singleton
-│   │   ├── utils.ts           # General utilities (cn, format helpers)
-│   │   ├── auth.ts            # NextAuth config
-│   │   └── ...
-│   ├── validations/           # Zod schemas for form validation
-│   │   ├── program.ts
-│   │   ├── student.ts
-│   │   ├── coach.ts
-│   │   ├── registration.ts
-│   │   └── ...
-│   └── types/                 # TypeScript type definitions
-│       ├── program.ts
-│       ├── student.ts
-│       ├── coach.ts
-│       └── ...
-├── prisma/                    # (symlinked from workspace root)
-│   ├── schema.prisma          # Database schema
-│   └── seed.ts                # Database seed script
-├── middleware.ts              # Next.js middleware (auth guards, redirects)
-├── next.config.ts             # Next.js configuration
-├── tailwind.config.ts         # Tailwind + custom theme (colors, animations)
-├── tsconfig.json              # TypeScript config
-├── package.json
-└── vercel.json                # Vercel deployment config
-```
-
-### 3.4 Database Schema (Prisma)
-
-The database is defined in `prisma/schema.prisma` and shared via the `@ap-football-academy/db` package. Key entities:
-
-| Entity | Purpose |
-|--------|---------|
-| `Program` | Training programs (name, description, price, duration, age range, level, etc.) |
-| `ProgramCategory` | Categories for organizing programs |
-| `Coach` | Coach information (name, bio, certifications, experience, etc.) |
-| `Student` | Student profiles (personal info, birth date, medical info, etc.) |
-| `Registration` | Student-to-program enrollment records |
-| `News` | News articles (title, content, slug, category, images, status) |
-| `NewsCategory` | News categories |
-| `SuccessStory` | Student success stories/testimonials |
-| `Testimonial` | General testimonials |
-| `Setting` | Academy settings (key-value store for configurable values) |
-| `Account` | NextAuth account |
-| `Session` | NextAuth session |
-| `VerificationToken` | NextAuth verification token |
-| `User` | NextAuth user |
-
-### 3.5 API Routes (`src/pages/api/`)
-
-| Route | Method | Purpose |
-|-------|--------|---------|
-| `/api/programs` | GET | List active programs (with coach info) |
-| `/api/programs/[id]` | GET | Get single program details |
-| `/api/register` | POST | Handle public registration submissions |
-| `/api/students` | GET/POST | Student CRUD operations |
-| `/api/crawler-news` | GET | Fetch/process crawler news data |
-| `/api/get-session` | GET | Retrieve NextAuth session |
-| `/api/webhook` | POST | Webhook handler (likely for payment) |
-
-> **Note:** API routes use the legacy Pages Router pattern. New routes should prefer the App Router `src/app/api/` directory.
-
-### 3.6 Admin Dashboard
-
-A full admin panel under `/admin` with the following modules:
-
-- **Dashboard** — Overview stats (total students, programs, registrations, revenue)
-- **Programs** — CRUD for training programs with categories, coaches, pricing
-- **Students** — Student management (add/edit/view/search)
-- **Registrations** — Manage student enrollments
-- **Coaches** — Coach profiles, certifications, experience
-- **News** — Article management with categories and rich content
-- **Success Stories** — Student achievement stories
-- **Testimonials** — General testimonials
-- **Program Categories** — Program categorization
-- **News Categories** — News categorization
-- **Settings** — Academy configuration (key-value)
-
-### 3.7 Public Pages
-
-| Page | Route | Description |
-|------|-------|-------------|
-| **Landing** | `/` | Hero section, programs preview, coaches, success stories, testimonials, stats, CTA |
-| **Programs** | `/programs` | All programs listing with filters |
-| **Program Detail** | `/programs/[slug]` | Individual program details, enrollment CTA |
-| **News** | `/news` | News listing |
-| **News Article** | `/news/[slug]` | Full article with related content |
-| **Success Stories** | `/success-stories` | Student achievements and testimonials |
-| **About** | `/about` | Academy history, mission, facilities |
-| **Contact** | `/contact` | Contact form, map, info |
-| **FAQ** | `/faq` | Frequently asked questions |
-| **Register** | `/register` | Public registration form |
-| **Sign In** | `/sign-in` | Admin login |
-| **Sign Up** | `/sign-up` | Admin registration |
-
-### 3.8 Design System
-
-| Token | Value |
-|-------|-------|
-| **Primary Color** | `#059669` (emerald green) |
-| **Secondary Color** | `#0891b2` (cyan/teal) |
-| **Accent Color** | `#f59e0b` (amber) |
-| **Font Family** | Vazirmatn (Google Fonts) |
-| **Direction** | RTL (`dir="rtl"`) |
-| **Style** | Glassmorphism cards, gradient backgrounds, rounded corners |
-| **Custom Classes** | `card-glass`, `btn`, `gradient-text`, `persian-numbers`, `section-padding`, `container-custom` |
-
-### 3.9 Key Configuration Files
-
-| File | Purpose |
-|------|---------|
-| `next.config.ts` | Next.js config (images, redirects, rewrites) |
-| `tailwind.config.ts` | Tailwind theme (custom colors, animations, text-shadow) |
-| `middleware.ts` | Auth guards for `/admin` routes, redirects |
-| `vercel.json` | Vercel deployment settings |
-| `tsconfig.json` | TypeScript path aliases (`@/*` → `src/*`) |
-
----
-
-## 4. Project: `apps/mobile` (Expo React Native)
-
-| Field | Value |
-|-------|-------|
-| **Package Name** | `@ap-football-academy/mobile` |
-| **Framework** | Expo SDK ~53 |
-| **Runtime** | React Native 0.79 + React 19 |
-| **Navigation** | React Navigation (Bottom Tabs + Stack) |
-| **Language** | TypeScript |
-| **Purpose** | Mobile companion app for the academy (student/coach portal) |
-| **State** | Not yet determined (likely context or Zustand) |
-
-### 4.1 Dependencies
-
-| Category | Packages |
-|----------|----------|
-| **Navigation** | `@react-navigation/bottom-tabs`, `@react-navigation/stack` |
-| **UI** | `@expo/vector-icons`, `expo-linear-gradient` |
-| **Networking** | `axios` |
-| **Expo** | `expo-font`, `expo-status-bar`, `expo` |
-| **React Native** | `react-native-gesture-handler`, `react-native-safe-area-context`, `react-native-screens`, `react-native-web` |
-
-### 4.2 Status
-
-> ⚠️ **Early stage** — Basic Expo project scaffolded. Core features, navigation structure, and screen implementations are pending. This project will consume APIs from the `website` project or a future backend service.
-
----
-
-## 5. Project: `apps/crawler` (Python)
-
-| Field | Value |
-|-------|-------|
-| **Name** | Football Intelligence Crawler |
-| **Language** | Python 3.8+ |
-| **Framework** | FastAPI |
-| **Purpose** | Web crawling + LLM-powered extraction of Persian football content |
-| **Target Sources** | Varzesh3, Persian Football, Football Iran, ISNA |
-
-### 5.1 Capabilities
-
-- **Web Crawling**: Playwright-based scraping with rate limiting and anti-bot evasion
-- **LLM Processing**: GPT-4 integration for content analysis, sentiment, entity extraction
-- **Data Storage**: PostgreSQL + Redis caching
-- **API**: FastAPI-based REST API for querying crawled data
-
-### 5.2 Key Components
-
-| Component | Description |
-|-----------|-------------|
-| `crawler/spiders/` | Web scraping spiders for Persian football sites |
-| `crawler/agents/` | LLM agent for content analysis |
-| `crawler/database/` | PostgreSQL connection management |
-| `crawler/utils/` | Persian text processing, prompt templates, rate limiting |
-
-### 5.3 Integration
-
-The crawler feeds processed football news into the academy's database, enriching the `News` entity on the website with latest Persian football content.
-
----
-
-## 6. Package: `packages/db` (Shared Database Layer)
-
-| Field | Value |
-|-------|-------|
-| **Package Name** | `@ap-football-academy/db` |
-| **Purpose** | Shared Prisma schema, client, and seed data |
-| **ORM** | Prisma |
-| **Database** | PostgreSQL |
-
-### 6.1 Structure
-
-```
-packages/db/
 ├── prisma/
-│   └── schema.prisma      # Shared Prisma schema
+│   ├── schema.prisma     # Database schema (PostgreSQL)
+│   └── seed.ts           # Database seeding script
 ├── src/
-│   └── index.ts           # Prisma client export
-├── seed.ts                # Database seed script
-└── package.json
+│   ├── pages/            # Next.js Pages Router
+│   │   ├── _app.tsx      # App wrapper (SEO, Toaster, global styles)
+│   │   ├── _document.tsx # Custom Document (RTL support, fonts)
+│   │   ├── index.tsx     # Home page (hero, programs, stats, testimonials)
+│   │   ├── about.tsx     # About page (mission, history, values)
+│   │   ├── programs.tsx  # Programs listing page
+│   │   ├── program/[id].tsx  # Individual program detail page
+│   │   ├── coaches.tsx   # Coaches listing page
+│   │   ├── coach/[id].tsx    # Individual coach profile page
+│   │   ├── facilities.tsx    # Facilities showcase
+│   │   ├── testimonials.tsx  # Testimonials page
+│   │   ├── contact.tsx       # Contact form & info
+│   │   ├── register.tsx      # Registration form
+│   │   ├── login.tsx         # Student login
+│   │   ├── dashboard.tsx     # Student dashboard
+│   │   ├── admin/            # Admin pages
+│   │   │   ├── index.tsx
+│   │   │   ├── programs.tsx
+│   │   │   ├── students.tsx
+│   │   │   └── payments.tsx
+│   │   ├── api/            # API Routes
+│   │   │   ├── auth/
+│   │   │   │   ├── login/
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── register/
+│   │   │   │       └── route.ts
+│   │   │   ├── programs/
+│   │   │   │   └── route.ts
+│   │   │   ├── registrations/
+│   │   │   │   └── route.ts
+│   │   │   ├── payments/
+│   │   │   │   └── route.ts
+│   │   │   └── ...
+│   │   └── ...
+│   ├── components/
+│   │   ├── Layout.tsx          # Page layout wrapper (Header + Footer)
+│   │   ├── Header.tsx          # Navigation header
+│   │   ├── Footer.tsx          # Site footer
+│   │   ├── ProgramCard.tsx     # Program listing card
+│   │   ├── CoachCard.tsx       # Coach listing card
+│   │   ├── TestimonialCard.tsx # Testimonial display
+│   │   ├── RegistrationForm.tsx# Registration form
+│   │   ├── LoginForm.tsx       # Login form
+│   │   ├── Dashboard/          # Dashboard components
+│   │   │   ├── StudentPanel.tsx
+│   │   │   ├── PaymentHistory.tsx
+│   │   │   └── Attendance.tsx
+│   │   └── Admin/              # Admin panel components
+│   │       ├── ProgramManager.tsx
+│   │       ├── StudentManager.tsx
+│   │       └── PaymentManager.tsx
+│   ├── lib/
+│   │   ├── db.ts           # Prisma client singleton
+│   │   └── utils.ts        # Shared utilities
+│   ├── styles/
+│   │   └── globals.css     # Global styles + Tailwind imports
+│   ├── hooks/              # Custom React hooks
+│   ├── store/              # Zustand stores
+│   └── next-seo.config.ts  # Default SEO configuration
+├── public/                 # Static assets (images, fonts, etc.)
+├── next.config.js          # Next.js configuration
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
+├── tsconfig.json           # TypeScript configuration
+├── package.json
+└── .env                    # Environment variables
 ```
 
 ---
 
-## 7. Nx Workspace Configuration
+## 🗄️ Database Schema (Prisma)
 
-### 7.1 Project Graph
+The database uses **PostgreSQL** and defines the following core models:
 
+### User Model
+- `id` (cuid), `email` (unique), `password`, `firstName`, `lastName`, `phone` (nullable)
+- `role`: Enum (STUDENT, ADMIN, COACH)
+- Relations: registrations, payments, attendance, evaluations
+
+### Coach Model
+- `id`, `firstName`, `lastName`, `email` (unique), `phone`, `specialization`
+- `experience` (years), `createdAt`, `updatedAt`
+- Relations: programs, sessions, evaluations
+
+### Program Model
+- `id`, `name`, `description`, `price` (Toman), `duration` (months), `sessionCount`
+- `maxStudents` (default: 15), `isActive`, `popular`
+- `icon`, `ageRange`, `color`, `period`, `rating`, `studentsEnrolled`
+- `features` (string array)
+- `level`: string
+- Relations: coach (many-to-one), schedules, registrations, sessions
+
+### Schedule Model
+- `id`, `day`, `time`
+- Relation: program (one-to-many)
+
+### Registration Model
+- `id`, `status` (PENDING, APPROVED, CANCELLED, COMPLETED), `totalAmount`, `paidAmount`
+- `registeredAt`, `updatedAt`
+- Relations: user, program, payments
+
+### Payment Model
+- `id`, `amount`, `status` (PENDING, COMPLETED, FAILED, REFUNDED)
+- `method` (ONLINE, CASH, BANK_TRANSFER), `stripeId` (nullable)
+- `createdAt`, `updatedAt`
+- Relations: user, registration
+
+### Session Model
+- `id`, `name`, `description`, `date`, `duration` (minutes), `location`
+- `maxCapacity` (default: 15), `status` (SCHEDULED, ONGOING, COMPLETED, CANCELLED)
+- `createdAt`, `updatedAt`
+- Relations: program, coach, attendance
+
+### Attendance Model
+- `id`, `status` (PRESENT, ABSENT, LATE, EXCUSED), `notes`
+- `createdAt`, `updatedAt`
+- Relations: user, session
+- Unique constraint: `[userId, sessionId]`
+
+### Evaluation Model
+- `id`, `technical` (1-10), `physical` (1-10), `mental` (1-10), `teamwork` (1-10), `overall` (1-10)
+- `notes`, `createdAt`, `updatedAt`
+- Relations: user, coach
+
+---
+
+## 📄 Pages Overview
+
+| Route | Description |
+|-------|-------------|
+| `/` | Home page — hero section, featured programs, statistics, testimonials, CTA |
+| `/about` | About the academy — mission, history, values |
+| `/programs` | All training programs listing |
+| `/program/[id]` | Individual program detail page |
+| `/coaches` | Coach profiles listing |
+| `/coach/[id]` | Individual coach profile |
+| `/facilities` | Facility showcase with map |
+| `/testimonials` | Student testimonials |
+| `/contact` | Contact form and information |
+| `/register` | Student registration form |
+| `/login` | Student login |
+| `/dashboard` | Student dashboard — attendance, payments, evaluations |
+| `/admin` | Admin panel entry point |
+| `/admin/programs` | Admin program management |
+| `/admin/students` | Admin student management |
+| `/admin/payments` | Admin payment management |
+
+---
+
+## 🔌 API Routes
+
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/api/auth/login` | POST | Student authentication |
+| `/api/auth/register` | POST | Student registration |
+| `/api/programs` | GET | Fetch all programs |
+| `/api/registrations` | POST | Create registration |
+| `/api/payments` | POST | Process payment |
+
+---
+
+## 🔧 Configuration
+
+### Environment Variables (`.env`)
+```env
+SQLITE_DATABASE_URL=file:./dev.db
+DATABASE_URL="postgresql://postgres:password@localhost:5432/AP"
 ```
-@ap-football-academy/website
-├── depends on → @ap-football-academy/db
-└── depends on → apps/crawler (data source)
 
-@ap-football-academy/mobile
-├── depends on → @ap-football-academy/db (future API consumption)
-└── depends on → apps/crawler (future data source)
+### TypeScript (`tsconfig.json`)
+- **Target**: ES2022
+- **Module**: `preserve` (for bundler)
+- **Module Resolution**: `bundler`
+- **JSX**: `react-jsx`
+- **Strict mode**: Enabled
+- **Path aliases**: `@/*` → `./src/*`
+- **Incremental**: Enabled
+- **Includes**: `src/**/*.ts,tsx,js,jsx`, `prisma/**/*.ts`
+
+### Next.js Config
+- **Output**: Standalone (for Docker/container deployment)
+- **Trailing slashes**: Enabled
+- **Image domains**: `images.unsplash.com`, `placehold.co`, `res.cloudinary.com`
+- **Analytics**: Vercel Analytics enabled
+- **Dev**: Uses Turbopack
+
+---
+
+## 🎨 Styling
+
+- **Tailwind CSS** with custom theme (colors, fonts, spacing)
+- **shadcn/ui** components (Radix UI primitives)
+- **RTL support** via custom Document (`_document.tsx`) — important for Persian/Farsi language
+- **Global styles** in `globals.css` with Tailwind directives
+
+---
+
+## 📦 Nx Integration
+
+The website is managed as an Nx workspace target. Key Nx tasks:
+
+| Task | Command | Description |
+|------|---------|-------------|
+| Dev | `nx dev website` | Start development server |
+| Build | `nx build website` | Build for production |
+| Lint | `nx lint website` | ESLint checks |
+| Test | `nx test website` | Run tests |
+| E2E | `nx e2e website` | Run E2E tests |
+
+---
+
+## ⚠️ Known Issues & Notes
+
+### 1. `'use server'` Directive Misuse in `programs.tsx`
+The `apps/website/src/pages/programs.tsx` file has `'use server'` at the top. **This is incorrect.** The `'use server'` directive is for the **App Router** (React Server Components) and should NOT be used in Pages Router files.
+
+**Correct approach for Pages Router:**
+- Use `getServerSideProps()` for server-side data fetching
+- Use `getStaticProps()` for static generation
+- Use API routes (`/api/*`) for server-side logic
+- Client components need `'use client'` if they use `useState`, `useEffect`, or browser APIs
+
+### 2. `db.ts` Exports a Promise
+The `getPrisma()` function returns a Promise, but it's exported as `export const prisma = getPrisma();`. This means `prisma` is a `Promise<PrismaClient>`, not a `PrismaClient` instance. Consumers must `await` it before use.
+
+**Recommendation:** Use a proper singleton pattern:
+```ts
+let prisma: PrismaClient | undefined;
+if (!global.prisma) {
+  global.prisma = new PrismaClient();
+}
+export const prisma = global.prisma;
 ```
 
-### 7.2 Key Nx Commands
+### 3. Environment Variable Mismatch
+The `.env` file has both `SQLITE_DATABASE_URL` and `DATABASE_URL` (PostgreSQL). The Prisma schema targets PostgreSQL, but the SQLite URL may cause confusion. Ensure the correct `DATABASE_URL` is used in production.
 
-```bash
-# Run tasks
-pnpm nx run website:dev          # Start website dev server
-pnpm nx run website:build        # Build website
-pnpm nx run website:lint         # ESLint
-pnpm nx run website:test         # Tests
-
-pnpm nx run mobile:android       # Start Expo Android
-pnpm nx run mobile:ios           # Start Expo iOS
-
-pnpm nx run-many -t lint test build   # All projects
+### 4. No i18n Configuration
+Despite RTL support in the Document, there's no Next.js i18n configuration set up for Persian/Farsi language support. Consider adding:
+```js
+// next.config.js
+module.exports = {
+  i18n: {
+    locales: ['fa', 'en'],
+    defaultLocale: 'fa',
+    localeDetection: true,
+  },
+};
 ```
 
 ---
 
-## 8. Environment Variables
+## 🚀 Development Workflow
 
-### Website (`.env` / Vercel env vars)
-
-| Variable | Purpose |
-|----------|---------|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `NEXTAUTH_SECRET` | NextAuth signing secret |
-| `NEXTAUTH_URL` | NextAuth callback URL |
-| `REDIS_URL` | Redis connection (for crawler) |
-
-### Crawler (`.env`)
-
-| Variable | Purpose |
-|----------|---------|
-| `OPENAI_API_KEY` | OpenAI API key for LLM processing |
-| `DATABASE_URL` | PostgreSQL connection |
-| `REDIS_URL` | Redis connection |
-| `CRAWLER_DELAY` | Request delay between crawls |
+1. **Start dev server**: `nx dev website` (uses Turbopack)
+2. **Database migrations**: `npx prisma migrate dev` (in `apps/website/`)
+3. **Database seeding**: `npx prisma db seed` (in `apps/website/`)
+4. **Build**: `nx build website`
+5. **Lint**: `nx lint website`
+6. **Test**: `nx test website`
 
 ---
 
-## 9. Development Guidelines
+## 📝 Future Expansion Plans
 
-### Website Development
-
-1. **RTL First**: All components must be designed for RTL (Persian) layout. Use `space-x-reverse` and `rtl` utilities in Tailwind.
-2. **Server Components**: Prefer Server Components (RSC) in the App Router. Use `'use client'` only when interactivity is needed.
-3. **Data Fetching**: Fetch data in Server Components or Server Actions. Avoid client-side fetching where possible.
-4. **Validation**: Use Zod schemas in `src/validations/` for all form data.
-5. **Admin Auth**: Admin routes are guarded by `middleware.ts`. Only authenticated users can access `/admin`.
-6. **Database**: Access via `@ap-football-academy/db` package. Use `prisma` singleton from `src/lib/db.ts`.
-7. **New Pages**: Add to `src/app/` following the existing route group pattern.
-8. **New Components**: Place in the appropriate `src/components/` subdirectory (or create one).
-9. **New Types**: Add to `src/types/` matching the entity name.
-
-### Database Changes
-
-1. Edit `prisma/schema.prisma`
-2. Run `pnpm prisma migrate dev` to generate migration
-3. Update types: `pnpm prisma generate`
-4. Update seed if needed in `prisma/seed.ts`
-
-### Mobile Development
-
-1. `pnpm nx run mobile:android` — start Expo dev server for Android
-2. `pnpm nx run mobile:ios` — start Expo dev server for iOS
-3. `pnpm nx run mobile:clear` — clear Expo cache
-
-### Crawler Development
-
-1. Requires Python 3.8+, PostgreSQL, Redis
-2. `pip install -r requirements.txt`
-3. `playwright install`
-4. `python main.py server` — start API
-5. `python main.py crawl --sites varzesh3 --max-pages 50` — run crawl
+- **Admin dashboard** (`apps/admin`) — Full management interface for coaches, students, programs
+- **Mobile app** (`apps/mobile`) — React Native app for students to track progress, schedule, payments
+- **Shared packages** — Extract common types, utilities, and API clients to `packages/shared`
+- **i18n** — Full Persian/Farsi + English bilingual support
+- **Stripe integration** — Payment processing for program registration
+- **Real-time features** — WebSocket for live updates (attendance, messages)
+- **Admin API** — RESTful API for the admin dashboard
 
 ---
 
-## 10. Deployment
-
-### Website
-
-- **Platform**: Vercel
-- **Config**: `apps/website/vercel.json`
-- **Build**: `next build`
-- **Environment**: Set all env vars in Vercel dashboard
-
-### Mobile
-
-- **Platform**: Expo (EAS Build for production)
-- **Distribution**: Google Play Store + Apple App Store
-
-### Crawler
-
-- **Platform**: Self-hosted or cloud (Docker support included)
-- **Services**: PostgreSQL + Redis required
-
----
-
-## 11. Glossary (Persian → English)
-
-| Persian | English |
-|---------|---------|
-| آکادمی فوتبال AP | AP Football Academy |
-| برنامه‌ها | Programs |
-| مربیان | Coaches |
-| دانش‌آموزان | Students |
-| ثبت‌نام | Registration |
-| اخبار | News |
-| داستان‌های موفقیت | Success Stories |
-| سوالات متداول | FAQ |
-| درباره ما | About Us |
-| تماس با ما | Contact Us |
-| ورود | Sign In |
-| عضویت | Sign Up |
-| پنل مدیریت | Admin Dashboard |
-
----
-
-*Document created for agent reference. Last updated: 2025.*
+*This document should be updated as the project evolves. Focus now is on the `apps/website` project; other projects will be documented in future iterations.*

@@ -1,11 +1,16 @@
-'use server';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import Programs from '../components/Programs';
+import type { GetServerSideProps } from 'next';
+import { getPrograms } from '@/services/programService';
+import { withSite, SiteProps } from '@/lib/page-props';
+import Program from '@/viewModels/program';
 
-async function ProgramsPage() {
-  const { getPrograms } = await import('@/services/programs_svc');
-  const programs = await getPrograms();
+interface ProgramsPageProps extends SiteProps {
+  programs: Program[];
+}
+
+function ProgramsPage({ programs }: ProgramsPageProps) {
   return (
     <Layout
       title="برنامه‌های آموزشی - آکادمی فوتبال AP"
@@ -38,5 +43,11 @@ async function ProgramsPage() {
     </Layout>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<
+  ProgramsPageProps
+> = async () => ({
+  props: await withSite({ programs: await getPrograms() }),
+});
 
 export default ProgramsPage;

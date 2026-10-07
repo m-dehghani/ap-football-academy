@@ -31,8 +31,11 @@ export type ProgramAvgAggregateOutputType = {
   duration: number | null
   sessionCount: number | null
   maxStudents: number | null
+  minAge: number | null
+  maxAge: number | null
   rating: number | null
   studentsEnrolled: number | null
+  displayOrder: number | null
 }
 
 export type ProgramSumAggregateOutputType = {
@@ -40,8 +43,11 @@ export type ProgramSumAggregateOutputType = {
   duration: number | null
   sessionCount: number | null
   maxStudents: number | null
+  minAge: number | null
+  maxAge: number | null
   rating: number | null
   studentsEnrolled: number | null
+  displayOrder: number | null
 }
 
 export type ProgramMinAggregateOutputType = {
@@ -56,11 +62,14 @@ export type ProgramMinAggregateOutputType = {
   popular: boolean | null
   icon: string | null
   ageRange: string | null
+  minAge: number | null
+  maxAge: number | null
   color: string | null
   period: string | null
   rating: number | null
   studentsEnrolled: number | null
   level: string | null
+  displayOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
   coachId: string | null
@@ -78,11 +87,14 @@ export type ProgramMaxAggregateOutputType = {
   popular: boolean | null
   icon: string | null
   ageRange: string | null
+  minAge: number | null
+  maxAge: number | null
   color: string | null
   period: string | null
   rating: number | null
   studentsEnrolled: number | null
   level: string | null
+  displayOrder: number | null
   createdAt: Date | null
   updatedAt: Date | null
   coachId: string | null
@@ -100,12 +112,15 @@ export type ProgramCountAggregateOutputType = {
   popular: number
   icon: number
   ageRange: number
+  minAge: number
+  maxAge: number
   color: number
   period: number
   rating: number
   studentsEnrolled: number
   features: number
   level: number
+  displayOrder: number
   createdAt: number
   updatedAt: number
   coachId: number
@@ -118,8 +133,11 @@ export type ProgramAvgAggregateInputType = {
   duration?: true
   sessionCount?: true
   maxStudents?: true
+  minAge?: true
+  maxAge?: true
   rating?: true
   studentsEnrolled?: true
+  displayOrder?: true
 }
 
 export type ProgramSumAggregateInputType = {
@@ -127,8 +145,11 @@ export type ProgramSumAggregateInputType = {
   duration?: true
   sessionCount?: true
   maxStudents?: true
+  minAge?: true
+  maxAge?: true
   rating?: true
   studentsEnrolled?: true
+  displayOrder?: true
 }
 
 export type ProgramMinAggregateInputType = {
@@ -143,11 +164,14 @@ export type ProgramMinAggregateInputType = {
   popular?: true
   icon?: true
   ageRange?: true
+  minAge?: true
+  maxAge?: true
   color?: true
   period?: true
   rating?: true
   studentsEnrolled?: true
   level?: true
+  displayOrder?: true
   createdAt?: true
   updatedAt?: true
   coachId?: true
@@ -165,11 +189,14 @@ export type ProgramMaxAggregateInputType = {
   popular?: true
   icon?: true
   ageRange?: true
+  minAge?: true
+  maxAge?: true
   color?: true
   period?: true
   rating?: true
   studentsEnrolled?: true
   level?: true
+  displayOrder?: true
   createdAt?: true
   updatedAt?: true
   coachId?: true
@@ -187,12 +214,15 @@ export type ProgramCountAggregateInputType = {
   popular?: true
   icon?: true
   ageRange?: true
+  minAge?: true
+  maxAge?: true
   color?: true
   period?: true
   rating?: true
   studentsEnrolled?: true
   features?: true
   level?: true
+  displayOrder?: true
   createdAt?: true
   updatedAt?: true
   coachId?: true
@@ -297,12 +327,15 @@ export type ProgramGroupByOutputType = {
   popular: boolean
   icon: string
   ageRange: string
+  minAge: number
+  maxAge: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features: string[]
   level: string
+  displayOrder: number
   createdAt: Date
   updatedAt: Date
   coachId: string
@@ -343,12 +376,15 @@ export type ProgramWhereInput = {
   popular?: Prisma.BoolFilter<"Program"> | boolean
   icon?: Prisma.StringFilter<"Program"> | string
   ageRange?: Prisma.StringFilter<"Program"> | string
+  minAge?: Prisma.IntFilter<"Program"> | number
+  maxAge?: Prisma.IntFilter<"Program"> | number
   color?: Prisma.StringFilter<"Program"> | string
   period?: Prisma.StringFilter<"Program"> | string
   rating?: Prisma.FloatFilter<"Program"> | number
   studentsEnrolled?: Prisma.IntFilter<"Program"> | number
   features?: Prisma.StringNullableListFilter<"Program">
   level?: Prisma.StringFilter<"Program"> | string
+  displayOrder?: Prisma.IntFilter<"Program"> | number
   createdAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   coachId?: Prisma.StringFilter<"Program"> | string
@@ -356,6 +392,8 @@ export type ProgramWhereInput = {
   coach?: Prisma.XOR<Prisma.CoachScalarRelationFilter, Prisma.CoachWhereInput>
   registrations?: Prisma.RegistrationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  successStories?: Prisma.SuccessStoryListRelationFilter
+  testimonials?: Prisma.TestimonialListRelationFilter
 }
 
 export type ProgramOrderByWithRelationInput = {
@@ -370,12 +408,15 @@ export type ProgramOrderByWithRelationInput = {
   popular?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   ageRange?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   color?: Prisma.SortOrder
   period?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
   features?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
@@ -383,6 +424,8 @@ export type ProgramOrderByWithRelationInput = {
   coach?: Prisma.CoachOrderByWithRelationInput
   registrations?: Prisma.RegistrationOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
+  successStories?: Prisma.SuccessStoryOrderByRelationAggregateInput
+  testimonials?: Prisma.TestimonialOrderByRelationAggregateInput
 }
 
 export type ProgramWhereUniqueInput = Prisma.AtLeast<{
@@ -400,12 +443,15 @@ export type ProgramWhereUniqueInput = Prisma.AtLeast<{
   popular?: Prisma.BoolFilter<"Program"> | boolean
   icon?: Prisma.StringFilter<"Program"> | string
   ageRange?: Prisma.StringFilter<"Program"> | string
+  minAge?: Prisma.IntFilter<"Program"> | number
+  maxAge?: Prisma.IntFilter<"Program"> | number
   color?: Prisma.StringFilter<"Program"> | string
   period?: Prisma.StringFilter<"Program"> | string
   rating?: Prisma.FloatFilter<"Program"> | number
   studentsEnrolled?: Prisma.IntFilter<"Program"> | number
   features?: Prisma.StringNullableListFilter<"Program">
   level?: Prisma.StringFilter<"Program"> | string
+  displayOrder?: Prisma.IntFilter<"Program"> | number
   createdAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   coachId?: Prisma.StringFilter<"Program"> | string
@@ -413,6 +459,8 @@ export type ProgramWhereUniqueInput = Prisma.AtLeast<{
   coach?: Prisma.XOR<Prisma.CoachScalarRelationFilter, Prisma.CoachWhereInput>
   registrations?: Prisma.RegistrationListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
+  successStories?: Prisma.SuccessStoryListRelationFilter
+  testimonials?: Prisma.TestimonialListRelationFilter
 }, "id">
 
 export type ProgramOrderByWithAggregationInput = {
@@ -427,12 +475,15 @@ export type ProgramOrderByWithAggregationInput = {
   popular?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   ageRange?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   color?: Prisma.SortOrder
   period?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
   features?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
@@ -458,12 +509,15 @@ export type ProgramScalarWhereWithAggregatesInput = {
   popular?: Prisma.BoolWithAggregatesFilter<"Program"> | boolean
   icon?: Prisma.StringWithAggregatesFilter<"Program"> | string
   ageRange?: Prisma.StringWithAggregatesFilter<"Program"> | string
+  minAge?: Prisma.IntWithAggregatesFilter<"Program"> | number
+  maxAge?: Prisma.IntWithAggregatesFilter<"Program"> | number
   color?: Prisma.StringWithAggregatesFilter<"Program"> | string
   period?: Prisma.StringWithAggregatesFilter<"Program"> | string
   rating?: Prisma.FloatWithAggregatesFilter<"Program"> | number
   studentsEnrolled?: Prisma.IntWithAggregatesFilter<"Program"> | number
   features?: Prisma.StringNullableListFilter<"Program">
   level?: Prisma.StringWithAggregatesFilter<"Program"> | string
+  displayOrder?: Prisma.IntWithAggregatesFilter<"Program"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Program"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Program"> | Date | string
   coachId?: Prisma.StringWithAggregatesFilter<"Program"> | string
@@ -481,18 +535,23 @@ export type ProgramCreateInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
   coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
   registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUncheckedCreateInput = {
@@ -507,18 +566,23 @@ export type ProgramUncheckedCreateInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coachId: string
   schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
   registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUpdateInput = {
@@ -533,18 +597,23 @@ export type ProgramUpdateInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
   coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
   registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateInput = {
@@ -559,18 +628,23 @@ export type ProgramUncheckedUpdateInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
   registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramCreateManyInput = {
@@ -585,12 +659,15 @@ export type ProgramCreateManyInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coachId: string
@@ -608,12 +685,15 @@ export type ProgramUpdateManyMutationInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -630,12 +710,15 @@ export type ProgramUncheckedUpdateManyInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -651,14 +734,6 @@ export type ProgramOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type ProgramCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -671,12 +746,15 @@ export type ProgramCountOrderByAggregateInput = {
   popular?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   ageRange?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   color?: Prisma.SortOrder
   period?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
   features?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
@@ -687,8 +765,11 @@ export type ProgramAvgOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   sessionCount?: Prisma.SortOrder
   maxStudents?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type ProgramMaxOrderByAggregateInput = {
@@ -703,11 +784,14 @@ export type ProgramMaxOrderByAggregateInput = {
   popular?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   ageRange?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   color?: Prisma.SortOrder
   period?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
@@ -725,11 +809,14 @@ export type ProgramMinOrderByAggregateInput = {
   popular?: Prisma.SortOrder
   icon?: Prisma.SortOrder
   ageRange?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   color?: Prisma.SortOrder
   period?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
   level?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   coachId?: Prisma.SortOrder
@@ -740,8 +827,11 @@ export type ProgramSumOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   sessionCount?: Prisma.SortOrder
   maxStudents?: Prisma.SortOrder
+  minAge?: Prisma.SortOrder
+  maxAge?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   studentsEnrolled?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type ProgramNullableScalarRelationFilter = {
@@ -800,18 +890,6 @@ export type ProgramCreatefeaturesInput = {
   set: string[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ProgramUpdatefeaturesInput = {
   set?: string[]
   push?: string | string[]
@@ -861,6 +939,38 @@ export type ProgramUpdateOneRequiredWithoutSessionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProgramUpdateToOneWithWhereWithoutSessionsInput, Prisma.ProgramUpdateWithoutSessionsInput>, Prisma.ProgramUncheckedUpdateWithoutSessionsInput>
 }
 
+export type ProgramCreateNestedOneWithoutTestimonialsInput = {
+  create?: Prisma.XOR<Prisma.ProgramCreateWithoutTestimonialsInput, Prisma.ProgramUncheckedCreateWithoutTestimonialsInput>
+  connectOrCreate?: Prisma.ProgramCreateOrConnectWithoutTestimonialsInput
+  connect?: Prisma.ProgramWhereUniqueInput
+}
+
+export type ProgramUpdateOneWithoutTestimonialsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProgramCreateWithoutTestimonialsInput, Prisma.ProgramUncheckedCreateWithoutTestimonialsInput>
+  connectOrCreate?: Prisma.ProgramCreateOrConnectWithoutTestimonialsInput
+  upsert?: Prisma.ProgramUpsertWithoutTestimonialsInput
+  disconnect?: Prisma.ProgramWhereInput | boolean
+  delete?: Prisma.ProgramWhereInput | boolean
+  connect?: Prisma.ProgramWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProgramUpdateToOneWithWhereWithoutTestimonialsInput, Prisma.ProgramUpdateWithoutTestimonialsInput>, Prisma.ProgramUncheckedUpdateWithoutTestimonialsInput>
+}
+
+export type ProgramCreateNestedOneWithoutSuccessStoriesInput = {
+  create?: Prisma.XOR<Prisma.ProgramCreateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedCreateWithoutSuccessStoriesInput>
+  connectOrCreate?: Prisma.ProgramCreateOrConnectWithoutSuccessStoriesInput
+  connect?: Prisma.ProgramWhereUniqueInput
+}
+
+export type ProgramUpdateOneWithoutSuccessStoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.ProgramCreateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedCreateWithoutSuccessStoriesInput>
+  connectOrCreate?: Prisma.ProgramCreateOrConnectWithoutSuccessStoriesInput
+  upsert?: Prisma.ProgramUpsertWithoutSuccessStoriesInput
+  disconnect?: Prisma.ProgramWhereInput | boolean
+  delete?: Prisma.ProgramWhereInput | boolean
+  connect?: Prisma.ProgramWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProgramUpdateToOneWithWhereWithoutSuccessStoriesInput, Prisma.ProgramUpdateWithoutSuccessStoriesInput>, Prisma.ProgramUncheckedUpdateWithoutSuccessStoriesInput>
+}
+
 export type ProgramCreateWithoutCoachInput = {
   id?: string
   name: string
@@ -873,17 +983,22 @@ export type ProgramCreateWithoutCoachInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
   registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUncheckedCreateWithoutCoachInput = {
@@ -898,17 +1013,22 @@ export type ProgramUncheckedCreateWithoutCoachInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
   registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramCreateOrConnectWithoutCoachInput = {
@@ -952,12 +1072,15 @@ export type ProgramScalarWhereInput = {
   popular?: Prisma.BoolFilter<"Program"> | boolean
   icon?: Prisma.StringFilter<"Program"> | string
   ageRange?: Prisma.StringFilter<"Program"> | string
+  minAge?: Prisma.IntFilter<"Program"> | number
+  maxAge?: Prisma.IntFilter<"Program"> | number
   color?: Prisma.StringFilter<"Program"> | string
   period?: Prisma.StringFilter<"Program"> | string
   rating?: Prisma.FloatFilter<"Program"> | number
   studentsEnrolled?: Prisma.IntFilter<"Program"> | number
   features?: Prisma.StringNullableListFilter<"Program">
   level?: Prisma.StringFilter<"Program"> | string
+  displayOrder?: Prisma.IntFilter<"Program"> | number
   createdAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Program"> | Date | string
   coachId?: Prisma.StringFilter<"Program"> | string
@@ -975,17 +1098,22 @@ export type ProgramCreateWithoutScheduleInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
   registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUncheckedCreateWithoutScheduleInput = {
@@ -1000,17 +1128,22 @@ export type ProgramUncheckedCreateWithoutScheduleInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coachId: string
   registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramCreateOrConnectWithoutScheduleInput = {
@@ -1041,17 +1174,22 @@ export type ProgramUpdateWithoutScheduleInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
   registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateWithoutScheduleInput = {
@@ -1066,17 +1204,22 @@ export type ProgramUncheckedUpdateWithoutScheduleInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramCreateWithoutRegistrationsInput = {
@@ -1091,17 +1234,22 @@ export type ProgramCreateWithoutRegistrationsInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
   coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
   sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUncheckedCreateWithoutRegistrationsInput = {
@@ -1116,17 +1264,22 @@ export type ProgramUncheckedCreateWithoutRegistrationsInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coachId: string
   schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramCreateOrConnectWithoutRegistrationsInput = {
@@ -1157,17 +1310,22 @@ export type ProgramUpdateWithoutRegistrationsInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
   coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateWithoutRegistrationsInput = {
@@ -1182,17 +1340,22 @@ export type ProgramUncheckedUpdateWithoutRegistrationsInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramCreateWithoutSessionsInput = {
@@ -1207,17 +1370,22 @@ export type ProgramCreateWithoutSessionsInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
   coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
   registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramUncheckedCreateWithoutSessionsInput = {
@@ -1232,17 +1400,22 @@ export type ProgramUncheckedCreateWithoutSessionsInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   coachId: string
   schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
   registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
 }
 
 export type ProgramCreateOrConnectWithoutSessionsInput = {
@@ -1273,17 +1446,22 @@ export type ProgramUpdateWithoutSessionsInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
   coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
   registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateWithoutSessionsInput = {
@@ -1298,17 +1476,294 @@ export type ProgramUncheckedUpdateWithoutSessionsInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   coachId?: Prisma.StringFieldUpdateOperationsInput | string
   schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
   registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
+}
+
+export type ProgramCreateWithoutTestimonialsInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  duration: number
+  sessionCount: number
+  maxStudents?: number
+  isActive?: boolean
+  popular?: boolean
+  icon: string
+  ageRange: string
+  minAge?: number
+  maxAge?: number
+  color: string
+  period: string
+  rating: number
+  studentsEnrolled: number
+  features?: Prisma.ProgramCreatefeaturesInput | string[]
+  level: string
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
+  coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
+  registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryCreateNestedManyWithoutProgramInput
+}
+
+export type ProgramUncheckedCreateWithoutTestimonialsInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  duration: number
+  sessionCount: number
+  maxStudents?: number
+  isActive?: boolean
+  popular?: boolean
+  icon: string
+  ageRange: string
+  minAge?: number
+  maxAge?: number
+  color: string
+  period: string
+  rating: number
+  studentsEnrolled: number
+  features?: Prisma.ProgramCreatefeaturesInput | string[]
+  level: string
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  coachId: string
+  schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
+  registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  successStories?: Prisma.SuccessStoryUncheckedCreateNestedManyWithoutProgramInput
+}
+
+export type ProgramCreateOrConnectWithoutTestimonialsInput = {
+  where: Prisma.ProgramWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProgramCreateWithoutTestimonialsInput, Prisma.ProgramUncheckedCreateWithoutTestimonialsInput>
+}
+
+export type ProgramUpsertWithoutTestimonialsInput = {
+  update: Prisma.XOR<Prisma.ProgramUpdateWithoutTestimonialsInput, Prisma.ProgramUncheckedUpdateWithoutTestimonialsInput>
+  create: Prisma.XOR<Prisma.ProgramCreateWithoutTestimonialsInput, Prisma.ProgramUncheckedCreateWithoutTestimonialsInput>
+  where?: Prisma.ProgramWhereInput
+}
+
+export type ProgramUpdateToOneWithWhereWithoutTestimonialsInput = {
+  where?: Prisma.ProgramWhereInput
+  data: Prisma.XOR<Prisma.ProgramUpdateWithoutTestimonialsInput, Prisma.ProgramUncheckedUpdateWithoutTestimonialsInput>
+}
+
+export type ProgramUpdateWithoutTestimonialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  sessionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  maxStudents?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  period?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.ProgramUpdatefeaturesInput | string[]
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
+  coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
+  registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+}
+
+export type ProgramUncheckedUpdateWithoutTestimonialsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  sessionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  maxStudents?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  period?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.ProgramUpdatefeaturesInput | string[]
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  coachId?: Prisma.StringFieldUpdateOperationsInput | string
+  schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
+  registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+}
+
+export type ProgramCreateWithoutSuccessStoriesInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  duration: number
+  sessionCount: number
+  maxStudents?: number
+  isActive?: boolean
+  popular?: boolean
+  icon: string
+  ageRange: string
+  minAge?: number
+  maxAge?: number
+  color: string
+  period: string
+  rating: number
+  studentsEnrolled: number
+  features?: Prisma.ProgramCreatefeaturesInput | string[]
+  level: string
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  schedule?: Prisma.ScheduleCreateNestedManyWithoutProgramInput
+  coach: Prisma.CoachCreateNestedOneWithoutProgramsInput
+  registrations?: Prisma.RegistrationCreateNestedManyWithoutProgramInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProgramInput
+}
+
+export type ProgramUncheckedCreateWithoutSuccessStoriesInput = {
+  id?: string
+  name: string
+  description: string
+  price: number
+  duration: number
+  sessionCount: number
+  maxStudents?: number
+  isActive?: boolean
+  popular?: boolean
+  icon: string
+  ageRange: string
+  minAge?: number
+  maxAge?: number
+  color: string
+  period: string
+  rating: number
+  studentsEnrolled: number
+  features?: Prisma.ProgramCreatefeaturesInput | string[]
+  level: string
+  displayOrder?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  coachId: string
+  schedule?: Prisma.ScheduleUncheckedCreateNestedManyWithoutProgramInput
+  registrations?: Prisma.RegistrationUncheckedCreateNestedManyWithoutProgramInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutProgramInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProgramInput
+}
+
+export type ProgramCreateOrConnectWithoutSuccessStoriesInput = {
+  where: Prisma.ProgramWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProgramCreateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedCreateWithoutSuccessStoriesInput>
+}
+
+export type ProgramUpsertWithoutSuccessStoriesInput = {
+  update: Prisma.XOR<Prisma.ProgramUpdateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedUpdateWithoutSuccessStoriesInput>
+  create: Prisma.XOR<Prisma.ProgramCreateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedCreateWithoutSuccessStoriesInput>
+  where?: Prisma.ProgramWhereInput
+}
+
+export type ProgramUpdateToOneWithWhereWithoutSuccessStoriesInput = {
+  where?: Prisma.ProgramWhereInput
+  data: Prisma.XOR<Prisma.ProgramUpdateWithoutSuccessStoriesInput, Prisma.ProgramUncheckedUpdateWithoutSuccessStoriesInput>
+}
+
+export type ProgramUpdateWithoutSuccessStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  sessionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  maxStudents?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  period?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.ProgramUpdatefeaturesInput | string[]
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
+  coach?: Prisma.CoachUpdateOneRequiredWithoutProgramsNestedInput
+  registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
+}
+
+export type ProgramUncheckedUpdateWithoutSuccessStoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  price?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  sessionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  maxStudents?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.StringFieldUpdateOperationsInput | string
+  ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  period?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.ProgramUpdatefeaturesInput | string[]
+  level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  coachId?: Prisma.StringFieldUpdateOperationsInput | string
+  schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
+  registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramCreateManyCoachInput = {
@@ -1323,12 +1778,15 @@ export type ProgramCreateManyCoachInput = {
   popular?: boolean
   icon: string
   ageRange: string
+  minAge?: number
+  maxAge?: number
   color: string
   period: string
   rating: number
   studentsEnrolled: number
   features?: Prisma.ProgramCreatefeaturesInput | string[]
   level: string
+  displayOrder?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1345,17 +1803,22 @@ export type ProgramUpdateWithoutCoachInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedule?: Prisma.ScheduleUpdateManyWithoutProgramNestedInput
   registrations?: Prisma.RegistrationUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateWithoutCoachInput = {
@@ -1370,17 +1833,22 @@ export type ProgramUncheckedUpdateWithoutCoachInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedule?: Prisma.ScheduleUncheckedUpdateManyWithoutProgramNestedInput
   registrations?: Prisma.RegistrationUncheckedUpdateManyWithoutProgramNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutProgramNestedInput
+  successStories?: Prisma.SuccessStoryUncheckedUpdateManyWithoutProgramNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProgramNestedInput
 }
 
 export type ProgramUncheckedUpdateManyWithoutCoachInput = {
@@ -1395,12 +1863,15 @@ export type ProgramUncheckedUpdateManyWithoutCoachInput = {
   popular?: Prisma.BoolFieldUpdateOperationsInput | boolean
   icon?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
+  minAge?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAge?: Prisma.IntFieldUpdateOperationsInput | number
   color?: Prisma.StringFieldUpdateOperationsInput | string
   period?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   studentsEnrolled?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.ProgramUpdatefeaturesInput | string[]
   level?: Prisma.StringFieldUpdateOperationsInput | string
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1414,12 +1885,16 @@ export type ProgramCountOutputType = {
   schedule: number
   registrations: number
   sessions: number
+  successStories: number
+  testimonials: number
 }
 
 export type ProgramCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   schedule?: boolean | ProgramCountOutputTypeCountScheduleArgs
   registrations?: boolean | ProgramCountOutputTypeCountRegistrationsArgs
   sessions?: boolean | ProgramCountOutputTypeCountSessionsArgs
+  successStories?: boolean | ProgramCountOutputTypeCountSuccessStoriesArgs
+  testimonials?: boolean | ProgramCountOutputTypeCountTestimonialsArgs
 }
 
 /**
@@ -1453,6 +1928,20 @@ export type ProgramCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Type
   where?: Prisma.SessionWhereInput
 }
 
+/**
+ * ProgramCountOutputType without action
+ */
+export type ProgramCountOutputTypeCountSuccessStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SuccessStoryWhereInput
+}
+
+/**
+ * ProgramCountOutputType without action
+ */
+export type ProgramCountOutputTypeCountTestimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TestimonialWhereInput
+}
+
 
 export type ProgramSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1466,12 +1955,15 @@ export type ProgramSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   popular?: boolean
   icon?: boolean
   ageRange?: boolean
+  minAge?: boolean
+  maxAge?: boolean
   color?: boolean
   period?: boolean
   rating?: boolean
   studentsEnrolled?: boolean
   features?: boolean
   level?: boolean
+  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   coachId?: boolean
@@ -1479,6 +1971,8 @@ export type ProgramSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
   registrations?: boolean | Prisma.Program$registrationsArgs<ExtArgs>
   sessions?: boolean | Prisma.Program$sessionsArgs<ExtArgs>
+  successStories?: boolean | Prisma.Program$successStoriesArgs<ExtArgs>
+  testimonials?: boolean | Prisma.Program$testimonialsArgs<ExtArgs>
   _count?: boolean | Prisma.ProgramCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["program"]>
 
@@ -1494,12 +1988,15 @@ export type ProgramSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   popular?: boolean
   icon?: boolean
   ageRange?: boolean
+  minAge?: boolean
+  maxAge?: boolean
   color?: boolean
   period?: boolean
   rating?: boolean
   studentsEnrolled?: boolean
   features?: boolean
   level?: boolean
+  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   coachId?: boolean
@@ -1518,12 +2015,15 @@ export type ProgramSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   popular?: boolean
   icon?: boolean
   ageRange?: boolean
+  minAge?: boolean
+  maxAge?: boolean
   color?: boolean
   period?: boolean
   rating?: boolean
   studentsEnrolled?: boolean
   features?: boolean
   level?: boolean
+  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   coachId?: boolean
@@ -1542,23 +2042,28 @@ export type ProgramSelectScalar = {
   popular?: boolean
   icon?: boolean
   ageRange?: boolean
+  minAge?: boolean
+  maxAge?: boolean
   color?: boolean
   period?: boolean
   rating?: boolean
   studentsEnrolled?: boolean
   features?: boolean
   level?: boolean
+  displayOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   coachId?: boolean
 }
 
-export type ProgramOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "duration" | "sessionCount" | "maxStudents" | "isActive" | "popular" | "icon" | "ageRange" | "color" | "period" | "rating" | "studentsEnrolled" | "features" | "level" | "createdAt" | "updatedAt" | "coachId", ExtArgs["result"]["program"]>
+export type ProgramOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "price" | "duration" | "sessionCount" | "maxStudents" | "isActive" | "popular" | "icon" | "ageRange" | "minAge" | "maxAge" | "color" | "period" | "rating" | "studentsEnrolled" | "features" | "level" | "displayOrder" | "createdAt" | "updatedAt" | "coachId", ExtArgs["result"]["program"]>
 export type ProgramInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   schedule?: boolean | Prisma.Program$scheduleArgs<ExtArgs>
   coach?: boolean | Prisma.CoachDefaultArgs<ExtArgs>
   registrations?: boolean | Prisma.Program$registrationsArgs<ExtArgs>
   sessions?: boolean | Prisma.Program$sessionsArgs<ExtArgs>
+  successStories?: boolean | Prisma.Program$successStoriesArgs<ExtArgs>
+  testimonials?: boolean | Prisma.Program$testimonialsArgs<ExtArgs>
   _count?: boolean | Prisma.ProgramCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProgramIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1575,6 +2080,8 @@ export type $ProgramPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     coach: Prisma.$CoachPayload<ExtArgs>
     registrations: Prisma.$RegistrationPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
+    successStories: Prisma.$SuccessStoryPayload<ExtArgs>[]
+    testimonials: Prisma.$TestimonialPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1588,12 +2095,15 @@ export type $ProgramPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     popular: boolean
     icon: string
     ageRange: string
+    minAge: number
+    maxAge: number
     color: string
     period: string
     rating: number
     studentsEnrolled: number
     features: string[]
     level: string
+    displayOrder: number
     createdAt: Date
     updatedAt: Date
     coachId: string
@@ -1995,6 +2505,8 @@ export interface Prisma__ProgramClient<T, Null = never, ExtArgs extends runtime.
   coach<T extends Prisma.CoachDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CoachDefaultArgs<ExtArgs>>): Prisma.Prisma__CoachClient<runtime.Types.Result.GetResult<Prisma.$CoachPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   registrations<T extends Prisma.Program$registrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Program$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.Program$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Program$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  successStories<T extends Prisma.Program$successStoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Program$successStoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SuccessStoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  testimonials<T extends Prisma.Program$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Program$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2035,12 +2547,15 @@ export interface ProgramFieldRefs {
   readonly popular: Prisma.FieldRef<"Program", 'Boolean'>
   readonly icon: Prisma.FieldRef<"Program", 'String'>
   readonly ageRange: Prisma.FieldRef<"Program", 'String'>
+  readonly minAge: Prisma.FieldRef<"Program", 'Int'>
+  readonly maxAge: Prisma.FieldRef<"Program", 'Int'>
   readonly color: Prisma.FieldRef<"Program", 'String'>
   readonly period: Prisma.FieldRef<"Program", 'String'>
   readonly rating: Prisma.FieldRef<"Program", 'Float'>
   readonly studentsEnrolled: Prisma.FieldRef<"Program", 'Int'>
   readonly features: Prisma.FieldRef<"Program", 'String[]'>
   readonly level: Prisma.FieldRef<"Program", 'String'>
+  readonly displayOrder: Prisma.FieldRef<"Program", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Program", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Program", 'DateTime'>
   readonly coachId: Prisma.FieldRef<"Program", 'String'>
@@ -2514,6 +3029,54 @@ export type Program$sessionsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.SessionScalarFieldEnum | Prisma.SessionScalarFieldEnum[]
+}
+
+/**
+ * Program.successStories
+ */
+export type Program$successStoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SuccessStory
+   */
+  select?: Prisma.SuccessStorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SuccessStory
+   */
+  omit?: Prisma.SuccessStoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SuccessStoryInclude<ExtArgs> | null
+  where?: Prisma.SuccessStoryWhereInput
+  orderBy?: Prisma.SuccessStoryOrderByWithRelationInput | Prisma.SuccessStoryOrderByWithRelationInput[]
+  cursor?: Prisma.SuccessStoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SuccessStoryScalarFieldEnum | Prisma.SuccessStoryScalarFieldEnum[]
+}
+
+/**
+ * Program.testimonials
+ */
+export type Program$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Testimonial
+   */
+  select?: Prisma.TestimonialSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Testimonial
+   */
+  omit?: Prisma.TestimonialOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TestimonialInclude<ExtArgs> | null
+  where?: Prisma.TestimonialWhereInput
+  orderBy?: Prisma.TestimonialOrderByWithRelationInput | Prisma.TestimonialOrderByWithRelationInput[]
+  cursor?: Prisma.TestimonialWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TestimonialScalarFieldEnum | Prisma.TestimonialScalarFieldEnum[]
 }
 
 /**

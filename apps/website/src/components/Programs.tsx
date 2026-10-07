@@ -1,4 +1,6 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   CalendarDaysIcon,
   UserGroupIcon,
@@ -11,184 +13,29 @@ import {
   AcademicCapIcon,
 } from '@heroicons/react/24/outline';
 
-interface Program {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  duration: number;
-  sessionCount: number;
-  maxStudents?: number;
-  isActive: boolean;
-  popular: boolean;
-  icon: string;
-  ageRange: string;
-  color: string;
-  period: string;
-  rating: number;
-  studentsEnrolled: number;
-  features: string[];
-  level: string;
-  coach: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    specialization: string;
-    experience: number;
-  };
-  schedule: Schedule[];
-}
-
-interface Schedule {
-  id: string;
-  date: Date;
-  duration: string;
-}
+import Program from '@/viewModels/program';
+import Schedule from '@/viewModels/schedule';
+import { formatToman, toPersianDigits } from '@/lib/format';
 
 export default function Programs({ programs }: { programs: Program[] }) {
-  const [selectedProgram, setSelectedProgram] = useState(0);
+  const router = useRouter();
+  // Footer links open a specific program via /programs?program=<id>.
+  const [selectedProgram, setSelectedProgram] = useState(() =>
+    Math.max(
+      0,
+      programs.findIndex((p) => p.id === router.query.program),
+    ),
+  );
 
-  // const old_programs = [
-  //   {
-  //     id: 1,
-  //     name: 'برنامه کودکان',
-  //     ageRange: '8-12 سال',
-  //     description:
-  //       'ایجاد مهارت‌های اساسی از طریق فعالیت‌های سرگرم‌کننده و جذاب طراحی شده برای بازیکنان جوان.',
-  //     price: '۶',
-  //     currency: 'میلیون تومان',
-  //     period: 'ماه',
-  //     duration: 3,
-  //     sessions: 12,
-  //     maxStudents: 15,
-  //     coach: 'مربی محمد احمد',
-  //     level: 'مبتدی',
-  //     schedule: [
-  //       { day: 'شنبه', time: '16:00 - 17:30' },
-  //       { day: 'دوشنبه', time: '16:00 - 17:30' },
-  //       { day: 'چهارشنبه', time: '16:00 - 17:30' },
-  //     ],
-  //     features: [
-  //       'مهارت‌های حرکتی پایه',
-  //       'بازی‌ها و فعالیت‌های تیمی',
-  //       'توسعه هماهنگی',
-  //       'آشنایی با قوانین بازی',
-  //       'ارائه تجهیزات کامل',
-  //       'محیط یادگیری شاد',
-  //     ],
-  //     color: 'from-blue-500 to-blue-600',
-  //     bgColor: 'bg-blue-50',
-  //     icon: '⚽',
-  //     popular: false,
-  //     rating: 4.8,
-  //     studentsEnrolled: 45,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'برنامه نوجوانان',
-  //     ageRange: '13-17 سال',
-  //     description:
-  //       'تکنیک‌های پیشرفته و آموزش تاکتیکی برای بازیکنان جوان جدی که برای بازی رقابتی آماده هستند.',
-  //     price: '۸',
-  //     currency: 'میلیون تومان',
-  //     period: 'ماه',
-  //     duration: '4 ماه',
-  //     sessions: '16 جلسه',
-  //     maxStudents: '12 بازیکن',
-  //     coach: 'مربی علی کریمی',
-  //     level: 'متوسط',
-  //     schedule: [
-  //       { day: 'شنبه', time: '17:30 - 19:00' },
-  //       { day: 'دوشنبه', time: '17:30 - 19:00' },
-  //       { day: 'چهارشنبه', time: '17:30 - 19:00' },
-  //     ],
-  //     features: [
-  //       'مهارت‌های فردی پیشرفته',
-  //       'تاکتیک و استراتژی تیمی',
-  //       'آمادگی جسمانی',
-  //       'آموزش مهارت‌های ذهنی',
-  //       'آماده‌سازی برای مسابقات',
-  //       'تحلیل عملکرد',
-  //     ],
-  //     color: 'from-emerald-500 to-emerald-600',
-  //     bgColor: 'bg-emerald-50',
-  //     icon: '🏃',
-  //     popular: true,
-  //     rating: 4.9,
-  //     studentsEnrolled: 38,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'برنامه بزرگسالان',
-  //     ageRange: '18-25 سال',
-  //     description:
-  //       'آموزش سطح حرفه‌ای برای بزرگسالانی که به دنبال رقابت در لیگ‌ها و تورنمنت‌های محلی هستند.',
-  //     price: '۱۰',
-  //     currency: 'میلیون تومان',
-  //     period: 'ماه',
-  //     duration: '6 ماه',
-  //     sessions: '24 جلسه',
-  //     maxStudents: '10 بازیکن',
-  //     coach: 'مربی حسن میرزایی',
-  //     level: 'پیشرفته',
-  //     schedule: [
-  //       { day: 'شنبه', time: '19:00 - 20:30' },
-  //       { day: 'دوشنبه', time: '19:00 - 20:30' },
-  //       { day: 'چهارشنبه', time: '19:00 - 20:30' },
-  //       { day: 'جمعه', time: '18:00 - 19:30' },
-  //     ],
-  //     features: [
-  //       'روش‌های آموزشی حرفه‌ای',
-  //       'جلسات تحلیل ویدئو',
-  //       'برنامه‌ریزی تغذیه',
-  //       'آماده‌سازی برای مسابقات',
-  //       'ارتباط با باشگاه‌ها',
-  //       'پیگیری عملکرد',
-  //     ],
-  //     color: 'from-purple-500 to-purple-600',
-  //     bgColor: 'bg-purple-50',
-  //     icon: '💪',
-  //     popular: false,
-  //     rating: 4.7,
-  //     studentsEnrolled: 28,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'برنامه استادان',
-  //     ageRange: '26-35 سال',
-  //     description:
-  //       'آموزش تخصصی برای بازیکنان باتجربه با تمرکز بر حفظ آمادگی و برتری رقابتی.',
-  //     price: '۷',
-  //     currency: 'میلیون تومان',
-  //     period: 'ماه',
-  //     duration: '6 ماه',
-  //     sessions: '20 جلسه',
-  //     maxStudents: '8 بازیکن',
-  //     coach: 'مربی رضا صادقی',
-  //     level: 'متخصص',
-  //     schedule: [
-  //       { day: 'یکشنبه', time: '19:00 - 20:30' },
-  //       { day: 'سه‌شنبه', time: '19:00 - 20:30' },
-  //       { day: 'پنج‌شنبه', time: '19:00 - 20:30' },
-  //     ],
-  //     features: [
-  //       'برنامه‌های آموزشی تخصصی',
-  //       'تمرکز بر پیشگیری از آسیب',
-  //       'بهینه‌سازی عملکرد',
-  //       'مشاوره شخصی',
-  //       'بازی‌های دوستانه',
-  //       'حفظ آمادگی جسمانی',
-  //     ],
-  //     color: 'from-accent-500 to-accent-600',
-  //     bgColor: 'bg-accent-50',
-  //     icon: '🏆',
-  //     popular: false,
-  //     rating: 4.6,
-  //     studentsEnrolled: 22,
-  //   },
-  // ];
   const currentProgram = programs[selectedProgram];
+
+  if (!currentProgram) {
+    return (
+      <section className="section-padding text-center text-gray-600">
+        در حال حاضر برنامه آموزشی فعالی وجود ندارد.
+      </section>
+    );
+  }
 
   return (
     <section className="section-padding bg-linear-to-br from-gray-50 to-gray-100 relative overflow-hidden">
@@ -279,8 +126,8 @@ export default function Programs({ programs }: { programs: Program[] }) {
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 text-center">
-                    <div className="text-3xl font-bold persian-numbers">
-                      {currentProgram.price} ریال
+                    <div className="text-2xl font-bold persian-numbers">
+                      {formatToman(currentProgram.price)}
                     </div>
                     <div className="text-sm opacity-80">
                       در هر {currentProgram.period}
@@ -288,7 +135,7 @@ export default function Programs({ programs }: { programs: Program[] }) {
                   </div>
                   <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-4 text-center">
                     <div className="text-3xl font-bold">
-                      {currentProgram.sessionCount}
+                      {toPersianDigits(currentProgram.sessionCount)}
                     </div>
                     <div className="text-sm opacity-80">مجموع جلسات</div>
                   </div>
@@ -305,11 +152,12 @@ export default function Programs({ programs }: { programs: Program[] }) {
                       ))}
                     </div>
                     <span className="text-sm opacity-90">
-                      امتیاز {currentProgram.rating}
+                      امتیاز {toPersianDigits(currentProgram.rating)}
                     </span>
                   </div>
                   <div className="text-sm opacity-80">
-                    {currentProgram.studentsEnrolled} بازیکن ثبت نام شده
+                    {toPersianDigits(currentProgram.studentsEnrolled)} بازیکن ثبت
+                    نام شده
                   </div>
                 </div>
               </div>
@@ -355,31 +203,43 @@ export default function Programs({ programs }: { programs: Program[] }) {
               </h4>
               <div className="flex items-center space-x-6">
                 <div className="w-20 h-20 bg-linear-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold">
-                  {currentProgram.coach.firstName.split(' ')[1]?.charAt(0) ||
-                    'C'}
+                  {currentProgram.coach.fullName.charAt(0)}
                 </div>
                 <div>
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    {currentProgram.coach.lastName}
+                    {currentProgram.coach.fullName}
                   </h5>
-                  <p className="text-gray-600 mb-2">مربی دارای مدرک فیفا</p>
+                  {currentProgram.coach.title && (
+                    <p className="text-gray-600 mb-2">
+                      {currentProgram.coach.title}
+                    </p>
+                  )}
                   <div className="flex items-center space-x-3">
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
-                        <StarIcon key={i} className="w-4 h-4 text-yellow-400" />
+                        <StarIcon
+                          key={i}
+                          className={`w-4 h-4 ${i < Math.round(currentProgram.coach.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
+                        />
                       ))}
                     </div>
-                    <span className="text-sm text-gray-500">امتیاز ۵.۰</span>
+                    <span className="text-sm text-gray-500">
+                      امتیاز {toPersianDigits(currentProgram.coach.rating)}
+                    </span>
                   </div>
                 </div>
               </div>
               <div className="mt-6 grid grid-cols-3 gap-4">
                 <div className="text-center p-3 bg-gray-50 rounded-xl">
-                  <div className="text-lg font-bold text-primary-600">8+</div>
+                  <div className="text-lg font-bold text-primary-600">
+                    {toPersianDigits(currentProgram.coach.experience)}
+                  </div>
                   <div className="text-sm text-gray-600">سال تجربه</div>
                 </div>
                 <div className="text-center p-3 bg-gray-50 rounded-xl">
-                  <div className="text-lg font-bold text-primary-600">150+</div>
+                  <div className="text-lg font-bold text-primary-600">
+                    {toPersianDigits(currentProgram.coach.studentsCount)}
+                  </div>
                   <div className="text-sm text-gray-600">بازیکن آموزش‌دیده</div>
                 </div>
                 <div className="text-center p-3 bg-gray-50 rounded-xl">
@@ -398,23 +258,26 @@ export default function Programs({ programs }: { programs: Program[] }) {
                 برنامه تمرینی
               </h4>
               <div className="space-y-4">
-                {currentProgram.schedule.map(
-                  (value: Schedule, index: number) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
-                    >
-                      <div className="flex items-center">
-                        <ClockIcon className="w-5 h-5 text-gray-400 mr-3" />
-                        <span className="font-semibold text-gray-900">
-                          {value.date.toDateString()}
-                        </span>
-                      </div>
-                      <span className="text-primary-600 font-bold">
-                        {value.duration}
+                {currentProgram.schedule.map((value: Schedule) => (
+                  <div
+                    key={value.id}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex items-center">
+                      <ClockIcon className="w-5 h-5 text-gray-400 mr-3" />
+                      <span className="font-semibold text-gray-900">
+                        {value.day}
                       </span>
                     </div>
-                  ),
+                    <span className="text-primary-600 font-bold persian-numbers">
+                      {toPersianDigits(value.time)}
+                    </span>
+                  </div>
+                ))}
+                {currentProgram.schedule.length === 0 && (
+                  <p className="text-gray-500">
+                    برنامه زمانی به‌زودی اعلام می‌شود.
+                  </p>
                 )}
               </div>
             </div>
@@ -428,13 +291,13 @@ export default function Programs({ programs }: { programs: Program[] }) {
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
                   <div className="text-2xl font-bold text-primary-600 mb-1">
-                    {currentProgram.duration}
+                    {toPersianDigits(currentProgram.duration)} ماه
                   </div>
                   <div className="text-sm text-gray-600">مدت برنامه</div>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-xl">
                   <div className="text-2xl font-bold text-primary-600 mb-1">
-                    {currentProgram.maxStudents}
+                    {toPersianDigits(currentProgram.maxStudents)}
                   </div>
                   <div className="text-sm text-gray-600">حداکثر بازیکن</div>
                 </div>
@@ -450,12 +313,15 @@ export default function Programs({ programs }: { programs: Program[] }) {
                 <p className="text-gray-600 mb-6">
                   سفر فوتبالی خود را با {currentProgram.name} شروع کنید!
                 </p>
-                <button className="w-full btn btn-primary shadow-elegant-lg">
+                <Link
+                  href={`/register?program=${currentProgram.id}`}
+                  className="w-full btn btn-primary shadow-elegant-lg"
+                >
                   <span className="flex items-center justify-center">
                     ثبت نام در {currentProgram.name}
                     <ArrowRightIcon className="w-5 h-5 ml-2" />
                   </span>
-                </button>
+                </Link>
                 <p className="text-sm text-gray-500 mt-3">
                   اولین جلسه رایگان • بدون هزینه ثبت نام
                 </p>
@@ -493,21 +359,22 @@ export default function Programs({ programs }: { programs: Program[] }) {
                   <p className="text-sm text-gray-600 mb-4">
                     {program.ageRange}
                   </p>
-                  <div className="text-2xl font-bold text-primary-600 mb-2 persian-numbers">
-                    {program.price}
+                  <div className="text-xl font-bold text-primary-600 mb-2 persian-numbers">
+                    {formatToman(program.price)}
                     <span className="text-sm text-gray-500 font-normal">
                       {' '}
-                      ریال / {program.period}
+                      / {program.period}
                     </span>
                   </div>
                   <div className="flex items-center justify-center mb-4">
                     <StarIcon className="w-4 h-4 text-yellow-400" />
                     <span className="text-sm text-gray-600 mr-1">
-                      {program.rating}
+                      {toPersianDigits(program.rating)}
                     </span>
                   </div>
                   <div className="text-sm text-gray-500">
-                    {program.studentsEnrolled} بازیکن • {program.level}
+                    {toPersianDigits(program.studentsEnrolled)} بازیکن •{' '}
+                    {program.level}
                   </div>
                 </div>
               </div>

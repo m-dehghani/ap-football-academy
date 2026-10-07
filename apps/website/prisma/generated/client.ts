@@ -86,3 +86,68 @@ export type Attendance = Prisma.AttendanceModel
  * 
  */
 export type Evaluation = Prisma.EvaluationModel
+/**
+ * Model AcademyInfo
+ * 
+ */
+export type AcademyInfo = Prisma.AcademyInfoModel
+/**
+ * Model OpeningHour
+ * 
+ */
+export type OpeningHour = Prisma.OpeningHourModel
+/**
+ * Model SocialLink
+ * 
+ */
+export type SocialLink = Prisma.SocialLinkModel
+/**
+ * Model Statistic
+ * 
+ */
+export type Statistic = Prisma.StatisticModel
+/**
+ * Model Testimonial
+ * 
+ */
+export type Testimonial = Prisma.TestimonialModel
+/**
+ * Model SuccessStory
+ * 
+ */
+export type SuccessStory = Prisma.SuccessStoryModel
+/**
+ * Model Milestone
+ * 
+ */
+export type Milestone = Prisma.MilestoneModel
+/**
+ * Model StaffMember
+ * 
+ */
+export type StaffMember = Prisma.StaffMemberModel
+/**
+ * Model Facility
+ * 
+ */
+export type Facility = Prisma.FacilityModel
+/**
+ * Model NewsCategory
+ * 
+ */
+export type NewsCategory = Prisma.NewsCategoryModel
+/**
+ * Model NewsArticle
+ * 
+ */
+export type NewsArticle = Prisma.NewsArticleModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model NewsletterSubscriber
+ * 
+ */
+export type NewsletterSubscriber = Prisma.NewsletterSubscriberModel

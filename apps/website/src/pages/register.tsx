@@ -5,16 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Layout from '@/components/Layout';
 import { toast } from 'react-hot-toast';
-
-interface Program {
-  id: string;
-  name: string;
-  ageGroup: string;
-  price: number;
-  duration: number;
-  sessionCount: number;
-  coach: string;
-}
+import Program from '@/viewModels/program';
 
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
@@ -22,14 +13,16 @@ const registrationSchema = z.object({
   email: z.string().email('ایمیل نامعتبر است'),
   phone: z.string().min(10, 'شماره تلفن باید حداقل ۱۰ رقم باشد'),
   dateOfBirth: z.string().min(1, 'تاریخ تولد الزامی است'),
-  ageGroup: z.enum(['8-12', '13-17', '18-25', '26-30']),
+  ageGroup: z.enum(['8-12 سال', '13-17 سال', '18-25 سال', '26-35 سال']),
   program: z.string().min(1, 'لطفاً برنامه را انتخاب کنید'),
   experience: z.enum(['beginner', 'intermediate', 'advanced']),
   parentName: z.string().optional(),
-  parentEmail: z.string().refine(
-    (val) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val),
-    { message: 'ایمیل والدین نامعتبر است' }
-  ).optional(),
+  parentEmail: z
+    .string()
+    .refine((val) => !val || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+      message: 'ایمیل والدین نامعتبر است',
+    })
+    .optional(),
   medicalConditions: z.string().optional(),
   emergencyContact: z.string().min(10, 'تماس اضطراری الزامی است'),
   emergencyContactName: z.string().min(2, 'نام تماس اضطراری الزامی است'),
@@ -65,6 +58,7 @@ const RegisterPage: React.FC = () => {
         const response = await fetch('/api/programs');
         if (response.ok) {
           const data = await response.json();
+          // console.log(data.data);
           setPrograms(data.data);
         } else {
           toast.error('خطا در دریافت اطلاعات برنامه‌ها');
@@ -84,10 +78,12 @@ const RegisterPage: React.FC = () => {
       setValue('program', router.query.program as string);
     }
   }, [router.query.program, setValue]);
+  console.log(watchedAgeGroup);
 
   // Filter programs by age group
-  const filteredPrograms = programs.filter(program => program.ageGroup === watchedAgeGroup);
-
+  const filteredPrograms = programs.filter(
+    (program) => program.ageRange === watchedAgeGroup,
+  );
   const onSubmit = async (data: RegistrationFormData) => {
     setIsSubmitting(true);
     try {
@@ -115,12 +111,16 @@ const RegisterPage: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        toast.success('ثبت نام با موفقیت انجام شد! در حال هدایت به صفحه پرداخت...');
+        toast.success(
+          'ثبت نام با موفقیت انجام شد! در حال هدایت به صفحه پرداخت...',
+        );
         // Redirect to success page
         router.push(`/success?registrationId=${result.data.registration.id}`);
       } else {
         const error = await response.json();
-        toast.error(error.message || 'ثبت نام ناموفق بود. لطفاً دوباره تلاش کنید.');
+        toast.error(
+          error.message || 'ثبت نام ناموفق بود. لطفاً دوباره تلاش کنید.',
+        );
         console.error('Registration error:', error);
       }
     } catch (error) {
@@ -131,7 +131,8 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  const isMinor = watchedAgeGroup === '8-12' || watchedAgeGroup === '13-17';
+  const isMinor =
+    watchedAgeGroup === '8-12 سال' || watchedAgeGroup === '13-17 سال';
 
   return (
     <Layout
@@ -258,10 +259,10 @@ const RegisterPage: React.FC = () => {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       >
                         <option value="">گروه سنی را انتخاب کنید</option>
-                        <option value="8-12">کودکان (۸-۱۲ سال)</option>
-                        <option value="13-17">نوجوانان (۱۳-۱۷ سال)</option>
-                        <option value="18-25">بزرگسالان (۱۸-۲۵ سال)</option>
-                        <option value="26-30">استادان (۲۶-۳۰ سال)</option>
+                        <option value="8-12 سال">کودکان (۸-۱۲ سال)</option>
+                        <option value="13-17 سال">نوجوانان (۱۳-۱۷ سال)</option>
+                        <option value="18-25 سال">بزرگسالان (۱۸-۲۵ سال)</option>
+                        <option value="26-35 سال">استادان (۲۶-۳۰ سال)</option>
                       </select>
                       {errors.ageGroup && (
                         <p className="mt-1 text-sm text-red-600">
@@ -298,7 +299,9 @@ const RegisterPage: React.FC = () => {
                               <option value="">برنامه را انتخاب کنید</option>
                               {filteredPrograms.map((program) => (
                                 <option key={program.id} value={program.id}>
-                                  {program.name} - {program.price.toLocaleString()} تومان ({program.duration} ماه)
+                                  {program.name} -{' '}
+                                  {program.price.toLocaleString()} تومان (
+                                  {program.duration} ماه)
                                 </option>
                               ))}
                             </select>
@@ -454,7 +457,8 @@ const RegisterPage: React.FC = () => {
                       placeholder="لطفاً هر گونه بیماری، آلرژی یا نیاز خاصی که مربیان باید بدانند را بنویسید..."
                     />
                     <p className="mt-1 text-sm text-gray-500">
-                      این اطلاعات محرمانه بوده و فقط برای اهداف ایمنی استفاده می‌شود.
+                      این اطلاعات محرمانه بوده و فقط برای اهداف ایمنی استفاده
+                      می‌شود.
                     </p>
                   </div>
                 </div>

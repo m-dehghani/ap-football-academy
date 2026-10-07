@@ -41,6 +41,12 @@ export type RegistrationMinAggregateOutputType = {
   status: string | null
   totalAmount: number | null
   paidAmount: number | null
+  experienceLevel: string | null
+  parentName: string | null
+  parentEmail: string | null
+  emergencyContactName: string | null
+  emergencyContactPhone: string | null
+  medicalConditions: string | null
   registeredAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -52,6 +58,12 @@ export type RegistrationMaxAggregateOutputType = {
   status: string | null
   totalAmount: number | null
   paidAmount: number | null
+  experienceLevel: string | null
+  parentName: string | null
+  parentEmail: string | null
+  emergencyContactName: string | null
+  emergencyContactPhone: string | null
+  medicalConditions: string | null
   registeredAt: Date | null
   updatedAt: Date | null
   userId: string | null
@@ -63,6 +75,12 @@ export type RegistrationCountAggregateOutputType = {
   status: number
   totalAmount: number
   paidAmount: number
+  experienceLevel: number
+  parentName: number
+  parentEmail: number
+  emergencyContactName: number
+  emergencyContactPhone: number
+  medicalConditions: number
   registeredAt: number
   updatedAt: number
   userId: number
@@ -86,6 +104,12 @@ export type RegistrationMinAggregateInputType = {
   status?: true
   totalAmount?: true
   paidAmount?: true
+  experienceLevel?: true
+  parentName?: true
+  parentEmail?: true
+  emergencyContactName?: true
+  emergencyContactPhone?: true
+  medicalConditions?: true
   registeredAt?: true
   updatedAt?: true
   userId?: true
@@ -97,6 +121,12 @@ export type RegistrationMaxAggregateInputType = {
   status?: true
   totalAmount?: true
   paidAmount?: true
+  experienceLevel?: true
+  parentName?: true
+  parentEmail?: true
+  emergencyContactName?: true
+  emergencyContactPhone?: true
+  medicalConditions?: true
   registeredAt?: true
   updatedAt?: true
   userId?: true
@@ -108,6 +138,12 @@ export type RegistrationCountAggregateInputType = {
   status?: true
   totalAmount?: true
   paidAmount?: true
+  experienceLevel?: true
+  parentName?: true
+  parentEmail?: true
+  emergencyContactName?: true
+  emergencyContactPhone?: true
+  medicalConditions?: true
   registeredAt?: true
   updatedAt?: true
   userId?: true
@@ -206,6 +242,12 @@ export type RegistrationGroupByOutputType = {
   status: string
   totalAmount: number
   paidAmount: number
+  experienceLevel: string | null
+  parentName: string | null
+  parentEmail: string | null
+  emergencyContactName: string | null
+  emergencyContactPhone: string | null
+  medicalConditions: string | null
   registeredAt: Date
   updatedAt: Date
   userId: string
@@ -240,6 +282,12 @@ export type RegistrationWhereInput = {
   status?: Prisma.StringFilter<"Registration"> | string
   totalAmount?: Prisma.IntFilter<"Registration"> | number
   paidAmount?: Prisma.IntFilter<"Registration"> | number
+  experienceLevel?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentEmail?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactPhone?: Prisma.StringNullableFilter<"Registration"> | string | null
+  medicalConditions?: Prisma.StringNullableFilter<"Registration"> | string | null
   registeredAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   userId?: Prisma.StringFilter<"Registration"> | string
@@ -254,6 +302,12 @@ export type RegistrationOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  experienceLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  parentName?: Prisma.SortOrderInput | Prisma.SortOrder
+  parentEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  medicalConditions?: Prisma.SortOrderInput | Prisma.SortOrder
   registeredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -271,6 +325,12 @@ export type RegistrationWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"Registration"> | string
   totalAmount?: Prisma.IntFilter<"Registration"> | number
   paidAmount?: Prisma.IntFilter<"Registration"> | number
+  experienceLevel?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentEmail?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactPhone?: Prisma.StringNullableFilter<"Registration"> | string | null
+  medicalConditions?: Prisma.StringNullableFilter<"Registration"> | string | null
   registeredAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   userId?: Prisma.StringFilter<"Registration"> | string
@@ -285,6 +345,12 @@ export type RegistrationOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  experienceLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  parentName?: Prisma.SortOrderInput | Prisma.SortOrder
+  parentEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContactName?: Prisma.SortOrderInput | Prisma.SortOrder
+  emergencyContactPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  medicalConditions?: Prisma.SortOrderInput | Prisma.SortOrder
   registeredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -304,6 +370,12 @@ export type RegistrationScalarWhereWithAggregatesInput = {
   status?: Prisma.StringWithAggregatesFilter<"Registration"> | string
   totalAmount?: Prisma.IntWithAggregatesFilter<"Registration"> | number
   paidAmount?: Prisma.IntWithAggregatesFilter<"Registration"> | number
+  experienceLevel?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
+  parentName?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
+  parentEmail?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
+  emergencyContactName?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
+  emergencyContactPhone?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
+  medicalConditions?: Prisma.StringNullableWithAggregatesFilter<"Registration"> | string | null
   registeredAt?: Prisma.DateTimeWithAggregatesFilter<"Registration"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Registration"> | Date | string
   userId?: Prisma.StringWithAggregatesFilter<"Registration"> | string
@@ -315,6 +387,12 @@ export type RegistrationCreateInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRegistrationsInput
@@ -327,6 +405,12 @@ export type RegistrationUncheckedCreateInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -339,6 +423,12 @@ export type RegistrationUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRegistrationsNestedInput
@@ -351,6 +441,12 @@ export type RegistrationUncheckedUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -363,6 +459,12 @@ export type RegistrationCreateManyInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -374,6 +476,12 @@ export type RegistrationUpdateManyMutationInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -383,6 +491,12 @@ export type RegistrationUncheckedUpdateManyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -404,6 +518,12 @@ export type RegistrationCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  experienceLevel?: Prisma.SortOrder
+  parentName?: Prisma.SortOrder
+  parentEmail?: Prisma.SortOrder
+  emergencyContactName?: Prisma.SortOrder
+  emergencyContactPhone?: Prisma.SortOrder
+  medicalConditions?: Prisma.SortOrder
   registeredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -420,6 +540,12 @@ export type RegistrationMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  experienceLevel?: Prisma.SortOrder
+  parentName?: Prisma.SortOrder
+  parentEmail?: Prisma.SortOrder
+  emergencyContactName?: Prisma.SortOrder
+  emergencyContactPhone?: Prisma.SortOrder
+  medicalConditions?: Prisma.SortOrder
   registeredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -431,6 +557,12 @@ export type RegistrationMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   paidAmount?: Prisma.SortOrder
+  experienceLevel?: Prisma.SortOrder
+  parentName?: Prisma.SortOrder
+  parentEmail?: Prisma.SortOrder
+  emergencyContactName?: Prisma.SortOrder
+  emergencyContactPhone?: Prisma.SortOrder
+  medicalConditions?: Prisma.SortOrder
   registeredAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -550,6 +682,12 @@ export type RegistrationCreateWithoutUserInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   program: Prisma.ProgramCreateNestedOneWithoutRegistrationsInput
@@ -561,6 +699,12 @@ export type RegistrationUncheckedCreateWithoutUserInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   programId: string
@@ -601,6 +745,12 @@ export type RegistrationScalarWhereInput = {
   status?: Prisma.StringFilter<"Registration"> | string
   totalAmount?: Prisma.IntFilter<"Registration"> | number
   paidAmount?: Prisma.IntFilter<"Registration"> | number
+  experienceLevel?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  parentEmail?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactName?: Prisma.StringNullableFilter<"Registration"> | string | null
+  emergencyContactPhone?: Prisma.StringNullableFilter<"Registration"> | string | null
+  medicalConditions?: Prisma.StringNullableFilter<"Registration"> | string | null
   registeredAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Registration"> | Date | string
   userId?: Prisma.StringFilter<"Registration"> | string
@@ -612,6 +762,12 @@ export type RegistrationCreateWithoutProgramInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRegistrationsInput
@@ -623,6 +779,12 @@ export type RegistrationUncheckedCreateWithoutProgramInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -660,6 +822,12 @@ export type RegistrationCreateWithoutPaymentsInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRegistrationsInput
@@ -671,6 +839,12 @@ export type RegistrationUncheckedCreateWithoutPaymentsInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -698,6 +872,12 @@ export type RegistrationUpdateWithoutPaymentsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRegistrationsNestedInput
@@ -709,6 +889,12 @@ export type RegistrationUncheckedUpdateWithoutPaymentsInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -720,6 +906,12 @@ export type RegistrationCreateManyUserInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   programId: string
@@ -730,6 +922,12 @@ export type RegistrationUpdateWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   program?: Prisma.ProgramUpdateOneRequiredWithoutRegistrationsNestedInput
@@ -741,6 +939,12 @@ export type RegistrationUncheckedUpdateWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   programId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -752,6 +956,12 @@ export type RegistrationUncheckedUpdateManyWithoutUserInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   programId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -762,6 +972,12 @@ export type RegistrationCreateManyProgramInput = {
   status?: string
   totalAmount: number
   paidAmount?: number
+  experienceLevel?: string | null
+  parentName?: string | null
+  parentEmail?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  medicalConditions?: string | null
   registeredAt?: Date | string
   updatedAt?: Date | string
   userId: string
@@ -772,6 +988,12 @@ export type RegistrationUpdateWithoutProgramInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutRegistrationsNestedInput
@@ -783,6 +1005,12 @@ export type RegistrationUncheckedUpdateWithoutProgramInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -794,6 +1022,12 @@ export type RegistrationUncheckedUpdateManyWithoutProgramInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalAmount?: Prisma.IntFieldUpdateOperationsInput | number
   paidAmount?: Prisma.IntFieldUpdateOperationsInput | number
+  experienceLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  parentEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalConditions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registeredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -835,6 +1069,12 @@ export type RegistrationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   status?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
+  experienceLevel?: boolean
+  parentName?: boolean
+  parentEmail?: boolean
+  emergencyContactName?: boolean
+  emergencyContactPhone?: boolean
+  medicalConditions?: boolean
   registeredAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -850,6 +1090,12 @@ export type RegistrationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
+  experienceLevel?: boolean
+  parentName?: boolean
+  parentEmail?: boolean
+  emergencyContactName?: boolean
+  emergencyContactPhone?: boolean
+  medicalConditions?: boolean
   registeredAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -863,6 +1109,12 @@ export type RegistrationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   status?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
+  experienceLevel?: boolean
+  parentName?: boolean
+  parentEmail?: boolean
+  emergencyContactName?: boolean
+  emergencyContactPhone?: boolean
+  medicalConditions?: boolean
   registeredAt?: boolean
   updatedAt?: boolean
   userId?: boolean
@@ -876,13 +1128,19 @@ export type RegistrationSelectScalar = {
   status?: boolean
   totalAmount?: boolean
   paidAmount?: boolean
+  experienceLevel?: boolean
+  parentName?: boolean
+  parentEmail?: boolean
+  emergencyContactName?: boolean
+  emergencyContactPhone?: boolean
+  medicalConditions?: boolean
   registeredAt?: boolean
   updatedAt?: boolean
   userId?: boolean
   programId?: boolean
 }
 
-export type RegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "totalAmount" | "paidAmount" | "registeredAt" | "updatedAt" | "userId" | "programId", ExtArgs["result"]["registration"]>
+export type RegistrationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "status" | "totalAmount" | "paidAmount" | "experienceLevel" | "parentName" | "parentEmail" | "emergencyContactName" | "emergencyContactPhone" | "medicalConditions" | "registeredAt" | "updatedAt" | "userId" | "programId", ExtArgs["result"]["registration"]>
 export type RegistrationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   program?: boolean | Prisma.ProgramDefaultArgs<ExtArgs>
@@ -910,6 +1168,12 @@ export type $RegistrationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     status: string
     totalAmount: number
     paidAmount: number
+    experienceLevel: string | null
+    parentName: string | null
+    parentEmail: string | null
+    emergencyContactName: string | null
+    emergencyContactPhone: string | null
+    medicalConditions: string | null
     registeredAt: Date
     updatedAt: Date
     userId: string
@@ -1344,6 +1608,12 @@ export interface RegistrationFieldRefs {
   readonly status: Prisma.FieldRef<"Registration", 'String'>
   readonly totalAmount: Prisma.FieldRef<"Registration", 'Int'>
   readonly paidAmount: Prisma.FieldRef<"Registration", 'Int'>
+  readonly experienceLevel: Prisma.FieldRef<"Registration", 'String'>
+  readonly parentName: Prisma.FieldRef<"Registration", 'String'>
+  readonly parentEmail: Prisma.FieldRef<"Registration", 'String'>
+  readonly emergencyContactName: Prisma.FieldRef<"Registration", 'String'>
+  readonly emergencyContactPhone: Prisma.FieldRef<"Registration", 'String'>
+  readonly medicalConditions: Prisma.FieldRef<"Registration", 'String'>
   readonly registeredAt: Prisma.FieldRef<"Registration", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Registration", 'DateTime'>
   readonly userId: Prisma.FieldRef<"Registration", 'String'>

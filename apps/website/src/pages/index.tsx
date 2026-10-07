@@ -8,9 +8,14 @@ import SuccessStories from '../components/SuccessStories';
 import NewsUpdates from '../components/NewsUpdates';
 import Testimonials from '../components/Testimonials';
 import CTA from '../components/CTA';
+import { getCoaches } from '../services/coachService';
+import Coach from '../viewModels/coach';
 
+interface HomePageProps {
+  coaches: Coach[];
+}
 
-const HomePage: React.FC = () => {
+const HomePage: React.FC<HomePageProps> = ({ coaches }) => {
   return (
     <Layout>
       <NextSeo
@@ -54,7 +59,7 @@ const HomePage: React.FC = () => {
         <Hero />
         <Features />
         {/* ProgramsPage removed - requires database connection. Add it back when DB is configured. */}
-        <CoachSpotlight />
+        <CoachSpotlight coaches={coaches} />
         <SuccessStories />
         <NewsUpdates />
         <Testimonials />
@@ -65,3 +70,12 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
+
+export async function getStaticProps() {
+  const coaches = await getCoaches();
+  return {
+    props: {
+      coaches,
+    },
+  };
+}
