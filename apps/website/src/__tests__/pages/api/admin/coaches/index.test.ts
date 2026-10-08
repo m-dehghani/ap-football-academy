@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { GET, POST } from '@/pages/api/admin/coaches/index';
+import handler from '@/pages/api/admin/coaches/index';
 import { getPrisma } from '@/lib/db';
 
 // Mock Prisma
@@ -74,7 +74,7 @@ describe('/api/admin/coaches', () => {
       const req = createMockReq({ method: 'GET' });
       const res = createMockRes();
 
-      await GET(req, res);
+      await handler(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(mockCoaches);
@@ -86,7 +86,7 @@ describe('/api/admin/coaches', () => {
       const req = createMockReq({ method: 'GET' });
       const res = createMockRes();
 
-      await GET(req, res);
+      await handler(req, res);
 
       expect(mockPrisma.coach.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -96,11 +96,11 @@ describe('/api/admin/coaches', () => {
       );
     });
 
-    it('returns 405 for non-GET methods', async () => {
-      const req = createMockReq({ method: 'POST' });
+    it('returns 405 for non-GET/POST methods', async () => {
+      const req = createMockReq({ method: 'PUT' });
       const res = createMockRes();
 
-      await GET(req, res);
+      await handler(req, res);
 
       expect(res.status).toHaveBeenCalledWith(405);
       expect(res.json).toHaveBeenCalledWith({ error: 'Method not allowed' });
@@ -112,7 +112,7 @@ describe('/api/admin/coaches', () => {
       const req = createMockReq({ method: 'GET' });
       const res = createMockRes();
 
-      await expect(GET(req, res)).rejects.toThrow('DB Error');
+      await expect(handler(req, res)).rejects.toThrow('DB Error');
     });
   });
 
@@ -148,7 +148,7 @@ describe('/api/admin/coaches', () => {
       });
       const res = createMockRes();
 
-      await POST(req, res);
+      await handler(req, res);
 
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
@@ -167,7 +167,7 @@ describe('/api/admin/coaches', () => {
       });
       const res = createMockRes();
 
-      await POST(req, res);
+      await handler(req, res);
 
       expect(mockPrisma.coach.create).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -197,7 +197,7 @@ describe('/api/admin/coaches', () => {
       });
       const res = createMockRes();
 
-      await POST(req, res);
+      await handler(req, res);
 
       expect(mockPrisma.coach.create).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -217,7 +217,7 @@ describe('/api/admin/coaches', () => {
       const req = createMockReq({ method: 'PUT' });
       const res = createMockRes();
 
-      await POST(req, res);
+      await handler(req, res);
 
       expect(res.status).toHaveBeenCalledWith(405);
     });

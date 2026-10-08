@@ -156,16 +156,16 @@ describe('coachService', () => {
           displayOrder: 0,
           programs: [
             {
-              id: 'prog-2',
-              name: 'برنامه دوم',
-              isActive: true,
-              displayOrder: 1,
-            },
-            {
               id: 'prog-1',
               name: 'برنامه اول',
               isActive: true,
               displayOrder: 0,
+            },
+            {
+              id: 'prog-2',
+              name: 'برنامه دوم',
+              isActive: true,
+              displayOrder: 1,
             },
           ],
         },
@@ -175,6 +175,7 @@ describe('coachService', () => {
 
       const result = await getCoaches();
 
+      // The service orders by displayOrder ascending, so prog-1 (displayOrder: 0) should come first
       expect(result[0].programs[0].name).toBe('برنامه اول');
       expect(result[0].programs[1].name).toBe('برنامه دوم');
     });

@@ -1,0 +1,91 @@
+name: Feature Request
+description: Suggest a new feature or enhancement
+title: "[FEATURE]: "
+labels: ["feature", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please fill out the form below to help us understand your request.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which platform is this feature for?
+      options:
+        - Website (Next.js)
+        - Mobile App (React Native/Expo)
+        - Crawler Service
+        - API
+        - Shared/Infrastructure
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? Is there a specific pain point?
+      placeholder: "Currently, users cannot..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see implemented.
+      placeholder: "I would like to see a feature that..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: "Alternatively, we could..."
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Describe specific use cases or user stories for this feature.
+      placeholder: |
+        As a [user type], I want to [action], so that [benefit].
+        
+        Example:
+        As a coach, I want to view player statistics, so that I can track their progress.
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature?
+      options:
+        - Low (Nice to have)
+        - Medium (Should have)
+        - High (Must have)
+        - Critical (Blocker)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other context, mockups, or references related to this feature.
+      placeholder: "Links to designs, related issues, or external references..."
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched for existing feature requests before submitting
+          required: true
+        - label: This feature aligns with the project's goals and roadmap
+          required: true
