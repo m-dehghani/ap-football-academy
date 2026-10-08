@@ -63,9 +63,7 @@ describe('/api/admin/coaches', () => {
           displayOrder: 0,
           createdAt: new Date(),
           updatedAt: new Date(),
-          programs: [
-            { id: 'prog-1', name: 'برنامه ۱' },
-          ],
+          programs: [{ id: 'prog-1', name: 'برنامه ۱' }],
         },
       ];
 
@@ -92,7 +90,7 @@ describe('/api/admin/coaches', () => {
         expect.objectContaining({
           orderBy: { displayOrder: 'asc' },
           include: { programs: true },
-        })
+        }),
       );
     });
 
@@ -151,15 +149,21 @@ describe('/api/admin/coaches', () => {
       await handler(req, res);
 
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
-        id: 'coach-new',
-        firstName: 'علی',
-        lastName: 'محمدی',
-      }));
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 'coach-new',
+          firstName: 'علی',
+          lastName: 'محمدی',
+        }),
+      );
     });
 
     it('includes certifications and achievements as arrays', async () => {
-      mockPrisma.coach.create.mockResolvedValue({ ...validCoachData, id: 'coach-new', programs: [] });
+      mockPrisma.coach.create.mockResolvedValue({
+        ...validCoachData,
+        id: 'coach-new',
+        programs: [],
+      });
 
       const req = createMockReq({
         method: 'POST',
@@ -175,7 +179,7 @@ describe('/api/admin/coaches', () => {
             certifications: ['فیفا C'],
             achievements: ['قهرمان'],
           }),
-        })
+        }),
       );
     });
 
@@ -189,7 +193,11 @@ describe('/api/admin/coaches', () => {
         experience: 10,
       };
 
-      mockPrisma.coach.create.mockResolvedValue({ ...minimalData, id: 'coach-new', programs: [] });
+      mockPrisma.coach.create.mockResolvedValue({
+        ...minimalData,
+        id: 'coach-new',
+        programs: [],
+      });
 
       const req = createMockReq({
         method: 'POST',
@@ -209,7 +217,7 @@ describe('/api/admin/coaches', () => {
             rating: 0,
             studentsCount: 0,
           }),
-        })
+        }),
       );
     });
 
