@@ -3,9 +3,7 @@ import { useRouter } from 'next/router';
 import AdminLayout from '@/components/AdminLayout';
 
 
-interface ProgramFormPageProps {}
-
-const ProgramFormPage: React.FC<ProgramFormPageProps> = () => {
+const ProgramFormPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const isEditing = !!id;
@@ -38,47 +36,47 @@ const ProgramFormPage: React.FC<ProgramFormPageProps> = () => {
 
   useEffect(() => {
     if (isEditing) {
+      const fetchProgram = async () => {
+        setLoading(true);
+        try {
+          const res = await fetch(`/api/admin/programs/${id}`);
+          if (!res.ok) throw new Error('برنامه یافت نشد');
+          const program = await res.json();
+          setFormData({
+            name: program.name,
+            description: program.description,
+            price: program.price.toString(),
+            duration: program.duration.toString(),
+            sessionCount: program.sessionCount.toString(),
+            maxStudents: program.maxStudents.toString(),
+            popular: program.popular,
+            icon: program.icon,
+            ageRange: program.ageRange,
+            minAge: program.minAge.toString(),
+            maxAge: program.maxAge.toString(),
+            color: program.color,
+            period: program.period,
+            rating: program.rating.toString(),
+            studentsEnrolled: program.studentsEnrolled.toString(),
+            features: program.features.join(', '),
+            level: program.level,
+            coachId: program.coachId || '',
+            schedule: program.schedule.map((s: any, i: number) => ({
+              day: s.day,
+              time: s.time,
+              displayOrder: s.displayOrder ?? i,
+            })),
+          });
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'خطا در بارگذاری');
+        } finally {
+          setLoading(false);
+        }
+      };
+
       fetchProgram();
     }
-  }, [id]);
-
-  const fetchProgram = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/admin/programs/${id}`);
-      if (!res.ok) throw new Error('برنامه یافت نشد');
-      const program = await res.json();
-      setFormData({
-        name: program.name,
-        description: program.description,
-        price: program.price.toString(),
-        duration: program.duration.toString(),
-        sessionCount: program.sessionCount.toString(),
-        maxStudents: program.maxStudents.toString(),
-        popular: program.popular,
-        icon: program.icon,
-        ageRange: program.ageRange,
-        minAge: program.minAge.toString(),
-        maxAge: program.maxAge.toString(),
-        color: program.color,
-        period: program.period,
-        rating: program.rating.toString(),
-        studentsEnrolled: program.studentsEnrolled.toString(),
-        features: program.features.join(', '),
-        level: program.level,
-        coachId: program.coachId || '',
-        schedule: program.schedule.map((s: any, i: number) => ({
-          day: s.day,
-          time: s.time,
-          displayOrder: s.displayOrder ?? i,
-        })),
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'خطا در بارگذاری');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [id, isEditing]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;

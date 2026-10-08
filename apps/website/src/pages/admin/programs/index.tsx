@@ -39,23 +39,23 @@ const ProgramsPage: React.FC = () => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchPrograms = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('/api/admin/programs');
+        if (res.ok) {
+          const data = await res.json();
+          setPrograms(data);
+        }
+      } catch (err) {
+        console.error('Error fetching programs:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchPrograms();
   }, []);
-
-  const fetchPrograms = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/programs');
-      if (res.ok) {
-        const data = await res.json();
-        setPrograms(data);
-      }
-    } catch (err) {
-      console.error('Error fetching programs:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleDelete = async (id: string) => {
     if (!confirm('آیا از حذف این برنامه مطمئن هستید؟')) return;

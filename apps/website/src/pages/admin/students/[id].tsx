@@ -63,7 +63,9 @@ const StudentDetailPage: React.FC = () => {
       COMPLETED: 'تکمیل شده',
     };
     return (
-      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${badges[status] || 'bg-gray-100 text-gray-700'}`}>
+      <span
+        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${badges[status] || 'bg-gray-100 text-gray-700'}`}
+      >
         {labels[status] || status}
       </span>
     );
@@ -71,33 +73,37 @@ const StudentDetailPage: React.FC = () => {
 
   useEffect(() => {
     if (id) {
+      const fetchRegistration = async () => {
+        if (!id) return;
+        setLoading(true);
+        try {
+          const res = await fetch(`/api/admin/students/${id}`);
+          if (!res.ok) {
+            if (res.status === 404) {
+              router.push('/admin/students');
+            }
+            throw new Error('ثبت‌نام یافت نشد');
+          }
+          const data = await res.json();
+          setRegistration(data);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : 'خطا در بارگذاری');
+        } finally {
+          setLoading(false);
+        }
+      };
+
       fetchRegistration();
     }
-  }, [id]);
+  }, [id, router]);
 
-  const fetchRegistration = async () => {
-    if (!id) return;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/admin/students/${id}`);
-      if (!res.ok) {
-        if (res.status === 404) {
-          router.push('/admin/students');
-        }
-        throw new Error('ثبت‌نام یافت نشد');
-      }
-      const data = await res.json();
-      setRegistration(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'خطا در بارگذاری');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setRegistration(prev => prev ? { ...prev, [name]: value } : null);
+    setRegistration((prev) => (prev ? { ...prev, [name]: value } : null));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -148,7 +154,9 @@ const StudentDetailPage: React.FC = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">جزئیات ثبت‌نام</h1>
-            <p className="text-gray-600 mt-1">مشاهده و ویرایش اطلاعات ثبت‌نام</p>
+            <p className="text-gray-600 mt-1">
+              مشاهده و ویرایش اطلاعات ثبت‌نام
+            </p>
           </div>
           <div className="flex items-center space-x-4 space-x-reverse">
             {getStatusBadge(registration.status)}
@@ -156,7 +164,10 @@ const StudentDetailPage: React.FC = () => {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700" role="alert">
+          <div
+            className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700"
+            role="alert"
+          >
             {error}
           </div>
         )}
@@ -164,10 +175,14 @@ const StudentDetailPage: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Student Info */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">اطلاعات دانش‌آموز</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              اطلاعات دانش‌آموز
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">نام</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  نام
+                </label>
                 <input
                   type="text"
                   value={`${registration.user.firstName} ${registration.user.lastName}`}
@@ -176,7 +191,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ایمیل
+                </label>
                 <input
                   type="email"
                   value={registration.user.email}
@@ -185,7 +202,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">تلفن</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  تلفن
+                </label>
                 <input
                   type="tel"
                   value={registration.user.phone || '—'}
@@ -194,10 +213,20 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ تولد</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  تاریخ تولد
+                </label>
                 <input
                   type="text"
-                  value={registration.user.birthDate ? format(new Date(registration.user.birthDate), 'yyyy/MM/dd', { locale: faIR }) : '—'}
+                  value={
+                    registration.user.birthDate
+                      ? format(
+                          new Date(registration.user.birthDate),
+                          'yyyy/MM/dd',
+                          { locale: faIR },
+                        )
+                      : '—'
+                  }
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
@@ -207,10 +236,14 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Program Info */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">اطلاعات برنامه</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              اطلاعات برنامه
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">برنامه</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  برنامه
+                </label>
                 <input
                   type="text"
                   value={registration.program.name}
@@ -219,16 +252,24 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">مربی</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  مربی
+                </label>
                 <input
                   type="text"
-                  value={registration.program.coach ? `${registration.program.coach.firstName} ${registration.program.coach.lastName}` : '—'}
+                  value={
+                    registration.program.coach
+                      ? `${registration.program.coach.firstName} ${registration.program.coach.lastName}`
+                      : '—'
+                  }
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">قیمت برنامه</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  قیمت برنامه
+                </label>
                 <input
                   type="text"
                   value={formatPrice(registration.program.price)}
@@ -237,7 +278,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">سطح تجربه</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  سطح تجربه
+                </label>
                 <select
                   name="experienceLevel"
                   value={registration.experienceLevel || ''}
@@ -255,10 +298,14 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Financial Info */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">اطلاعات مالی</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              اطلاعات مالی
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">مبلغ کل</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  مبلغ کل
+                </label>
                 <input
                   type="number"
                   name="totalAmount"
@@ -268,7 +315,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">مبلغ پرداخت شده</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  مبلغ پرداخت شده
+                </label>
                 <input
                   type="number"
                   name="paidAmount"
@@ -278,10 +327,14 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">مبلغ باقی‌مانده</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  مبلغ باقی‌مانده
+                </label>
                 <input
                   type="text"
-                  value={formatPrice(registration.totalAmount - registration.paidAmount)}
+                  value={formatPrice(
+                    registration.totalAmount - registration.paidAmount,
+                  )}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 font-medium text-amber-600"
                 />
@@ -291,7 +344,9 @@ const StudentDetailPage: React.FC = () => {
             {/* Payments */}
             {registration.payments.length > 0 && (
               <div className="mt-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">پرداخت‌ها</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">
+                  پرداخت‌ها
+                </h3>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <table className="w-full text-sm">
                     <thead>
@@ -303,19 +358,32 @@ const StudentDetailPage: React.FC = () => {
                     </thead>
                     <tbody>
                       {registration.payments.map((payment) => (
-                        <tr key={payment.id} className="border-t border-gray-200">
-                          <td className="py-2 text-right">{formatPrice(payment.amount)}</td>
+                        <tr
+                          key={payment.id}
+                          className="border-t border-gray-200"
+                        >
                           <td className="py-2 text-right">
-                            <span className={`inline-flex px-2 py-0.5 text-xs rounded-full ${
-                              payment.status === 'COMPLETED' ? 'bg-emerald-100 text-emerald-700' :
-                              payment.status === 'PENDING' ? 'bg-amber-100 text-amber-700' :
-                              'bg-red-100 text-red-700'
-                            }`}>
+                            {formatPrice(payment.amount)}
+                          </td>
+                          <td className="py-2 text-right">
+                            <span
+                              className={`inline-flex px-2 py-0.5 text-xs rounded-full ${
+                                payment.status === 'COMPLETED'
+                                  ? 'bg-emerald-100 text-emerald-700'
+                                  : payment.status === 'PENDING'
+                                    ? 'bg-amber-100 text-amber-700'
+                                    : 'bg-red-100 text-red-700'
+                              }`}
+                            >
                               {payment.status}
                             </span>
                           </td>
                           <td className="py-2 text-right">
-                            {format(new Date(payment.createdAt), 'yyyy/MM/dd HH:mm', { locale: faIR })}
+                            {format(
+                              new Date(payment.createdAt),
+                              'yyyy/MM/dd HH:mm',
+                              { locale: faIR },
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -328,10 +396,14 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Parent Info */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">اطلاعات ولي</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              اطلاعات ولي
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">نام ولي</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  نام ولي
+                </label>
                 <input
                   type="text"
                   name="parentName"
@@ -341,7 +413,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل ولي</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  ایمیل ولي
+                </label>
                 <input
                   type="email"
                   name="parentEmail"
@@ -351,7 +425,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">نام تماس اضطراری</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  نام تماس اضطراری
+                </label>
                 <input
                   type="text"
                   name="emergencyContactName"
@@ -361,7 +437,9 @@ const StudentDetailPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">تلفن تماس اضطراری</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  تلفن تماس اضطراری
+                </label>
                 <input
                   type="tel"
                   name="emergencyContactPhone"
@@ -375,9 +453,13 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Medical Conditions */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">شرایط پزشکی</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              شرایط پزشکی
+            </h2>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">شرایط پزشکی / حساسیت‌ها</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                شرایط پزشکی / حساسیت‌ها
+              </label>
               <textarea
                 name="medicalConditions"
                 value={registration.medicalConditions || ''}
@@ -391,9 +473,13 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Status */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">وضعیت ثبت‌نام</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              وضعیت ثبت‌نام
+            </h2>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">وضعیت</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                وضعیت
+              </label>
               <select
                 name="status"
                 value={registration.status}
@@ -410,22 +496,36 @@ const StudentDetailPage: React.FC = () => {
 
           {/* Timestamps */}
           <section className="bg-white rounded-2xl shadow-lg p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">زمان‌ها</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 pb-2 border-b border-gray-200">
+              زمان‌ها
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">تاریخ ثبت‌نام</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  تاریخ ثبت‌نام
+                </label>
                 <input
                   type="text"
-                  value={format(new Date(registration.registeredAt), 'yyyy/MM/dd HH:mm', { locale: faIR })}
+                  value={format(
+                    new Date(registration.registeredAt),
+                    'yyyy/MM/dd HH:mm',
+                    { locale: faIR },
+                  )}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">آخرین به‌روزرسانی</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  آخرین به‌روزرسانی
+                </label>
                 <input
                   type="text"
-                  value={format(new Date(registration.updatedAt), 'yyyy/MM/dd HH:mm', { locale: faIR })}
+                  value={format(
+                    new Date(registration.updatedAt),
+                    'yyyy/MM/dd HH:mm',
+                    { locale: faIR },
+                  )}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
