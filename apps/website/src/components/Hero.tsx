@@ -2,60 +2,23 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   TrophyIcon,
-  StarIcon,
-  UsersIcon,
   PlayIcon,
   ArrowLeftIcon,
 } from '@heroicons/react/24/outline';
-
-const statLabels: Record<string, string> = {
-  players: 'بازیکن آموزش‌دیده',
-  championships: 'قهرمانی',
-  experience: 'سال تجربه',
-  coaches: 'مربی متخصص',
-  certifications: 'مدرک بین‌المللی',
-  rating: 'امتیاز رضایت',
-  facilities: 'مجموعه ورزشی',
-  pitches: 'زمین استاندارد',
-  equipment: 'تجهیزات حرفه‌ای',
-};
+import { getIcon } from '@/lib/icons';
+import {
+  HERO_SLIDES,
+  HERO_ACHIEVEMENTS,
+  STAT_LABELS,
+} from '@/constants/content';
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  const slides = [
-    {
-      title: 'آکادمی فوتبال AP',
-      subtitle: 'جایی که قهرمانان ساخته می‌شوند',
-      description:
-        'اشتیاق خود را به تعالی تبدیل کنید — آموزش حرفه‌ای، مربیان کارآزموده و امکانات درجه یک برای بالا بردن سطح بازی شما.',
-      cta: { label: 'شروع ثبت نام', href: '/register' },
-      ctaSecondary: { label: 'داستان ما', href: '/about' },
-      bgGradient: 'from-navy-950 via-blue-900 to-blue-700',
-      stats: { players: '۵۰۰+', championships: '۲۵+', experience: '۱۰+' },
-    },
-    {
-      title: 'مربیگری متخصص',
-      subtitle: 'از بهترین‌ها بیاموزید',
-      description:
-        'مربیان دارای مدرک فیفا با دهه‌ها تجربه حرفه‌ای — برنامه‌های آموزشی شخصی‌سازی‌شده برای تسلط بر تمام جنبه‌های فوتبال.',
-      cta: { label: 'مربیان ما', href: '/coaches' },
-      ctaSecondary: { label: 'برنامه‌ها', href: '/programs' },
-      bgGradient: 'from-navy-950 via-secondary-900 to-secondary-700',
-      stats: { coaches: '۱۲+', certifications: 'فیفا', rating: '۴.۹/۵' },
-    },
-    {
-      title: 'امکانات مدرن',
-      subtitle: 'مثل حرفه‌ای‌ها تمرین کنید',
-      description:
-        'زمین‌های تمرین پیشرفته، چمن استاندارد فیفا و تجهیزات مدرن برای بهینه‌سازی رشد و عملکرد بازیکنان.',
-      cta: { label: 'تماس با ما', href: '/contact' },
-      ctaSecondary: { label: 'ثبت نام', href: '/register' },
-      bgGradient: 'from-navy-950 via-accent-900 to-accent-700',
-      stats: { facilities: '۳', pitches: 'فیفا', equipment: 'حرفه‌ای' },
-    },
-  ];
+  const slides = HERO_SLIDES;
+  const achievements = HERO_ACHIEVEMENTS;
+  const statLabels = STAT_LABELS;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -63,33 +26,6 @@ export default function Hero() {
     }, 7000);
     return () => clearInterval(timer);
   }, [slides.length]);
-
-  const achievements = [
-    {
-      icon: TrophyIcon,
-      number: '۲۵+',
-      label: 'قهرمانی',
-      color: 'text-gold-400',
-      bg: 'bg-gold-400/20',
-      position: 'top-6 -left-6',
-    },
-    {
-      icon: StarIcon,
-      number: '۵۰۰+',
-      label: 'بازیکن',
-      color: 'text-secondary-300',
-      bg: 'bg-secondary-400/20',
-      position: 'bottom-8 -right-4',
-    },
-    {
-      icon: UsersIcon,
-      number: '۱۰+',
-      label: 'سال تجربه',
-      color: 'text-accent-300',
-      bg: 'bg-accent-400/20',
-      position: 'top-1/2 -left-10 -translate-y-1/2',
-    },
-  ];
 
   const currentSlideData = slides[currentSlide];
 
@@ -164,8 +100,12 @@ export default function Hero() {
                 <div className="aspect-square rounded-full border border-white/20 bg-white/10 p-6 shadow-elegant-2xl backdrop-blur-md animate-float">
                   <div className="flex h-full w-full flex-col items-center justify-center rounded-full bg-linear-to-br from-white/20 to-white/5 text-center">
                     <span className="text-7xl xl:text-8xl mb-4">⚽</span>
-                    <p className="text-2xl font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">آکادمی AP</p>
-                    <p className="text-white/90 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">تعالی از سال ۱۳۹۳</p>
+                    <p className="text-2xl font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
+                      آکادمی AP
+                    </p>
+                    <p className="text-white/90 mt-1 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
+                      تعالی از سال ۱۳۹۳
+                    </p>
                   </div>
                 </div>
 
@@ -179,13 +119,15 @@ export default function Hero() {
                       <div
                         className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.bg}`}
                       >
-                        <item.icon className={`h-5 w-5 ${item.color}`} />
+                        {getIcon(item.icon, `h-5 w-5 ${item.color}`)}
                       </div>
                       <div className="text-right">
                         <p className="text-lg font-bold text-navy-900 persian-numbers drop-shadow-sm">
                           {item.number}
                         </p>
-                        <p className="text-xs text-slate-600 drop-shadow-sm">{item.label}</p>
+                        <p className="text-xs text-slate-600 drop-shadow-sm">
+                          {item.label}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -201,10 +143,11 @@ export default function Hero() {
                 type="button"
                 onClick={() => setCurrentSlide(index)}
                 aria-label={`اسلاید ${index + 1}`}
-                className={`transition-all duration-300 rounded-full ${index === currentSlide
-                  ? 'w-8 h-2.5 bg-white'
-                  : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
-                  }`}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentSlide
+                    ? 'w-8 h-2.5 bg-white'
+                    : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
+                }`}
               />
             ))}
           </div>

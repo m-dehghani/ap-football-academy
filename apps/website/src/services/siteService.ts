@@ -1,7 +1,11 @@
 import { getPrisma } from '@/lib/db';
-import { SiteInfo } from '@/viewModels/site';
+import {
+  SiteInfoViewModel,
+  toOpeningHourViewModel,
+  toSocialLinkViewModel,
+} from '@/viewModels/site/index';
 
-export async function getSiteInfo(): Promise<SiteInfo | null> {
+export async function getSiteInfo(): Promise<SiteInfoViewModel | null> {
   const prisma = await getPrisma();
   const [academy, hours, socialLinks, programs] = await Promise.all([
     prisma.academyInfo.findUnique({ where: { id: 'default' } }),
@@ -19,12 +23,6 @@ export async function getSiteInfo(): Promise<SiteInfo | null> {
 
   if (!academy) return null;
 
-  const toHour = ({ id, days, hours }: { id: string; days: string; hours: string }) => ({
-    id,
-    days,
-    hours,
-  });
-
   return {
     name: academy.name,
     tagline: academy.tagline,
@@ -35,14 +33,13 @@ export async function getSiteInfo(): Promise<SiteInfo | null> {
     address: academy.address,
     city: academy.city,
     foundedYear: academy.foundedYear,
-    officeHours: hours.filter((h) => h.type === 'OFFICE').map(toHour),
-    trainingHours: hours.filter((h) => h.type === 'TRAINING').map(toHour),
-    socialLinks: socialLinks.map(({ id, name, url, icon }) => ({
-      id,
-      name,
-      url,
-      icon,
-    })),
+    officeHours: hours
+      .filter((h) => h.type === 'OFFICE')
+      .map(toOpeningHourViewModel),
+    trainingHours: hours
+      .filter((h) => h.type === 'TRAINING')
+      .map(toOpeningHourViewModel),
+    socialLinks: socialLinks.map(toSocialLinkViewModel),
     programLinks: programs,
   };
 }

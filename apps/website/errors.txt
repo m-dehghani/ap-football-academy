@@ -1,0 +1,65 @@
+src/components/Features.tsx(33,16): error TS2304: Cannot find name 'SparklesIcon'.
+src/components/Features.tsx(65,21): error TS2322: Type 'ComponentType<{ className?: string | undefined; }>' is not assignable to type 'ReactNode'.
+  Type 'ComponentClass<{ className?: string | undefined; }, any>' is not assignable to type 'ReactNode'.
+src/components/Features.tsx(123,23): error TS2322: Type 'ComponentType<{ className?: string | undefined; }>' is not assignable to type 'ReactNode'.
+  Type 'ComponentClass<{ className?: string | undefined; }, any>' is not assignable to type 'ReactNode'.
+src/components/Features.tsx(184,23): error TS2322: Type 'ComponentType<{ className?: string | undefined; }>' is not assignable to type 'ReactNode'.
+  Type 'ComponentClass<{ className?: string | undefined; }, any>' is not assignable to type 'ReactNode'.
+src/components/Features.tsx(206,20): error TS2304: Cannot find name 'SparklesIcon'.
+src/components/Footer.tsx(91,70): error TS2339: Property 'city' does not exist on type '{ readonly name: "╪ó┌⌐╪º╪»┘à█î ┘ü┘ê╪¬╪¿╪º┘ä AP"; readonly tagline: "╪¼╪º█î█î ┌⌐┘ç ┘é┘ç╪▒┘à╪º┘å╪º┘å ╪│╪º╪«╪¬┘ç ┘à█îΓÇî╪┤┘ê┘å╪»"; readonly description: "╪ó┌⌐╪º╪»┘à█î ┘ü┘ê╪¬╪¿╪º┘ä AP ╪¿╪º ┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î ┘ê ╪º┘à┌⌐╪º┘å╪º╪¬ ┘à╪»╪▒┘å╪î ╪¿┘ç╪¬╪▒█î┘å ╪ó┘à┘ê╪▓╪┤ ┘ü┘ê╪¬╪¿╪º┘ä ╪▒╪º ╪¿╪▒╪º█î ╪│┘å█î┘å █╕ ╪¬╪º █│█░ ╪│╪º┘ä ╪º╪▒╪º╪ª┘ç ┘à█îΓÇî╪»┘ç╪»."; ... 6 more ...; readonly seo: { ...; }; }'.
+src/components/Footer.tsx(121,34): error TS2339: Property 'url' does not exist on type '{ readonly label: "╪»╪▒╪¿╪º╪▒┘ç ╪ó┌⌐╪º╪»┘à█î"; readonly href: "/about"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º█î ╪ó┘à┘ê╪▓╪┤█î"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å ┘à╪º"; readonly href: "/coaches"; } | { ...; } | { ...; } | { ...; }'.
+  Property 'url' does not exist on type '{ readonly label: "╪»╪▒╪¿╪º╪▒┘ç ╪ó┌⌐╪º╪»┘à█î"; readonly href: "/about"; }'.
+src/components/Footer.tsx(125,29): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪»╪▒╪¿╪º╪▒┘ç ╪ó┌⌐╪º╪»┘à█î"; readonly href: "/about"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º█î ╪ó┘à┘ê╪▓╪┤█î"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å ┘à╪º"; readonly href: "/coaches"; } | { ...; } | { ...; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪»╪▒╪¿╪º╪▒┘ç ╪ó┌⌐╪º╪»┘à█î"; readonly href: "/about"; }'.
+src/components/Footer.tsx(142,37): error TS2339: Property 'url' does not exist on type '{ readonly label: "╪¿╪▒┘å╪º┘à┘ç ┌⌐┘ê╪»┌⌐╪º┘å (█╕-█▒█▓)"; readonly href: "/programs#youth"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘ç ┘å┘ê╪¼┘ê╪º┘å╪º┘å (█▒█│-█▒█╖)"; readonly href: "/programs#teen"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘ç ╪¿╪▓╪▒┌»╪│╪º┘ä╪º┘å (█▒█╕-█▓█╡)"; readonly href: "/programs#adult"; } | { ...; }'.
+  Property 'url' does not exist on type '{ readonly label: "╪¿╪▒┘å╪º┘à┘ç ┌⌐┘ê╪»┌⌐╪º┘å (█╕-█▒█▓)"; readonly href: "/programs#youth"; }'.
+src/components/Footer.tsx(146,32): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪¿╪▒┘å╪º┘à┘ç ┌⌐┘ê╪»┌⌐╪º┘å (█╕-█▒█▓)"; readonly href: "/programs#youth"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘ç ┘å┘ê╪¼┘ê╪º┘å╪º┘å (█▒█│-█▒█╖)"; readonly href: "/programs#teen"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘ç ╪¿╪▓╪▒┌»╪│╪º┘ä╪º┘å (█▒█╕-█▓█╡)"; readonly href: "/programs#adult"; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪¿╪▒┘å╪º┘à┘ç ┌⌐┘ê╪»┌⌐╪º┘å (█╕-█▒█▓)"; readonly href: "/programs#youth"; }'.
+src/components/Header.tsx(41,27): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å"; readonly href: "/coaches"; } | { readonly label: "╪»╪º╪│╪¬╪º┘åΓÇî┘ç╪º█î ┘à┘ê┘ü┘é█î╪¬"; readonly href: "/success"; } | { ...; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; }'.
+src/components/Header.tsx(49,23): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å"; readonly href: "/coaches"; } | { readonly label: "╪»╪º╪│╪¬╪º┘åΓÇî┘ç╪º█î ┘à┘ê┘ü┘é█î╪¬"; readonly href: "/success"; } | { ...; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; }'.
+src/components/Header.tsx(89,31): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å"; readonly href: "/coaches"; } | { readonly label: "╪»╪º╪│╪¬╪º┘åΓÇî┘ç╪º█î ┘à┘ê┘ü┘é█î╪¬"; readonly href: "/success"; } | { ...; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; }'.
+src/components/Header.tsx(98,27): error TS2339: Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; } | { readonly label: "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º"; readonly href: "/programs"; } | { readonly label: "┘à╪▒╪¿█î╪º┘å"; readonly href: "/coaches"; } | { readonly label: "╪»╪º╪│╪¬╪º┘åΓÇî┘ç╪º█î ┘à┘ê┘ü┘é█î╪¬"; readonly href: "/success"; } | { ...; } | { ...; }'.
+  Property 'name' does not exist on type '{ readonly label: "╪«╪º┘å┘ç"; readonly href: "/"; }'.
+src/components/Hero.tsx(5,3): error TS6133: 'StarIcon' is declared but its value is never read.
+src/components/Hero.tsx(6,3): error TS6133: 'UsersIcon' is declared but its value is never read.
+src/components/Hero.tsx(124,25): error TS2322: Type 'ComponentType<{ className?: string | undefined; }>' is not assignable to type 'ReactNode'.
+  Type 'ComponentClass<{ className?: string | undefined; }, any>' is not assignable to type 'ReactNode'.
+src/components/NewsUpdates.tsx(62,79): error TS2367: This comparison appears to be unintentional because the types '"news"' and '"gallery"' have no overlap.
+src/components/SuccessStories.tsx(2,32): error TS6133: 'ArrowTrendingUpIcon' is declared but its value is never read.
+src/components/SuccessStories.tsx(171,23): error TS2322: Type 'ComponentType<{ className?: string | undefined; }>' is not assignable to type 'ReactNode'.
+  Type 'ComponentClass<{ className?: string | undefined; }, any>' is not assignable to type 'ReactNode'.
+src/constants/content.ts(6,1): error TS6192: All imports in import declaration are unused.
+src/constants/content.ts(16,1): error TS6192: All imports in import declaration are unused.
+src/services/coachService.ts(2,10): error TS2614: Module '"@/viewModels/coach"' has no exported member 'CoachViewModel'. Did you mean to use 'import CoachViewModel from "@/viewModels/coach"' instead?
+src/services/coachService.ts(2,26): error TS2614: Module '"@/viewModels/coach"' has no exported member 'toCoachViewModel'. Did you mean to use 'import toCoachViewModel from "@/viewModels/coach"' instead?
+src/services/content/index.ts(9,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'StatisticViewModel'.
+src/services/content/index.ts(10,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'TestimonialViewModel'.
+src/services/content/index.ts(11,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'SuccessStoryViewModel'.
+src/services/content/index.ts(12,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'MilestoneViewModel'.
+src/services/content/index.ts(13,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'StaffMemberViewModel'.
+src/services/content/index.ts(14,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'FacilityViewModel'.
+src/services/content/index.ts(15,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'NewsCategoryViewModel'.
+src/services/content/index.ts(16,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'NewsArticleViewModel'.
+src/services/content/index.ts(19,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toStatisticViewModel'.
+src/services/content/index.ts(19,3): error TS6133: 'toStatisticViewModel' is declared but its value is never read.
+src/services/content/index.ts(20,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toTestimonialViewModel'.
+src/services/content/index.ts(21,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toSuccessStoryViewModel'.
+src/services/content/index.ts(22,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toMilestoneViewModel'.
+src/services/content/index.ts(23,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toStaffMemberViewModel'.
+src/services/content/index.ts(24,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toFacilityViewModel'.
+src/services/content/index.ts(25,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toNewsCategoryViewModel'.
+src/services/content/index.ts(26,3): error TS2305: Module '"@/viewModels/content"' has no exported member 'toNewsArticleViewModel'.
+src/services/programService.ts(2,10): error TS2614: Module '"@/viewModels/program"' has no exported member 'ProgramViewModel'. Did you mean to use 'import ProgramViewModel from "@/viewModels/program"' instead?
+src/services/programService.ts(2,28): error TS2614: Module '"@/viewModels/program"' has no exported member 'toProgramViewModel'. Did you mean to use 'import toProgramViewModel from "@/viewModels/program"' instead?
+src/services/siteService.ts(3,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'SiteInfoViewModel'.
+src/services/siteService.ts(4,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'OpeningHourViewModel'.
+src/services/siteService.ts(4,3): error TS6133: 'OpeningHourViewModel' is declared but its value is never read.
+src/services/siteService.ts(5,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'SocialLinkViewModel'.
+src/services/siteService.ts(5,3): error TS6133: 'SocialLinkViewModel' is declared but its value is never read.
+src/services/siteService.ts(8,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'toOpeningHourViewModel'.
+src/services/siteService.ts(9,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'toSocialLinkViewModel'.
+src/services/siteService.ts(10,3): error TS2305: Module '"@/viewModels/site"' has no exported member 'toSiteInfoViewModel'.
+src/services/siteService.ts(10,3): error TS6133: 'toSiteInfoViewModel' is declared but its value is never read.

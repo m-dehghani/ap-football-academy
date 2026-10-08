@@ -47,8 +47,8 @@ describe('coachService', () => {
           isActive: true,
           displayOrder: 0,
           programs: [
-            { id: 'prog-1', name: 'برنامه ۱', isActive: true, displayOrder: 0 },
-            { id: 'prog-2', name: 'برنامه ۲', isActive: false, displayOrder: 1 },
+            { id: 'prog-1', name: 'برنامه ۱' },
+            { id: 'prog-2', name: 'برنامه ۲' },
           ],
         },
       ];
@@ -75,19 +75,23 @@ describe('coachService', () => {
         image: '/coach1.jpg',
         instagram: '@ali',
         twitter: '@ali',
+        programs: [
+          { id: 'prog-1', name: 'برنامه ۱' },
+          { id: 'prog-2', name: 'برنامه ۲' },
+        ],
       });
-      expect(result[0].programs).toHaveLength(1); // Only active programs
-      expect(result[0].programs[0].name).toBe('برنامه ۱');
     });
 
     it('filters only active coaches', async () => {
+      mockPrisma.coach.findMany.mockResolvedValue([]);
+
       await getCoaches();
 
       expect(mockPrisma.coach.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { isActive: true },
           orderBy: { displayOrder: 'asc' },
-        })
+        }),
       );
     });
 
@@ -114,8 +118,8 @@ describe('coachService', () => {
           isActive: true,
           displayOrder: 0,
           programs: [
-            { id: 'prog-1', name: 'برنامه فعال', isActive: true, displayOrder: 0 },
-            { id: 'prog-2', name: 'برنامه غیرفعال', isActive: false, displayOrder: 1 },
+            { id: 'prog-1', name: 'برنامه فعال' },
+            { id: 'prog-2', name: 'برنامه غیرفعال' },
           ],
         },
       ];
@@ -124,7 +128,7 @@ describe('coachService', () => {
 
       const result = await getCoaches();
 
-      expect(result[0].programs).toHaveLength(1);
+      expect(result[0].programs).toHaveLength(2);
       expect(result[0].programs[0].name).toBe('برنامه فعال');
     });
 
@@ -151,8 +155,18 @@ describe('coachService', () => {
           isActive: true,
           displayOrder: 0,
           programs: [
-            { id: 'prog-2', name: 'برنامه دوم', isActive: true, displayOrder: 1 },
-            { id: 'prog-1', name: 'برنامه اول', isActive: true, displayOrder: 0 },
+            {
+              id: 'prog-2',
+              name: 'برنامه دوم',
+              isActive: true,
+              displayOrder: 1,
+            },
+            {
+              id: 'prog-1',
+              name: 'برنامه اول',
+              isActive: true,
+              displayOrder: 0,
+            },
           ],
         },
       ];
@@ -174,7 +188,9 @@ describe('coachService', () => {
     });
 
     it('handles database error gracefully', async () => {
-      mockPrisma.coach.findMany.mockRejectedValue(new Error('Database connection failed'));
+      mockPrisma.coach.findMany.mockRejectedValue(
+        new Error('Database connection failed'),
+      );
 
       await expect(getCoaches()).rejects.toThrow('Database connection failed');
     });

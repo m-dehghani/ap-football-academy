@@ -1,0 +1,4602 @@
+
+[2m> [22m[2mnx run[22m @ap-football-academy/website:test --reporter=verbose
+
+> @ap-football-academy/website@0.0.1 test
+> vitest run --reporter=verbose
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vitest.config.ts:26:25). Use `import.meta.dirname` instead
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.3 [39m[90mK:/projects/ap-football-academy/apps/website[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mGET[2m > [22mreturns list of coaches with programs[32m 3[2mms[22m[39m
+[31m   ΓåÆ GET is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mGET[2m > [22morders coaches by displayOrder[32m 1[2mms[22m[39m
+[31m   ΓåÆ GET is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mGET[2m > [22mreturns 405 for non-GET methods[32m 0[2mms[22m[39m
+[31m   ΓåÆ GET is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mGET[2m > [22mhandles database errors[32m 0[2mms[22m[39m
+[31m   ΓåÆ GET is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mPOST[2m > [22mcreates new coach with all fields[32m 1[2mms[22m[39m
+[31m   ΓåÆ POST is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mPOST[2m > [22mincludes certifications and achievements as arrays[32m 0[2mms[22m[39m
+[31m   ΓåÆ POST is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mPOST[2m > [22msets default values for optional fields[32m 1[2mms[22m[39m
+[31m   ΓåÆ POST is not a function[39m
+ [31m├ù[39m src/__tests__/pages/api/admin/coaches/index.test.ts[2m > [22m/api/admin/coaches[2m > [22mPOST[2m > [22mreturns 405 for non-POST methods[32m 0[2mms[22m[39m
+[31m   ΓåÆ POST is not a function[39m
+ [31m├ù[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22mreturns formatted coaches with all required fields[32m 3[2mms[22m[39m
+[31m   ΓåÆ undefined is not a function[39m
+ [31m├ù[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22mfilters only active coaches[32m 1[2mms[22m[39m
+[31m   ΓåÆ Cannot read properties of undefined (reading 'map')[39m
+ [31m├ù[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22mincludes only active programs for each coach[32m 1[2mms[22m[39m
+[31m   ΓåÆ undefined is not a function[39m
+ [31m├ù[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22morders programs by displayOrder[32m 0[2mms[22m[39m
+[31m   ΓåÆ undefined is not a function[39m
+ [31m├ù[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22mreturns empty array when no coaches found[32m 1[2mms[22m[39m
+[31m   ΓåÆ undefined is not a function[39m
+ [32mΓ£ô[39m src/__tests__/services/coachService.test.ts[2m > [22mcoachService[2m > [22mgetCoaches[2m > [22mhandles database error gracefully[32m 1[2mms[22m[39m
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > renders coaches page with title
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > shows loading state initially
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > displays coaches in table after loading
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > shows empty state when no coaches
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > has add new coach button
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > displays coach details in table
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > calls delete API when delete button clicked
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+stderr | src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > removes coach from list after successful delete
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to CoachesPage inside a test was not wrapped in act(...).
+When testing, code that causes React state updates should be wrapped into act(...):
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mrenders coaches page with title[32m 25[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mshows loading state initially[32m 16[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mdisplays coaches in table after loading[32m 8[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mshows empty state when no coaches[32m 4[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mhas add new coach button[32m 6[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mdisplays coach details in table[32m 7[2mms[22m[39m
+ [31m├ù[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mcalls delete API when delete button clicked[32m 15[2mms[22m[39m
+[31m   ΓåÆ Unable to find a label with the text of: /╪¡╪░┘ü/i
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4"[31m
+      [36m>[31m
+        [36m<div>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-3xl font-bold text-gray-900"[31m
+          [36m>[31m
+            [0m┘à╪▒╪¿█î╪º┘å[0m
+          [36m</h1>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text-gray-600 mt-1"[31m
+          [36m>[31m
+            [0m┘à╪»█î╪▒█î╪¬ ┘ê ┘à╪┤╪º┘ç╪»┘ç ╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ╪ó┌⌐╪º╪»┘à█î[0m
+          [36m</p>[31m
+        [36m</div>[31m
+        [36m<a[31m
+          [33mclass[31m=[32m"inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"[31m
+          [33mhref[31m=[32m"/admin/coaches/new"[31m
+        [36m>[31m
+          [36m<svg[31m
+            [33mclass[31m=[32m"w-5 h-5 ml-2"[31m
+            [33mfill[31m=[32m"none"[31m
+            [33mstroke[31m=[32m"currentColor"[31m
+            [33mviewBox[31m=[32m"0 0 24 24"[31m
+          [36m>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"[31m
+              [33mstroke-linecap[31m=[32m"round"[31m
+              [33mstroke-linejoin[31m=[32m"round"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+            [36m/>[31m
+          [36m</svg>[31m
+          [0m╪º┘ü╪▓┘ê╪»┘å ┘à╪▒╪¿█î ╪¼╪»█î╪»[0m
+        [36m</a>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"bg-white rounded-2xl shadow-lg overflow-hidden"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"overflow-x-auto"[31m
+        [36m>[31m
+          [36m<table[31m
+            [33mclass[31m=[32m"w-full"[31m
+          [36m>[31m
+            [36m<thead[31m
+              [33mclass[31m=[32m"bg-gray-50 border-b border-gray-200"[31m
+            [36m>[31m
+              [36m<tr>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¬╪«╪╡╪╡[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¬╪¼╪▒╪¿┘ç[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪º┘à╪¬█î╪º╪▓[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓╪º┘å[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m┘ê╪╢╪╣█î╪¬[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪╣┘à┘ä█î╪º╪¬[0m
+                [36m</th>[31m
+              [36m</tr>[31m
+            [36m</thead>[31m
+            [36m<tbody[31m
+              [33mclass[31m=[32m"divide-y divide-gray-200"[31m
+            [36m>[31m
+              [36m<tr[31m
+                [33mclass[31m=[32m"hover:bg-gray-50"[31m
+              [36m>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"[31m
+                    [36m>[31m
+                      [0m╪╣┘à[0m
+                    [36m</div>[31m
+                    [36m<div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"font-medium text-gray-900"[31m
+                      [36m>[31m
+                        [0m╪╣┘ä█î[0m
+                        [0m [0m
+                        [0m┘à╪¡┘à╪»█î[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-500"[31m
+                      [36m>[31m
+                        [0mali@example.com[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-900"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m10[0m
+                  [0m ╪│╪º┘ä[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m0[0m
+                  [0m ╪¿╪▒┘å╪º┘à┘ç[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<span[31m
+                      [33mclass[31m=[32m"text-gray-900 font-medium"[31m
+                    [36m>[31m
+                      [0m4.8[0m
+                    [36m</span>[31m
+                    [36m<svg[31m
+                      [33mclass[31m=[32m"w-4 h-4 text-yellow-400 fill-current ml-1"[31m
+                      [33mviewBox[31m=[32m"0 0 20 20"[31m
+                    [36m>[31m
+                      [36m<path[31m
+                        [33md[31m=[32m"M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"[31m
+                      [36m/>[31m
+                    [36m</svg>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m150[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"[31m
+                  [36m>[31m
+                    [0m┘ü╪╣╪º┘ä[0m
+                  [36m</span>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center space-x-2 space-x-reverse"[31m
+                  [36m>[31m
+                    [36m<a[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"[31m
+                      [33mhref[31m=[32m"/admin/coaches/1"[31m
+                      [33mtitle[31m=[32m"┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M15 12a3 3 0 11-6 0 3 3 0 016 0z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</a>[31m
+                    [36m<button[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"[31m
+                      [33mtitle[31m=[32m"╪¡╪░┘ü"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</button>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+              [36m</tr>[31m
+              [36m<tr[31m
+                [33mclass[31m=[32m"hover:bg-gray-50"[31m
+              [36m>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"[31m
+                    [36m>[31m
+                      [0m╪▒╪º[0m
+                    [36m</div>[31m
+                    [36m<div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"font-medium text-gray-900"[31m
+                      [36m>[31m
+                        [0m╪▒╪╢╪º[0m
+                        [0m [0m
+                        [0m╪º╪¡┘à╪»█î[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-500"[31m
+                      [36m>[31m
+                        [0mreza@example.com[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-900"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m10[0m
+                  [0m ╪│╪º┘ä[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m0[0m
+                  [0m ╪¿╪▒┘å╪º┘à┘ç[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<span[31m
+                      [33mclass[31m=[32m"text-gray-900 font-medium"[31m
+                    [36m>[31m
+                      [0m4.8[0m
+                    [36m</span>[31m
+                    [36m<svg[31m
+                      [33mclass[31m=[32m"w-4 h-4 text-yellow-400 fill-current ml-1"[31m
+                      [33mviewBox[31m=[32m"0 0 20 20"[31m
+                    [36m>[31m
+                      [36m<path[31m
+                        [33md[31m=[32m"M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"[31m
+                      [36m/>[31m
+                    [36m</svg>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m150[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"[31m
+                  [36m>[31m
+                    [0m┘ü╪╣╪º┘ä[0m
+                  [36m</span>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center space-x-2 space-x-reverse"[31m
+                  [36m>[31m
+                    [36m<a[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"[31m
+                      [33mhref[31m=[32m"/admin/coaches/2"[31m
+                      [33mtitle[31m=[32m"┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M15 12a3 3 0 11-6 0 3 3 0 016 0z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</a>[31m
+                    [36m<button[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"[31m
+                      [33mtitle[31m=[32m"╪¡╪░┘ü"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</button>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+              [36m</tr>[31m
+            [36m</tbody>[31m
+          [36m</table>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+ [31m├ù[39m src/__tests__/pages/admin/coaches/index.test.tsx[2m > [22mAdmin Coaches Page[2m > [22mremoves coach from list after successful delete[32m 9[2mms[22m[39m
+[31m   ΓåÆ Unable to find a label with the text of: /╪¡╪░┘ü/i
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4"[31m
+      [36m>[31m
+        [36m<div>[31m
+          [36m<h1[31m
+            [33mclass[31m=[32m"text-3xl font-bold text-gray-900"[31m
+          [36m>[31m
+            [0m┘à╪▒╪¿█î╪º┘å[0m
+          [36m</h1>[31m
+          [36m<p[31m
+            [33mclass[31m=[32m"text-gray-600 mt-1"[31m
+          [36m>[31m
+            [0m┘à╪»█î╪▒█î╪¬ ┘ê ┘à╪┤╪º┘ç╪»┘ç ╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ╪ó┌⌐╪º╪»┘à█î[0m
+          [36m</p>[31m
+        [36m</div>[31m
+        [36m<a[31m
+          [33mclass[31m=[32m"inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"[31m
+          [33mhref[31m=[32m"/admin/coaches/new"[31m
+        [36m>[31m
+          [36m<svg[31m
+            [33mclass[31m=[32m"w-5 h-5 ml-2"[31m
+            [33mfill[31m=[32m"none"[31m
+            [33mstroke[31m=[32m"currentColor"[31m
+            [33mviewBox[31m=[32m"0 0 24 24"[31m
+          [36m>[31m
+            [36m<path[31m
+              [33md[31m=[32m"M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"[31m
+              [33mstroke-linecap[31m=[32m"round"[31m
+              [33mstroke-linejoin[31m=[32m"round"[31m
+              [33mstroke-width[31m=[32m"2"[31m
+            [36m/>[31m
+          [36m</svg>[31m
+          [0m╪º┘ü╪▓┘ê╪»┘å ┘à╪▒╪¿█î ╪¼╪»█î╪»[0m
+        [36m</a>[31m
+      [36m</div>[31m
+      [36m<div[31m
+        [33mclass[31m=[32m"bg-white rounded-2xl shadow-lg overflow-hidden"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"overflow-x-auto"[31m
+        [36m>[31m
+          [36m<table[31m
+            [33mclass[31m=[32m"w-full"[31m
+          [36m>[31m
+            [36m<thead[31m
+              [33mclass[31m=[32m"bg-gray-50 border-b border-gray-200"[31m
+            [36m>[31m
+              [36m<tr>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¬╪«╪╡╪╡[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¬╪¼╪▒╪¿┘ç[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪º┘à╪¬█î╪º╪▓[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓╪º┘å[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m┘ê╪╢╪╣█î╪¬[0m
+                [36m</th>[31m
+                [36m<th[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"[31m
+                [36m>[31m
+                  [0m╪╣┘à┘ä█î╪º╪¬[0m
+                [36m</th>[31m
+              [36m</tr>[31m
+            [36m</thead>[31m
+            [36m<tbody[31m
+              [33mclass[31m=[32m"divide-y divide-gray-200"[31m
+            [36m>[31m
+              [36m<tr[31m
+                [33mclass[31m=[32m"hover:bg-gray-50"[31m
+              [36m>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"[31m
+                    [36m>[31m
+                      [0m╪╣┘à[0m
+                    [36m</div>[31m
+                    [36m<div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"font-medium text-gray-900"[31m
+                      [36m>[31m
+                        [0m╪╣┘ä█î[0m
+                        [0m [0m
+                        [0m┘à╪¡┘à╪»█î[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-500"[31m
+                      [36m>[31m
+                        [0mali@example.com[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-900"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m10[0m
+                  [0m ╪│╪º┘ä[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m0[0m
+                  [0m ╪¿╪▒┘å╪º┘à┘ç[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<span[31m
+                      [33mclass[31m=[32m"text-gray-900 font-medium"[31m
+                    [36m>[31m
+                      [0m4.8[0m
+                    [36m</span>[31m
+                    [36m<svg[31m
+                      [33mclass[31m=[32m"w-4 h-4 text-yellow-400 fill-current ml-1"[31m
+                      [33mviewBox[31m=[32m"0 0 20 20"[31m
+                    [36m>[31m
+                      [36m<path[31m
+                        [33md[31m=[32m"M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"[31m
+                      [36m/>[31m
+                    [36m</svg>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m150[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"[31m
+                  [36m>[31m
+                    [0m┘ü╪╣╪º┘ä[0m
+                  [36m</span>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center space-x-2 space-x-reverse"[31m
+                  [36m>[31m
+                    [36m<a[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"[31m
+                      [33mhref[31m=[32m"/admin/coaches/1"[31m
+                      [33mtitle[31m=[32m"┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M15 12a3 3 0 11-6 0 3 3 0 016 0z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</a>[31m
+                    [36m<button[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"[31m
+                      [33mtitle[31m=[32m"╪¡╪░┘ü"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</button>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+              [36m</tr>[31m
+              [36m<tr[31m
+                [33mclass[31m=[32m"hover:bg-gray-50"[31m
+              [36m>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"[31m
+                    [36m>[31m
+                      [0m╪▒╪º[0m
+                    [36m</div>[31m
+                    [36m<div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"font-medium text-gray-900"[31m
+                      [36m>[31m
+                        [0m╪▒╪╢╪º[0m
+                        [0m [0m
+                        [0m╪º╪¡┘à╪»█î[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-500"[31m
+                      [36m>[31m
+                        [0mreza@example.com[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-900"[31m
+                [36m>[31m
+                  [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m10[0m
+                  [0m ╪│╪º┘ä[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m0[0m
+                  [0m ╪¿╪▒┘å╪º┘à┘ç[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center"[31m
+                  [36m>[31m
+                    [36m<span[31m
+                      [33mclass[31m=[32m"text-gray-900 font-medium"[31m
+                    [36m>[31m
+                      [0m4.8[0m
+                    [36m</span>[31m
+                    [36m<svg[31m
+                      [33mclass[31m=[32m"w-4 h-4 text-yellow-400 fill-current ml-1"[31m
+                      [33mviewBox[31m=[32m"0 0 20 20"[31m
+                    [36m>[31m
+                      [36m<path[31m
+                        [33md[31m=[32m"M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"[31m
+                      [36m/>[31m
+                    [36m</svg>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4 text-gray-500"[31m
+                [36m>[31m
+                  [0m150[0m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<span[31m
+                    [33mclass[31m=[32m"inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"[31m
+                  [36m>[31m
+                    [0m┘ü╪╣╪º┘ä[0m
+                  [36m</span>[31m
+                [36m</td>[31m
+                [36m<td[31m
+                  [33mclass[31m=[32m"px-6 py-4"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"flex items-center space-x-2 space-x-reverse"[31m
+                  [36m>[31m
+                    [36m<a[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"[31m
+                      [33mhref[31m=[32m"/admin/coaches/2"[31m
+                      [33mtitle[31m=[32m"┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M15 12a3 3 0 11-6 0 3 3 0 016 0z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</a>[31m
+                    [36m<button[31m
+                      [33mclass[31m=[32m"p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"[31m
+                      [33mtitle[31m=[32m"╪¡╪░┘ü"[31m
+                    [36m>[31m
+                      [36m<svg[31m
+                        [33mclass[31m=[32m"w-5 h-5"[31m
+                        [33mfill[31m=[32m"none"[31m
+                        [33mstroke[31m=[32m"currentColor"[31m
+                        [33mviewBox[31m=[32m"0 0 24 24"[31m
+                      [36m>[31m
+                        [36m<path[31m
+                          [33md[31m=[32m"M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"[31m
+                          [33mstroke-linecap[31m=[32m"round"[31m
+                          [33mstroke-linejoin[31m=[32m"round"[31m
+                          [33mstroke-width[31m=[32m"2"[31m
+                        [36m/>[31m
+                      [36m</svg>[31m
+                    [36m</button>[31m
+                  [36m</div>[31m
+                [36m</td>[31m
+              [36m</tr>[31m
+            [36m</tbody>[31m
+          [36m</table>[31m
+        [36m</div>[31m
+      [36m</div>[31m
+    [36m</div>[31m
+  [36m</div>[31m
+[36m</body>[31m[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mrenders coach spotlight section when coaches are provided[32m 46[2mms[22m[39m
+[31m   ΓåÆ Unable to find an element with the text: ┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [32mΓ£ô[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mrenders null when no coaches provided[32m 2[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mrenders null when coaches is undefined[32m 1[2mms[22m[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mshows first coach by default[32m 9[2mms[22m[39m
+[31m   ΓåÆ Found multiple elements with the text: ╪╣┘ä█î ┘à╪¡┘à╪»█î
+Here are the matching elements:
+Ignored nodes: comments, script, style
+[36m<h3[31m
+  [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+[36m>[31m
+  [0m╪╣┘ä█î[0m
+  [0m [0m
+  [0m┘à╪¡┘à╪»█î[0m
+[36m</h3>[31m
+Ignored nodes: comments, script, style
+[36m<h4[31m
+  [33mclass[31m=[32m"text-lg font-bold text-gray-900 mb-2"[31m
+[36m>[31m
+  [0m╪╣┘ä█î[0m
+  [0m [0m
+  [0m┘à╪¡┘à╪»█î[0m
+[36m</h4>[31m
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mnavigates to next coach when next button clicked[32m 9[2mms[22m[39m
+[31m   ΓåÆ Unable to find a label with the text of: /╪º╪│┘ä╪º█î╪» ╪¿╪╣╪»█î/i
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mnavigates to previous coach when prev button clicked[32m 12[2mms[22m[39m
+[31m   ΓåÆ Unable to find a label with the text of: /╪º╪│┘ä╪º█î╪» ┘é╪¿┘ä█î/i
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mshows all coaches in grid[32m 9[2mms[22m[39m
+[31m   ΓåÆ Found multiple elements with the text: ╪╣┘ä█î ┘à╪¡┘à╪»█î
+Here are the matching elements:
+Ignored nodes: comments, script, style
+[36m<h3[31m
+  [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+[36m>[31m
+  [0m╪╣┘ä█î[0m
+  [0m [0m
+  [0m┘à╪¡┘à╪»█î[0m
+[36m</h3>[31m
+Ignored nodes: comments, script, style
+[36m<h4[31m
+  [33mclass[31m=[32m"text-lg font-bold text-gray-900 mb-2"[31m
+[36m>[31m
+  [0m╪╣┘ä█î[0m
+  [0m [0m
+  [0m┘à╪¡┘à╪»█î[0m
+[36m</h4>[31m
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mdisplays coach stats correctly[32m 12[2mms[22m[39m
+[31m   ΓåÆ Found multiple elements with the text: 4.8
+Here are the matching elements:
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+[36m>[31m
+  [0m4.8[0m
+[36m</span>[31m
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"text-sm text-gray-600 mr-1"[31m
+[36m>[31m
+  [0m4.8[0m
+[36m</span>[31m
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"text-sm text-gray-600 mr-1"[31m
+[36m>[31m
+  [0m4.8[0m
+[36m</span>[31m
+Ignored nodes: comments, script, style
+[36m<span[31m
+  [33mclass[31m=[32m"text-sm text-gray-600 mr-1"[31m
+[36m>[31m
+  [0m4.8[0m
+[36m</span>[31m
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ [32mΓ£ô[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mdisplays coach certifications[32m 7[2mms[22m[39m
+ [32mΓ£ô[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mdisplays coach achievements[32m 10[2mms[22m[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mhandles coach with missing optional fields[32m 6[2mms[22m[39m
+[31m   ΓåÆ It looks like null was passed instead of a matcher. Did you do something like getByText(null)?[39m
+ [31m├ù[39m src/__tests__/components/CoachSpotlight.test.tsx[2m > [22mCoachSpotlight[2m > [22mcycles through coaches with indicator dots[32m 139[2mms[22m[39m
+[31m   ΓåÆ Unable to find an accessible element with the role "button" and name `/╪º╪│┘ä╪º█î╪» \d+/i`
+Here are the accessible roles:
+  heading:
+  Name "┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î":
+  [36m<h2[31m
+    [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+  [36m/>[31m
+  Name "╪╣┘ä█î ┘à╪¡┘à╪»█î":
+  [36m<h3[31m
+    [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+  [36m/>[31m
+  Name "┘à╪╣╪▒┘ü█î ┘à╪▒╪¿█î":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+  [36m/>[31m
+  Name "┘à╪»╪º╪▒┌⌐ ┘ê ┌»┘ê╪º┘ç█î┘å╪º┘à┘çΓÇî┘ç╪º":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4 flex items-center"[31m
+  [36m/>[31m
+  Name "╪º┘ü╪¬╪«╪º╪▒╪º╪¬ ┘ê ╪»╪│╪¬╪º┘ê╪▒╪»┘ç╪º":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4 flex items-center"[31m
+  [36m/>[31m
+  Name "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º█î ╪¬╪»╪▒█î╪│":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+  [36m/>[31m
+  Name "╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ┘à╪º":
+  [36m<h3[31m
+    [33mclass[31m=[32m"text-2xl font-bold text-gray-900 text-center mb-12"[31m
+  [36m/>[31m
+  Name "╪╣┘ä█î ┘à╪¡┘à╪»█î":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-lg font-bold text-gray-900 mb-2"[31m
+  [36m/>[31m
+  Name "╪▒╪╢╪º ╪º╪¡┘à╪»█î":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-lg font-bold text-gray-900 mb-2"[31m
+  [36m/>[31m
+  Name "╪¡╪│█î┘å ╪▒╪╢╪º█î█î":
+  [36m<h4[31m
+    [33mclass[31m=[32m"text-lg font-bold text-gray-900 mb-2"[31m
+  [36m/>[31m
+  --------------------------------------------------
+  paragraph:
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-gray-600"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-gray-700 leading-relaxed mb-6"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-sm text-primary-600 mb-2"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-xs text-gray-500"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-sm text-primary-600 mb-2"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-xs text-gray-500"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-sm text-primary-600 mb-2"[31m
+  [36m/>[31m
+  Name "":
+  [36m<p[31m
+    [33mclass[31m=[32m"text-xs text-gray-500"[31m
+  [36m/>[31m
+  --------------------------------------------------
+  link:
+  Name "≡ƒô▒ @ali_mohammadi":
+  [36m<a[31m
+    [33mclass[31m=[32m"bg-linear-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow"[31m
+    [33mhref[31m=[32m"#"[31m
+  [36m/>[31m
+  Name "≡ƒÉª @ali_mohammadi":
+  [36m<a[31m
+    [33mclass[31m=[32m"bg-linear-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow"[31m
+    [33mhref[31m=[32m"#"[31m
+  [36m/>[31m
+  --------------------------------------------------
+  button:
+  Name "":
+  [36m<button[31m
+    [33mclass[31m=[32m"bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow text-gray-600 hover:text-primary-600"[31m
+  [36m/>[31m
+  Name "":
+  [36m<button[31m
+    [33mclass[31m=[32m"w-3 h-3 rounded-full transition-all bg-primary-600 scale-125"[31m
+  [36m/>[31m
+  Name "":
+  [36m<button[31m
+    [33mclass[31m=[32m"w-3 h-3 rounded-full transition-all bg-gray-300 hover:bg-gray-400"[31m
+  [36m/>[31m
+  Name "":
+  [36m<button[31m
+    [33mclass[31m=[32m"w-3 h-3 rounded-full transition-all bg-gray-300 hover:bg-gray-400"[31m
+  [36m/>[31m
+  Name "":
+  [36m<button[31m
+    [33mclass[31m=[32m"bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow text-gray-600 hover:text-primary-600"[31m
+  [36m/>[31m
+  --------------------------------------------------
+Ignored nodes: comments, script, style
+[36m<body>[31m
+  [36m<div>[31m
+    [36m<div[31m
+      [33mdir[31m=[32m"rtl"[31m
+      [33mlang[31m=[32m"fa"[31m
+    [36m>[31m
+      [36m<section[31m
+        [33mclass[31m=[32m"section-padding bg-linear-to-br from-slate-50 to-slate-100"[31m
+      [36m>[31m
+        [36m<div[31m
+          [33mclass[31m=[32m"container-custom"[31m
+        [36m>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"text-center mb-16"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"[31m
+            [36m>[31m
+              [36m<svg[31m
+                [33mclass[31m=[32m"w-4 h-4 ml-2"[31m
+                [33mdata-testid[31m=[32m"UserGroupIcon"[31m
+              [36m/>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î[0m
+            [36m</div>[31m
+            [36m<h2[31m
+              [33mclass[31m=[32m"text-4xl lg:text-5xl font-bold text-gray-900 mb-6"[31m
+            [36m>[31m
+              [0m┘à╪▒╪¿█î╪º┘å [0m
+              [36m<span[31m
+                [33mclass[31m=[32m"text-primary-600"[31m
+              [36m>[31m
+                [0m╪¡╪▒┘ü┘çΓÇî╪º█î[0m
+              [36m</span>[31m
+            [36m</h2>[31m
+            [36m<p[31m
+              [33mclass[31m=[32m"text-xl text-gray-600 max-w-3xl mx-auto"[31m
+            [36m>[31m
+              [0m╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬[0m
+            [36m</p>[31m
+          [36m</div>[31m
+          [36m<div[31m
+            [33mclass[31m=[32m"relative"[31m
+          [36m>[31m
+            [36m<div[31m
+              [33mclass[31m=[32m"grid lg:grid-cols-2 gap-12 items-center"[31m
+            [36m>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"relative"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-3xl p-8 shadow-2xl"[31m
+                [36m>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"text-center mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"[31m
+                    [36m>[31m
+                      [0m╪╣[0m
+                    [36m</div>[31m
+                    [36m<h3[31m
+                      [33mclass[31m=[32m"text-3xl font-bold text-gray-900 mb-2"[31m
+                    [36m>[31m
+                      [0m╪╣┘ä█î[0m
+                      [0m [0m
+                      [0m┘à╪¡┘à╪»█î[0m
+                    [36m</h3>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-lg text-primary-600 font-medium mb-2"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ╪º╪▒╪┤╪»[0m
+                    [36m</p>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-600"[31m
+                    [36m>[31m
+                      [0m┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"grid grid-cols-3 gap-4 mb-8"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-primary-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-primary-600"[31m
+                      [36m>[31m
+                        [0m10[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪¬╪¼╪▒╪¿┘ç[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-emerald-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-2xl font-bold text-emerald-600"[31m
+                      [36m>[31m
+                        [0m150[0m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-center p-4 bg-amber-50 rounded-lg"[31m
+                    [36m>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"flex items-center justify-center mb-1"[31m
+                      [36m>[31m
+                        [36m<span[31m
+                          [33mclass[31m=[32m"text-2xl font-bold text-amber-600"[31m
+                        [36m>[31m
+                          [0m4.8[0m
+                        [36m</span>[31m
+                        [36m<svg[31m
+                          [33mclass[31m=[32m"w-5 h-5 text-amber-400 fill-current mr-1"[31m
+                          [33mdata-testid[31m=[32m"StarIcon"[31m
+                        [36m/>[31m
+                      [36m</div>[31m
+                      [36m<div[31m
+                        [33mclass[31m=[32m"text-sm text-gray-600"[31m
+                      [36m>[31m
+                        [0m╪º┘à╪¬█î╪º╪▓[0m
+                      [36m</div>[31m
+                    [36m</div>[31m
+                  [36m</div>[31m
+                  [36m<div[31m
+                    [33mclass[31m=[32m"bg-gray-50 rounded-xl p-6 text-center"[31m
+                  [36m>[31m
+                    [36m<div[31m
+                      [33mclass[31m=[32m"text-4xl text-primary-600 mb-4"[31m
+                    [36m>[31m
+                      [0m"[0m
+                    [36m</div>[31m
+                    [36m<p[31m
+                      [33mclass[31m=[32m"text-gray-700 italic text-lg leading-relaxed"[31m
+                    [36m>[31m
+                      [0m┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤[0m
+                    [36m</p>[31m
+                  [36m</div>[31m
+                [36m</div>[31m
+              [36m</div>[31m
+              [36m<div[31m
+                [33mclass[31m=[32m"space-y-8"[31m
+              [36m>[31m
+                [36m<div[31m
+                  [33mclass[31m=[32m"bg-white rounded-2xl p-8 shadow-lg"[31m
+                [36m>[31m
+                  [36m<h4[31m
+                    [33mclass[31m=[32m"text-xl font-bold text-gray-900 mb-4"[31m
+                  [36m>[31m
+           ...[39m
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 23 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > renders coach spotlight section when coaches are provided
+TestingLibraryElementError: Unable to find an element with the text: ┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:25:19
+     23|
+     24|     expect(screen.getByText('╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î')).toBeInTheDocument();
+     25|     expect(screen.getByText('┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î')).toBeInTheDocument();
+       |                   ^
+     26|     expect(screen.getByText('╪╣┘ä█î ┘à╪¡┘à╪»█î')).toBeInTheDocument();
+     27|   });
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > shows first coach by default
+TestingLibraryElementError: Found multiple elements with the text: ╪╣┘ä█î ┘à╪¡┘à╪»█î
+Here are the matching elements:
+Ignored nodes: comments, script, style
+<h3
+  class="text-3xl font-bold text-gray-900 mb-2"
+>
+  ╪╣┘ä█î
+   
+  ┘à╪¡┘à╪»█î
+</h3>
+Ignored nodes: comments, script, style
+<h4
+  class="text-lg font-bold text-gray-900 mb-2"
+>
+  ╪╣┘ä█î
+   
+  ┘à╪¡┘à╪»█î
+</h4>
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getElementError ../../node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ Γ¥» getMultipleElementsFoundError ../../node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:44:19
+     42|     renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
+     43|
+     44|     expect(screen.getByText('╪╣┘ä█î ┘à╪¡┘à╪»█î')).toBeInTheDocument();
+       |                   ^
+     45|     expect(screen.getByText('┘à╪▒╪¿█î ╪º╪▒╪┤╪»')).toBeInTheDocument();
+     46|     expect(screen.getByText('┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å')).toBeInTheDΓÇª
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > navigates to next coach when next button clicked
+TestingLibraryElementError: Unable to find a label with the text of: /╪º╪│┘ä╪º█î╪» ╪¿╪╣╪»█î/i
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getAllByLabelText ../../node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:52:31
+     50|     renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
+     51|
+     52|     const nextButton = screen.getByLabelText(/╪º╪│┘ä╪º█î╪» ╪¿╪╣╪»█î/i);
+       |                               ^
+     53|     fireEvent.click(nextButton);
+     54|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[3/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > navigates to previous coach when prev button clicked
+TestingLibraryElementError: Unable to find a label with the text of: /╪º╪│┘ä╪º█î╪» ┘é╪¿┘ä█î/i
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getAllByLabelText ../../node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:61:31
+     59|     renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
+     60|
+     61|     const prevButton = screen.getByLabelText(/╪º╪│┘ä╪º█î╪» ┘é╪¿┘ä█î/i);
+       |                               ^
+     62|     fireEvent.click(prevButton);
+     63|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[4/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > shows all coaches in grid
+TestingLibraryElementError: Found multiple elements with the text: ╪╣┘ä█î ┘à╪¡┘à╪»█î
+Here are the matching elements:
+Ignored nodes: comments, script, style
+<h3
+  class="text-3xl font-bold text-gray-900 mb-2"
+>
+  ╪╣┘ä█î
+   
+  ┘à╪¡┘à╪»█î
+</h3>
+Ignored nodes: comments, script, style
+<h4
+  class="text-lg font-bold text-gray-900 mb-2"
+>
+  ╪╣┘ä█î
+   
+  ┘à╪¡┘à╪»█î
+</h4>
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getElementError ../../node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ Γ¥» getMultipleElementsFoundError ../../node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:71:19
+     69|
+     70|     expect(screen.getByText('╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ┘à╪º')).toBeInTheDocument();
+     71|     expect(screen.getByText('╪╣┘ä█î ┘à╪¡┘à╪»█î')).toBeInTheDocument();
+       |                   ^
+     72|     expect(screen.getByText('╪▒╪╢╪º ╪º╪¡┘à╪»█î')).toBeInTheDocument();
+     73|     expect(screen.getByText('╪¡╪│█î┘å ╪▒╪╢╪º█î█î')).toBeInTheDocument();
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[5/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > displays coach stats correctly
+TestingLibraryElementError: Found multiple elements with the text: 4.8
+Here are the matching elements:
+Ignored nodes: comments, script, style
+<span
+  class="text-2xl font-bold text-amber-600"
+>
+  4.8
+</span>
+Ignored nodes: comments, script, style
+<span
+  class="text-sm text-gray-600 mr-1"
+>
+  4.8
+</span>
+Ignored nodes: comments, script, style
+<span
+  class="text-sm text-gray-600 mr-1"
+>
+  4.8
+</span>
+Ignored nodes: comments, script, style
+<span
+  class="text-sm text-gray-600 mr-1"
+>
+  4.8
+</span>
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getElementError ../../node_modules/@testing-library/dom/dist/query-helpers.js:20:35
+ Γ¥» getMultipleElementsFoundError ../../node_modules/@testing-library/dom/dist/query-helpers.js:23:10
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:55:13
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:81:19
+     79|     expect(screen.getByText('10')).toBeInTheDocument(); // experience
+     80|     expect(screen.getByText('150')).toBeInTheDocument(); // studentsCoΓÇª
+     81|     expect(screen.getByText('4.8')).toBeInTheDocument(); // rating
+       |                   ^
+     82|   });
+     83|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[6/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > handles coach with missing optional fields
+Error: It looks like null was passed instead of a matcher. Did you do something like getByText(null)?
+ Γ¥» assertNotNullOrUndefined ../../node_modules/@testing-library/dom/dist/matches.js:12:11
+ Γ¥» matches ../../node_modules/@testing-library/dom/dist/matches.js:35:3
+ Γ¥» ../../node_modules/@testing-library/dom/dist/queries/text.js:31:68
+ Γ¥» queryAllByText ../../node_modules/@testing-library/dom/dist/queries/text.js:31:53
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:112:19
+    110|
+    111|     expect(screen.getByText('╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î')).toBeInTheDocument();
+    112|     expect(screen.queryByText(null)).not.toBeInTheDocument(); // No biΓÇª
+       |                   ^
+    113|   });
+    114|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[7/23]ΓÄ»
+ FAIL  src/__tests__/components/CoachSpotlight.test.tsx > CoachSpotlight > cycles through coaches with indicator dots
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/╪º╪│┘ä╪º█î╪» \d+/i`
+Here are the accessible roles:
+  heading:
+  Name "┘à╪▒╪¿█î╪º┘å ╪¡╪▒┘ü┘çΓÇî╪º█î":
+  <h2
+    class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+  />
+  Name "╪╣┘ä█î ┘à╪¡┘à╪»█î":
+  <h3
+    class="text-3xl font-bold text-gray-900 mb-2"
+  />
+  Name "┘à╪╣╪▒┘ü█î ┘à╪▒╪¿█î":
+  <h4
+    class="text-xl font-bold text-gray-900 mb-4"
+  />
+  Name "┘à╪»╪º╪▒┌⌐ ┘ê ┌»┘ê╪º┘ç█î┘å╪º┘à┘çΓÇî┘ç╪º":
+  <h4
+    class="text-xl font-bold text-gray-900 mb-4 flex items-center"
+  />
+  Name "╪º┘ü╪¬╪«╪º╪▒╪º╪¬ ┘ê ╪»╪│╪¬╪º┘ê╪▒╪»┘ç╪º":
+  <h4
+    class="text-xl font-bold text-gray-900 mb-4 flex items-center"
+  />
+  Name "╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º█î ╪¬╪»╪▒█î╪│":
+  <h4
+    class="text-xl font-bold text-gray-900 mb-4"
+  />
+  Name "╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ┘à╪º":
+  <h3
+    class="text-2xl font-bold text-gray-900 text-center mb-12"
+  />
+  Name "╪╣┘ä█î ┘à╪¡┘à╪»█î":
+  <h4
+    class="text-lg font-bold text-gray-900 mb-2"
+  />
+  Name "╪▒╪╢╪º ╪º╪¡┘à╪»█î":
+  <h4
+    class="text-lg font-bold text-gray-900 mb-2"
+  />
+  Name "╪¡╪│█î┘å ╪▒╪╢╪º█î█î":
+  <h4
+    class="text-lg font-bold text-gray-900 mb-2"
+  />
+  --------------------------------------------------
+  paragraph:
+  Name "":
+  <p
+    class="text-xl text-gray-600 max-w-3xl mx-auto"
+  />
+  Name "":
+  <p
+    class="text-lg text-primary-600 font-medium mb-2"
+  />
+  Name "":
+  <p
+    class="text-gray-600"
+  />
+  Name "":
+  <p
+    class="text-gray-700 italic text-lg leading-relaxed"
+  />
+  Name "":
+  <p
+    class="text-gray-700 leading-relaxed mb-6"
+  />
+  Name "":
+  <p
+    class="text-sm text-primary-600 mb-2"
+  />
+  Name "":
+  <p
+    class="text-xs text-gray-500"
+  />
+  Name "":
+  <p
+    class="text-sm text-primary-600 mb-2"
+  />
+  Name "":
+  <p
+    class="text-xs text-gray-500"
+  />
+  Name "":
+  <p
+    class="text-sm text-primary-600 mb-2"
+  />
+  Name "":
+  <p
+    class="text-xs text-gray-500"
+  />
+  --------------------------------------------------
+  link:
+  Name "≡ƒô▒ @ali_mohammadi":
+  <a
+    class="bg-linear-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow"
+    href="#"
+  />
+  Name "≡ƒÉª @ali_mohammadi":
+  <a
+    class="bg-linear-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:shadow-lg transition-shadow"
+    href="#"
+  />
+  --------------------------------------------------
+  button:
+  Name "":
+  <button
+    class="bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow text-gray-600 hover:text-primary-600"
+  />
+  Name "":
+  <button
+    class="w-3 h-3 rounded-full transition-all bg-primary-600 scale-125"
+  />
+  Name "":
+  <button
+    class="w-3 h-3 rounded-full transition-all bg-gray-300 hover:bg-gray-400"
+  />
+  Name "":
+  <button
+    class="w-3 h-3 rounded-full transition-all bg-gray-300 hover:bg-gray-400"
+  />
+  Name "":
+  <button
+    class="bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow text-gray-600 hover:text-primary-600"
+  />
+  --------------------------------------------------
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <section
+        class="section-padding bg-linear-to-br from-slate-50 to-slate-100"
+      >
+        <div
+          class="container-custom"
+        >
+          <div
+            class="text-center mb-16"
+          >
+            <div
+              class="inline-flex items-center px-4 py-2 rounded-full bg-primary-100 text-primary-600 text-sm font-medium mb-4"
+            >
+              <svg
+                class="w-4 h-4 ml-2"
+                data-testid="UserGroupIcon"
+              />
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î
+            </div>
+            <h2
+              class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6"
+            >
+              ┘à╪▒╪¿█î╪º┘å 
+              <span
+                class="text-primary-600"
+              >
+                ╪¡╪▒┘ü┘çΓÇî╪º█î
+              </span>
+            </h2>
+            <p
+              class="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              ╪¬█î┘à ┘à╪▒╪¿█î┌»╪▒█î ┘à╪º ╪º╪▓ ╪¿┘ç╪¬╪▒█î┘å ┘ê ╪¿╪º╪¬╪¼╪▒╪¿┘çΓÇî╪¬╪▒█î┘å ┘à╪▒╪¿█î╪º┘å ┌⌐╪┤┘ê╪▒ ╪¬╪┤┌⌐█î┘ä ╪┤╪»┘ç ╪º╪│╪¬
+            </p>
+          </div>
+          <div
+            class="relative"
+          >
+            <div
+              class="grid lg:grid-cols-2 gap-12 items-center"
+            >
+              <div
+                class="relative"
+              >
+                <div
+                  class="bg-white rounded-3xl p-8 shadow-2xl"
+                >
+                  <div
+                    class="text-center mb-8"
+                  >
+                    <div
+                      class="w-48 h-48 bg-linear-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white text-6xl font-bold mx-auto mb-6"
+                    >
+                      ╪╣
+                    </div>
+                    <h3
+                      class="text-3xl font-bold text-gray-900 mb-2"
+                    >
+                      ╪╣┘ä█î
+                       
+                      ┘à╪¡┘à╪»█î
+                    </h3>
+                    <p
+                      class="text-lg text-primary-600 font-medium mb-2"
+                    >
+                      ┘à╪▒╪¿█î ╪º╪▒╪┤╪»
+                    </p>
+                    <p
+                      class="text-gray-600"
+                    >
+                      ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                    </p>
+                  </div>
+                  <div
+                    class="grid grid-cols-3 gap-4 mb-8"
+                  >
+                    <div
+                      class="text-center p-4 bg-primary-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-primary-600"
+                      >
+                        10
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪¬╪¼╪▒╪¿┘ç
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-emerald-50 rounded-lg"
+                    >
+                      <div
+                        class="text-2xl font-bold text-emerald-600"
+                      >
+                        150
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓
+                      </div>
+                    </div>
+                    <div
+                      class="text-center p-4 bg-amber-50 rounded-lg"
+                    >
+                      <div
+                        class="flex items-center justify-center mb-1"
+                      >
+                        <span
+                          class="text-2xl font-bold text-amber-600"
+                        >
+                          4.8
+                        </span>
+                        <svg
+                          class="w-5 h-5 text-amber-400 fill-current mr-1"
+                          data-testid="StarIcon"
+                        />
+                      </div>
+                      <div
+                        class="text-sm text-gray-600"
+                      >
+                        ╪º┘à╪¬█î╪º╪▓
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="bg-gray-50 rounded-xl p-6 text-center"
+                  >
+                    <div
+                      class="text-4xl text-primary-600 mb-4"
+                    >
+                      "
+                    </div>
+                    <p
+                      class="text-gray-700 italic text-lg leading-relaxed"
+                    >
+                      ┘ü┘ê╪¬╪¿╪º┘ä ┘ç┘å╪▒█î ╪º╪│╪¬╪î ┘å┘ç ┘ü┘é╪╖ ┘ê╪▒╪▓╪┤
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="space-y-8"
+              >
+                <div
+                  class="bg-white rounded-2xl p-8 shadow-lg"
+                >
+                  <h4
+                    class="text-xl font-bold text-gray-900 mb-4"
+                  >
+           ...
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:109:15
+ Γ¥» src/__tests__/components/CoachSpotlight.test.tsx:118:25
+    116|     renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
+    117|
+    118|     const dots = screen.getAllByRole('button', { name: /╪º╪│┘ä╪º█î╪» \d+/i }ΓÇª
+       |                         ^
+    119|     expect(dots).toHaveLength(3);
+    120|   });
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[8/23]ΓÄ»
+ FAIL  src/__tests__/services/coachService.test.ts > coachService > getCoaches > returns formatted coaches with all required fields
+TypeError: undefined is not a function
+ Γ¥» Module.getCoaches src/services/coachService.ts:18:18
+     16|   });
+     17|
+     18|   return coaches.map(toCoachViewModel);
+       |                  ^
+     19| }
+     20|
+ Γ¥» src/__tests__/services/coachService.test.ts:58:22
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[9/23]ΓÄ»
+ FAIL  src/__tests__/services/coachService.test.ts > coachService > getCoaches > filters only active coaches
+TypeError: Cannot read properties of undefined (reading 'map')
+ Γ¥» Module.getCoaches src/services/coachService.ts:18:18
+     16|   });
+     17|
+     18|   return coaches.map(toCoachViewModel);
+       |                  ^
+     19| }
+     20|
+ Γ¥» src/__tests__/services/coachService.test.ts:83:7
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[10/23]ΓÄ»
+ FAIL  src/__tests__/services/coachService.test.ts > coachService > getCoaches > includes only active programs for each coach
+TypeError: undefined is not a function
+ Γ¥» Module.getCoaches src/services/coachService.ts:18:18
+     16|   });
+     17|
+     18|   return coaches.map(toCoachViewModel);
+       |                  ^
+     19| }
+     20|
+ Γ¥» src/__tests__/services/coachService.test.ts:124:22
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[11/23]ΓÄ»
+ FAIL  src/__tests__/services/coachService.test.ts > coachService > getCoaches > orders programs by displayOrder
+TypeError: undefined is not a function
+ Γ¥» Module.getCoaches src/services/coachService.ts:18:18
+     16|   });
+     17|
+     18|   return coaches.map(toCoachViewModel);
+       |                  ^
+     19| }
+     20|
+ Γ¥» src/__tests__/services/coachService.test.ts:161:22
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[12/23]ΓÄ»
+ FAIL  src/__tests__/services/coachService.test.ts > coachService > getCoaches > returns empty array when no coaches found
+TypeError: undefined is not a function
+ Γ¥» Module.getCoaches src/services/coachService.ts:18:18
+     16|   });
+     17|
+     18|   return coaches.map(toCoachViewModel);
+       |                  ^
+     19| }
+     20|
+ Γ¥» src/__tests__/services/coachService.test.ts:170:22
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[13/23]ΓÄ»
+ FAIL  src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > calls delete API when delete button clicked
+TestingLibraryElementError: Unable to find a label with the text of: /╪¡╪░┘ü/i
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4"
+      >
+        <div>
+          <h1
+            class="text-3xl font-bold text-gray-900"
+          >
+            ┘à╪▒╪¿█î╪º┘å
+          </h1>
+          <p
+            class="text-gray-600 mt-1"
+          >
+            ┘à╪»█î╪▒█î╪¬ ┘ê ┘à╪┤╪º┘ç╪»┘ç ╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ╪ó┌⌐╪º╪»┘à█î
+          </p>
+        </div>
+        <a
+          class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+          href="/admin/coaches/new"
+        >
+          <svg
+            class="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+          ╪º┘ü╪▓┘ê╪»┘å ┘à╪▒╪¿█î ╪¼╪»█î╪»
+        </a>
+      </div>
+      <div
+        class="bg-white rounded-2xl shadow-lg overflow-hidden"
+      >
+        <div
+          class="overflow-x-auto"
+        >
+          <table
+            class="w-full"
+          >
+            <thead
+              class="bg-gray-50 border-b border-gray-200"
+            >
+              <tr>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ┘à╪▒╪¿█î
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¬╪«╪╡╪╡
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¬╪¼╪▒╪¿┘ç
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪º┘à╪¬█î╪º╪▓
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓╪º┘å
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ┘ê╪╢╪╣█î╪¬
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪╣┘à┘ä█î╪º╪¬
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="divide-y divide-gray-200"
+            >
+              <tr
+                class="hover:bg-gray-50"
+              >
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <div
+                      class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"
+                    >
+                      ╪╣┘à
+                    </div>
+                    <div>
+                      <div
+                        class="font-medium text-gray-900"
+                      >
+                        ╪╣┘ä█î
+                         
+                        ┘à╪¡┘à╪»█î
+                      </div>
+                      <div
+                        class="text-sm text-gray-500"
+                      >
+                        ali@example.com
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-900"
+                >
+                  ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  10
+                   ╪│╪º┘ä
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  0
+                   ╪¿╪▒┘å╪º┘à┘ç
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <span
+                      class="text-gray-900 font-medium"
+                    >
+                      4.8
+                    </span>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 fill-current ml-1"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  150
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <span
+                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"
+                  >
+                    ┘ü╪╣╪º┘ä
+                  </span>
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center space-x-2 space-x-reverse"
+                  >
+                    <a
+                      class="p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                      href="/admin/coaches/1"
+                      title="┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </a>
+                    <button
+                      class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                      title="╪¡╪░┘ü"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="hover:bg-gray-50"
+              >
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <div
+                      class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"
+                    >
+                      ╪▒╪º
+                    </div>
+                    <div>
+                      <div
+                        class="font-medium text-gray-900"
+                      >
+                        ╪▒╪╢╪º
+                         
+                        ╪º╪¡┘à╪»█î
+                      </div>
+                      <div
+                        class="text-sm text-gray-500"
+                      >
+                        reza@example.com
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-900"
+                >
+                  ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  10
+                   ╪│╪º┘ä
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  0
+                   ╪¿╪▒┘å╪º┘à┘ç
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <span
+                      class="text-gray-900 font-medium"
+                    >
+                      4.8
+                    </span>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 fill-current ml-1"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  150
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <span
+                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"
+                  >
+                    ┘ü╪╣╪º┘ä
+                  </span>
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center space-x-2 space-x-reverse"
+                  >
+                    <a
+                      class="p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                      href="/admin/coaches/2"
+                      title="┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </a>
+                    <button
+                      class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                      title="╪¡╪░┘ü"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getAllByLabelText ../../node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:109:15
+ Γ¥» src/__tests__/pages/admin/coaches/index.test.tsx:94:34
+     92|
+     93|     // Click delete button for first coach
+     94|     const deleteButtons = screen.getAllByLabelText(/╪¡╪░┘ü/i);
+       |                                  ^
+     95|     fireEvent.click(deleteButtons[0]);
+     96|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[14/23]ΓÄ»
+ FAIL  src/__tests__/pages/admin/coaches/index.test.tsx > Admin Coaches Page > removes coach from list after successful delete
+TestingLibraryElementError: Unable to find a label with the text of: /╪¡╪░┘ü/i
+Ignored nodes: comments, script, style
+<body>
+  <div>
+    <div
+      dir="rtl"
+      lang="fa"
+    >
+      <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8 gap-4"
+      >
+        <div>
+          <h1
+            class="text-3xl font-bold text-gray-900"
+          >
+            ┘à╪▒╪¿█î╪º┘å
+          </h1>
+          <p
+            class="text-gray-600 mt-1"
+          >
+            ┘à╪»█î╪▒█î╪¬ ┘ê ┘à╪┤╪º┘ç╪»┘ç ╪¬┘à╪º┘à ┘à╪▒╪¿█î╪º┘å ╪ó┌⌐╪º╪»┘à█î
+          </p>
+        </div>
+        <a
+          class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+          href="/admin/coaches/new"
+        >
+          <svg
+            class="w-5 h-5 ml-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+            />
+          </svg>
+          ╪º┘ü╪▓┘ê╪»┘å ┘à╪▒╪¿█î ╪¼╪»█î╪»
+        </a>
+      </div>
+      <div
+        class="bg-white rounded-2xl shadow-lg overflow-hidden"
+      >
+        <div
+          class="overflow-x-auto"
+        >
+          <table
+            class="w-full"
+          >
+            <thead
+              class="bg-gray-50 border-b border-gray-200"
+            >
+              <tr>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ┘à╪▒╪¿█î
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¬╪«╪╡╪╡
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¬╪¼╪▒╪¿┘ç
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪¿╪▒┘å╪º┘à┘çΓÇî┘ç╪º
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪º┘à╪¬█î╪º╪▓
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪»╪º┘å╪┤ΓÇî╪ó┘à┘ê╪▓╪º┘å
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ┘ê╪╢╪╣█î╪¬
+                </th>
+                <th
+                  class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                >
+                  ╪╣┘à┘ä█î╪º╪¬
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="divide-y divide-gray-200"
+            >
+              <tr
+                class="hover:bg-gray-50"
+              >
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <div
+                      class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"
+                    >
+                      ╪╣┘à
+                    </div>
+                    <div>
+                      <div
+                        class="font-medium text-gray-900"
+                      >
+                        ╪╣┘ä█î
+                         
+                        ┘à╪¡┘à╪»█î
+                      </div>
+                      <div
+                        class="text-sm text-gray-500"
+                      >
+                        ali@example.com
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-900"
+                >
+                  ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  10
+                   ╪│╪º┘ä
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  0
+                   ╪¿╪▒┘å╪º┘à┘ç
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <span
+                      class="text-gray-900 font-medium"
+                    >
+                      4.8
+                    </span>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 fill-current ml-1"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  150
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <span
+                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"
+                  >
+                    ┘ü╪╣╪º┘ä
+                  </span>
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center space-x-2 space-x-reverse"
+                  >
+                    <a
+                      class="p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                      href="/admin/coaches/1"
+                      title="┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </a>
+                    <button
+                      class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                      title="╪¡╪░┘ü"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="hover:bg-gray-50"
+              >
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <div
+                      class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-700 font-bold mr-3"
+                    >
+                      ╪▒╪º
+                    </div>
+                    <div>
+                      <div
+                        class="font-medium text-gray-900"
+                      >
+                        ╪▒╪╢╪º
+                         
+                        ╪º╪¡┘à╪»█î
+                      </div>
+                      <div
+                        class="text-sm text-gray-500"
+                      >
+                        reza@example.com
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-900"
+                >
+                  ┘à╪▒╪¿█î ┘ü█î┘ü╪º╪î ╪¬╪«╪╡╪╡ ╪»╪▒ ┘å┘ê╪¼┘ê╪º┘å╪º┘å
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  10
+                   ╪│╪º┘ä
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  0
+                   ╪¿╪▒┘å╪º┘à┘ç
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center"
+                  >
+                    <span
+                      class="text-gray-900 font-medium"
+                    >
+                      4.8
+                    </span>
+                    <svg
+                      class="w-4 h-4 text-yellow-400 fill-current ml-1"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 text-gray-500"
+                >
+                  150
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <span
+                    class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-700"
+                  >
+                    ┘ü╪╣╪º┘ä
+                  </span>
+                </td>
+                <td
+                  class="px-6 py-4"
+                >
+                  <div
+                    class="flex items-center space-x-2 space-x-reverse"
+                  >
+                    <a
+                      class="p-2 text-gray-500 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                      href="/admin/coaches/2"
+                      title="┘à╪┤╪º┘ç╪»┘ç/┘ê█î╪▒╪º█î╪┤"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                        <path
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </a>
+                    <button
+                      class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                      title="╪¡╪░┘ü"
+                    >
+                      <svg
+                        class="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+ Γ¥» Object.getElementError ../../node_modules/@testing-library/dom/dist/config.js:37:19
+ Γ¥» getAllByLabelText ../../node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ Γ¥» ../../node_modules/@testing-library/dom/dist/query-helpers.js:109:15
+ Γ¥» src/__tests__/pages/admin/coaches/index.test.tsx:114:34
+    112|     });
+    113|
+    114|     const deleteButtons = screen.getAllByLabelText(/╪¡╪░┘ü/i);
+       |                                  ^
+    115|     fireEvent.click(deleteButtons[0]);
+    116|
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[15/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > GET > returns list of coaches with programs
+TypeError: GET is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:77:13
+     75|       const res = createMockRes();
+     76|
+     77|       await GET(req, res);
+       |             ^
+     78|
+     79|       expect(res.status).toHaveBeenCalledWith(200);
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[16/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > GET > orders coaches by displayOrder
+TypeError: GET is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:89:13
+     87|       const res = createMockRes();
+     88|
+     89|       await GET(req, res);
+       |             ^
+     90|
+     91|       expect(mockPrisma.coach.findMany).toHaveBeenCalledWith(
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[17/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > GET > returns 405 for non-GET methods
+TypeError: GET is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:103:13
+    101|       const res = createMockRes();
+    102|
+    103|       await GET(req, res);
+       |             ^
+    104|
+    105|       expect(res.status).toHaveBeenCalledWith(405);
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[18/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > GET > handles database errors
+TypeError: GET is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:115:20
+    113|       const res = createMockRes();
+    114|
+    115|       await expect(GET(req, res)).rejects.toThrow('DB Error');
+       |                    ^
+    116|     });
+    117|   });
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[19/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > POST > creates new coach with all fields
+TypeError: POST is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:151:13
+    149|       const res = createMockRes();
+    150|
+    151|       await POST(req, res);
+       |             ^
+    152|
+    153|       expect(res.status).toHaveBeenCalledWith(201);
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[20/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > POST > includes certifications and achievements as arrays
+TypeError: POST is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:170:13
+    168|       const res = createMockRes();
+    169|
+    170|       await POST(req, res);
+       |             ^
+    171|
+    172|       expect(mockPrisma.coach.create).toHaveBeenCalledWith(
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[21/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > POST > sets default values for optional fields
+TypeError: POST is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:200:13
+    198|       const res = createMockRes();
+    199|
+    200|       await POST(req, res);
+       |             ^
+    201|
+    202|       expect(mockPrisma.coach.create).toHaveBeenCalledWith(
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[22/23]ΓÄ»
+ FAIL  src/__tests__/pages/api/admin/coaches/index.test.ts > /api/admin/coaches > POST > returns 405 for non-POST methods
+TypeError: POST is not a function
+ Γ¥» src/__tests__/pages/api/admin/coaches/index.test.ts:220:13
+    218|       const res = createMockRes();
+    219|
+    220|       await POST(req, res);
+       |             ^
+    221|
+    222|       expect(res.status).toHaveBeenCalledWith(405);
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[23/23]ΓÄ»
+[2m Test Files [22m [1m[31m4 failed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m23 failed[39m[22m[2m | [22m[1m[32m11 passed[39m[22m[90m (34)[39m
+[2m   Start at [22m 04:14:35
+[2m   Duration [22m 1.51s[2m (environment 63%, setup 19%, tests 8%, transform 8%, import 2%, worker 1%)[22m
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path K:\projects\ap-football-academy\apps\website
+npm error workspace @ap-football-academy/website@0.0.1
+npm error location K:\projects\ap-football-academy\apps\website
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c vitest run --reporter=verbose
+
+[2m[31m[39m[22m
+
+ NX   Running target test for project @ap-football-academy/website failed
+
+Failed tasks:
+
+- @ap-football-academy/website:test
+
+Hint: run the command with --verbose for more details.
+
+
+ NX   Nx Cloud encountered some problems
+
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>403 Forbidden</title>
+</head>
+<body text=#000000 bgcolor=#ffffff>
+<h1>Error: Forbidden</h1>
+<h2>Your client does not have permission to get URL <code>/nx-cloud/v2/runs/start</code> from this server.</h2>
+<h2></h2>
+</body></html>. (code: 403)
+
+  Run duration:      2.4s
+  Critical path:     2.4s (1 task)
+  Recoverable time:  <1ms
+
+  Recommendations:
+    - Speed up or split the longest tasks on the critical path:
+        @ap-football-academy/website:test    2.4s

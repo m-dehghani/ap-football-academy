@@ -1,7 +1,7 @@
 import { getPrisma } from '@/lib/db';
-import Coach from '@/viewModels/coach';
+import { CoachViewModel, toCoachViewModel } from '@/viewModels/coach/index';
 
-export async function getCoaches(): Promise<Coach[]> {
+export async function getCoaches(): Promise<CoachViewModel[]> {
   const prisma = await getPrisma();
   const coaches = await prisma.coach.findMany({
     where: { isActive: true },
@@ -15,23 +15,5 @@ export async function getCoaches(): Promise<Coach[]> {
     orderBy: { displayOrder: 'asc' },
   });
 
-  return coaches.map((coach) => ({
-    id: coach.id,
-    firstName: coach.firstName,
-    lastName: coach.lastName,
-    fullName: `${coach.firstName} ${coach.lastName}`,
-    title: coach.title,
-    specialization: coach.specialization,
-    experience: coach.experience,
-    bio: coach.bio,
-    quote: coach.quote,
-    certifications: coach.certifications,
-    achievements: coach.achievements,
-    rating: coach.rating,
-    studentsCount: coach.studentsCount,
-    image: coach.image,
-    instagram: coach.instagram,
-    twitter: coach.twitter,
-    programs: coach.programs,
-  }));
+  return coaches.map(toCoachViewModel);
 }

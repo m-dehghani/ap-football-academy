@@ -5,8 +5,9 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   test: {
+    globals: true,
     environment: 'jsdom',
-    setupFiles: ['./vitest.setup.ts'],
+    setupFiles: ['./vitest.setup.tsx'],
     include: ['src/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'v8',
@@ -16,7 +17,7 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/*.test.{ts,tsx}',
         'src/**/*.stories.{ts,tsx}',
-        'vitest.setup.ts',
+        'vitest.setup.tsx',
       ],
     },
   },

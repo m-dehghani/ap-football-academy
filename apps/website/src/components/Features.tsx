@@ -1,126 +1,17 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  UserGroupIcon, 
-  TrophyIcon, 
-  AcademicCapIcon, 
-  HeartIcon,
-  ClockIcon,
-  StarIcon,
-  ShieldCheckIcon,
-  LightBulbIcon,
-  SparklesIcon,
-  RocketLaunchIcon,
-  CogIcon
-} from '@heroicons/react/24/outline';
+import { SparklesIcon } from '@heroicons/react/24/outline';
+import {
+  FEATURES,
+  FEATURE_STATS,
+  ADDITIONAL_FEATURES,
+} from '@/constants/content';
+import { getIcon } from '@/lib/icons';
 
 const Features: React.FC = () => {
-  const features = [
-    {
-      icon: TrophyIcon,
-      title: 'مربیگری متخصص',
-      description: 'مربیان دارای مدرک فیفا با تجربه حرفه‌ای که در توسعه استعدادهای جوان و مهارت‌های پیشرفته تخصص دارند.',
-      color: 'from-accent-500 to-accent-600',
-      bgColor: 'bg-accent-50',
-      iconColor: 'text-accent-600',
-      stats: '12+ مربی'
-    },
-    {
-      icon: UserGroupIcon,
-      title: 'محیط حمایتی',
-      description: 'فضای مثبت و تشویق‌کننده طراحی شده برای ایجاد اعتماد به نفس و رشد بازیکنان در تمام سطوح.',
-      color: 'from-secondary-500 to-secondary-600',
-      bgColor: 'bg-secondary-50',
-      iconColor: 'text-secondary-600',
-      stats: 'تمام سنین'
-    },
-    {
-      icon: AcademicCapIcon,
-      title: 'برنامه‌های تخصصی',
-      description: 'برنامه‌های آموزشی اختصاصی که نیازهای رشد جسمی و ذهنی خاص هر گروه سنی را پوشش می‌دهد.',
-      color: 'from-emerald-500 to-emerald-600',
-      bgColor: 'bg-emerald-50',
-      iconColor: 'text-emerald-600',
-      stats: '4 برنامه'
-    },
-    {
-      icon: SparklesIcon,
-      title: 'تجهیزات مدرن',
-      description: 'تجهیزات آموزشی پیشرفته و تکنولوژی فوتبال مدرن برای بهترین تجربه یادگیری.',
-      color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
-      iconColor: 'text-purple-600',
-      stats: 'سطح حرفه‌ای'
-    },
-    {
-      icon: ShieldCheckIcon,
-      title: 'امنیت و انضباط',
-      description: 'محیط امن و منضبط با بالاترین استانداردهای ایمنی و پیشگیری جامع از آسیب‌ها.',
-      color: 'from-navy-500 to-navy-600',
-      bgColor: 'bg-navy-50',
-      iconColor: 'text-navy-600',
-      stats: '100% امن'
-    },
-    {
-      icon: LightBulbIcon,
-      title: 'توسعه شخصیت',
-      description: 'تمرکز بر ایجاد شخصیت قوی، مهارت‌های رهبری و مسئولیت‌پذیری در کنار تعالی فوتبال.',
-      color: 'from-primary-500 to-primary-600',
-      bgColor: 'bg-primary-50',
-      iconColor: 'text-primary-600',
-      stats: 'مهارت‌های زندگی'
-    }
-  ];
-
-  const stats = [
-    { 
-      number: '500+', 
-      label: 'بازیکن فعال',
-      icon: UserGroupIcon,
-      color: 'text-secondary-600'
-    },
-    { 
-      number: '98%', 
-      label: 'میزان رضایت',
-      icon: StarIcon,
-      color: 'text-accent-600'
-    },
-    { 
-      number: '10+', 
-      label: 'سال تجربه',
-      icon: ClockIcon,
-      color: 'text-emerald-600'
-    },
-    { 
-      number: '25+', 
-      label: 'قهرمانی',
-      icon: TrophyIcon,
-      color: 'text-primary-600'
-    },
-  ];
-
-  const additionalFeatures = [
-    {
-      icon: RocketLaunchIcon,
-      title: 'آموزش هدفمند',
-      description: 'برنامه‌های ساختاریافته با اهداف مشخص و پیشرفت قابل اندازه‌گیری.',
-    },
-    {
-      icon: HeartIcon,
-      title: 'توجه فردی',
-      description: 'مربیگری شخصی‌سازی‌شده تا هر بازیکن پشتیبانی اختصاصی دریافت کند.',
-    },
-    {
-      icon: CogIcon,
-      title: 'روحیه تیمی',
-      description: 'تقویت همکاری و مهارت‌های کار گروهی در زمین و خارج از آن.',
-    },
-    {
-      icon: SparklesIcon,
-      title: 'استاندارد بالا',
-      description: 'استانداردهای آموزشی بین‌المللی برای آمادگی رقابتی.',
-    },
-  ];
+  const features = FEATURES;
+  const stats = FEATURE_STATS;
+  const additionalFeatures = ADDITIONAL_FEATURES;
 
   return (
     <section className="section-padding bg-linear-to-br from-gray-50 to-gray-100 relative overflow-hidden">
@@ -144,10 +35,13 @@ const Features: React.FC = () => {
               چرا آکادمی AP
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 text-balance">
-              چرا <span className="gradient-text">آکادمی فوتبال AP</span> را انتخاب کنیم؟
+              چرا <span className="gradient-text">آکادمی فوتبال AP</span> را
+              انتخاب کنیم؟
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto text-pretty">
-              ما آموزش جامع فوتبال را با مربیان متخصص، امکانات مدرن و محیط حمایتی ارائه می‌دهیم که برای کمک به بازیکنان جهت رسیدن به حداکثر پتانسیل خود طراحی شده است.
+              ما آموزش جامع فوتبال را با مربیان متخصص، امکانات مدرن و محیط
+              حمایتی ارائه می‌دهیم که برای کمک به بازیکنان جهت رسیدن به حداکثر
+              پتانسیل خود طراحی شده است.
             </p>
           </motion.div>
         </div>
@@ -166,8 +60,10 @@ const Features: React.FC = () => {
               <div className="card-glass p-8 h-full hover:shadow-elegant-xl transition-all duration-500 transform hover:-translate-y-2">
                 {/* Icon */}
                 <div className="mb-6">
-                  <div className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className={`h-8 w-8 ${feature.iconColor}`} />
+                  <div
+                    className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    {getIcon(feature.icon, feature.iconColor)}
                   </div>
                 </div>
 
@@ -187,7 +83,9 @@ const Features: React.FC = () => {
                 </div>
 
                 {/* Gradient Border Effect */}
-                <div className={`absolute inset-0 bg-linear-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
+                <div
+                  className={`absolute inset-0 bg-linear-to-r ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}
+                ></div>
               </div>
             </motion.div>
           ))}
@@ -223,7 +121,7 @@ const Features: React.FC = () => {
                 >
                   <div className="mb-4">
                     <div className="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <stat.icon className="w-8 h-8 text-white" />
+                      {getIcon(stat.icon, 'w-8 h-8 text-white')}
                     </div>
                     <div className="text-4xl md:text-5xl font-bold text-white mb-2">
                       {stat.number}
@@ -257,10 +155,12 @@ const Features: React.FC = () => {
                 />
               </div>
               <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-4xl"></div>
-              
+
               {/* Floating Stats */}
               <div className="absolute top-6 right-6 glass-card p-4 rounded-xl">
-                <div className="text-2xl font-bold text-white persian-numbers">۴.۹/۵</div>
+                <div className="text-2xl font-bold text-white persian-numbers">
+                  ۴.۹/۵
+                </div>
                 <div className="text-white/80 text-sm">رضایت بازیکنان</div>
               </div>
             </div>
@@ -272,7 +172,9 @@ const Features: React.FC = () => {
                   تجربه‌ای متفاوت در آموزش فوتبال
                 </h3>
                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                  آکادمی فوتبال AP روش‌های علمی تمرین را با رویکردهای نوین ترکیب می‌کند تا بهترین آموزش فوتبال را ارائه دهد — از مهارت‌های پایه تا آمادگی حرفه‌ای.
+                  آکادمی فوتبال AP روش‌های علمی تمرین را با رویکردهای نوین ترکیب
+                  می‌کند تا بهترین آموزش فوتبال را ارائه دهد — از مهارت‌های پایه
+                  تا آمادگی حرفه‌ای.
                 </p>
               </div>
 
@@ -280,11 +182,15 @@ const Features: React.FC = () => {
                 {additionalFeatures.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-4">
                     <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center shrink-0 mt-1">
-                      <feature.icon className="h-5 w-5 text-primary-600" />
+                      {getIcon(feature.icon, 'h-5 w-5 text-primary-600')}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                      <p className="text-gray-600 text-sm">{feature.description}</p>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {feature.title}
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        {feature.description}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -318,7 +224,8 @@ const Features: React.FC = () => {
               آماده شروع سفر فوتبال خود هستید؟
             </h3>
             <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-              به صدها بازیکنی بپیوندید که با آموزش حرفه‌ای، بازی خود را متحول کرده‌اند.
+              به صدها بازیکنی بپیوندید که با آموزش حرفه‌ای، بازی خود را متحول
+              کرده‌اند.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.a
@@ -345,4 +252,4 @@ const Features: React.FC = () => {
   );
 };
 
-export default Features; 
+export default Features;

@@ -3,19 +3,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { NAVIGATION } from '@/constants/app';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
-  const navigation = [
-    { name: 'صفحه اصلی', href: '/' },
-    { name: 'برنامه‌ها', href: '/programs' },
-    { name: 'درباره ما', href: '/about' },
-    { name: 'مربیان', href: '/coaches' },
-    { name: 'اخبار', href: '/news' },
-    { name: 'تماس', href: '/contact' },
-  ];
+  const navigation = NAVIGATION.main;
 
   const isActive = (href: string) =>
     href === '/' ? router.pathname === '/' : router.pathname.startsWith(href);
@@ -44,7 +38,7 @@ const Header: React.FC = () => {
           <nav className="hidden lg:flex items-center gap-1">
             {navigation.map((item) => (
               <Link
-                key={item.name}
+                key={item.label}
                 href={item.href}
                 className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   isActive(item.href)
@@ -52,7 +46,7 @@ const Header: React.FC = () => {
                     : 'text-slate-600 hover:bg-slate-50 hover:text-primary-700'
                 }`}
               >
-                {item.name}
+                {item.label}
               </Link>
             ))}
           </nav>
@@ -92,7 +86,7 @@ const Header: React.FC = () => {
               <nav className="flex flex-col gap-1 py-4">
                 {navigation.map((item) => (
                   <Link
-                    key={item.name}
+                    key={item.label}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
                     className={`rounded-lg px-4 py-3 font-medium transition-colors ${
@@ -101,7 +95,7 @@ const Header: React.FC = () => {
                         : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
-                    {item.name}
+                    {item.label}
                   </Link>
                 ))}
                 <Link

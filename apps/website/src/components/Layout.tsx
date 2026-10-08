@@ -2,6 +2,7 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { APP_CONFIG } from '@/constants/app';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -23,8 +24,8 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
   children,
-  title = 'AP Football Academy - Professional Football Training',
-  description = 'Join AP Football Academy for professional football training programs for ages 8-30. Expert coaches, modern facilities, and comprehensive development programs.',
+  title = APP_CONFIG.seo.defaultTitle,
+  description = APP_CONFIG.seo.defaultDescription,
   canonical,
   openGraph,
   noindex = false,
@@ -38,32 +39,31 @@ const Layout: React.FC<LayoutProps> = ({
         noindex={noindex}
         openGraph={{
           type: 'website',
-          locale: 'en_US',
-          site_name: 'AP Football Academy',
+          locale: 'fa_IR',
+          site_name: APP_CONFIG.name,
           title: openGraph?.title || title,
           description: openGraph?.description || description,
           images: openGraph?.images || [
             {
-              url: 'https://your-domain.com/og-image.jpg',
+              url: `${APP_CONFIG.domain}${APP_CONFIG.seo.ogImage}`,
               width: 1200,
               height: 630,
-              alt: 'AP Football Academy',
+              alt: APP_CONFIG.name,
             },
           ],
         }}
         twitter={{
-          handle: '@apfootballacademy',
-          site: '@apfootballacademy',
+          handle: APP_CONFIG.seo.twitterHandle,
+          site: APP_CONFIG.seo.twitterHandle,
           cardType: 'summary_large_image',
         }}
-        additionalMetaTags={[
-          {
+        additionalMetaTags={[{
             name: 'keywords',
-            content: 'football academy, soccer training, youth sports, professional coaching, football skills development, sports training programs',
+            content: 'فوتبال, آکادمی فوتبال, آموزش فوتبال, تمرین فوتبال, مربی فوتبال, ورزش, تهران',
           },
           {
             name: 'author',
-            content: 'AP Football Academy',
+            content: APP_CONFIG.name,
           },
           {
             name: 'robots',
@@ -84,4 +84,4 @@ const Layout: React.FC<LayoutProps> = ({
   );
 };
 
-export default Layout; 
+export default Layout;

@@ -6,11 +6,13 @@
 export const APP_CONFIG = {
   name: 'آکادمی فوتبال AP',
   tagline: 'جایی که قهرمانان ساخته می‌شوند',
-  description: 'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد.',
+  description:
+    'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد.',
   domain: 'https://ap-football.com',
   email: 'info@ap-football.com',
   phone: '021-12345678',
   address: 'مرکز آموزش فوتبال، مجموعه ورزشی مرکز شهر',
+  city: 'تهران',
   foundedYear: 1393,
   socialLinks: {
     instagram: 'https://instagram.com/ap_football',
@@ -20,7 +22,8 @@ export const APP_CONFIG = {
   },
   seo: {
     defaultTitle: 'آکادمی فوتبال AP - بهترین آموزش فوتبال برای همه سنین',
-    defaultDescription: 'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد. همین امروز ثبت نام کنید.',
+    defaultDescription:
+      'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد. همین امروز ثبت نام کنید.',
     ogImage: '/og-image.jpg',
     twitterHandle: '@ap_football',
   },
@@ -96,3 +99,16 @@ export const FORM_VALIDATION = {
     message: 'رمز عبور باید حداقل ۸ کاراکتر باشد',
   },
 } as const;
+
+export const FOOTER_SOCIAL_LINKS = [
+  { name: 'Instagram', url: 'https://instagram.com/ap_football', icon: '📸' },
+  { name: 'Telegram', url: 'https://t.me/ap_football', icon: '💬' },
+  { name: 'YouTube', url: 'https://youtube.com/@ap_football', icon: '🎥' },
+  { name: 'WhatsApp', url: 'https://wa.me/982112345678', icon: '📱' },
+] as const;
+
+export const FOOTER_TRAINING_HOURS = [
+  { days: 'دوشنبه - جمعه', hours: '16:00 - 21:00' },
+  { days: 'شنبه', hours: '09:00 - 18:00' },
+  { days: 'یکشنبه', hours: '10:00 - 16:00' },
+] as const;
