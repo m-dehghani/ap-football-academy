@@ -120,7 +120,7 @@ jobs:
           path: build-output
 
       - name: Deploy to Vercel Preview
-        uses: amondnet/vercel-action@v25
+        uses: amondnet/vercel-action@v42
         if: ${{ secrets.VERCEL_TOKEN != '' }}
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
@@ -146,7 +146,7 @@ jobs:
           path: build-output
 
       - name: Deploy to Vercel Production
-        uses: amondnet/vercel-action@v25
+        uses: amondnet/vercel-action@v42
         if: ${{ secrets.VERCEL_TOKEN != '' }}
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
