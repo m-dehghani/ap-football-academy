@@ -1,0 +1,40 @@
+# CODEOWNERS for AP Football Academy Monorepo
+
+# These users/teams will be requested for review when changes are made to matching files
+
+# Global owners - all changes require review from these users
+
+- @ap-football-academy/core-team
+
+# Website application
+
+/apps/website/ @ap-football-academy/web-team
+
+# Mobile application
+
+/apps/mobile/ @ap-football-academy/mobile-team
+
+# Crawler service
+
+/apps/crawler/ @ap-football-academy/backend-team
+
+# Shared packages
+
+/packages/ @ap-football-academy/core-team
+
+# Configuration files
+
+/nx.json @ap-football-academy/core-team
+/package.json @ap-football-academy/core-team
+/pnpm-lock.yaml @ap-football-academy/core-team
+/tsconfig.base.json @ap-football-academy/core-team
+/eslint.config.mjs @ap-football-academy/core-team
+
+# CI/CD workflows
+
+/.github/workflows/ @ap-football-academy/devops-team
+
+# Documentation
+
+/README.md @ap-football-academy/core-team
+/docs/ @ap-football-academy/core-team

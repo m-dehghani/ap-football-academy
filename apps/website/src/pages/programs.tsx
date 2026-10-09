@@ -1,9 +1,16 @@
-import React from 'react';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import Programs from '../components/Programs';
+import type { GetServerSideProps } from 'next';
+import { getPrograms } from '@/services/programService';
+import { withSite, SiteProps } from '@/lib/page-props';
+import Program from '@/viewModels/program';
 
-const ProgramsPage: React.FC = () => {
+interface ProgramsPageProps extends SiteProps {
+  programs: Program[];
+}
+
+function ProgramsPage({ programs }: ProgramsPageProps) {
   return (
     <Layout
       title="برنامه‌های آموزشی - آکادمی فوتبال AP"
@@ -11,7 +18,8 @@ const ProgramsPage: React.FC = () => {
       canonical="https://ap-football.com/programs"
       openGraph={{
         title: 'برنامه‌های آموزشی - آکادمی فوتبال AP',
-        description: 'برنامه‌های آموزشی جامع فوتبال برای تمام سنین از 8 تا 30 سال',
+        description:
+          'برنامه‌های آموزشی جامع فوتبال برای تمام سنین از 8 تا 30 سال',
         images: [
           {
             url: 'https://ap-football.com/images/programs-og.jpg',
@@ -26,13 +34,20 @@ const ProgramsPage: React.FC = () => {
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'برنامه آموزشی فوتبال, کلاس فوتبال, آموزش فوتبال کودکان, آموزش فوتبال نوجوانان, آموزش فوتبال بزرگسالان',
+            content:
+              'برنامه آموزشی فوتبال, کلاس فوتبال, آموزش فوتبال کودکان, آموزش فوتبال نوجوانان, آموزش فوتبال بزرگسالان',
           },
         ]}
       />
-      <Programs />
+      <Programs programs={programs} />
     </Layout>
   );
-};
+}
 
-export default ProgramsPage; 
+export const getServerSideProps: GetServerSideProps<
+  ProgramsPageProps
+> = async () => ({
+  props: await withSite({ programs: await getPrograms() }),
+});
+
+export default ProgramsPage;

@@ -1,10 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+} from '@heroicons/react/24/outline';
+import { APP_CONFIG } from '@/constants/app';
+import { CTA_CONTENT } from '@/constants/content';
 
 const CTA: React.FC = () => {
   return (
-    <section className="section-padding bg-gradient-to-r from-primary-600 to-primary-700">
+    <section className="section-padding bg-linear-to-r from-primary-600 to-primary-700">
       <div className="container-custom">
         <div className="text-center text-white">
           <motion.div
@@ -15,14 +21,14 @@ const CTA: React.FC = () => {
             className="max-w-4xl mx-auto"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              آماده شروع سفر فوتبال خود هستید؟
+              {CTA_CONTENT.title}
             </h2>
             <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
-              به بیش از ۵۰۰ بازیکن دیگر بپیوندید و مهارت‌های فوتبال خود را به سطح بعدی برسانید
+              {CTA_CONTENT.description}
             </p>
             <p className="text-lg text-primary-200 mb-12 max-w-3xl mx-auto">
-              با مربیان حرفه‌ای، امکانات مدرن و برنامه‌های آموزشی جامع، آکادمی فوتبال AP 
-              بهترین انتخاب برای شروع یا ادامه مسیر فوتبال شماست.
+              با مربیان حرفه‌ای، امکانات مدرن و برنامه‌های آموزشی جامع، آکادمی
+              فوتبال AP بهترین انتخاب برای شروع یا ادامه مسیر فوتبال شماست.
             </p>
           </motion.div>
 
@@ -35,22 +41,22 @@ const CTA: React.FC = () => {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
             <motion.a
-              href="/register"
+              href={CTA_CONTENT.primaryCTA.href}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group bg-secondary-500 hover:bg-secondary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2 space-x-reverse"
             >
-              <span>همین حالا ثبت نام کنید</span>
+              <span>{CTA_CONTENT.primaryCTA.label}</span>
               <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </motion.a>
 
             <motion.a
-              href="/contact"
+              href={CTA_CONTENT.secondaryCTA.href}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-200 backdrop-blur-sm border border-white/30"
             >
-              مشاوره رایگان
+              {CTA_CONTENT.secondaryCTA.label}
             </motion.a>
           </motion.div>
 
@@ -67,9 +73,13 @@ const CTA: React.FC = () => {
                 <PhoneIcon className="h-6 w-6 text-white" />
               </div>
               <div className="text-right">
-                <h3 className="text-lg font-semibold text-white mb-1">تماس تلفنی</h3>
-                <p className="text-primary-100 persian-numbers">۰۲۱-۱۲۳۴۵۶۷۸</p>
-                <p className="text-primary-200 text-sm">شنبه تا چهارشنبه: ۸:۰۰ - ۲۲:۰۰</p>
+                <h3 className="text-lg font-semibold text-white mb-1">
+                  تماس تلفنی
+                </h3>
+                <p className="text-primary-100 persian-numbers">{APP_CONFIG.phone}</p>
+                <p className="text-primary-200 text-sm">
+                  شنبه تا چهارشنبه: ۸:۰۰ - ۲۲:۰۰
+                </p>
               </div>
             </div>
 
@@ -79,13 +89,13 @@ const CTA: React.FC = () => {
               </div>
               <div className="text-right">
                 <h3 className="text-lg font-semibold text-white mb-1">ایمیل</h3>
-                <p className="text-primary-100">info@ap-football.com</p>
-                <p className="text-primary-200 text-sm">پاسخگویی در کمتر از ۲۴ ساعت</p>
+                <p className="text-primary-100">{APP_CONFIG.email}</p>
+                <p className="text-primary-200 text-sm">
+                  پاسخگویی در کمتر از ۲۴ ساعت
+                </p>
               </div>
             </div>
           </motion.div>
-
-          {/* Benefits List */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -144,4 +154,4 @@ const CTA: React.FC = () => {
   );
 };
 
-export default CTA; 
+export default CTA;

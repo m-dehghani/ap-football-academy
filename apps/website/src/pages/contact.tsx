@@ -1,6 +1,6 @@
 import React from 'react';
-import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
+import PageHero from '../components/PageHero';
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 const ContactPage: React.FC = () => {
@@ -22,25 +22,14 @@ const ContactPage: React.FC = () => {
         ],
       }}
     >
-      <NextSeo
-        additionalMetaTags={[
-          {
-            name: 'keywords',
-            content: 'تماس با آکادمی فوتبال, شماره تلفن, آدرس, ایمیل, ساعات کاری',
-          },
-        ]}
+      <PageHero
+        title="تماس با ما"
+        description="برای کسب اطلاعات بیشتر، ثبت نام یا هر سوال دیگری با ما در تماس باشید"
+        badge="ارتباط با آکادمی"
       />
-      
-      <div className="section-padding bg-gradient-to-br from-gray-50 to-gray-100">
+
+      <div className="section-padding bg-linear-to-br from-gray-50 to-gray-100">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              تماس با ما
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              برای کسب اطلاعات بیشتر، ثبت نام یا هر سوال دیگری با ما در تماس باشید
-            </p>
-          </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
@@ -108,7 +97,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full btn-primary"
+                  className="w-full btn btn-primary"
                 >
                   ارسال پیام
                 </button>
@@ -122,7 +111,7 @@ const ContactPage: React.FC = () => {
                   اطلاعات تماس
                 </h2>
                 <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
                       <PhoneIcon className="w-6 h-6 text-primary-600" />
                     </div>
@@ -131,7 +120,7 @@ const ContactPage: React.FC = () => {
                       <p className="text-gray-600">021-12345678</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-secondary-100 rounded-xl flex items-center justify-center">
                       <EnvelopeIcon className="w-6 h-6 text-secondary-600" />
                     </div>
@@ -140,7 +129,7 @@ const ContactPage: React.FC = () => {
                       <p className="text-gray-600">info@ap-football.com</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center">
                       <MapPinIcon className="w-6 h-6 text-accent-600" />
                     </div>
@@ -149,7 +138,7 @@ const ContactPage: React.FC = () => {
                       <p className="text-gray-600">تهران، میدان آزادی، مجموعه ورزشی</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
                       <ClockIcon className="w-6 h-6 text-emerald-600" />
                     </div>
@@ -167,8 +156,9 @@ const ContactPage: React.FC = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   موقعیت مکانی
                 </h2>
-                <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                  <p className="text-gray-600">نقشه در اینجا نمایش داده می‌شود</p>
+                <div className="bg-linear-to-br from-primary-50 to-primary-100 border-2 border-dashed border-primary-200 rounded-2xl h-64 flex flex-col items-center justify-center gap-3">
+                  <MapPinIcon className="w-10 h-10 text-primary-400" />
+                  <p className="text-primary-500 font-medium">نقشه در اینجا نمایش داده می‌شود</p>
                 </div>
               </div>
             </div>
@@ -179,4 +169,4 @@ const ContactPage: React.FC = () => {
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

@@ -2,8 +2,14 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import CoachSpotlight from '../components/CoachSpotlight';
+import { getCoaches } from '../services/coachService';
+import Coach from '../viewModels/coach';
 
-const CoachesPage: React.FC = () => {
+interface CoachesPageProps {
+  coaches: Coach[];
+}
+
+const CoachesPage: React.FC<CoachesPageProps> = ({ coaches }) => {
   return (
     <Layout
       title="مربیان - آکادمی فوتبال AP"
@@ -30,9 +36,18 @@ const CoachesPage: React.FC = () => {
           },
         ]}
       />
-      <CoachSpotlight />
+      <CoachSpotlight coaches={coaches} />
     </Layout>
   );
 };
 
-export default CoachesPage; 
+export default CoachesPage;
+
+export async function getStaticProps() {
+  const coaches = await getCoaches();
+  return {
+    props: {
+      coaches,
+    },
+  };
+} 

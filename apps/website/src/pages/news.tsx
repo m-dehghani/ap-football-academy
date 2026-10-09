@@ -27,13 +27,13 @@ const NewsPage: React.FC = () => {
     >
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-gradient-to-r from-navy-600 to-navy-700 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-linear-to-br from-navy-900 to-primary-900 text-white py-16">
+          <div className="container-custom">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 مرکز اخبار آکادمی AP
               </h1>
-              <p className="text-xl text-navy-100 max-w-3xl mx-auto">
+              <p className="text-xl text-white/80 max-w-3xl mx-auto">
                 آخرین اخبار آکادمی، دنیای فوتبال ایران و تحلیل‌های تخصصی
               </p>
             </div>
@@ -42,13 +42,13 @@ const NewsPage: React.FC = () => {
 
         {/* Tab Navigation */}
         <div className="bg-white shadow-sm border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container-custom">
             <div className="flex justify-center space-x-8 space-x-reverse">
               <button
                 onClick={() => setActiveTab('mixed')}
                 className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'mixed'
-                    ? 'border-navy-600 text-navy-600'
+                    ? 'border-primary-700 text-primary-700'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -61,7 +61,7 @@ const NewsPage: React.FC = () => {
                 onClick={() => setActiveTab('dashboard')}
                 className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'dashboard'
-                    ? 'border-navy-600 text-navy-600'
+                    ? 'border-primary-700 text-primary-700'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -75,7 +75,7 @@ const NewsPage: React.FC = () => {
         </div>
 
         {/* Content */}
-        <div className="py-0">
+        <div className="py-8">
           {activeTab === 'mixed' ? (
             <EnhancedNewsUpdates />
           ) : (
@@ -84,42 +84,42 @@ const NewsPage: React.FC = () => {
         </div>
 
         {/* Additional Features */}
-        <div className="bg-navy-600 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-linear-to-br from-navy-800 to-navy-900 text-white py-16">
+          <div className="container-custom">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">ویژگی‌های خبری ما</h2>
-              <p className="text-navy-100 max-w-2xl mx-auto">
+              <p className="text-white/80 max-w-2xl mx-auto">
                 مرکز اخبار آکادمی AP با هوش مصنوعی، آخرین اخبار فوتبال را تحلیل و ارائه می‌دهد
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="w-16 h-16 bg-navy-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <NewspaperIcon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">تحلیل هوشمند</h3>
-                <p className="text-navy-100">
+                <p className="text-white/80">
                   هوش مصنوعی اخبار را تحلیل کرده و مهم‌ترین موضوعات را شناسایی می‌کند
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-navy-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <GlobeAltIcon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">منابع معتبر</h3>
-                <p className="text-navy-100">
+                <p className="text-white/80">
                   از بهترین منابع خبری کشور مانند ورزش سه، فوتبال ایران و ایسنا
                 </p>
               </div>
 
               <div className="text-center">
-                <div className="w-16 h-16 bg-navy-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <HomeIcon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">اخبار آکادمی</h3>
-                <p className="text-navy-100">
+                <p className="text-white/80">
                   آخرین اخبار، رویدادها و دستاوردهای آکادمی فوتبال AP
                 </p>
               </div>
@@ -131,4 +131,4 @@ const NewsPage: React.FC = () => {
   );
 };
 
-export default NewsPage; 
+export default NewsPage;

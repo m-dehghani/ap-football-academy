@@ -1,13 +1,13 @@
-import React from 'react';
 import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../../next-seo.config';
+import SEO from '../next-seo.config';
+import { SiteProvider } from '@/lib/site-context';
 import '@/styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <SiteProvider value={pageProps.site ?? null}>
       <DefaultSeo {...SEO} />
       <Component {...pageProps} />
       <Toaster
@@ -44,8 +44,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           },
         }}
       />
-    </>
+    </SiteProvider>
   );
 }
 
-export default MyApp; 
+export default MyApp;

@@ -3,14 +3,19 @@ import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
-import Programs from '../components/Programs';
 import CoachSpotlight from '../components/CoachSpotlight';
 import SuccessStories from '../components/SuccessStories';
 import NewsUpdates from '../components/NewsUpdates';
 import Testimonials from '../components/Testimonials';
 import CTA from '../components/CTA';
+import { getCoaches } from '../services/coachService';
+import Coach from '../viewModels/coach';
 
-const HomePage: React.FC = () => {
+interface HomePageProps {
+  coaches: Coach[];
+}
+
+const HomePage: React.FC<HomePageProps> = ({ coaches }) => {
   return (
     <Layout>
       <NextSeo
@@ -20,7 +25,8 @@ const HomePage: React.FC = () => {
         openGraph={{
           url: 'https://ap-football.com',
           title: 'آکادمی فوتبال AP - بهترین آموزش فوتبال برای همه سنین',
-          description: 'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد.',
+          description:
+            'آکادمی فوتبال AP با مربیان حرفه‌ای و امکانات مدرن، بهترین آموزش فوتبال را برای سنین ۸ تا ۳۰ سال ارائه می‌دهد.',
           images: [
             {
               url: 'https://ap-football.com/og-image.jpg',
@@ -39,7 +45,8 @@ const HomePage: React.FC = () => {
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'فوتبال, آکادمی فوتبال, آموزش فوتبال, تمرین فوتبال, مربی فوتبال, ورزش, تهران',
+            content:
+              'فوتبال, آکادمی فوتبال, آموزش فوتبال, تمرین فوتبال, مربی فوتبال, ورزش, تهران',
           },
           {
             name: 'author',
@@ -47,12 +54,12 @@ const HomePage: React.FC = () => {
           },
         ]}
       />
-      
+
       <main>
         <Hero />
         <Features />
-        <Programs />
-        <CoachSpotlight />
+        {/* ProgramsPage removed - requires database connection. Add it back when DB is configured. */}
+        <CoachSpotlight coaches={coaches} />
         <SuccessStories />
         <NewsUpdates />
         <Testimonials />
@@ -62,4 +69,13 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;
+
+export async function getStaticProps() {
+  const coaches = await getCoaches();
+  return {
+    props: {
+      coaches,
+    },
+  };
+}

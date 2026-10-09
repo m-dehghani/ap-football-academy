@@ -1,42 +1,32 @@
 import React from 'react';
-import { 
-  PhoneIcon, 
-  EnvelopeIcon, 
-  MapPinIcon, 
+import {
+  PhoneIcon,
+  EnvelopeIcon,
+  MapPinIcon,
   ClockIcon,
   ArrowRightIcon,
   HeartIcon,
-  StarIcon
+  StarIcon,
 } from '@heroicons/react/24/outline';
+import {
+  APP_CONFIG,
+  NAVIGATION,
+  FOOTER_SOCIAL_LINKS,
+  FOOTER_TRAINING_HOURS,
+} from '@/constants/app';
+import { CTA_CONTENT } from '@/constants/content';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  
-  const socialLinks = [
-    { name: 'Instagram', url: '#', icon: '📸' },
-    { name: 'Telegram', url: '#', icon: '💬' },
-    { name: 'YouTube', url: '#', icon: '🎥' },
-    { name: 'WhatsApp', url: '#', icon: '📱' },
-  ];
 
-  const quickLinks = [
-    { name: 'درباره آکادمی', url: '/about' },
-    { name: 'برنامه‌های آموزشی', url: '/programs' },
-    { name: 'مربیان ما', url: '/coaches' },
-    { name: 'داستان‌های موفقیت', url: '/success' },
-    { name: 'اخبار و رویدادها', url: '/news' },
-    { name: 'تماس با ما', url: '/contact' },
-  ];
-
-  const programs = [
-    { name: 'برنامه کودکان (8-12)', url: '/programs#youth' },
-    { name: 'برنامه نوجوانان (13-17)', url: '/programs#teen' },
-    { name: 'برنامه بزرگسالان (18-25)', url: '/programs#adult' },
-    { name: 'برنامه استادان (26-35)', url: '/programs#masters' },
-  ];
+  const socialLinks = FOOTER_SOCIAL_LINKS;
+  const quickLinks = NAVIGATION.footer.quickLinks;
+  const programs = NAVIGATION.footer.programs;
+  const legalLinks = NAVIGATION.footer.legal;
+  const trainingHours = FOOTER_TRAINING_HOURS;
 
   return (
-    <footer className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
+    <footer className="bg-linear-to-br from-navy-900 via-navy-800 to-navy-900 text-white relative overflow-hidden">
       {/* Enhanced Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-pattern-dots animate-pulse-slow"></div>
@@ -48,58 +38,63 @@ const Footer: React.FC = () => {
         {/* Main Footer Content */}
         <div className="container-custom py-16 lg:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            
             {/* Enhanced Company Info */}
             <div className="lg:col-span-2 space-y-6">
               <div className="flex items-center space-x-3">
-                <div className="w-14 h-14 bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
+                <div className="w-14 h-14 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
                   ⚽
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white">آکادمی فوتبال AP</h3>
-                  <p className="text-gray-400 font-medium">جایی که قهرمانان ساخته می‌شوند</p>
+                  <h3 className="text-2xl font-bold text-white">
+                    آکادمی فوتبال AP
+                  </h3>
+                  <p className="text-gray-400 font-medium">
+                    جایی که قهرمانان ساخته می‌شوند
+                  </p>
                 </div>
               </div>
-              
+
               <p className="text-gray-300 text-lg leading-relaxed max-w-md">
-                ساخت آینده فوتبال از طریق آموزش حرفه‌ای، مربیگری کارآزموده و امکانات مدرن. به جامعه بازیکنان پرشور و مربیان متعهد ما بپیوندید.
+                {APP_CONFIG.description}
               </p>
 
               {/* Enhanced Contact Info */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-primary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <PhoneIcon className="w-6 h-6 text-primary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">+1 (555) 123-4567</p>
+                    <p className="text-white font-medium">{APP_CONFIG.phone}</p>
                     <p className="text-gray-400 text-sm">24 ساعته در دسترس</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-secondary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-secondary-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <EnvelopeIcon className="w-6 h-6 text-secondary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">info@apfootball.com</p>
+                    <p className="text-white font-medium">{APP_CONFIG.email}</p>
                     <p className="text-gray-400 text-sm">پاسخ سریع تضمینی</p>
                   </div>
                 </div>
-                
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-accent-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-accent-600/20 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                     <MapPinIcon className="w-6 h-6 text-accent-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">مرکز آموزش فوتبال</p>
-                    <p className="text-gray-400 text-sm">مجموعه ورزشی مرکز شهر</p>
+                    <p className="text-white font-medium">
+                      {APP_CONFIG.address}
+                    </p>
+                    <p className="text-gray-400 text-sm">{APP_CONFIG.city}</p>
                   </div>
                 </div>
               </div>
 
               {/* Enhanced Social Links */}
-              <div className="flex space-x-4">
+              <div className="flex gap-3 flex-wrap">
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
@@ -123,11 +118,11 @@ const Footer: React.FC = () => {
                 {quickLinks.map((link, index) => (
                   <li key={index}>
                     <a
-                      href={link.url}
+                      href={link.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                      {link.name}
+                      {link.label}
                     </a>
                   </li>
                 ))}
@@ -144,16 +139,16 @@ const Footer: React.FC = () => {
                 {programs.map((program, index) => (
                   <li key={index}>
                     <a
-                      href={program.url}
+                      href={program.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                      {program.name}
+                      {program.label}
                     </a>
                   </li>
                 ))}
               </ul>
-              
+
               {/* Enhanced Training Hours */}
               <div className="mt-8 p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
                 <h5 className="text-white font-semibold mb-4 flex items-center">
@@ -161,18 +156,14 @@ const Footer: React.FC = () => {
                   ساعات تمرین
                 </h5>
                 <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">دوشنبه - جمعه</span>
-                    <span className="text-white font-medium">16:00 - 21:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">شنبه</span>
-                    <span className="text-white font-medium">09:00 - 18:00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">یکشنبه</span>
-                    <span className="text-white font-medium">10:00 - 16:00</span>
-                  </div>
+                  {trainingHours.map((hour, index) => (
+                    <div key={index} className="flex justify-between">
+                      <span className="text-gray-400">{hour.days}</span>
+                      <span className="text-white font-medium">
+                        {hour.hours}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -185,10 +176,10 @@ const Footer: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-2xl font-bold text-white mb-4">
-                  از آخرین اخبار مطلع شوید
+                  {CTA_CONTENT.title}
                 </h3>
                 <p className="text-gray-300 text-lg">
-                  به‌روزرسانی‌های اختصاصی برنامه‌های آموزشی، رویدادها و داستان‌های موفقیت آکادمی ما را دریافت کنید.
+                  {CTA_CONTENT.description}
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -197,7 +188,7 @@ const Footer: React.FC = () => {
                   placeholder="آدرس ایمیل خود را وارد کنید"
                   className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
                 />
-                <button className="btn-primary bg-gradient-to-r from-secondary-600 to-secondary-700 hover:from-secondary-700 hover:to-secondary-800">
+                <button className="btn btn-secondary shrink-0">
                   عضویت
                   <ArrowRightIcon className="w-4 h-4 ml-2" />
                 </button>
@@ -210,26 +201,27 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 bg-black/20 backdrop-blur-sm">
           <div className="container-custom py-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2">
                 <p className="text-gray-400">
-                  © {currentYear} آکادمی فوتبال AP. تمام حقوق محفوظ است.
+                  © {currentYear} {APP_CONFIG.name}. تمام حقوق محفوظ است.
                 </p>
                 <span className="text-gray-600">•</span>
                 <p className="text-gray-400 flex items-center">
-                  با <HeartIcon className="w-4 h-4 text-red-500 mx-1" /> برای فوتبال ساخته شده
+                  با <HeartIcon className="w-4 h-4 text-red-500 mx-1" /> برای
+                  فوتبال ساخته شده
                 </p>
               </div>
-              
-              <div className="flex space-x-6">
-                <a href="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  حریم خصوصی
-                </a>
-                <a href="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  قوانین و مقررات
-                </a>
-                <a href="/cookies" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  سیاست کوکی
-                </a>
+
+              <div className="flex gap-6">
+                {legalLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors text-sm"
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -239,4 +231,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

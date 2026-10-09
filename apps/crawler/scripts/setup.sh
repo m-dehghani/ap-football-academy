@@ -130,7 +130,6 @@ REDIS_URL=redis://localhost:6379/0
 
 # OpenAI Configuration
 OPENAI_API_KEY=
-
 # Security
 SECRET_KEY=your-secret-key-here
 
