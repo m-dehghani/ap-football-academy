@@ -48,7 +48,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
+    "@babel/core": "^8.0.6",
     "@nx/eslint-plugin": "^23.1.0",
     "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "^7.0.1",
