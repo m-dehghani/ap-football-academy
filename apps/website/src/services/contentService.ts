@@ -1,16 +1,16 @@
 import { getPrisma } from '@/lib/db';
 import {
-  Facility,
-  Milestone,
-  NewsArticle,
-  NewsCategory,
-  StaffMember,
-  Statistics,
-  SuccessStory,
-  Testimonial,
-} from '@/viewModels/content';
+  FacilityViewModel,
+  MilestoneViewModel,
+  NewsArticleViewModel,
+  NewsCategoryViewModel,
+  StaffMemberViewModel,
+  StatisticViewModel,
+  SuccessStoryViewModel,
+  TestimonialViewModel,
+} from '@/types/viewModels/content';
 
-export async function getStatistics(): Promise<Statistics> {
+export async function getStatistics(): Promise<Record<string, StatisticViewModel>> {
   const prisma = await getPrisma();
   const rows = await prisma.statistic.findMany({
     orderBy: { displayOrder: 'asc' },
@@ -18,14 +18,14 @@ export async function getStatistics(): Promise<Statistics> {
   return Object.fromEntries(
     rows.map(({ key, value, label, description }) => [
       key,
-      { value, label, description },
+      { key, value, label, description },
     ]),
   );
 }
 
 export async function getTestimonials(
   category: 'GENERAL' | 'SUCCESS',
-): Promise<Testimonial[]> {
+): Promise<TestimonialViewModel[]> {
   const prisma = await getPrisma();
   const rows = await prisma.testimonial.findMany({
     where: { category, isPublished: true },
@@ -45,7 +45,7 @@ export async function getTestimonials(
   }));
 }
 
-export async function getSuccessStories(): Promise<SuccessStory[]> {
+export async function getSuccessStories(): Promise<SuccessStoryViewModel[]> {
   const prisma = await getPrisma();
   const rows = await prisma.successStory.findMany({
     where: { isPublished: true },
@@ -69,7 +69,7 @@ export async function getSuccessStories(): Promise<SuccessStory[]> {
   }));
 }
 
-export async function getMilestones(): Promise<Milestone[]> {
+export async function getMilestones(): Promise<MilestoneViewModel[]> {
   const prisma = await getPrisma();
   return prisma.milestone.findMany({
     select: { id: true, year: true, title: true, description: true },
@@ -77,7 +77,7 @@ export async function getMilestones(): Promise<Milestone[]> {
   });
 }
 
-export async function getStaffMembers(): Promise<StaffMember[]> {
+export async function getStaffMembers(): Promise<StaffMemberViewModel[]> {
   const prisma = await getPrisma();
   return prisma.staffMember.findMany({
     where: { isActive: true },
@@ -86,7 +86,7 @@ export async function getStaffMembers(): Promise<StaffMember[]> {
   });
 }
 
-export async function getFacilities(): Promise<Facility[]> {
+export async function getFacilities(): Promise<FacilityViewModel[]> {
   const prisma = await getPrisma();
   return prisma.facility.findMany({
     select: { id: true, category: true, name: true },
@@ -94,7 +94,7 @@ export async function getFacilities(): Promise<Facility[]> {
   });
 }
 
-export async function getNewsCategories(): Promise<NewsCategory[]> {
+export async function getNewsCategories(): Promise<NewsCategoryViewModel[]> {
   const prisma = await getPrisma();
   return prisma.newsCategory.findMany({
     select: { slug: true, name: true, icon: true },
@@ -102,7 +102,7 @@ export async function getNewsCategories(): Promise<NewsCategory[]> {
   });
 }
 
-export async function getNewsArticles(limit?: number): Promise<NewsArticle[]> {
+export async function getNewsArticles(limit?: number): Promise<NewsArticleViewModel[]> {
   const prisma = await getPrisma();
   const rows = await prisma.newsArticle.findMany({
     where: { isPublished: true },

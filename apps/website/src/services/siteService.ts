@@ -3,7 +3,7 @@ import {
   SiteInfoViewModel,
   toOpeningHourViewModel,
   toSocialLinkViewModel,
-} from '@/viewModels/site/index';
+} from '@/types/viewModels/site';
 
 export async function getSiteInfo(): Promise<SiteInfoViewModel | null> {
   const prisma = await getPrisma();

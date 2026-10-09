@@ -48,9 +48,33 @@ export function useFetch<T>(
 
   useEffect(() => {
     if (immediate) {
-      execute();
+      let mounted = true;
+      const runFetch = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const result = await fetchFn();
+          if (mounted) {
+            setData(result);
+            onSuccess?.(result);
+          }
+        } catch (err) {
+          if (mounted) {
+            const error = err instanceof Error ? err : new Error('Unknown error');
+            setError(error);
+            onError?.(error);
+          }
+        } finally {
+          if (mounted) {
+            setLoading(false);
+          }
+        }
+      };
+      runFetch();
+      return () => { mounted = false; };
     }
-  }, [execute, immediate]);
+    return undefined;
+  }, [execute, immediate, fetchFn, onSuccess, onError]);
 
   return { data, loading, error, execute, refetch };
 }
@@ -62,21 +86,24 @@ export function useAsync<T>(promise: Promise<T>) {
 
   useEffect(() => {
     let mounted = true;
-    setLoading(true);
-    promise
-      .then(result => {
+    const runAsync = async () => {
+      setLoading(true);
+      try {
+        const result = await promise;
         if (mounted) {
           setData(result);
-          setLoading(false);
         }
-      })
-      .catch(err => {
+      } catch (err) {
         if (mounted) {
           setError(err instanceof Error ? err : new Error('Unknown error'));
+        }
+      } finally {
+        if (mounted) {
           setLoading(false);
         }
-      });
-
+      }
+    };
+    runAsync();
     return () => { mounted = false; };
   }, [promise]);
 

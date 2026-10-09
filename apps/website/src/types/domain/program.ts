@@ -1,6 +1,6 @@
 /**
  * Program domain models
- * Separated from viewModels for better organization
+ * Core domain entities for program data
  */
 
 export interface Schedule {

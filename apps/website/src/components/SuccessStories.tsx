@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrophyIcon,
   StarIcon,
   ChatBubbleLeftRightIcon,
+  ArrowRightIcon,
+  FunnelIcon,
 } from '@heroicons/react/24/outline';
 import { getIcon } from '@/lib/icons';
 import {
@@ -12,20 +15,448 @@ import {
   SUCCESS_MILESTONES,
 } from '@/constants/content';
 
-export default function SuccessStories() {
-  const [activeTab, setActiveTab] = useState('achievements');
+type TabType = 'achievements' | 'testimonials' | 'statistics';
 
-  const achievements = SUCCESS_ACHIEVEMENTS;
-  const testimonials = SUCCESS_TESTIMONIALS;
-  const statistics = SUCCESS_STATISTICS;
-  const milestones = SUCCESS_MILESTONES;
+interface Achievement {
+  id: string | number;
+  playerName: string;
+  age: string | number;
+  date: string;
+  program: string;
+  achievement: string;
+  description: string;
+  quote: string;
+  stats: { goals: number; assists: number; matches: number };
+  coach: string;
+}
+
+interface Testimonial {
+  id: string | number;
+  name: string;
+  role: string;
+  program: string;
+  rating: number;
+  text: string;
+  date: string;
+  improvement: string;
+}
+
+interface Statistic {
+  number: string;
+  label: string;
+  description: string;
+  icon: string;
+  color: string;
+}
+
+interface Milestone {
+  year: string;
+  event: string;
+  description: string;
+}
+
+// Filter Component
+function FilterChips({
+  activeFilter,
+  onFilterChange,
+  filters,
+}: {
+  activeFilter: string;
+  onFilterChange: (filter: string) => void;
+  filters: { id: string; label: string; icon?: React.ReactNode }[];
+}) {
+  return (
+    <div
+      className="flex flex-wrap justify-center gap-3 mb-8"
+      role="group"
+      aria-label="فیلتر داستان‌های موفقیت"
+    >
+      {filters.map((filter) => (
+        <motion.button
+          key={filter.id}
+          onClick={() => onFilterChange(filter.id)}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
+            activeFilter === filter.id
+              ? 'bg-emerald-700 text-white shadow-lg'
+              : 'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300'
+          }`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-pressed={activeFilter === filter.id}
+        >
+          {filter.icon && <span>{filter.icon}</span>}
+          {filter.label}
+        </motion.button>
+      ))}
+    </div>
+  );
+}
+
+// Achievement Card Component
+function AchievementCard({
+  achievement,
+  index,
+}: {
+  achievement: Achievement;
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
+      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+    >
+      <div className="bg-linear-to-r from-emerald-500 to-emerald-600 p-6 text-white relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-white rounded-full -translate-y-12 translate-x-12" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 bg-white rounded-full translate-y-8 -translate-x-8" />
+        </div>
+
+        <div className="relative z-10 flex items-center justify-between mb-4">
+          <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+            <TrophyIcon className="w-7 h-7" />
+          </div>
+          <div className="text-left">
+            <div className="text-sm opacity-90">{achievement.date}</div>
+            <div className="text-xs opacity-75">{achievement.program}</div>
+          </div>
+        </div>
+        <h3 className="text-xl font-bold mb-2 relative z-10">
+          {achievement.playerName}
+        </h3>
+        <p className="text-emerald-100 text-sm relative z-10">
+          {achievement.age} ساله
+        </p>
+      </div>
+
+      <div className="p-6 space-y-4">
+        <h4 className="text-lg font-bold text-gray-900">
+          {achievement.achievement}
+        </h4>
+        <p className="text-gray-600 leading-relaxed">
+          {achievement.description}
+        </p>
+
+        {/* Quote */}
+        <div className="bg-gray-50 rounded-lg p-4 relative">
+          <ChatBubbleLeftRightIcon className="w-6 h-6 text-emerald-600 mb-2" />
+          <p className="text-gray-700 italic text-sm">
+            &ldquo;{achievement.quote}&rdquo;
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
+          <StatItem
+            value={achievement.stats.goals}
+            label="گل"
+            icon={<TrophyIcon className="w-5 h-5" />}
+            color="emerald"
+          />
+          <StatItem
+            value={achievement.stats.assists}
+            label="پاس گل"
+            icon={<ArrowRightIcon className="w-5 h-5" />}
+            color="emerald"
+          />
+          <StatItem
+            value={achievement.stats.matches}
+            label="بازی"
+            icon={<ChatBubbleLeftRightIcon className="w-5 h-5" />}
+            color="emerald"
+          />
+        </div>
+
+        <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
+          <span className="text-gray-500">مربی: {achievement.coach}</span>
+          <motion.button
+            className="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
+            whileHover={{ x: 4 }}
+          >
+            جزئیات
+            <ArrowRightIcon className="w-4 h-4" />
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function StatItem({
+  value,
+  label,
+  icon,
+  color,
+}: {
+  value: number;
+  label: string;
+  icon: React.ReactNode;
+  color: 'emerald' | 'primary' | 'amber';
+}) {
+  const colorClasses = {
+    emerald: 'text-emerald-600 bg-emerald-50',
+    primary: 'text-primary-600 bg-primary-50',
+    amber: 'text-amber-600 bg-amber-50',
+  };
 
   return (
-    <section className="py-20 bg-linear-to-br from-emerald-50 to-emerald-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center">
+      <div
+        className={`w-10 h-10 ${colorClasses[color]} rounded-full flex items-center justify-center mx-auto mb-2`}
+      >
+        {icon}
+      </div>
+      <div className="text-lg font-bold text-gray-900">{value}</div>
+      <div className="text-xs text-gray-500">{label}</div>
+    </div>
+  );
+}
+
+// Testimonial Card Component
+function TestimonialCard({
+  testimonial,
+  index,
+}: {
+  testimonial: Testimonial;
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)' }}
+      className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300"
+    >
+      <div className="flex items-center mb-6">
+        <motion.div
+          className="w-16 h-16 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl font-bold ml-4"
+          whileHover={{ rotate: 180, scale: 1.1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {testimonial.name.split(' ')[0].charAt(0)}
+        </motion.div>
+        <div>
+          <h3 className="text-lg font-bold text-gray-900">
+            {testimonial.name}
+          </h3>
+          <p className="text-sm text-gray-600">{testimonial.role}</p>
+          <p className="text-xs text-emerald-700">{testimonial.program}</p>
+        </div>
+      </div>
+
+      <div className="flex items-center mb-4">
+        {[...Array(testimonial.rating)].map((_, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, scale: 0, rotate: -180 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.3, delay: i * 0.05 }}
+            className="text-yellow-400"
+          >
+            <StarIcon className="w-5 h-5 fill-current" />
+          </motion.span>
+        ))}
+      </div>
+
+      <blockquote className="text-gray-700 leading-relaxed mb-6 italic relative">
+        <span className="text-emerald-300 text-4xl absolute -top-2 -right-2">
+          &ldquo;
+        </span>
+        <span className="relative z-10">&quot;{testimonial.text}&quot;</span>
+      </blockquote>
+
+      <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
+        <span className="text-gray-500">{testimonial.date}</span>
+        <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-medium">
+          {testimonial.improvement}
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+// Statistic Card Component
+function StatisticCard({ stat, index }: { stat: Statistic; index: number }) {
+  const [displayValue, setDisplayValue] = useState('0');
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (hasAnimated.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          hasAnimated.current = true;
+          const numericValue = parseInt(stat.number.replace(/\D/g, ''), 10);
+          if (isNaN(numericValue)) {
+            setDisplayValue(stat.number);
+            return;
+          }
+
+          const duration = 2000;
+          const startTime = Date.now();
+
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(numericValue * eased);
+            setDisplayValue(
+              current.toLocaleString('fa-IR') + stat.number.replace(/\d+/g, ''),
+            );
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setDisplayValue(stat.number);
+            }
+          };
+
+          animate();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    const element = document.querySelector(`.stat-card-${index}`);
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [stat.number, index]);
+
+  const bgColors = [
+    'bg-yellow-100',
+    'bg-green-100',
+    'bg-blue-100',
+    'bg-purple-100',
+  ];
+
+  return (
+    <motion.div
+      ref={(el) => {
+        if (el) el.classList.add(`stat-card-${index}`);
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      className={`bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 ${bgColors[index]}`}
+    >
+      <motion.div
+        className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+        whileHover={{ scale: 1.1, rotate: 180 }}
+        transition={{ duration: 0.5 }}
+      >
+        {getIcon(stat.icon, `w-8 h-8 ${stat.color}`)}
+      </motion.div>
+      <motion.div className="text-4xl font-bold text-gray-900 mb-2">
+        {displayValue}
+      </motion.div>
+      <div className="text-lg font-semibold text-gray-800 mb-2">
+        {stat.label}
+      </div>
+      <p className="text-sm text-gray-600">{stat.description}</p>
+    </motion.div>
+  );
+}
+
+// Timeline Item Component
+function TimelineItem({
+  milestone,
+  index,
+}: {
+  milestone: Milestone;
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors"
+    >
+      <motion.div
+        className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0"
+        whileHover={{ scale: 1.1, rotate: 360 }}
+        transition={{ duration: 0.5 }}
+      >
+        {milestone.year}
+      </motion.div>
+      <div>
+        <h4 className="font-bold text-emerald-700 mb-1">{milestone.event}</h4>
+        <p className="text-gray-600 text-sm">{milestone.description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function SuccessStories() {
+  const [activeTab, setActiveTab] = useState<TabType>('achievements');
+  const [achievementFilter, setAchievementFilter] = useState('all');
+  const [testimonialFilter, setTestimonialFilter] = useState('all');
+
+  const achievements = [...SUCCESS_ACHIEVEMENTS] as Achievement[];
+  const testimonials = [...SUCCESS_TESTIMONIALS] as Testimonial[];
+  const statistics = [...SUCCESS_STATISTICS] as Statistic[];
+  const milestones = [...SUCCESS_MILESTONES] as Milestone[];
+
+  // Filter functions
+  const filteredAchievements =
+    achievementFilter === 'all'
+      ? achievements
+      : achievements.filter((a) => a.program === achievementFilter);
+
+  const filteredTestimonials =
+    testimonialFilter === 'all'
+      ? testimonials
+      : testimonials.filter((t) => t.program === testimonialFilter);
+
+  const achievementFilters = [
+    { id: 'all', label: 'همه', icon: <TrophyIcon className="w-4 h-4" /> },
+    ...Array.from(new Set(achievements.map((a) => a.program))).map((p) => ({
+      id: p,
+      label: p,
+      icon: <FunnelIcon className="w-4 h-4" />,
+    })),
+  ];
+
+  const testimonialFilters = [
+    {
+      id: 'all',
+      label: 'همه',
+      icon: <ChatBubbleLeftRightIcon className="w-4 h-4" />,
+    },
+    ...Array.from(new Set(testimonials.map((t) => t.program))).map((p) => ({
+      id: p,
+      label: p,
+      icon: <FunnelIcon className="w-4 h-4" />,
+    })),
+  ];
+
+  return (
+    <section className="py-20 bg-linear-to-br from-emerald-50 to-emerald-100 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-emerald-300 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-300 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-600 text-sm font-medium mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-4">
             <TrophyIcon className="w-4 h-4 ml-2" />
             داستان‌های موفقیت
           </div>
@@ -35,231 +466,149 @@ export default function SuccessStories() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             بازیکنان ما در مسیر رسیدن به اهدافشان موفقیت‌های بزرگی کسب کرده‌اند
           </p>
-        </div>
+        </motion.div>
 
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-xl p-2 shadow-lg">
-            <button
-              onClick={() => setActiveTab('achievements')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                activeTab === 'achievements'
-                  ? 'bg-emerald-600 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-emerald-600'
-              }`}
-            >
-              دستاوردهای بزرگ
-            </button>
-            <button
-              onClick={() => setActiveTab('testimonials')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                activeTab === 'testimonials'
-                  ? 'bg-emerald-600 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-emerald-600'
-              }`}
-            >
-              نظرات و تجربیات
-            </button>
-            <button
-              onClick={() => setActiveTab('statistics')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                activeTab === 'statistics'
-                  ? 'bg-emerald-600 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-emerald-600'
-              }`}
-            >
-              آمار موفقیت
-            </button>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-center mb-12"
+        >
+          <div
+            className="bg-white rounded-xl p-2 shadow-lg flex items-center gap-2"
+            role="tablist"
+            aria-label="دسته‌بندی داستان‌های موفقیت"
+          >
+            {(['achievements', 'testimonials', 'statistics'] as TabType[]).map(
+              (tab) => (
+                <motion.button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2 ${
+                    activeTab === tab
+                      ? 'bg-emerald-600 text-white shadow-lg'
+                      : 'text-gray-600 hover:text-emerald-600'
+                  }`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  aria-selected={activeTab === tab}
+                  role="tab"
+                >
+                  {tab === 'achievements' && <TrophyIcon className="w-4 h-4" />}
+                  {tab === 'testimonials' && (
+                    <ChatBubbleLeftRightIcon className="w-4 h-4" />
+                  )}
+                  {tab === 'statistics' && <StarIcon className="w-4 h-4" />}
+                  {tab === 'achievements' && 'دستاوردهای بزرگ'}
+                  {tab === 'testimonials' && 'نظرات و تجربیات'}
+                  {tab === 'statistics' && 'آمار موفقیت'}
+                </motion.button>
+              ),
+            )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Content */}
-        {activeTab === 'achievements' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {achievements.map((achievement) => (
-              <div
-                key={achievement.id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-              >
-                <div className="bg-linear-to-r from-emerald-500 to-emerald-600 p-6 text-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                      <TrophyIcon className="w-8 h-8" />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-sm opacity-90">
-                        {achievement.date}
-                      </div>
-                      <div className="text-xs opacity-75">
-                        {achievement.program}
-                      </div>
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">
-                    {achievement.playerName}
-                  </h3>
-                  <p className="text-emerald-100 text-sm">
-                    {achievement.age} ساله
-                  </p>
-                </div>
-
-                <div className="p-6">
-                  <h4 className="text-lg font-bold text-gray-900 mb-3">
-                    {achievement.achievement}
-                  </h4>
-                  <p className="text-gray-600 mb-4 leading-relaxed">
-                    {achievement.description}
-                  </p>
-
-                  {/* Quote */}
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <ChatBubbleLeftRightIcon className="w-6 h-6 text-emerald-600 mb-2" />
-                    <p className="text-gray-700 italic text-sm">
-                      {achievement.quote}
-                    </p>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-4 mb-4">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-emerald-600">
-                        {achievement.stats.goals}
-                      </div>
-                      <div className="text-xs text-gray-500">گل</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-emerald-600">
-                        {achievement.stats.assists}
-                      </div>
-                      <div className="text-xs text-gray-500">پاس گل</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-emerald-600">
-                        {achievement.stats.matches}
-                      </div>
-                      <div className="text-xs text-gray-500">بازی</div>
-                    </div>
-                  </div>
-
-                  <div className="text-sm text-gray-500 border-t pt-4">
-                    مربی: {achievement.coach}
-                  </div>
-                </div>
+        <AnimatePresence mode="wait">
+          {activeTab === 'achievements' && (
+            <motion.div
+              key="achievements"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FilterChips
+                activeFilter={achievementFilter}
+                onFilterChange={setAchievementFilter}
+                filters={achievementFilters}
+              />
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                {filteredAchievements.map((achievement, index) => (
+                  <AchievementCard
+                    key={achievement.id}
+                    achievement={achievement}
+                    index={index}
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'testimonials' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl font-bold ml-4">
-                    {testimonial.name.split(' ')[0].charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                    <p className="text-xs text-emerald-600">
-                      {testimonial.program}
-                    </p>
-                  </div>
+              {filteredAchievements.length === 0 && (
+                <div className="text-center py-12 text-gray-500">
+                  هیچ دستاوردی برای این فیلتر یافت نشد
                 </div>
+              )}
+            </motion.div>
+          )}
 
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <StarIcon
-                      key={i}
-                      className="w-5 h-5 text-yellow-400 fill-current"
+          {activeTab === 'testimonials' && (
+            <motion.div
+              key="testimonials"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FilterChips
+                activeFilter={testimonialFilter}
+                onFilterChange={setTestimonialFilter}
+                filters={testimonialFilters}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredTestimonials.map((testimonial, index) => (
+                  <TestimonialCard
+                    key={testimonial.id}
+                    testimonial={testimonial}
+                    index={index}
+                  />
+                ))}
+              </div>
+              {filteredTestimonials.length === 0 && (
+                <div className="text-center py-12 text-gray-500">
+                  هیچ نظری برای این فیلتر یافت نشد
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {activeTab === 'statistics' && (
+            <motion.div
+              key="statistics"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                {statistics.map((stat, index) => (
+                  <StatisticCard key={index} stat={stat} index={index} />
+                ))}
+              </div>
+
+              {/* Success Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-white rounded-2xl shadow-lg p-8"
+              >
+                <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+                  مسیر موفقیت آکادمی AP
+                </h3>
+                <div className="space-y-4">
+                  {milestones.map((milestone, index) => (
+                    <TimelineItem
+                      key={index}
+                      milestone={milestone}
+                      index={index}
                     />
                   ))}
                 </div>
-
-                <blockquote className="text-gray-700 leading-relaxed mb-6 italic">
-                  "{testimonial.text}"
-                </blockquote>
-
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">{testimonial.date}</span>
-                  <span className="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-medium">
-                    {testimonial.improvement}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === 'statistics' && (
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {statistics.map((stat, index) => {
-                const bgColors = [
-                  'bg-yellow-100',
-                  'bg-green-100',
-                  'bg-blue-100',
-                  'bg-purple-100',
-                ];
-                return (
-                  <div
-                    key={index}
-                    className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow"
-                  >
-                    <div className="mb-6">
-                      <div
-                        className={`w-16 h-16 ${bgColors[index]} rounded-full flex items-center justify-center mx-auto mb-4`}
-                      >
-                        {getIcon(stat.icon, `w-8 h-8 ${stat.color}`)}
-                      </div>
-                      <div className="text-4xl font-bold text-gray-900 mb-2">
-                        {stat.number}
-                      </div>
-                      <div className="text-lg font-semibold text-gray-800 mb-2">
-                        {stat.label}
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        {stat.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Success Timeline */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-                مسیر موفقیت آکادمی AP
-              </h3>
-              <div className="space-y-4">
-                {milestones.map((milestone, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl"
-                  >
-                    <div className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0">
-                      {milestone.year}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-emerald-700 mb-1">
-                        {milestone.event}
-                      </h4>
-                      <p className="text-gray-600 text-sm">
-                        {milestone.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

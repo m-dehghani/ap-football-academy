@@ -1,5 +1,5 @@
 import { getPrisma } from '@/lib/db';
-import { CoachViewModel, toCoachViewModel } from '@/viewModels/coach/index';
+import { CoachViewModel, toCoachViewModel } from '@/types/viewModels/coach';
 
 export async function getCoaches(): Promise<CoachViewModel[]> {
   const prisma = await getPrisma();

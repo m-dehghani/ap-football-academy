@@ -58,55 +58,94 @@ interface NewsFilters {
 export default function FootballNewsDashboard() {
   const [news, setNews] = useState<CrawlerNews[]>([]);
   const [stats, setStats] = useState<CrawlerStats | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState<NewsFilters>({
-    category: 'all',
-    source: 'all',
-    sentiment: 'all',
-    importance_min: 0.3,
-    date_range: 'week'
-  });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filters, setFilters] = useState<NewsFilters>({
+      category: 'all',
+      source: 'all',
+      sentiment: 'all',
+      importance_min: 0.3,
+      date_range: 'week'
+    });
 
-  const fetchNews = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams({
-        category: filters.category,
-        source: filters.source,
-        sentiment: filters.sentiment,
-        importance_min: filters.importance_min.toString(),
-        date_range: filters.date_range,
-        limit: '30',
-        search: searchTerm
-      });
-      const response = await fetch(`/api/crawler-news?${params}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch news');
+    const fetchNews = useCallback(async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const params = new URLSearchParams({
+          category: filters.category,
+          source: filters.source,
+          sentiment: filters.sentiment,
+          importance_min: filters.importance_min.toString(),
+          date_range: filters.date_range,
+          limit: '30',
+          search: searchTerm
+        });
+        const response = await fetch(`/api/crawler-news?${params}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+        const data = await response.json();
+        setNews(data.news || []);
+        setStats(data.stats);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
+        setNews([]);
+      } finally {
+        setLoading(false);
       }
-      const data = await response.json();
-      setNews(data.news || []);
-      setStats(data.stats);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
-      setNews([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [filters, searchTerm]);
+    }, [filters, searchTerm]);
 
-  useEffect(() => {
-    fetchNews();
-  }, [filters, fetchNews]);
+    useEffect(() => {
+      let mounted = true;
+      const runFetch = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const params = new URLSearchParams({
+            category: filters.category,
+            source: filters.source,
+            sentiment: filters.sentiment,
+            importance_min: filters.importance_min.toString(),
+            date_range: filters.date_range,
+            limit: '30',
+            search: searchTerm
+          });
+          const response = await fetch(`/api/crawler-news?${params}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch news');
+          }
+          const data = await response.json();
+          if (mounted) {
+            setNews(data.news || []);
+            setStats(data.stats);
+          }
+        } catch (err) {
+          if (mounted) {
+            setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
+            setNews([]);
+          }
+        } finally {
+          if (mounted) {
+            setLoading(false);
+          }
+        }
+      };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    fetchNews();
-  };
+      runFetch();
 
-  const formatDate = (dateString: string) => {
+      return () => {
+        mounted = false;
+      };
+    }, [filters, searchTerm]);
+
+    const handleSearch = (e: React.FormEvent) => {
+      e.preventDefault();
+      // The effect will handle the fetch when searchTerm changes
+    };
+
+    const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
     const diff = now.getTime() - date.getTime();

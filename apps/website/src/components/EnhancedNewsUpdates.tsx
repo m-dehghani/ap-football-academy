@@ -93,50 +93,68 @@ export default function EnhancedNewsUpdates() {
   ];
 
   const sourceTypes = [
-    { id: 'all', name: 'همه منابع', icon: GlobeAltIcon },
-    { id: 'academy', name: 'آکادمی AP', icon: HomeIcon },
-    { id: 'external', name: 'اخبار خارجی', icon: GlobeAltIcon },
-  ];
+      { id: 'all', name: 'همه منابع', icon: GlobeAltIcon },
+      { id: 'academy', name: 'آکادمی AP', icon: HomeIcon },
+      { id: 'external', name: 'اخبار خارجی', icon: GlobeAltIcon },
+    ];
 
-  // Fetch external news from crawler
-  useEffect(() => {
-    fetchExternalNews();
-  }, [selectedCategory, selectedSource]);
+              const [retryTrigger, setRetryTrigger] = useState(0);
 
-  const fetchExternalNews = async () => {
-    if (selectedSource === 'academy') {
-      setExternalNews([]);
-      return;
-    }
+              useEffect(() => {
+                let mounted = true;
+                const runFetch = async () => {
+                  if (selectedSource === 'academy') {
+                    if (mounted) {
+                      setExternalNews([]);
+                    }
+                    return;
+                  }
 
-    setLoading(true);
-    setError(null);
+                  setLoading(true);
+                  setError(null);
     
-    try {
-      const params = new URLSearchParams({
-        category: selectedCategory,
-        source: selectedSource === 'external' ? 'all' : selectedSource,
-        limit: '20'
-      });
+                  try {
+                    const params = new URLSearchParams({
+                      category: selectedCategory,
+                      source: selectedSource === 'external' ? 'all' : selectedSource,
+                      limit: '20'
+                    });
       
-      const response = await fetch(`/api/crawler-news?${params}`);
+                    const response = await fetch(`/api/crawler-news?${params}`);
       
-      if (!response.ok) {
-        throw new Error('Failed to fetch external news');
-      }
+                    if (!response.ok) {
+                      throw new Error('Failed to fetch external news');
+                    }
 
-      const data = await response.json();
-      setExternalNews(data.news || []);
-      setCrawlerStats(data.stats);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
-      setExternalNews([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+                    const data = await response.json();
+                    if (mounted) {
+                      setExternalNews(data.news || []);
+                      setCrawlerStats(data.stats);
+                    }
+                  } catch (err) {
+                    if (mounted) {
+                      setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
+                      setExternalNews([]);
+                    }
+                  } finally {
+                    if (mounted) {
+                      setLoading(false);
+                    }
+                  }
+                };
 
-  // Combine and filter news
+                runFetch();
+
+                return () => {
+                  mounted = false;
+                };
+              }, [selectedCategory, selectedSource, retryTrigger]);
+
+              const handleRetry = () => {
+                setRetryTrigger(prev => prev + 1);
+              };
+
+              // Combine and filter news
   const getAllNews = (): NewsItem[] => {
     let combinedNews: NewsItem[] = [];
     
@@ -174,42 +192,80 @@ export default function EnhancedNewsUpdates() {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'video': return <PlayIcon className="w-5 h-5" />;
-      case 'gallery': return <CameraIcon className="w-5 h-5" />;
-      case 'external': return <GlobeAltIcon className="w-5 h-5" />;
-      case 'academy': return <HomeIcon className="w-5 h-5" />;
-      default: return <CalendarDaysIcon className="w-5 h-5" />;
+      case 'video': {
+        return <PlayIcon className="w-5 h-5" />;
+      }
+      case 'gallery': {
+        return <CameraIcon className="w-5 h-5" />;
+        }
+      case 'external': {
+        return <GlobeAltIcon className="w-5 h-5" />;
+      }
+      case 'academy': {
+        return <HomeIcon className="w-5 h-5" />;
+      }
+      default: {
+        return <CalendarDaysIcon className="w-5 h-5" />;
+      }
     }
   };
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'video': return 'bg-red-500';
-      case 'gallery': return 'bg-purple-500';
-      case 'external': return 'bg-blue-500';
-      case 'academy': return 'bg-green-500';
-      default: return 'bg-gray-500';
+      case 'video': {
+        return 'bg-red-500';
+      }
+      case 'gallery': {
+        return 'bg-purple-500';
+        }
+      case 'external': {
+        return 'bg-blue-500';
+      }
+      case 'academy': {
+        return 'bg-green-500';
+      }
+      default: {
+        return 'bg-gray-500';
+      }
     }
   };
 
   const getTypeName = (type: string) => {
     switch (type) {
-      case 'video': return 'ویدئو';
-      case 'gallery': return 'گالری';
-      case 'external': return 'خارجی';
-      case 'academy': return 'آکادمی';
-      default: return 'خبر';
+      case 'video': {
+        return 'ویدئو';
+      }
+      case 'gallery': {
+        return 'گالری';
+      }
+      case 'external': {
+        return 'خارجی';
+      }
+      case 'academy': {
+        return 'آکادمی';
+      }
+      default: {
+        return 'خبر';
+      }
     }
   };
 
   const getSentimentIcon = (sentiment?: { score: number; label: string }) => {
     if (!sentiment) return null;
-    
+  
     switch (sentiment.label) {
-      case 'positive': return '😊';
-      case 'negative': return '😔';
-      case 'neutral': return '😐';
-      default: return null;
+      case 'positive': {
+        return '😊';
+      }
+      case 'negative': {
+        return '😔';
+      }
+      case 'neutral': {
+        return '😐';
+      }
+      default: {
+        return null;
+      }
     }
   };
 
@@ -310,7 +366,7 @@ export default function EnhancedNewsUpdates() {
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
             <p className="text-red-800">خطا: {error}</p>
             <button 
-              onClick={fetchExternalNews}
+                      onClick={handleRetry}
               className="mt-2 text-red-600 hover:text-red-800 font-medium"
             >
               تلاش مجدد

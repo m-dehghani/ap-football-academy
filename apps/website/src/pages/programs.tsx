@@ -4,10 +4,10 @@ import Programs from '../components/Programs';
 import type { GetServerSideProps } from 'next';
 import { getPrograms } from '@/services/programService';
 import { withSite, SiteProps } from '@/lib/page-props';
-import Program from '@/viewModels/program';
+import { ProgramViewModel } from '@/types/viewModels/program';
 
 interface ProgramsPageProps extends SiteProps {
-  programs: Program[];
+  programs: ProgramViewModel[];
 }
 
 function ProgramsPage({ programs }: ProgramsPageProps) {

@@ -15,7 +15,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
       return res.status(200).json(programs);
     }
-
     case 'POST': {
       const {
         name,
@@ -74,7 +73,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       });
       return res.status(201).json(program);
     }
-
     default:
       return res.status(405).json({ error: 'Method not allowed' });
   }

@@ -1,6 +1,6 @@
 /**
  * Coach domain models
- * Separated from viewModels for better organization
+ * Core domain entities for coach data
  */
 
 export interface Coach {

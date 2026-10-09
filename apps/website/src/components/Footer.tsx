@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   PhoneIcon,
   EnvelopeIcon,
@@ -117,13 +118,13 @@ const Footer: React.FC = () => {
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <a
+                                    <Link
                       href={link.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                       {link.label}
-                    </a>
+                                    </Link>
                   </li>
                 ))}
               </ul>
@@ -138,13 +139,13 @@ const Footer: React.FC = () => {
               <ul className="space-y-3">
                 {programs.map((program, index) => (
                   <li key={index}>
-                    <a
+                                    <Link
                       href={program.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                       {program.label}
-                    </a>
+                                    </Link>
                   </li>
                 ))}
               </ul>
@@ -185,9 +186,11 @@ const Footer: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="email"
-                  placeholder="آدرس ایمیل خود را وارد کنید"
-                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                />
+                                  id="footer-newsletter-email"
+                                  name="email"
+                                  placeholder="آدرس ایمیل خود را وارد کنید"
+                                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                                />
                 <button className="btn btn-secondary shrink-0">
                   عضویت
                   <ArrowRightIcon className="w-4 h-4 ml-2" />
@@ -214,13 +217,13 @@ const Footer: React.FC = () => {
 
               <div className="flex gap-6">
                 {legalLinks.map((link, index) => (
-                  <a
+                                  <Link
                     key={index}
                     href={link.href}
                     className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
-                  </a>
+                                  </Link>
                 ))}
               </div>
             </div>

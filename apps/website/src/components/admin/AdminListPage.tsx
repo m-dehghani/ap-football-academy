@@ -32,7 +32,7 @@ export function AdminListPage<T extends { id: string }>({
   statusBadge,
 }: AdminListPageProps<T>) {
   const { data, loading, error, refetch } = useFetch(fetchFn, { immediate: true });
-  const deleteHooks = deleteFn ? useDelete(deleteFn) : { handleDelete: async () => false, isDeleting: () => false };
+  const deleteHooks = useDelete(deleteFn || (async (id: string) => { return null; }));
 
   if (loading) {
     return (

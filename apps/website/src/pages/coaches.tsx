@@ -2,11 +2,11 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import CoachSpotlight from '../components/CoachSpotlight';
-import { getCoaches } from '../services/coachService';
-import Coach from '../viewModels/coach';
+import { getCoaches } from '@/services/coachService';
+import { CoachViewModel } from '@/types/viewModels/coach';
 
 interface CoachesPageProps {
-  coaches: Coach[];
+  coaches: CoachViewModel[];
 }
 
 const CoachesPage: React.FC<CoachesPageProps> = ({ coaches }) => {

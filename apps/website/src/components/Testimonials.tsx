@@ -69,9 +69,9 @@ const Testimonials: React.FC = () => {
                   className="w-12 h-12 rounded-full object-cover ml-4"
                 />
                 <div className="text-right">
-                  <h4 className="font-semibold text-gray-900">
+                                  <h3 className="font-semibold text-gray-900">
                     {testimonial.name}
-                  </h4>
+                                  </h3>
                   <p className="text-sm text-gray-500">{testimonial.role}</p>
                 </div>
               </div>

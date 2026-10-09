@@ -5,7 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Layout from '@/components/Layout';
 import { toast } from 'react-hot-toast';
-import Program from '@/viewModels/program';
+import Link from 'next/link';
+import { ProgramViewModel } from '@/types/viewModels/program';
 
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
@@ -35,7 +36,7 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 const RegisterPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [programs, setPrograms] = useState<Program[]>([]);
+  const [programs, setPrograms] = useState<ProgramViewModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
@@ -476,19 +477,19 @@ const RegisterPage: React.FC = () => {
                       />
                       <label className="mr-3 block text-sm text-gray-900">
                         با{' '}
-                        <a
+                                              <Link
                           href="/terms"
                           className="text-primary-600 hover:text-primary-500 underline"
                         >
                           شرایط و قوانین
-                        </a>{' '}
+                                              </Link>{' '}
                         و{' '}
-                        <a
+                                              <Link
                           href="/privacy"
                           className="text-primary-600 hover:text-primary-500 underline"
                         >
                           حریم خصوصی
-                        </a>{' '}
+                                              </Link>{' '}
                         موافقم. می‌دانم که هزینه ثبت نام قابل استرداد نیست.
                       </label>
                     </div>

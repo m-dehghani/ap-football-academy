@@ -9,10 +9,10 @@ import NewsUpdates from '../components/NewsUpdates';
 import Testimonials from '../components/Testimonials';
 import CTA from '../components/CTA';
 import { getCoaches } from '../services/coachService';
-import Coach from '../viewModels/coach';
+import { CoachViewModel } from '@/types/viewModels/coach';
 
 interface HomePageProps {
-  coaches: Coach[];
+  coaches: CoachViewModel[];
 }
 
 const HomePage: React.FC<HomePageProps> = ({ coaches }) => {

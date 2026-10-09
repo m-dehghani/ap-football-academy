@@ -1,9 +1,9 @@
 import type { GetServerSideProps } from 'next';
 import { getSiteInfo } from '@/services/siteService';
-import { SiteInfo } from '@/viewModels/site';
+import { SiteInfoViewModel } from '@/types/viewModels/site';
 
 export interface SiteProps {
-  site: SiteInfo | null;
+  site: SiteInfoViewModel | null;
 }
 
 // Adds the layout's academy data to a page's server-side props.

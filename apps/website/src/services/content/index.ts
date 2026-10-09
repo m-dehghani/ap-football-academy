@@ -21,7 +21,7 @@ import {
   toFacilityViewModel,
   toNewsCategoryViewModel,
   toNewsArticleViewModel,
-} from '@/viewModels/content/index';
+} from '@/types/viewModels/content';
 
 export async function getStatistics(): Promise<
   Record<string, StatisticViewModel>
@@ -113,7 +113,7 @@ export async function getNewsArticles(
 }
 
 export async function getFeaturedNewsArticles(
-  limit: number = 2,
+  limit = 2,
 ): Promise<NewsArticleViewModel[]> {
   const prisma = await getPrisma();
   const rows = await prisma.newsArticle.findMany({

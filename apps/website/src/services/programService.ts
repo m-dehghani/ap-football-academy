@@ -2,7 +2,7 @@ import { getPrisma } from '@/lib/db';
 import {
   ProgramViewModel,
   toProgramViewModel,
-} from '@/viewModels/program/index';
+} from '@/types/viewModels/program';
 
 export async function getPrograms(): Promise<ProgramViewModel[]> {
   const prisma = await getPrisma();
