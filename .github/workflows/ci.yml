@@ -175,7 +175,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push website Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: ./apps/website
           push: true
@@ -184,7 +184,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push crawler Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         with:
           context: ./apps/crawler
           push: true
