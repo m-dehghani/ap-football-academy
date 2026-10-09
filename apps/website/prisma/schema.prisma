@@ -124,6 +124,7 @@ model Registration {
   emergencyContactName  String?
   emergencyContactPhone String?
   medicalConditions     String?
+  stripeSessionId       String?  @unique
   registeredAt          DateTime @default(now())
   updatedAt             DateTime @updatedAt
 

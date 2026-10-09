@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Layout from '../components/Layout';
 import EnhancedNewsUpdates from '../components/EnhancedNewsUpdates';
 import FootballNewsDashboard from '../components/FootballNewsDashboard';
-import { NewspaperIcon, GlobeAltIcon, HomeIcon } from '@heroicons/react/24/outline';
+import {
+  NewspaperIcon,
+  GlobeAltIcon,
+  HomeIcon,
+} from '@heroicons/react/24/outline';
 
 const NewsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'mixed' | 'dashboard'>('mixed');
@@ -27,7 +31,7 @@ const NewsPage: React.FC = () => {
     >
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="bg-linear-to-br from-navy-900 to-primary-900 text-white py-16">
+        <div className="bg-linear-to-br from-gray-500 to-primary-900 text-white py-16">
           <div className="container-custom">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -84,12 +88,13 @@ const NewsPage: React.FC = () => {
         </div>
 
         {/* Additional Features */}
-        <div className="bg-linear-to-br from-navy-800 to-navy-900 text-white py-16">
+        <div className="bg-linear-to-br from-mauve-400 to-navy-600 text-white py-16">
           <div className="container-custom">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">ویژگی‌های خبری ما</h2>
               <p className="text-white/80 max-w-2xl mx-auto">
-                مرکز اخبار آکادمی AP با هوش مصنوعی، آخرین اخبار فوتبال را تحلیل و ارائه می‌دهد
+                مرکز اخبار آکادمی AP با هوش مصنوعی، آخرین اخبار فوتبال را تحلیل
+                و ارائه می‌دهد
               </p>
             </div>
 
@@ -100,7 +105,8 @@ const NewsPage: React.FC = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-2">تحلیل هوشمند</h3>
                 <p className="text-white/80">
-                  هوش مصنوعی اخبار را تحلیل کرده و مهم‌ترین موضوعات را شناسایی می‌کند
+                  هوش مصنوعی اخبار را تحلیل کرده و مهم‌ترین موضوعات را شناسایی
+                  می‌کند
                 </p>
               </div>
 

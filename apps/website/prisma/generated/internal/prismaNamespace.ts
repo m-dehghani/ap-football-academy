@@ -2199,6 +2199,7 @@ export const RegistrationScalarFieldEnum = {
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
   medicalConditions: 'medicalConditions',
+  stripeSessionId: 'stripeSessionId',
   registeredAt: 'registeredAt',
   updatedAt: 'updatedAt',
   userId: 'userId',

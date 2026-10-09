@@ -23,14 +23,14 @@ const PageHero: React.FC<PageHeroProps> = ({
       <div className="container-custom relative z-10 py-16 md:py-20">
         <div className="max-w-3xl mx-auto text-center">
           {badge && (
-            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-primary-100 mb-5">
+            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white mb-5">
               {badge}
             </span>
           )}
           <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5 text-balance">
             {title}
           </h1>
-          <p className="text-lg md:text-xl text-primary-100 leading-relaxed text-pretty">
+          <p className="text-lg md:text-xl text-white leading-relaxed text-pretty">
             {description}
           </p>
           {children && <div className="mt-8">{children}</div>}
@@ -41,3 +41,4 @@ const PageHero: React.FC<PageHeroProps> = ({
 };
 
 export default PageHero;
+

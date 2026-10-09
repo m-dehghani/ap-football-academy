@@ -483,12 +483,12 @@ export default function NewsUpdates() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-100 text-navy-600 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-100 text-navy-800 text-sm font-medium mb-4">
             <CalendarDaysIcon className="w-4 h-4 ml-2" />
             اخبار و رویدادها
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            آخرین <span className="text-navy-600">اخبار</span>
+            آخرین <span className="text-navy-800">اخبار</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             از آخرین اخبار، رویدادها و دستاوردهای آکادمی AP مطلع شوید

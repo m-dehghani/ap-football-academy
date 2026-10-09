@@ -35,12 +35,12 @@ const Footer: React.FC = () => {
         <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-secondary-500 rounded-full blur-3xl opacity-20"></div>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 bg-accent-200/5 backdrop-blur-sm">
         {/* Main Footer Content */}
         <div className="container-custom py-16 lg:py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* Enhanced Company Info */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-6 bg-blue-950/10 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
               <div className="flex items-center space-x-3">
                 <div className="w-14 h-14 bg-linear-to-br from-primary-600 to-primary-700 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-elegant-lg">
                   ⚽
@@ -49,13 +49,13 @@ const Footer: React.FC = () => {
                   <h3 className="text-2xl font-bold text-white">
                     آکادمی فوتبال AP
                   </h3>
-                  <p className="text-gray-400 font-medium">
+                  <p className="text-gray-200 font-medium">
                     جایی که قهرمانان ساخته می‌شوند
                   </p>
                 </div>
               </div>
 
-              <p className="text-gray-300 text-lg leading-relaxed max-w-md">
+              <p className="text-gray-200 text-lg leading-relaxed max-w-md">
                 {APP_CONFIG.description}
               </p>
 
@@ -67,7 +67,7 @@ const Footer: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-white font-medium">{APP_CONFIG.phone}</p>
-                    <p className="text-gray-400 text-sm">24 ساعته در دسترس</p>
+                    <p className="text-gray-300 text-sm">24 ساعته در دسترس</p>
                   </div>
                 </div>
 
@@ -77,7 +77,7 @@ const Footer: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-white font-medium">{APP_CONFIG.email}</p>
-                    <p className="text-gray-400 text-sm">پاسخ سریع تضمینی</p>
+                    <p className="text-gray-300 text-sm">پاسخ سریع تضمینی</p>
                   </div>
                 </div>
 
@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
                     <p className="text-white font-medium">
                       {APP_CONFIG.address}
                     </p>
-                    <p className="text-gray-400 text-sm">{APP_CONFIG.city}</p>
+                    <p className="text-gray-300 text-sm">{APP_CONFIG.city}</p>
                   </div>
                 </div>
               </div>
@@ -112,40 +112,42 @@ const Footer: React.FC = () => {
             {/* Enhanced Quick Links */}
             <div className="space-y-6">
               <h4 className="text-xl font-bold text-white flex items-center">
-                <ArrowRightIcon className="w-5 h-5 mr-2 text-primary-400" />
-                لینک‌های سریع
+                <p className="bg-accent-200 py-0.5 rounded-b-lg px-1 bor text-accent-300">
+                  لینک‌های سریع
+                </p>
               </h4>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                                    <Link
+                    <Link
                       href={link.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-primary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                       {link.label}
-                                    </Link>
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Enhanced Programs */}
-            <div className="space-y-6">
+            <div className="space-y-1">
               <h4 className="text-xl font-bold text-white flex items-center">
-                <StarIcon className="w-5 h-5 mr-2 text-secondary-400" />
-                برنامه‌های آموزشی
+                <p className="bg-accent-200 py-0.5 rounded-b-lg px-1 bor text-accent-300">
+                  برنامه‌های آموزشی
+                </p>
               </h4>
               <ul className="space-y-3">
                 {programs.map((program, index) => (
                   <li key={index}>
-                                    <Link
+                    <Link
                       href={program.href}
                       className="text-gray-300 hover:text-white transition-all duration-300 flex items-center group py-2"
                     >
                       <span className="w-2 h-2 bg-secondary-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                       {program.label}
-                                    </Link>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -186,11 +188,11 @@ const Footer: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
                   type="email"
-                                  id="footer-newsletter-email"
-                                  name="email"
-                                  placeholder="آدرس ایمیل خود را وارد کنید"
-                                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                                />
+                  id="footer-newsletter-email"
+                  name="email"
+                  placeholder="آدرس ایمیل خود را وارد کنید"
+                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
+                />
                 <button className="btn btn-secondary shrink-0">
                   عضویت
                   <ArrowRightIcon className="w-4 h-4 ml-2" />
@@ -217,13 +219,13 @@ const Footer: React.FC = () => {
 
               <div className="flex gap-6">
                 {legalLinks.map((link, index) => (
-                                  <Link
+                  <Link
                     key={index}
                     href={link.href}
                     className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
                     {link.label}
-                                  </Link>
+                  </Link>
                 ))}
               </div>
             </div>

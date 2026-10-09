@@ -115,9 +115,27 @@ const RegisterPage: React.FC = () => {
         toast.success(
           'ثبت نام با موفقیت انجام شد! در حال هدایت به صفحه پرداخت...',
         );
-        // Redirect to success page
-        router.push(`/success?registrationId=${result.data.registration.id}`);
-      } else {
+              // Create Stripe checkout session
+              const checkoutResponse = await fetch('/api/create-checkout-session', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ registrationId: result.data.registration.id }),
+              });
+
+              if (checkoutResponse.ok) {
+                const checkoutResult = await checkoutResponse.json();
+                // Redirect to Stripe checkout
+                window.location.href = checkoutResult.url;
+              } else {
+                const error = await checkoutResponse.json();
+                toast.error(
+                  error.message || 'خطا در ایجاد جلسه پرداخت. لطفاً دوباره تلاش کنید.',
+                );
+                console.error('Checkout session error:', error);
+              }
+            } else {
         const error = await response.json();
         toast.error(
           error.message || 'ثبت نام ناموفق بود. لطفاً دوباره تلاش کنید.',
@@ -289,8 +307,7 @@ const RegisterPage: React.FC = () => {
                             برنامه آموزشی *
                           </label>
                           {isLoading ? (
-                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500">
-                              در حال بارگذاری برنامه‌ها...
+                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">در حال بارگذاری برنامه‌ها...
                             </div>
                           ) : filteredPrograms.length > 0 ? (
                             <select
@@ -307,8 +324,7 @@ const RegisterPage: React.FC = () => {
                               ))}
                             </select>
                           ) : (
-                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500">
-                              برنامه‌ای برای گروه سنی شما یافت نشد
+                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">برنامه‌ای برای گروه سنی شما یافت نشد
                             </div>
                           )}
                           {errors.program && (
@@ -457,10 +473,7 @@ const RegisterPage: React.FC = () => {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                       placeholder="لطفاً هر گونه بیماری، آلرژی یا نیاز خاصی که مربیان باید بدانند را بنویسید..."
                     />
-                    <p className="mt-1 text-sm text-gray-500">
-                      این اطلاعات محرمانه بوده و فقط برای اهداف ایمنی استفاده
-                      می‌شود.
-                    </p>
+                    <p className="mt-1 text-sm text-gray-600">این اطلاعات محرمانه بوده و فقط برای اهداف ایمنی استفاده می‌شود.</p>
                   </div>
                 </div>
 
@@ -526,3 +539,4 @@ const RegisterPage: React.FC = () => {
 };
 
 export default RegisterPage;
+

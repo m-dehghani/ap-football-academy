@@ -274,12 +274,12 @@ export default function EnhancedNewsUpdates() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-100 text-navy-600 text-sm font-medium mb-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-navy-100 text-navy-800 text-sm font-medium mb-4">
             <CalendarDaysIcon className="w-4 h-4 ml-2" />
             اخبار و رویدادها
           </div>
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            آخرین <span className="text-navy-600">اخبار</span>
+            آخرین <span className="text-navy-800">اخبار</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             از آخرین اخبار آکادمی AP و دنیای فوتبال ایران مطلع شوید
@@ -325,7 +325,7 @@ export default function EnhancedNewsUpdates() {
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center ${
                   selectedSource === source.id
                     ? 'bg-navy-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:text-navy-600'
+                    : 'text-gray-700 hover:text-navy-700'
                 }`}
               >
                 <source.icon className="w-4 h-4 ml-2" />
@@ -437,7 +437,7 @@ export default function EnhancedNewsUpdates() {
                           <span>{getSentimentIcon(item.sentiment)}</span>
                         )}
                       </div>
-                      <button className="text-navy-600 hover:text-navy-700 font-medium flex items-center">
+                      <button className="text-navy-800 hover:text-navy-900 font-medium flex items-center">
                         {item.url ? 'مشاهده منبع' : 'ادامه مطلب'}
                         <ArrowRightIcon className="w-4 h-4 mr-1" />
                       </button>
@@ -472,7 +472,7 @@ export default function EnhancedNewsUpdates() {
               
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm text-navy-600 font-medium">{item.date}</span>
+                  <span className="text-sm text-navy-800 font-medium">{item.date}</span>
                   <div className="flex items-center">
                     <span className="text-xs text-gray-500">{item.readTime}</span>
                     {item.sentiment && (
@@ -481,7 +481,7 @@ export default function EnhancedNewsUpdates() {
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-navy-600 transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-navy-800 transition-colors">
                   {item.title}
                 </h3>
                 
@@ -500,7 +500,7 @@ export default function EnhancedNewsUpdates() {
                     <span>👍 {item.likes}</span>
                     <span>💬 {item.comments}</span>
                   </div>
-                  <button className="text-navy-600 hover:text-navy-700 font-medium text-sm flex items-center">
+                  <button className="text-navy-800 hover:text-navy-900 font-medium text-sm flex items-center">
                     {item.url ? 'منبع' : 'بیشتر'}
                     <ArrowRightIcon className="w-4 h-4 mr-1" />
                   </button>
@@ -520,3 +520,4 @@ export default function EnhancedNewsUpdates() {
     </section>
   );
 } 
+

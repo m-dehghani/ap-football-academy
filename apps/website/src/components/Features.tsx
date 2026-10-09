@@ -20,41 +20,46 @@ interface Feature {
 }
 
 // 3D Tilt Card Component
-function FeatureCard3D({ feature, index, isExpanded, onToggle }: { 
-  feature: Feature; 
-  index: number; 
-  isExpanded: boolean; 
+function FeatureCard3D({
+  feature,
+  index,
+  isExpanded,
+  onToggle,
+}: {
+  feature: Feature;
+  index: number;
+  isExpanded: boolean;
   onToggle: () => void;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-      const card = cardRef.current;
-      if (!card) return;
+    const card = cardRef.current;
+    if (!card) return;
 
-      const handleMouseMove = (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        setMousePosition({ x: rotateY, y: rotateX });
-      };
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+      setMousePosition({ x: rotateY, y: rotateX });
+    };
 
-      const handleMouseLeave = () => {
-        setMousePosition({ x: 0, y: 0 });
-      };
+    const handleMouseLeave = () => {
+      setMousePosition({ x: 0, y: 0 });
+    };
 
-      card.addEventListener('mousemove', handleMouseMove);
-      card.addEventListener('mouseleave', handleMouseLeave);
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
 
-      return () => {
-        card.removeEventListener('mousemove', handleMouseMove);
-        card.removeEventListener('mouseleave', handleMouseLeave);
-      };
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
   }, []);
 
   return (
@@ -74,8 +79,12 @@ function FeatureCard3D({ feature, index, isExpanded, onToggle }: {
         <motion.div
           className="card-glass p-8 h-full relative z-10 overflow-hidden"
           animate={{
-            boxShadow: isExpanded ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-            transform: isExpanded ? 'translateY(-8px) scale(1.02)' : 'translateY(0)',
+            boxShadow: isExpanded
+              ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+              : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+            transform: isExpanded
+              ? 'translateY(-8px) scale(1.02)'
+              : 'translateY(0)',
           }}
           transition={{ duration: 0.3 }}
         >
@@ -89,11 +98,14 @@ function FeatureCard3D({ feature, index, isExpanded, onToggle }: {
               className={`w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center relative overflow-hidden`}
             >
               <motion.div
-                animate={{ 
+                animate={{
                   rotate: isExpanded ? 360 : 0,
-                  scale: [1, 1.1, 1]
+                  scale: [1, 1.1, 1],
                 }}
-                transition={{ duration: isExpanded ? 0.6 : 0, repeat: isExpanded ? Infinity : 0 }}
+                transition={{
+                  duration: isExpanded ? 0.6 : 0,
+                  repeat: isExpanded ? Infinity : 0,
+                }}
               >
                 {getIcon(feature.icon, feature.iconColor)}
               </motion.div>
@@ -153,27 +165,27 @@ function FeatureCard3D({ feature, index, isExpanded, onToggle }: {
                 <div className="pt-4 border-t border-gray-100 space-y-3">
                   <h4 className="font-semibold text-gray-900">مزایای کلیدی:</h4>
                   <ul className="space-y-2 text-gray-600 text-sm">
-                              <li className="flex items-center gap-2">
-                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                                مربیان مجرب و متخصص
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                                برنامه‌های شخصی‌سازی‌شده
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                                امکانات و تجهیزات مدرن
-                              </li>
-                              <li className="flex items-center gap-2">
-                                <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
-                                پیگیری پیشرفت مداوم
-                              </li>
-                            </ul>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                    <li className="flex items-center gap-2">
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      مربیان مجرب و متخصص
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      برنامه‌های شخصی‌سازی‌شده
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      امکانات و تجهیزات مدرن
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                      پیگیری پیشرفت مداوم
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Gradient Border Effect */}
           <motion.div
@@ -214,7 +226,7 @@ function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
 
   useEffect(() => {
     if (hasAnimated.current) return;
-    
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -233,8 +245,10 @@ function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
             const current = Math.floor(numericValue * eased);
-            setDisplayValue(current.toLocaleString('fa-IR') + stat.number.replace(/\d+/g, ''));
-            
+            setDisplayValue(
+              current.toLocaleString('fa-IR') + stat.number.replace(/\d+/g, ''),
+            );
+
             if (progress < 1) {
               requestAnimationFrame(animate);
             } else {
@@ -246,7 +260,7 @@ function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const element = document.querySelector(`.stat-${index}`);
@@ -270,11 +284,9 @@ function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
       >
         {getIcon(stat.icon, 'w-8 h-8 text-white')}
       </motion.div>
-      <motion.div
-              className="text-4xl md:text-5xl font-bold text-white mb-2"
-            >
-              {displayValue}
-            </motion.div>
+      <motion.div className="text-4xl md:text-5xl font-bold text-white mb-2">
+        {displayValue}
+      </motion.div>
       <div className="text-primary-100 text-sm md:text-base font-medium">
         {stat.label}
       </div>
@@ -295,8 +307,14 @@ const Features: React.FC = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNkYzI2MjYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSI0Ii8+PC9nPjwvZz48L3N2Zz4=')] animate-rotate-slow"></div>
         {/* Floating gradient orbs */}
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary-300 rounded-full blur-3xl opacity-20 animate-blob" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-300 rounded-full blur-3xl opacity-20 animate-blob" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-accent-300 rounded-full blur-3xl opacity-15 animate-blob" style={{ animationDelay: '4s' }} />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-300 rounded-full blur-3xl opacity-20 animate-blob"
+          style={{ animationDelay: '2s' }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 w-48 h-48 bg-accent-300 rounded-full blur-3xl opacity-15 animate-blob"
+          style={{ animationDelay: '4s' }}
+        />
       </div>
 
       <div className="container-custom relative z-10">
@@ -317,9 +335,9 @@ const Features: React.FC = () => {
             انتخاب کنیم؟
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto text-pretty">
-            ما آموزش جامع فوتبال را با مربیان متخصص، امکانات مدرن و محیط
-            حمایتی ارائه می‌دهیم که برای کمک به بازیکنان جهت رسیدن به حداکثر
-            پتانسیل خود طراحی شده است.
+            ما آموزش جامع فوتبال را با مربیان متخصص، امکانات مدرن و محیط حمایتی
+            ارائه می‌دهیم که برای کمک به بازیکنان جهت رسیدن به حداکثر پتانسیل
+            خود طراحی شده است.
           </p>
         </motion.div>
 
@@ -333,10 +351,12 @@ const Features: React.FC = () => {
           {features.map((feature, index) => (
             <FeatureCard3D
               key={index}
-                          feature={feature}
+              feature={feature}
               index={index}
               isExpanded={expandedCard === index}
-              onToggle={() => setExpandedCard(expandedCard === index ? null : index)}
+              onToggle={() =>
+                setExpandedCard(expandedCard === index ? null : index)
+              }
             />
           ))}
         </motion.div>
@@ -355,7 +375,7 @@ const Features: React.FC = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12" />
             </div>
-            
+
             <div className="relative z-10">
               <div className="text-center mb-12">
                 <h3 className="text-3xl md:text-4xl font-bold mb-4">
@@ -400,7 +420,7 @@ const Features: React.FC = () => {
                   transition={{ duration: 0.7 }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent rounded-4xl" />
-                
+
                 {/* Floating Stats Card */}
                 <motion.div
                   className="absolute top-6 right-6 glass-card p-4 rounded-xl"
@@ -414,7 +434,7 @@ const Features: React.FC = () => {
                   </div>
                   <div className="text-white/80 text-sm">رضایت بازیکنان</div>
                 </motion.div>
-                
+
                 {/* Badge */}
                 <motion.div
                   className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg"
@@ -428,7 +448,9 @@ const Features: React.FC = () => {
                     </div>
                     <div>
                       <p className="font-bold text-gray-900">تمرین رایگان</p>
-                      <p className="text-sm text-gray-500">جلسه اول بدون هزینه</p>
+                      <p className="text-sm text-gray-500">
+                        جلسه اول بدون هزینه
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -507,9 +529,9 @@ const Features: React.FC = () => {
               <div className="absolute top-0 right-0 w-32 h-32 bg-secondary-300 rounded-full -translate-y-16 translate-x-16" />
               <div className="absolute bottom-0 left-0 w-24 h-24 bg-secondary-300 rounded-full translate-y-12 -translate-x-12" />
             </div>
-            
+
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+              <h3 className="text-3xl font-bold text-gray-200 mb-4">
                 آماده شروع سفر فوتبال خود هستید؟
               </h3>
               <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
