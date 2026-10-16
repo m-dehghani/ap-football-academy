@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   StarIcon,
@@ -19,6 +19,7 @@ interface CoachSpotlightProps {
 export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
   const [currentCoach, setCurrentCoach] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const coachTabRefs = useRef<Array<HTMLButtonElement | null>>([]);
 
   const nextCoach = useCallback(() => {
     if (isAnimating) return;
@@ -34,9 +35,24 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
     setTimeout(() => setIsAnimating(false), 500);
   }, [coaches.length, isAnimating]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') nextCoach();
-    if (e.key === 'ArrowRight') prevCoach();
+  const handleTabKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
+    let nextIndex: number | undefined;
+
+    if (event.key === 'ArrowLeft') nextIndex = (index + 1) % coaches.length;
+    if (event.key === 'ArrowRight') {
+      nextIndex = (index - 1 + coaches.length) % coaches.length;
+    }
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = coaches.length - 1;
+
+    if (nextIndex !== undefined) {
+      event.preventDefault();
+      setCurrentCoach(nextIndex);
+      coachTabRefs.current[nextIndex]?.focus();
+    }
   };
 
   if (!coaches || coaches.length === 0) return null;
@@ -48,8 +64,6 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
   return (
     <section
       className="section-padding bg-linear-to-br from-slate-50 to-slate-100 relative overflow-hidden"
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
     >
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
@@ -88,6 +102,10 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
               exit={{ opacity: 0, x: -50, scale: 0.95 }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="grid lg:grid-cols-2 gap-12 items-center"
+              id="coach-panel"
+              role="tabpanel"
+              aria-labelledby={`coach-tab-${currentCoach}`}
+              tabIndex={0}
             >
               {/* Coach Image & Basic Info */}
               <motion.div
@@ -340,14 +358,23 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
             <div
               className="flex space-x-2"
               role="tablist"
+              aria-orientation="horizontal"
               aria-label="نمایش مربیان"
             >
               {coaches.map((_, index) => (
                 <motion.button
                   key={index}
+                  type="button"
+                  ref={(element) => {
+                    coachTabRefs.current[index] = element;
+                  }}
                   onClick={() => setCurrentCoach(index)}
+                  onKeyDown={(event) => handleTabKeyDown(event, index)}
+                  id={`coach-tab-${index}`}
                   role="tab"
+                  aria-controls="coach-panel"
                   aria-selected={index === currentCoach}
+                  tabIndex={index === currentCoach ? 0 : -1}
                   aria-label={`مربی ${index + 1}`}
                   className={`w-12 h-3 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
                     index === currentCoach
@@ -386,20 +413,19 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {coaches.map((coachItem, index) => (
-              <motion.div
+              <motion.button
                 key={coachItem.id}
+                type="button"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 onClick={() => setCurrentCoach(index)}
-                className={`bg-white rounded-2xl p-6 shadow-lg cursor-pointer transition-all hover:shadow-xl hover:scale-105 ${
+                className={`w-full bg-white rounded-2xl p-6 shadow-lg cursor-pointer text-center transition-all hover:shadow-xl ${
                   index === currentCoach ? 'ring-2 ring-primary-600' : ''
                 }`}
                 whileHover={{ y: -8, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                tabIndex={0}
-                role="button"
-                onKeyDown={(e) => e.key === 'Enter' && setCurrentCoach(index)}
+                aria-pressed={index === currentCoach}
                 aria-label={`انتخاب مربی ${coachItem.firstName} ${coachItem.lastName}`}
               >
                 <div className="text-center">
@@ -426,7 +452,7 @@ export default function CoachSpotlight({ coaches = [] }: CoachSpotlightProps) {
                     {coachItem.experience} سال تجربه
                   </p>
                 </div>
-              </motion.div>
+              </motion.button>
             ))}
           </div>
         </motion.div>

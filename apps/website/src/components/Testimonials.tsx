@@ -42,7 +42,7 @@ const Testimonials: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-xl shadow-lg p-6"
             >
               {/* Quote Icon */}
               <div className="mb-4">
@@ -63,11 +63,20 @@ const Testimonials: React.FC = () => {
 
               {/* Author */}
               <div className="flex items-center">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover ml-4"
-                />
+                {testimonial.image && !testimonial.image.startsWith('/api/placeholder/') ? (
+                  <img
+                    src={testimonial.image}
+                    alt=""
+                    className="w-12 h-12 rounded-full object-cover ml-4"
+                  />
+                ) : (
+                  <div
+                    aria-hidden="true"
+                    className="w-12 h-12 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center font-bold ml-4"
+                  >
+                    {testimonial.name.trim().charAt(0)}
+                  </div>
+                )}
                 <div className="text-right">
                                   <h3 className="font-semibold text-gray-900">
                     {testimonial.name}

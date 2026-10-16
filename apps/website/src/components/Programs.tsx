@@ -34,23 +34,16 @@ interface ProgramCardProps {
 
 function ProgramCard({ program, index, isSelected, onSelect }: ProgramCardProps) {
   return (
-    <motion.div
+    <motion.button
+      type="button"
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
       whileHover={{ y: -8, scale: 1.02, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
       onClick={onSelect}
-      className={`card-glass p-6 rounded-4xl cursor-pointer transition-all duration-300 ${
+      className={`card-glass w-full p-6 rounded-4xl cursor-pointer text-right transition-all duration-300 ${
         isSelected ? 'ring-2 ring-primary-600 shadow-elegant-lg' : ''
       }`}
-      tabIndex={0}
-      role="button"
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          onSelect();
-        }
-      }}
       aria-pressed={isSelected}
       aria-label={`انتخاب برنامه ${program.name}`}
     >
@@ -85,7 +78,7 @@ function ProgramCard({ program, index, isSelected, onSelect }: ProgramCardProps)
           {toPersianDigits(program.studentsEnrolled)} بازیکن • {program.level}
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 
@@ -115,13 +108,10 @@ function StatCard({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -4, scale: 1.02 }}
       className={`p-6 rounded-2xl border ${colorClasses[color]} text-center`}
     >
       <motion.div
         className="w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-4"
-        whileHover={{ scale: 1.1, rotate: 180 }}
-        transition={{ duration: 0.5 }}
       >
         {icon}
       </motion.div>
@@ -137,7 +127,6 @@ function FeatureItem({ feature, index }: { feature: string; index: number }) {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ x: 8 }}
       className="flex items-center p-4 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
     >
       <CheckCircleIcon className="w-5 h-5 text-emerald-500 mr-3 shrink-0" />
@@ -152,8 +141,7 @@ function ScheduleItem({ schedule, index }: { schedule: Schedule; index: number }
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      whileHover={{ x: 8, backgroundColor: '#f1f5f9' }}
-      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+      className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
     >
       <div className="flex items-center">
         <ClockIcon className="w-5 h-5 text-gray-400 mr-3" />
@@ -181,8 +169,6 @@ function CoachCard({ coach, program }: { coach: ProgramViewModel['coach']; progr
       <div className="flex items-center space-x-6">
         <motion.div
           className="w-20 h-20 bg-linear-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold"
-          whileHover={{ rotate: 180, scale: 1.1 }}
-          transition={{ duration: 0.5 }}
         >
           {coach.fullName.charAt(0)}
         </motion.div>
@@ -373,9 +359,9 @@ export default function Programs({ programs }: { programs: ProgramViewModel[] })
             <TrophyIcon className="w-4 h-4 mr-2" />
             برنامه‌های آموزشی
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6 text-balance">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-gray-900 mb-6 text-balance">
             مسیر <span className="gradient-text">تمرین خود</span> را انتخاب کنید
-          </h2>
+          </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto text-pretty">
             برنامه‌های حرفه‌ای برای هر سن و سطح مهارت، با مربیان متخصص و امکانات مدرن
           </p>

@@ -195,7 +195,7 @@ const Footer: React.FC = () => {
                 </p>
               </div>
               <div className="flex sm:justify-end">
-                <Link href="/register" className="btn btn-secondary">
+                <Link href="/programs" className="btn btn-secondary">
                   مشاهده برنامه‌ها و ثبت‌نام
                   <ArrowLeftIcon className="w-4 h-4" aria-hidden="true" />
                 </Link>

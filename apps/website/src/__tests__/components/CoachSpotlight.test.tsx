@@ -143,4 +143,24 @@ describe('CoachSpotlight', () => {
 
     expect(screen.getAllByRole('tab')).toHaveLength(3);
   });
+
+  it('supports RTL keyboard navigation between coach tabs', () => {
+    renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
+
+    const [firstTab, secondTab] = screen.getAllByRole('tab');
+    firstTab.focus();
+    fireEvent.keyDown(firstTab, { key: 'ArrowLeft' });
+
+    expect(secondTab).toHaveFocus();
+    expect(secondTab).toHaveAttribute('aria-selected', 'true');
+    expect(screen.getByRole('tabpanel')).toHaveAttribute(
+      'aria-labelledby',
+      secondTab.id,
+    );
+
+    fireEvent.keyDown(secondTab, { key: 'Home' });
+
+    expect(firstTab).toHaveFocus();
+    expect(firstTab).toHaveAttribute('aria-selected', 'true');
+  });
 });

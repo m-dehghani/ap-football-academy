@@ -3,9 +3,52 @@ import { CalendarDaysIcon, ClockIcon, UserGroupIcon, CameraIcon, PlayIcon, Arrow
 import type { CrawlerNewsApiResponse, CrawlerStats } from '@/types/api/crawler';
 import type { NewsCardViewModel } from '@/types/viewModels/content';
 
+function NewsAction({
+  article,
+  compact = false,
+}: {
+  article: NewsCardViewModel;
+  compact?: boolean;
+}) {
+  const className = 'inline-flex items-center gap-1 font-medium text-navy-800 hover:text-navy-900 focus-visible:underline';
+
+  if (article.url) {
+    return (
+      <a
+        href={article.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        aria-label={`مشاهده منبع: ${article.title}`}
+      >
+        {compact ? 'منبع' : 'مشاهده منبع'}
+        <ArrowRightIcon className="w-4 h-4" aria-hidden="true" />
+      </a>
+    );
+  }
+
+  if (!article.content.trim()) return null;
+
+  return (
+    <details className="group">
+      <summary className={`${className} cursor-pointer`}>
+        ادامه مطلب
+        <ArrowRightIcon
+          className="w-4 h-4 transition-transform group-open:rotate-90"
+          aria-hidden="true"
+        />
+      </summary>
+      <p className="mt-3 text-sm leading-relaxed text-gray-600">
+        {article.content}
+      </p>
+    </details>
+  );
+}
+
 export default function EnhancedNewsUpdates() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSource, setSelectedSource] = useState('all');
+  const [visibleCount, setVisibleCount] = useState(6);
   const [externalNews, setExternalNews] = useState<NewsCardViewModel[]>([]);
   const [crawlerStats, setCrawlerStats] = useState<CrawlerStats | null>(null);
   const [loading, setLoading] = useState(false);
@@ -97,8 +140,10 @@ export default function EnhancedNewsUpdates() {
                     }
                   } catch (err) {
                     if (mounted) {
-                      setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
+                      console.error('Unable to load external news:', err);
+                      setError('دریافت اخبار با مشکل مواجه شد. لطفاً دوباره تلاش کنید.');
                       setExternalNews([]);
+                      setCrawlerStats(null);
                     }
                   } finally {
                     if (mounted) {
@@ -153,6 +198,8 @@ export default function EnhancedNewsUpdates() {
 
   const filteredNews = getAllNews();
   const featuredNews = filteredNews.filter(item => item.featured);
+  const regularNews = filteredNews.filter(item => !item.featured);
+  const visibleNews = regularNews.slice(0, visibleCount);
 
   const getTypeIcon = (type: string) => {
     switch (type) {
@@ -285,7 +332,12 @@ export default function EnhancedNewsUpdates() {
             {sourceTypes.map((source) => (
               <button
                 key={source.id}
-                onClick={() => setSelectedSource(source.id)}
+                type="button"
+                onClick={() => {
+                  setSelectedSource(source.id);
+                  setVisibleCount(6);
+                }}
+                aria-pressed={selectedSource === source.id}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center ${
                   selectedSource === source.id
                     ? 'bg-navy-600 text-white shadow-lg'
@@ -304,7 +356,12 @@ export default function EnhancedNewsUpdates() {
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
+              type="button"
+              onClick={() => {
+                setSelectedCategory(category.id);
+                setVisibleCount(6);
+              }}
+              aria-pressed={selectedCategory === category.id}
               className={`px-6 py-3 rounded-full font-medium transition-all ${
                 selectedCategory === category.id
                   ? 'bg-navy-600 text-white shadow-lg scale-105'
@@ -327,10 +384,11 @@ export default function EnhancedNewsUpdates() {
 
         {/* Error State */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8" role="alert">
             <p className="text-red-800">خطا: {error}</p>
             <button 
-                      onClick={handleRetry}
+              type="button"
+              onClick={handleRetry}
               className="mt-2 text-red-600 hover:text-red-800 font-medium"
             >
               تلاش مجدد
@@ -347,7 +405,7 @@ export default function EnhancedNewsUpdates() {
             </h3>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {featuredNews.slice(0, 2).map((item) => (
-                <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
                   <div className="relative">
                     <div className="h-64 bg-linear-to-r from-navy-500 to-navy-600 flex items-center justify-center">
                       <div className="text-white text-6xl">📰</div>
@@ -401,10 +459,7 @@ export default function EnhancedNewsUpdates() {
                           <span>{getSentimentIcon(item.sentiment)}</span>
                         )}
                       </div>
-                      <button className="text-navy-800 hover:text-navy-900 font-medium flex items-center">
-                        {item.url ? 'مشاهده منبع' : 'ادامه مطلب'}
-                        <ArrowRightIcon className="w-4 h-4 mr-1" />
-                      </button>
+                      <NewsAction article={item} />
                     </div>
                   </div>
                 </div>
@@ -415,8 +470,8 @@ export default function EnhancedNewsUpdates() {
 
         {/* News Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredNews.map((item) => (
-            <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
+          {visibleNews.map((item) => (
+            <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
               <div className="relative">
                 <div className="h-48 bg-linear-to-br from-gray-100 to-gray-200 flex items-center justify-center">
                   <div className="text-gray-400 text-4xl">
@@ -445,7 +500,7 @@ export default function EnhancedNewsUpdates() {
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-navy-800 transition-colors">
+                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
                   {item.title}
                 </h3>
                 
@@ -464,10 +519,7 @@ export default function EnhancedNewsUpdates() {
                     <span>👍 {item.likes}</span>
                     <span>💬 {item.comments}</span>
                   </div>
-                  <button className="text-navy-800 hover:text-navy-900 font-medium text-sm flex items-center">
-                    {item.url ? 'منبع' : 'بیشتر'}
-                    <ArrowRightIcon className="w-4 h-4 mr-1" />
-                  </button>
+                  <NewsAction article={item} compact />
                 </div>
               </div>
             </div>
@@ -475,11 +527,17 @@ export default function EnhancedNewsUpdates() {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
-          <button className="bg-navy-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-navy-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-            مشاهده اخبار بیشتر
-          </button>
-        </div>
+        {visibleNews.length < regularNews.length && (
+          <div className="text-center mt-12">
+            <button
+              type="button"
+              onClick={() => setVisibleCount((count) => count + 6)}
+              className="bg-navy-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-navy-700 transition-colors shadow-lg"
+            >
+              مشاهده اخبار بیشتر
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

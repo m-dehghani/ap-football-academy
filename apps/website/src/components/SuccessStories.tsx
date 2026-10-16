@@ -74,8 +74,7 @@ function AchievementCard({
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+      className="bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="bg-linear-to-r from-emerald-500 to-emerald-600 p-6 text-white relative overflow-hidden">
         {/* Background pattern */}
@@ -139,15 +138,8 @@ function AchievementCard({
           />
         </div>
 
-        <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
+        <div className="text-sm pt-4 border-t border-gray-100">
           <span className="text-gray-500">مربی: {achievement.coach}</span>
-          <motion.button
-            className="text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
-            whileHover={{ x: 4 }}
-          >
-            جزئیات
-            <ArrowRightIcon className="w-4 h-4" />
-          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -197,17 +189,14 @@ function TestimonialCard({
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.1)' }}
-      className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300"
+      className="bg-white rounded-2xl shadow-lg p-8"
     >
       <div className="flex items-center mb-6">
-        <motion.div
+        <div
           className="w-16 h-16 bg-linear-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-xl font-bold ml-4"
-          whileHover={{ rotate: 180, scale: 1.1 }}
-          transition={{ duration: 0.5 }}
         >
           {testimonial.name.split(' ')[0].charAt(0)}
-        </motion.div>
+        </div>
         <div>
           <h3 className="text-lg font-bold text-gray-900">
             {testimonial.name}
@@ -272,16 +261,13 @@ function StatisticCard({
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className={`bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 ${bgColors[index]}`}
+      className={`bg-white rounded-2xl shadow-lg p-8 text-center ${bgColors[index]}`}
     >
-      <motion.div
+      <div
         className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-        whileHover={{ scale: 1.1, rotate: 180 }}
-        transition={{ duration: 0.5 }}
       >
         {getIcon(stat.icon, `w-8 h-8 ${stat.color}`)}
-      </motion.div>
+      </div>
       <motion.div className="text-4xl font-bold text-gray-900 mb-2">
         {displayValue}
       </motion.div>
@@ -306,15 +292,13 @@ function TimelineItem({
       initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors"
+      className="flex items-start gap-4 p-4 bg-emerald-50 rounded-xl"
     >
-      <motion.div
+      <div
         className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center text-white font-bold text-sm shrink-0"
-        whileHover={{ scale: 1.1, rotate: 360 }}
-        transition={{ duration: 0.5 }}
       >
         {milestone.year}
-      </motion.div>
+      </div>
       <div>
         <h4 className="font-bold text-emerald-700 mb-1">{milestone.event}</h4>
         <p className="text-gray-600 text-sm">{milestone.description}</p>
@@ -404,13 +388,14 @@ export default function SuccessStories() {
         >
           <div
             className="bg-white rounded-xl p-2 shadow-lg flex items-center gap-2"
-            role="tablist"
+            role="group"
             aria-label="دسته‌بندی داستان‌های موفقیت"
           >
             {(['achievements', 'testimonials', 'statistics'] as TabType[]).map(
               (tab) => (
                 <motion.button
                   key={tab}
+                  type="button"
                   onClick={() => setActiveTab(tab)}
                   className={`px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2 ${
                     activeTab === tab
@@ -419,8 +404,7 @@ export default function SuccessStories() {
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  aria-selected={activeTab === tab}
-                  role="tab"
+                  aria-pressed={activeTab === tab}
                 >
                   {tab === 'achievements' && <TrophyIcon className="w-4 h-4" />}
                   {tab === 'testimonials' && (

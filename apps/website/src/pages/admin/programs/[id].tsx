@@ -1,20 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayout from '@/components/AdminLayout';
+import { fetchJson } from '@/lib/api-client';
+import type { AdminCoachListItem, AdminProgramListItem } from '@/types/viewModels/admin';
 
+interface ScheduleFormValue {
+  day: string;
+  time: string;
+  displayOrder: string;
+}
 
-const ProgramFormPage: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const isEditing = !!id;
+interface ProgramFormValues {
+  name: string;
+  description: string;
+  price: string;
+  duration: string;
+  sessionCount: string;
+  maxStudents: string;
+  isActive: boolean;
+  popular: boolean;
+  icon: string;
+  ageRange: string;
+  minAge: string;
+  maxAge: string;
+  color: string;
+  period: string;
+  rating: string;
+  studentsEnrolled: string;
+  features: string;
+  level: string;
+  coachId: string;
+  schedule: ScheduleFormValue[];
+}
 
-  const [formData, setFormData] = useState({
+type ProgramDetail = Omit<AdminProgramListItem, 'schedule'> & {
+  coachId: string;
+  schedule: (AdminProgramListItem['schedule'][number] & {
+    displayOrder: number;
+  })[];
+};
+
+const initialFormData: ProgramFormValues = {
     name: '',
     description: '',
     price: '',
     duration: '',
     sessionCount: '',
     maxStudents: '15',
+    isActive: true,
     popular: false,
     icon: '⚽',
     ageRange: '8-12 سال',
@@ -27,56 +60,90 @@ const ProgramFormPage: React.FC = () => {
     features: '',
     level: 'BEGINNER',
     coachId: '',
-    schedule: [{ day: '', time: '', displayOrder: 0 }],
-  });
+    schedule: [{ day: '', time: '', displayOrder: '0' }],
+};
 
-  const [loading, setLoading] = useState(false);
+const ProgramFormPage: React.FC = () => {
+  const router = useRouter();
+  const programId =
+    router.isReady && typeof router.query.id === 'string'
+      ? router.query.id
+      : undefined;
+  const isEditing = Boolean(programId);
+
+  const [formData, setFormData] = useState<ProgramFormValues>(initialFormData);
+  const [coaches, setCoaches] = useState<
+    Pick<AdminCoachListItem, 'id' | 'firstName' | 'lastName'>[]
+  >([]);
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (isEditing) {
-      const fetchProgram = async () => {
-        setLoading(true);
-        try {
-          const res = await fetch(`/api/admin/programs/${id}`);
-          if (!res.ok) throw new Error('برنامه یافت نشد');
-          const program = await res.json();
+    if (!router.isReady) return;
+
+    let isCurrent = true;
+    const loadFormData = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const [coachOptions, program] = await Promise.all([
+          fetchJson<
+            Pick<AdminCoachListItem, 'id' | 'firstName' | 'lastName'>[]
+          >('/api/admin/coaches'),
+          programId
+            ? fetchJson<ProgramDetail>(`/api/admin/programs/${programId}`)
+            : Promise.resolve(null),
+        ]);
+
+        if (!isCurrent) return;
+        setCoaches(coachOptions);
+        if (program) {
           setFormData({
             name: program.name,
             description: program.description,
-            price: program.price.toString(),
-            duration: program.duration.toString(),
-            sessionCount: program.sessionCount.toString(),
-            maxStudents: program.maxStudents.toString(),
+            price: String(program.price),
+            duration: String(program.duration),
+            sessionCount: String(program.sessionCount),
+            maxStudents: String(program.maxStudents),
+            isActive: program.isActive,
             popular: program.popular,
             icon: program.icon,
             ageRange: program.ageRange,
-            minAge: program.minAge.toString(),
-            maxAge: program.maxAge.toString(),
+            minAge: String(program.minAge),
+            maxAge: String(program.maxAge),
             color: program.color,
             period: program.period,
-            rating: program.rating.toString(),
-            studentsEnrolled: program.studentsEnrolled.toString(),
+            rating: String(program.rating),
+            studentsEnrolled: String(program.studentsEnrolled),
             features: program.features.join(', '),
             level: program.level,
-            coachId: program.coachId || '',
-            schedule: program.schedule.map((s: any, i: number) => ({
-              day: s.day,
-              time: s.time,
-              displayOrder: s.displayOrder ?? i,
+            coachId: program.coachId,
+            schedule: program.schedule.map((schedule, index) => ({
+              day: schedule.day,
+              time: schedule.time,
+              displayOrder: String(schedule.displayOrder ?? index),
             })),
           });
-        } catch (err) {
-          setError(err instanceof Error ? err.message : 'خطا در بارگذاری');
-        } finally {
-          setLoading(false);
         }
-      };
+      } catch (loadError) {
+        if (isCurrent) {
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : 'بارگذاری برنامه ناموفق بود',
+          );
+        }
+      } finally {
+        if (isCurrent) setLoading(false);
+      }
+    };
 
-      fetchProgram();
-    }
-  }, [id, isEditing]);
+    void loadFormData();
+    return () => {
+      isCurrent = false;
+    };
+  }, [router.isReady, programId]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -86,7 +153,7 @@ const ProgramFormPage: React.FC = () => {
   const addSchedule = () => {
     setFormData(prev => ({
       ...prev,
-      schedule: [...prev.schedule, { day: '', time: '', displayOrder: prev.schedule.length }],
+      schedule: [...prev.schedule, { day: '', time: '', displayOrder: String(prev.schedule.length) }],
     }));
   };
 
@@ -97,7 +164,7 @@ const ProgramFormPage: React.FC = () => {
     }));
   };
 
-  const handleScheduleChange = (index: number, field: string, value: string) => {
+  const handleScheduleChange = (index: number, field: keyof ScheduleFormValue, value: string) => {
     setFormData(prev => ({
       ...prev,
       schedule: prev.schedule.map((s, i) => i === index ? { ...s, [field]: value } : s),
@@ -106,37 +173,58 @@ const ProgramFormPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaving(true);
     setError('');
 
+    const numericValues = {
+      price: Number(formData.price),
+      duration: Number(formData.duration),
+      sessionCount: Number(formData.sessionCount),
+      maxStudents: Number(formData.maxStudents),
+      minAge: Number(formData.minAge),
+      maxAge: Number(formData.maxAge),
+      rating: Number(formData.rating),
+      studentsEnrolled: Number(formData.studentsEnrolled),
+    };
+    const schedule = formData.schedule
+      .filter(s => s.day && s.time)
+      .map(s => ({ ...s, displayOrder: Number(s.displayOrder) }));
+    if (
+      Object.values(numericValues).some(value => !Number.isFinite(value)) ||
+      !Number.isInteger(numericValues.price) ||
+      !Number.isInteger(numericValues.duration) ||
+      !Number.isInteger(numericValues.sessionCount) ||
+      !Number.isInteger(numericValues.maxStudents) ||
+      !Number.isInteger(numericValues.minAge) ||
+      !Number.isInteger(numericValues.maxAge) ||
+      !Number.isInteger(numericValues.studentsEnrolled) ||
+      schedule.some(item => !Number.isInteger(item.displayOrder)) ||
+      numericValues.minAge > numericValues.maxAge
+    ) {
+      setError('مقادیر عددی برنامه را بررسی کنید.');
+      return;
+    }
+
+    setSaving(true);
     try {
       const data = {
         ...formData,
-        price: parseInt(formData.price),
-        duration: parseInt(formData.duration),
-        sessionCount: parseInt(formData.sessionCount),
-        maxStudents: parseInt(formData.maxStudents),
-        minAge: parseInt(formData.minAge),
-        maxAge: parseInt(formData.maxAge),
-        rating: parseFloat(formData.rating),
-        studentsEnrolled: parseInt(formData.studentsEnrolled),
+        ...numericValues,
         features: formData.features.split(',').map(f => f.trim()).filter(Boolean),
-        schedule: formData.schedule.filter(s => s.day && s.time),
+        schedule,
       };
 
-      const url = isEditing ? `/api/admin/programs/${id}` : '/api/admin/programs';
-      const method = isEditing ? 'PUT' : 'POST';
-
-      const res = await fetch(url, {
-        method,
+      const url = programId ? `/api/admin/programs/${programId}` : '/api/admin/programs';
+      await fetchJson<AdminProgramListItem>(url, {
+        method: programId ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) throw new Error('خطا در ذخیره');
-      router.push('/admin/programs');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'خطا در ذخیره');
+      await router.push('/admin/programs');
+    } catch (saveError) {
+      setError(
+        saveError instanceof Error ? saveError.message : 'ذخیره برنامه ناموفق بود',
+      );
     } finally {
       setSaving(false);
     }
@@ -202,16 +290,28 @@ const ProgramFormPage: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">مربی *</label>
+                <label htmlFor="program-coach" className="block text-sm font-medium text-gray-700 mb-2">مربی *</label>
                 <select
+                  id="program-coach"
                   name="coachId"
                   value={formData.coachId}
                   onChange={handleChange}
                   required
+                  disabled={coaches.length === 0}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 >
                   <option value="">انتخاب مربی</option>
+                  {coaches.map(coach => (
+                    <option key={coach.id} value={coach.id}>
+                      {coach.firstName} {coach.lastName}
+                    </option>
+                  ))}
                 </select>
+                {coaches.length === 0 && (
+                  <p className="mt-2 text-sm text-red-700">
+                    برای ثبت برنامه، ابتدا یک مربی ایجاد کنید.
+                  </p>
+                )}
               </div>
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">توضیحات *</label>
@@ -461,6 +561,16 @@ const ProgramFormPage: React.FC = () => {
               <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
+                  name="isActive"
+                  checked={formData.isActive}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                />
+                <span className="ml-2 text-gray-700">برنامه فعال</span>
+              </label>
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
                   name="popular"
                   checked={formData.popular}
                   onChange={handleChange}
@@ -482,7 +592,7 @@ const ProgramFormPage: React.FC = () => {
             </button>
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || coaches.length === 0}
               className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50"
             >
               {saving ? (

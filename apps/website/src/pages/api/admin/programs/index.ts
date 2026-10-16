@@ -2,6 +2,19 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
 import { authorizeAdmin } from '@/lib/auth';
 
+const coachSelect = {
+  id: true,
+  firstName: true,
+  lastName: true,
+  email: true,
+  phone: true,
+  specialization: true,
+  experience: true,
+  title: true,
+  image: true,
+  isActive: true,
+} as const;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
@@ -10,20 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'GET': {
       const programs = await prisma.program.findMany({
         include: {
-          coach: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
-              phone: true,
-              specialization: true,
-              experience: true,
-              title: true,
-              image: true,
-              isActive: true,
-            },
-          },
+          coach: { select: coachSelect },
           schedule: { orderBy: { displayOrder: 'asc' } },
         },
         orderBy: { displayOrder: 'asc' },
@@ -39,6 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sessionCount,
         maxStudents,
         popular,
+        isActive,
         icon,
         ageRange,
         minAge,
@@ -62,6 +63,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           sessionCount,
           maxStudents,
           popular,
+          isActive,
           icon,
           ageRange,
           minAge,
@@ -82,8 +84,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         },
         include: {
-          coach: true,
-          schedule: true,
+          coach: { select: coachSelect },
+          schedule: { orderBy: { displayOrder: 'asc' } },
         },
       });
       return res.status(201).json(program);

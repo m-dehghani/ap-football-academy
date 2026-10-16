@@ -114,14 +114,6 @@ export default function Hero() {
     return () => motionPreference.removeEventListener('change', updatePreference);
   }, []);
 
-  useEffect(() => {
-    if (reducedMotion) return;
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
-    return () => clearInterval(timer);
-  }, [reducedMotion, slides.length]);
-
   const currentSlideData = slides[currentSlide];
 
   // Trigger stat animations when slide changes
@@ -223,7 +215,7 @@ export default function Hero() {
                 {Object.entries(currentSlideData.stats).map(([key, value]) => (
                   <div
                     key={key}
-                    className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4 text-center backdrop-blur-sm group hover:scale-105 transition-transform duration-300"
+                    className="rounded-2xl border border-white/15 bg-white/10 px-3 py-4 text-center backdrop-blur-sm"
                   >
                     <div className="text-2xl sm:text-3xl font-bold text-white persian-numbers mb-1">
                       {statsAnimated ? value : '0'}

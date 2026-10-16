@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   CalendarDaysIcon,
@@ -7,8 +8,6 @@ import {
   PlayIcon,
   ArrowRightIcon,
   MagnifyingGlassIcon,
-  BellIcon,
-  CheckIcon,
   StarIcon,
 } from '@heroicons/react/24/outline';
 import { NEWS_CATEGORIES, NEWS_ARTICLES } from '@/constants/content';
@@ -16,6 +15,34 @@ import type {
   NewsArticleCardViewModel,
   NewsContentType,
 } from '@/types/viewModels/content';
+
+function NewsDetails({
+  article,
+  label,
+}: {
+  article: NewsArticleCardViewModel;
+  label: string;
+}) {
+  return (
+    <details className="group">
+      <summary
+        aria-label={`${label}: ${article.title}`}
+        className="inline-flex cursor-pointer list-none items-center gap-1 text-sm font-medium text-primary-700 hover:text-primary-800 focus-visible:underline"
+      >
+        {label}
+        <ArrowRightIcon
+          className="h-4 w-4 transition-transform group-open:rotate-90"
+          aria-hidden="true"
+        />
+      </summary>
+      <p className="mt-3 text-gray-700 leading-relaxed">{article.content}</p>
+    </details>
+  );
+}
+
+function hasArticleImage(image: string | undefined): image is string {
+  return Boolean(image && !image.startsWith('/api/placeholder/'));
+}
 
 const getTypeIcon = (type: NewsContentType) => {
   switch (type) {
@@ -80,12 +107,11 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticleCardViewMode
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+      className="bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="relative">
         <div className={`h-64 bg-linear-to-r ${getTypeBgColor(article.type)} flex items-center justify-center relative overflow-hidden`}>
-          {article.image && (
+          {hasArticleImage(article.image) && (
             <img
               src={article.image}
               alt={article.title}
@@ -94,13 +120,11 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticleCardViewMode
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="relative z-10 flex items-center justify-center">
-            <motion.div
+            <div
               className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center"
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              transition={{ duration: 0.5 }}
             >
               {getTypeIcon(article.type)}
-            </motion.div>
+            </div>
           </div>
         </div>
         <div className={`absolute top-4 right-4 ${getTypeColor(article.type)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
@@ -125,7 +149,7 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticleCardViewMode
             <span>{article.readTime}</span>
           </div>
         </div>
-        <h3 className="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-primary-600 transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 line-clamp-2">
           {article.title}
         </h3>
         <p className="text-gray-600 line-clamp-3">{article.excerpt}</p>
@@ -153,14 +177,7 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticleCardViewMode
               {article.comments}
             </span>
           </div>
-          <motion.button
-            className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center gap-1"
-            whileHover={{ x: 4 }}
-            aria-label={`ادامه مطلب: ${article.title}`}
-          >
-            ادامه مطلب
-            <ArrowRightIcon className="w-4 h-4" />
-          </motion.button>
+          <NewsDetails article={article} label="ادامه مطلب" />
         </div>
       </div>
     </motion.div>
@@ -174,12 +191,11 @@ function NewsCard({ article, index }: { article: NewsArticleCardViewModel; index
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      whileHover={{ y: -8, boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
+      className="bg-white rounded-2xl shadow-lg overflow-hidden"
     >
       <div className="relative">
         <div className={`h-48 bg-linear-to-br ${getTypeBgColor(article.type)} flex items-center justify-center relative overflow-hidden`}>
-          {article.image && (
+          {hasArticleImage(article.image) && (
             <img
               src={article.image}
               alt={article.title}
@@ -188,13 +204,11 @@ function NewsCard({ article, index }: { article: NewsArticleCardViewModel; index
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="relative z-10 flex items-center justify-center">
-            <motion.div
+            <div
               className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center"
-              whileHover={{ scale: 1.1, rotate: 180 }}
-              transition={{ duration: 0.5 }}
             >
               {getTypeIcon(article.type)}
-            </motion.div>
+            </div>
           </div>
         </div>
         <div className={`absolute top-4 right-4 ${getTypeColor(article.type)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
@@ -209,7 +223,7 @@ function NewsCard({ article, index }: { article: NewsArticleCardViewModel; index
           <span className="text-xs text-gray-500">{article.readTime}</span>
         </div>
 
-        <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-primary-600 transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 line-clamp-2">
           {article.title}
         </h3>
 
@@ -240,14 +254,7 @@ function NewsCard({ article, index }: { article: NewsArticleCardViewModel; index
               {article.comments}
             </span>
           </div>
-          <motion.button
-            className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center gap-1"
-            whileHover={{ x: 4 }}
-            aria-label={`ادامه مطلب: ${article.title}`}
-          >
-            بیشتر
-            <ArrowRightIcon className="w-4 h-4" />
-          </motion.button>
+          <NewsDetails article={article} label="بیشتر" />
         </div>
       </div>
     </motion.div>
@@ -294,107 +301,23 @@ function CategoryFilter({
   );
 }
 
-// Newsletter Signup Component
-function NewsletterSignup() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes('@')) {
-      setStatus('error');
-      setMessage('لطفاً یک ایمیل معتبر وارد کنید');
-      return;
-    }
-
-    setStatus('loading');
-    setMessage('');
-
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setStatus('success');
-    setMessage('با موفقیت مشترک شدید! 🎉');
-    setEmail('');
-  };
-
+function NewsFollowCTA() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="mt-20 bg-linear-to-r from-navy-600 to-navy-700 rounded-2xl p-8 md:p-12 text-white text-center relative overflow-hidden"
-    >
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-16 translate-x-16" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-12 -translate-x-12" />
-      </div>
-
-      <div className="relative z-10 max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6"
-        >
-          <BellIcon className="w-8 h-8" />
-        </motion.div>
-
-        <h3 className="text-2xl md:text-3xl font-bold mb-4">از اخبار آکادمی مطلع شوید</h3>
-        <p className="text-navy-100 mb-8 text-lg">
-          برای دریافت آخرین اخبار، رویدادها و دستاوردهای آکادمی AP ایمیل خود را وارد کنید
+    <div className="mt-16 flex flex-col items-center justify-between gap-6 rounded-2xl bg-navy-800 p-8 text-center text-white sm:flex-row sm:text-right">
+      <div>
+        <h3 className="text-2xl font-bold mb-2">از اخبار آکادمی مطلع شوید</h3>
+        <p className="text-navy-100">
+          خبرها، رویدادها و دستاوردهای بازیکنان را در صفحه اخبار دنبال کنید.
         </p>
-
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-          <div className="relative flex-1">
-            <MagnifyingGlassIcon className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="آدرس ایمیل شما"
-              disabled={status === 'loading' || status === 'success'}
-              className="w-full px-12 py-4 pr-4 rounded-xl text-gray-900 bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-all duration-300 disabled:opacity-50"
-              aria-label="آدرس ایمیل برای اشتراک خبرنامه"
-            />
-          </div>
-          <motion.button
-            type="submit"
-            disabled={status === 'loading' || status === 'success' || !email}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-white text-navy-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-          >
-            {status === 'loading' ? (
-              <>
-                <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>
-                در حال پردازش...
-              </>
-            ) : status === 'success' ? (
-              <>
-                <CheckIcon className="w-5 h-5" />
-                مشترک شدید
-              </>
-            ) : (
-              'عضویت'
-            )}
-          </motion.button>
-        </form>
-
-        {message && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className={`mt-4 text-sm ${status === 'success' ? 'text-green-100' : 'text-red-100'}`}
-          >
-            {message}
-          </motion.p>
-        )}
       </div>
-    </motion.div>
+      <Link
+        href="/news"
+        className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-white px-5 py-3 font-semibold text-navy-800 transition-colors hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      >
+        مشاهده همه اخبار
+        <ArrowRightIcon className="h-5 w-5" aria-hidden="true" />
+      </Link>
+    </div>
   );
 }
 
@@ -533,7 +456,7 @@ export default function NewsUpdates() {
         <LoadMoreButton onClick={handleLoadMore} hasMore={hasMoreNews} />
 
         {/* Newsletter Signup */}
-        <NewsletterSignup />
+        <NewsFollowCTA />
       </div>
     </section>
   );

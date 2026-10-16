@@ -154,41 +154,43 @@ body {
 }
 
 /* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Vazirmatn', system-ui, sans-serif;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #0f172a;
-}
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #0f172a;
+  }
 
-h1 {
-  font-size: var(--text-display-md);
-  font-weight: 800;
-}
-h2 {
-  font-size: var(--text-heading-xl);
-}
-h3 {
-  font-size: var(--text-heading-lg);
-}
-h4 {
-  font-size: var(--text-heading-md);
-}
-h5 {
-  font-size: var(--text-heading-sm);
-}
-h6 {
-  font-size: var(--text-body-lg);
-}
+  h1 {
+    font-size: var(--text-display-md);
+    font-weight: 800;
+  }
+  h2 {
+    font-size: var(--text-heading-xl);
+  }
+  h3 {
+    font-size: var(--text-heading-lg);
+  }
+  h4 {
+    font-size: var(--text-heading-md);
+  }
+  h5 {
+    font-size: var(--text-heading-sm);
+  }
+  h6 {
+    font-size: var(--text-body-lg);
+  }
 
-p {
-  line-height: 1.8;
-  color: #000000;
+  p {
+    line-height: 1.8;
+    color: #000000;
+  }
 }
 
 /* Glass System */
@@ -263,11 +265,11 @@ p {
 
 /* Card System */
 .card {
-  @apply bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
+  @apply bg-white rounded-2xl shadow-lg;
 }
 
 .card-glass {
-  @apply bg-white rounded-2xl border border-slate-200/80 shadow-md hover:shadow-lg transition-all duration-300;
+  @apply bg-white rounded-2xl border border-slate-200/80 shadow-md;
 }
 
 .card-elevated {

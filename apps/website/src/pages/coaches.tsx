@@ -2,6 +2,7 @@ import React from 'react';
 import { NextSeo } from 'next-seo';
 import Layout from '../components/Layout';
 import CoachSpotlight from '../components/CoachSpotlight';
+import PageHero from '../components/PageHero';
 import { getCoaches } from '@/services/coachService';
 import { CoachViewModel } from '@/types/viewModels/coach';
 
@@ -35,6 +36,11 @@ const CoachesPage: React.FC<CoachesPageProps> = ({ coaches }) => {
             content: 'مربی فوتبال, مربی فیفا, آموزش فوتبال حرفه‌ای, مربی با تجربه, تیم مربیگری',
           },
         ]}
+      />
+      <PageHero
+        title="مربیان آکادمی فوتبال AP"
+        description="با تیم مربیگری حرفه‌ای ما آشنا شوید؛ مربیانی با تجربه در آموزش بازیکنان در هر سطح."
+        badge="تیم مربیگری"
       />
       <CoachSpotlight coaches={coaches} />
     </Layout>

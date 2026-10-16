@@ -76,7 +76,12 @@ const CTA: React.FC = () => {
                 <h3 className="text-lg font-semibold text-white mb-1">
                   تماس تلفنی
                 </h3>
-                <p className="text-primary-100 persian-numbers">{APP_CONFIG.phone}</p>
+                <a
+                  href={`tel:${APP_CONFIG.phone.replace(/[^\d+]/g, '')}`}
+                  className="text-primary-100 persian-numbers underline-offset-4 hover:text-white hover:underline focus-visible:underline"
+                >
+                  {APP_CONFIG.phone}
+                </a>
                 <p className="text-primary-200 text-sm">
                   شنبه تا چهارشنبه: ۸:۰۰ - ۲۲:۰۰
                 </p>
@@ -89,7 +94,12 @@ const CTA: React.FC = () => {
               </div>
               <div className="text-right">
                 <h3 className="text-lg font-semibold text-white mb-1">ایمیل</h3>
-                <p className="text-primary-100">{APP_CONFIG.email}</p>
+                <a
+                  href={`mailto:${APP_CONFIG.email}`}
+                  className="text-primary-100 underline-offset-4 hover:text-white hover:underline focus-visible:underline"
+                >
+                  {APP_CONFIG.email}
+                </a>
                 <p className="text-primary-200 text-sm">
                   پاسخگویی در کمتر از ۲۴ ساعت
                 </p>
