@@ -24,6 +24,7 @@ describe('Admin Coaches Page', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
     mockFetch.mockResolvedValue({
       ok: true,
       json: async () => mockCoaches,
@@ -88,10 +89,10 @@ describe('Admin Coaches Page', () => {
   });
 
   it('calls delete API when delete button clicked', async () => {
-    const deleteMock = vi.fn().mockResolvedValue({ ok: true });
     mockFetch
       .mockResolvedValueOnce({ ok: true, json: async () => mockCoaches })
-      .mockResolvedValueOnce({ ok: true });
+      .mockResolvedValueOnce({ ok: true, status: 204 })
+      .mockResolvedValueOnce({ ok: true, json: async () => mockCoaches });
     
     renderWithProviders(<CoachesPage />);
     
@@ -105,14 +106,17 @@ describe('Admin Coaches Page', () => {
     
     // Confirm dialog
     await waitFor(() => {
-      expect(deleteMock).toHaveBeenCalledWith('/api/admin/coaches/1', { method: 'DELETE' });
+      expect(mockFetch).toHaveBeenCalledWith('/api/admin/coaches/1', {
+        method: 'DELETE',
+      });
     });
   });
 
   it('removes coach from list after successful delete', async () => {
     mockFetch
       .mockResolvedValueOnce({ ok: true, json: async () => mockCoaches })
-      .mockResolvedValueOnce({ ok: true });
+      .mockResolvedValueOnce({ ok: true, status: 204 })
+      .mockResolvedValueOnce({ ok: true, json: async () => [mockCoaches[1]] });
     
     renderWithProviders(<CoachesPage />);
     
@@ -127,5 +131,20 @@ describe('Admin Coaches Page', () => {
       expect(screen.queryByText('علی محمدی')).not.toBeInTheDocument();
       expect(screen.getByText('رضا احمدی')).toBeInTheDocument();
     });
+  });
+
+  it('shows an error when the coach list request fails', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      statusText: 'Forbidden',
+      text: async () => JSON.stringify({ error: 'دسترسی غیرمجاز' }),
+    });
+
+    renderWithProviders(<CoachesPage />);
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'خطا در بارگذاری داده‌ها: دسترسی غیرمجاز',
+    );
   });
 });

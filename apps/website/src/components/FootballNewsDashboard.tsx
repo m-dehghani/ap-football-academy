@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useCallback } from 'react';
 import { 
   NewspaperIcon, 
   FireIcon, 
@@ -12,40 +11,11 @@ import {
   
   ExclamationTriangleIcon
 } from '@heroicons/react/24/outline';
-
-interface CrawlerNews {
-  id: string;
-  title: string;
-  content: string;
-  summary: string;
-  source: string;
-  published_at: string;
-  url: string;
-  image_url?: string;
-  category: string;
-  tags: string[];
-  entities: {
-    players: string[];
-    teams: string[];
-    coaches: string[];
-    matches: string[];
-  };
-  sentiment: {
-    score: number;
-    label: string;
-  };
-  is_transfer_news: boolean;
-  importance_score: number;
-}
-
-interface CrawlerStats {
-  total_articles: number;
-  sources_count: number;
-  today_articles: number;
-  trending_topics: string[];
-  category_distribution: Record<string, number>;
-  sentiment_distribution: Record<string, number>;
-}
+import type {
+  CrawlerNewsApiResponse,
+  CrawlerNewsItemViewModel,
+  CrawlerStats
+} from '@/types/api/crawler';
 
 interface NewsFilters {
   category: string;
@@ -56,11 +26,12 @@ interface NewsFilters {
 }
 
 export default function FootballNewsDashboard() {
-  const [news, setNews] = useState<CrawlerNews[]>([]);
+  const [news, setNews] = useState<CrawlerNewsItemViewModel[]>([]);
   const [stats, setStats] = useState<CrawlerStats | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
     const [filters, setFilters] = useState<NewsFilters>({
       category: 'all',
       source: 'all',
@@ -68,34 +39,6 @@ export default function FootballNewsDashboard() {
       importance_min: 0.3,
       date_range: 'week'
     });
-
-    const fetchNews = useCallback(async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const params = new URLSearchParams({
-          category: filters.category,
-          source: filters.source,
-          sentiment: filters.sentiment,
-          importance_min: filters.importance_min.toString(),
-          date_range: filters.date_range,
-          limit: '30',
-          search: searchTerm
-        });
-        const response = await fetch(`/api/crawler-news?${params}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch news');
-        }
-        const data = await response.json();
-        setNews(data.news || []);
-        setStats(data.stats);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'خطا در دریافت اخبار');
-        setNews([]);
-      } finally {
-        setLoading(false);
-      }
-    }, [filters, searchTerm]);
 
     useEffect(() => {
       let mounted = true;
@@ -116,7 +59,7 @@ export default function FootballNewsDashboard() {
           if (!response.ok) {
             throw new Error('Failed to fetch news');
           }
-          const data = await response.json();
+          const data: CrawlerNewsApiResponse = await response.json();
           if (mounted) {
             setNews(data.news || []);
             setStats(data.stats);
@@ -138,25 +81,12 @@ export default function FootballNewsDashboard() {
       return () => {
         mounted = false;
       };
-    }, [filters, searchTerm]);
+    }, [filters, searchTerm, refreshTrigger]);
 
     const handleSearch = (e: React.FormEvent) => {
       e.preventDefault();
       // The effect will handle the fetch when searchTerm changes
     };
-
-    const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    
-    if (hours < 1) return 'همین الان';
-    if (hours < 24) return `${hours} ساعت پیش`;
-    if (days < 7) return `${days} روز پیش`;
-    return date.toLocaleDateString('fa-IR');
-  };
 
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
@@ -198,8 +128,8 @@ export default function FootballNewsDashboard() {
     item.content.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const trendingNews = news.filter(item => item.importance_score > 0.7).slice(0, 5);
-  const transferNews = news.filter(item => item.is_transfer_news).slice(0, 3);
+  const trendingNews = news.filter(item => item.importanceScore > 0.7).slice(0, 5);
+  const transferNews = news.filter(item => item.isTransferNews).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
@@ -328,7 +258,7 @@ export default function FootballNewsDashboard() {
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-gray-900">آخرین اخبار</h2>
               <button
-                onClick={fetchNews}
+                onClick={() => setRefreshTrigger(previous => previous + 1)}
                 disabled={loading}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
               >
@@ -357,7 +287,7 @@ export default function FootballNewsDashboard() {
             {/* News List */}
             <div className="space-y-6">
               {filteredNews.map((item) => {
-                const importance = getImportanceLevel(item.importance_score);
+                const importance = getImportanceLevel(item.importanceScore);
                 
                 return (
                   <div key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
@@ -368,7 +298,7 @@ export default function FootballNewsDashboard() {
                           <div>
                             <span className="text-sm font-medium text-gray-600">{item.source}</span>
                             <div className="flex items-center space-x-2 mt-1">
-                              <span className="text-xs text-gray-500">{formatDate(item.published_at)}</span>
+                              <span className="text-xs text-gray-500">{item.date}</span>
                               <span className={`text-xs px-2 py-1 rounded-full ${getSentimentColor(item.sentiment.label)}`}>
                                 {getSentimentIcon(item.sentiment.label)}
                               </span>
@@ -387,7 +317,7 @@ export default function FootballNewsDashboard() {
                         </a>
                       </h3>
 
-                      <p className="text-gray-600 mb-4 line-clamp-3">{item.summary}</p>
+                      <p className="text-gray-600 mb-4 line-clamp-3">{item.excerpt}</p>
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-2 mb-4">
@@ -424,13 +354,13 @@ export default function FootballNewsDashboard() {
 
                       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                         <div className="flex items-center space-x-4">
-                          {item.is_transfer_news && (
+                          {item.isTransferNews && (
                             <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm font-medium">
                               انتقال
                             </span>
                           )}
                           <span className="text-sm text-gray-500">
-                            امتیاز: {(item.importance_score * 10).toFixed(1)}/10
+                            امتیاز: {(item.importanceScore * 10).toFixed(1)}/10
                           </span>
                         </div>
                         <a 
@@ -487,7 +417,7 @@ export default function FootballNewsDashboard() {
                         {item.title}
                       </a>
                     </h4>
-                    <p className="text-xs text-gray-500 mt-1">{formatDate(item.published_at)}</p>
+                    <p className="text-xs text-gray-500 mt-1">{item.date}</p>
                   </div>
                 ))}
               </div>

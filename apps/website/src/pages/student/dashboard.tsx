@@ -5,56 +5,14 @@ import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/hooks/useAuth';
 import { calculateAge, parseBirthDate, parsePersianBirthDate } from '@/lib/age';
-import { formatPersianDate, toPersianDigits } from '@/lib/format';
+import { formatPersianDate, formatToman, toPersianDigits } from '@/lib/format';
 import PersianDatePicker from '@/components/PersianDatePicker';
-
-interface Registration {
-  id: string;
-  status: string;
-  totalAmount: number;
-  paidAmount: number;
-  payments: { status: string }[];
-  program: {
-    id: string;
-    name: string;
-    coach: { firstName: string; lastName: string } | null;
-  };
-}
-
-interface DashboardStudent {
-  id: string;
-  email: string | null;
-  firstName: string;
-  lastName: string;
-  phone: string | null;
-  birthDate: string | null;
-  registrations: Registration[];
-}
-
-interface DashboardProgram {
-  id: string;
-  name: string;
-  price: number;
-  minAge: number;
-  maxAge: number;
-}
-
-interface StudentDashboardProps {
-  student: DashboardStudent;
-  programs: DashboardProgram[];
-}
-
-interface ProfileForm {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-}
+import type {
+  StudentDashboardViewModel,
+  StudentProfileFormValues,
+} from '@/types/viewModels/student';
 
 const activeStatuses = new Set(['PENDING', 'APPROVED']);
-const formatPrice = (amount: number) =>
-  `${new Intl.NumberFormat('fa-IR').format(amount)} تومان`;
 
 const registrationStatus: Record<string, string> = {
   PENDING: 'در انتظار تأیید',
@@ -63,14 +21,14 @@ const registrationStatus: Record<string, string> = {
   COMPLETED: 'تکمیل شده',
 };
 
-const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
+const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
   student,
   programs,
 }) => {
   const { user, loading, refreshUser } = useAuth();
   const router = useRouter();
   const [savedBirthDate, setSavedBirthDate] = useState(student.birthDate);
-  const [profile, setProfile] = useState<ProfileForm>({
+  const [profile, setProfile] = useState<StudentProfileFormValues>({
     firstName: student.firstName,
     lastName: student.lastName,
     email: student.email ?? '',
@@ -428,9 +386,9 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                               وضعیت: {registrationStatus[registration.status] ?? registration.status}
                             </p>
                             <p className="text-gray-600 mt-1">
-                              شهریه: {formatPrice(registration.totalAmount)} • پرداخت‌شده:{' '}
-                              {formatPrice(registration.paidAmount)} • مانده:{' '}
-                              {formatPrice(due)}
+                              شهریه: {formatToman(registration.totalAmount)} • پرداخت‌شده:{' '}
+                              {formatToman(registration.paidAmount)} • مانده:{' '}
+                              {formatToman(due)}
                             </p>
                           </div>
                           {canCancel && (
@@ -488,7 +446,7 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                             <p className="font-semibold text-gray-900">{program.name}</p>
                             <p className="text-sm text-gray-600">
                               {toPersianDigits(program.minAge)} تا {toPersianDigits(program.maxAge)} سال •{' '}
-                              {formatPrice(program.price)}
+                              {formatToman(program.price)}
                             </p>
                           </div>
                           <button
@@ -520,7 +478,7 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
               <div>
                 <h2 className="text-lg font-semibold text-gray-900">پرداخت شهریه</h2>
                 <p className="mt-1 text-gray-600">
-                  مانده شهریه برنامه‌های فعال: {formatPrice(totalDue)}
+                  مانده شهریه برنامه‌های فعال: {formatToman(totalDue)}
                 </p>
               </div>
               <button
@@ -543,7 +501,7 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
 };
 
 export const getServerSideProps: GetServerSideProps<
-  StudentDashboardProps
+  StudentDashboardViewModel
 > = async (context) => {
   const token = context.req.cookies.auth_token;
   if (!token) {

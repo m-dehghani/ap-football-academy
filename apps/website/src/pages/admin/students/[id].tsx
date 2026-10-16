@@ -3,58 +3,17 @@ import { useRouter } from 'next/router';
 import AdminLayout from '@/components/AdminLayout';
 import { format } from 'date-fns';
 import { faIR } from 'date-fns/locale';
-import { formatPersianDate } from '@/lib/format';
-
-interface Registration {
-  id: string;
-  status: string;
-  totalAmount: number;
-  paidAmount: number;
-  experienceLevel: string | null;
-  parentName: string | null;
-  parentEmail: string | null;
-  emergencyContactName: string | null;
-  emergencyContactPhone: string | null;
-  medicalConditions: string | null;
-  registeredAt: string;
-  updatedAt: string;
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string | null;
-    birthDate: string | null;
-  };
-  program: {
-    id: string;
-    name: string;
-    price: number;
-    coach: {
-      firstName: string;
-      lastName: string;
-    } | null;
-  };
-  payments: {
-    id: string;
-    amount: number;
-    currency: string;
-    status: string;
-    createdAt: string;
-  }[];
-}
+import { formatPersianDate, formatToman } from '@/lib/format';
+import type { AdminRegistrationViewModel } from '@/types/viewModels/admin';
 
 const StudentDetailPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [registration, setRegistration] = useState<Registration | null>(null);
+  const [registration, setRegistration] =
+    useState<AdminRegistrationViewModel | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fa-IR').format(price) + ' تومان';
-  };
 
   const getStatusBadge = (status: string) => {
     const badges: Record<string, string> = {
@@ -273,7 +232,7 @@ const StudentDetailPage: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  value={formatPrice(registration.program.price)}
+                  value={formatToman(registration.program.price)}
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"
                 />
@@ -333,7 +292,7 @@ const StudentDetailPage: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  value={formatPrice(
+                  value={formatToman(
                     registration.totalAmount - registration.paidAmount,
                   )}
                   disabled
@@ -364,7 +323,7 @@ const StudentDetailPage: React.FC = () => {
                           className="border-t border-gray-200"
                         >
                           <td className="py-2 text-right">
-                            {formatPrice(
+                            {formatToman(
                               payment.currency === 'IRR'
                                 ? payment.amount / 10
                                 : payment.amount,

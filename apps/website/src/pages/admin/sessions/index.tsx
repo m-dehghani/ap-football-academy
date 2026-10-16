@@ -3,36 +3,16 @@ import AdminLayout from '@/components/AdminLayout';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { faIR } from 'date-fns/locale';
-
-interface Session {
-  id: string;
-  name: string;
-  description: string | null;
-  date: string;
-  duration: number;
-  location: string;
-  maxCapacity: number;
-  status: string;
-  createdAt: string;
-  program: { id: string; name: string } | null;
-  coach: { id: string; firstName: string; lastName: string } | null;
-  attendance: {
-    id: string;
-    status: string;
-    user: { firstName: string; lastName: string };
-  }[];
-}
-
-interface Pagination {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-}
+import { fetchJson } from '@/lib/api-client';
+import type { PaginationMeta } from '@/types/api/response';
+import type {
+  AdminPaginatedResponse,
+  AdminSessionListItem,
+} from '@/types/viewModels/admin';
 
 const SessionsPage: React.FC = () => {
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [pagination, setPagination] = useState<Pagination>({
+  const [sessions, setSessions] = useState<AdminSessionListItem[]>([]);
+  const [pagination, setPagination] = useState<PaginationMeta>({
     page: 1,
     limit: 20,
     total: 0,
@@ -40,6 +20,7 @@ const SessionsPage: React.FC = () => {
   });
   const [statusFilter, setStatusFilter] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const statusOptions = [
@@ -52,6 +33,8 @@ const SessionsPage: React.FC = () => {
 
   const fetchSessions = useCallback(
     async (pageNum = 1) => {
+      setLoading(true);
+      setError(null);
       try {
         const params = new URLSearchParams({
           page: pageNum.toString(),
@@ -59,12 +42,15 @@ const SessionsPage: React.FC = () => {
         });
         if (statusFilter) params.append('status', statusFilter);
 
-        const res = await fetch(`/api/admin/sessions?${params}`);
-        const data = await res.json();
+        const data = await fetchJson<
+          AdminPaginatedResponse<AdminSessionListItem>
+        >(`/api/admin/sessions?${params}`);
         setSessions(data.data);
         setPagination(data.pagination);
       } catch (err) {
-        console.error('Error fetching sessions:', err);
+        setError(
+          err instanceof Error ? err : new Error('خطا در بارگذاری جلسات'),
+        );
       } finally {
         setLoading(false);
       }
@@ -163,6 +149,22 @@ const SessionsPage: React.FC = () => {
         </select>
       </div>
 
+      {error && (
+        <div
+          className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700"
+          role="alert"
+        >
+          خطا در بارگذاری جلسات: {error.message}
+          <button
+            type="button"
+            onClick={() => void fetchSessions(pagination.page)}
+            className="ml-4 underline"
+          >
+            تلاش مجدد
+          </button>
+        </div>
+      )}
+
       {loading && (
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <div className="flex items-center justify-center">
@@ -171,7 +173,7 @@ const SessionsPage: React.FC = () => {
         </div>
       )}
 
-      {!loading && sessions.length === 0 && (
+      {!loading && !error && sessions.length === 0 && (
         <div className="bg-white rounded-2xl p-12 text-center">
           <svg
             className="w-16 h-16 text-gray-300 mx-auto mb-4"
@@ -214,7 +216,7 @@ const SessionsPage: React.FC = () => {
         </div>
       )}
 
-      {!loading && sessions.length > 0 && (
+      {!loading && !error && sessions.length > 0 && (
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">

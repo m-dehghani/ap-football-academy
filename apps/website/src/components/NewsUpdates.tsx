@@ -12,33 +12,12 @@ import {
   StarIcon,
 } from '@heroicons/react/24/outline';
 import { NEWS_CATEGORIES, NEWS_ARTICLES } from '@/constants/content';
+import type {
+  NewsArticleCardViewModel,
+  NewsContentType,
+} from '@/types/viewModels/content';
 
-type NewsType = 'news' | 'video' | 'gallery';
-type CategoryId = 'all' | string;
-
-interface NewsArticle {
-  id: string | number;
-  title: string;
-  excerpt: string;
-  date: string;
-  author: string;
-  type: NewsType;
-  category: string;
-  tags: string[];
-  likes: number;
-  comments: number;
-  readTime: string;
-  featured: boolean;
-  image?: string;
-}
-
-interface Category {
-  readonly id: string;
-  readonly name: string;
-  readonly icon: string;
-}
-
-const getTypeIcon = (type: NewsType) => {
+const getTypeIcon = (type: NewsContentType) => {
   switch (type) {
     case 'video': {
       return <PlayIcon className="w-5 h-5" />;
@@ -52,7 +31,7 @@ const getTypeIcon = (type: NewsType) => {
   }
 };
 
-const getTypeLabel = (type: NewsType) => {
+const getTypeLabel = (type: NewsContentType) => {
   switch (type) {
     case 'video': {
       return 'ویدئو';
@@ -66,7 +45,7 @@ const getTypeLabel = (type: NewsType) => {
   }
 };
 
-const getTypeColor = (type: NewsType) => {
+const getTypeColor = (type: NewsContentType) => {
   switch (type) {
     case 'video': {
       return 'bg-red-600';
@@ -80,7 +59,7 @@ const getTypeColor = (type: NewsType) => {
   }
 };
 
-const getTypeBgColor = (type: NewsType) => {
+const getTypeBgColor = (type: NewsContentType) => {
   switch (type) {
     case 'video': {
       return 'from-red-500 to-red-600';
@@ -95,7 +74,7 @@ const getTypeBgColor = (type: NewsType) => {
 };
 
 // Featured News Card
-function FeaturedNewsCard({ article, index }: { article: NewsArticle; index: number }) {
+function FeaturedNewsCard({ article, index }: { article: NewsArticleCardViewModel; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -105,7 +84,7 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticle; index: num
       className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
     >
       <div className="relative">
-        <div className={`h-64 bg-linear-to-r ${getTypeBgColor(article.type as NewsType)} flex items-center justify-center relative overflow-hidden`}>
+        <div className={`h-64 bg-linear-to-r ${getTypeBgColor(article.type)} flex items-center justify-center relative overflow-hidden`}>
           {article.image && (
             <img
               src={article.image}
@@ -120,13 +99,13 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticle; index: num
               whileHover={{ scale: 1.1, rotate: 180 }}
               transition={{ duration: 0.5 }}
             >
-              {getTypeIcon(article.type as NewsType)}
+              {getTypeIcon(article.type)}
             </motion.div>
           </div>
         </div>
-        <div className={`absolute top-4 right-4 ${getTypeColor(article.type as NewsType)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
-          {getTypeIcon(article.type as NewsType)}
-          <span>{getTypeLabel(article.type as NewsType)}</span>
+        <div className={`absolute top-4 right-4 ${getTypeColor(article.type)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
+          {getTypeIcon(article.type)}
+          <span>{getTypeLabel(article.type)}</span>
         </div>
         {article.featured && (
           <div className="absolute top-4 left-4 bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
@@ -189,7 +168,7 @@ function FeaturedNewsCard({ article, index }: { article: NewsArticle; index: num
 }
 
 // News Card Component
-function NewsCard({ article, index }: { article: NewsArticle; index: number }) {
+function NewsCard({ article, index }: { article: NewsArticleCardViewModel; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -199,7 +178,7 @@ function NewsCard({ article, index }: { article: NewsArticle; index: number }) {
       className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
     >
       <div className="relative">
-        <div className={`h-48 bg-linear-to-br ${getTypeBgColor(article.type as NewsType)} flex items-center justify-center relative overflow-hidden`}>
+        <div className={`h-48 bg-linear-to-br ${getTypeBgColor(article.type)} flex items-center justify-center relative overflow-hidden`}>
           {article.image && (
             <img
               src={article.image}
@@ -214,13 +193,13 @@ function NewsCard({ article, index }: { article: NewsArticle; index: number }) {
               whileHover={{ scale: 1.1, rotate: 180 }}
               transition={{ duration: 0.5 }}
             >
-              {getTypeIcon(article.type as NewsType)}
+              {getTypeIcon(article.type)}
             </motion.div>
           </div>
         </div>
-        <div className={`absolute top-4 right-4 ${getTypeColor(article.type as NewsType)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
-          {getTypeIcon(article.type as NewsType)}
-          <span>{getTypeLabel(article.type as NewsType)}</span>
+        <div className={`absolute top-4 right-4 ${getTypeColor(article.type)} text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1`}>
+          {getTypeIcon(article.type)}
+          <span>{getTypeLabel(article.type)}</span>
         </div>
       </div>
 
@@ -281,9 +260,9 @@ function CategoryFilter({
   selectedCategory, 
   onCategoryChange 
 }: { 
-  categories: Category[];
-  selectedCategory: CategoryId;
-  onCategoryChange: (category: CategoryId) => void;
+  categories: typeof NEWS_CATEGORIES;
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
 }) {
   return (
     <motion.div
@@ -444,11 +423,11 @@ function LoadMoreButton({ onClick, hasMore }: { onClick: () => void; hasMore: bo
 }
 
 export default function NewsUpdates() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryId>('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
     const [displayCount, setDisplayCount] = useState(6);
 
-    const categories = [...NEWS_CATEGORIES] as Category[];
-  const allNews = NEWS_ARTICLES as NewsArticle[];
+    const categories = NEWS_CATEGORIES;
+  const allNews = NEWS_ARTICLES;
 
   const featuredNews = allNews.filter((item) => item.featured);
   const regularNews = allNews.filter((item) => !item.featured);

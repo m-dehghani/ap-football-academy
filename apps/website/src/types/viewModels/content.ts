@@ -10,6 +10,54 @@ export interface StatisticViewModel {
   description: string | null;
 }
 
+export interface AnimatedStatisticViewModel {
+  number: string;
+  label: string;
+  description?: string;
+  icon: string;
+  color: string;
+}
+
+export interface FeatureViewModel {
+  icon: string;
+  title: string;
+  description: string;
+  color: string;
+  bgColor: string;
+  iconColor: string;
+  stats: string;
+}
+
+export interface SuccessAchievementViewModel {
+  id: string | number;
+  playerName: string;
+  age: string | number;
+  date: string;
+  program: string;
+  achievement: string;
+  description: string;
+  quote: string;
+  stats: { goals: number; assists: number; matches: number };
+  coach: string;
+}
+
+export interface SuccessTestimonialViewModel {
+  id: string | number;
+  name: string;
+  role: string;
+  program: string;
+  rating: number;
+  text: string;
+  date: string;
+  improvement: string;
+}
+
+export interface SuccessMilestoneViewModel {
+  year: string;
+  event: string;
+  description: string;
+}
+
 export interface TestimonialViewModel {
   id: string;
   name: string;
@@ -78,6 +126,52 @@ export interface NewsArticleViewModel {
   featured: boolean;
   publishedAt: string;
 }
+
+export interface NewsCardViewModel
+  extends Omit<
+    NewsArticleViewModel,
+    'id' | 'image' | 'readTimeMinutes' | 'publishedAt'
+  > {
+  id: string | number;
+  date: string;
+  image: string;
+  readTime: string;
+  source?: string;
+  url?: string;
+  entities?: {
+    players: string[];
+    teams: string[];
+    coaches: string[];
+    matches: string[];
+  };
+  sentiment?: {
+    score: number;
+    label: string;
+  };
+  isTransferNews?: boolean;
+  importanceScore?: number;
+}
+
+export type NewsContentType = 'news' | 'video' | 'gallery';
+
+export type NewsArticleCardViewModel = Pick<
+  NewsCardViewModel,
+  | 'id'
+  | 'title'
+  | 'excerpt'
+  | 'date'
+  | 'author'
+  | 'category'
+  | 'tags'
+  | 'likes'
+  | 'comments'
+  | 'readTime'
+  | 'featured'
+> & {
+  content: string;
+  type: NewsContentType;
+  image?: string;
+};
 
 export function toStatisticViewModel(stat: Record<string, any>): StatisticViewModel {
   return {

@@ -1,54 +1,18 @@
 import { useState, useEffect } from 'react';
 import { CalendarDaysIcon, ClockIcon, UserGroupIcon, CameraIcon, PlayIcon, ArrowRightIcon, GlobeAltIcon, HomeIcon, FireIcon, SparklesIcon } from '@heroicons/react/24/outline';
-
-interface NewsItem {
-  id: string | number;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  date: string;
-  author: string;
-  image: string;
-  tags: string[];
-  readTime: string;
-  likes: number;
-  comments: number;
-  type: string;
-  featured: boolean;
-  source?: string;
-  url?: string;
-  entities?: {
-    players: string[];
-    teams: string[];
-    coaches: string[];
-    matches: string[];
-  };
-  sentiment?: {
-    score: number;
-    label: string;
-  };
-  isTransferNews?: boolean;
-  importanceScore?: number;
-}
-
-interface CrawlerStats {
-  total_articles: number;
-  sources_count: number;
-  today_articles: number;
-  trending_topics: string[];
-}
+import type { CrawlerNewsApiResponse, CrawlerStats } from '@/types/api/crawler';
+import type { NewsCardViewModel } from '@/types/viewModels/content';
 
 export default function EnhancedNewsUpdates() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedSource, setSelectedSource] = useState('all');
-  const [externalNews, setExternalNews] = useState<NewsItem[]>([]);
+  const [externalNews, setExternalNews] = useState<NewsCardViewModel[]>([]);
   const [crawlerStats, setCrawlerStats] = useState<CrawlerStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Academy news (existing static data)
-  const academyNews: NewsItem[] = [
+  const academyNews: NewsCardViewModel[] = [
     {
       id: 1,
       title: 'قهرمانی تیم نوجوانان در مسابقات منطقه‌ای',
@@ -126,7 +90,7 @@ export default function EnhancedNewsUpdates() {
                       throw new Error('Failed to fetch external news');
                     }
 
-                    const data = await response.json();
+                    const data: CrawlerNewsApiResponse = await response.json();
                     if (mounted) {
                       setExternalNews(data.news || []);
                       setCrawlerStats(data.stats);
@@ -155,8 +119,8 @@ export default function EnhancedNewsUpdates() {
               };
 
               // Combine and filter news
-  const getAllNews = (): NewsItem[] => {
-    let combinedNews: NewsItem[] = [];
+  const getAllNews = (): NewsCardViewModel[] => {
+    let combinedNews: NewsCardViewModel[] = [];
     
     if (selectedSource === 'all' || selectedSource === 'academy') {
       combinedNews = [...combinedNews, ...academyNews];
@@ -520,4 +484,3 @@ export default function EnhancedNewsUpdates() {
     </section>
   );
 } 
-

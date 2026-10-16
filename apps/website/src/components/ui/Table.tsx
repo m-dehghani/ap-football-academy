@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Column<T> {
+export interface TableColumn<T> {
   key: string;
   header: string;
   render?: (item: T, index: number) => React.ReactNode;
@@ -8,7 +8,7 @@ interface Column<T> {
 }
 
 interface TableProps<T> {
-  columns: Column<T>[];
+  columns: TableColumn<T>[];
   data: T[];
   keyExtractor: (item: T) => string;
   emptyMessage?: string;
@@ -49,7 +49,9 @@ export function Table<T>({
               >
                 {columns.map(col => (
                   <td key={col.key} className={`px-6 py-4 ${col.className || ''}`}>
-                    {col.render ? col.render(item, index) : (item as any)[col.key]}
+                    {col.render
+                      ? col.render(item, index)
+                      : (item[col.key as keyof T] as React.ReactNode)}
                   </td>
                 ))}
               </tr>

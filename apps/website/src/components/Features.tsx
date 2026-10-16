@@ -7,17 +7,11 @@ import {
   ADDITIONAL_FEATURES,
 } from '@/constants/content';
 import { getIcon } from '@/lib/icons';
-
-// Feature type definition
-interface Feature {
-  icon: string;
-  title: string;
-  description: string;
-  color: string;
-  bgColor: string;
-  iconColor: string;
-  stats: string;
-}
+import { useAnimatedStat } from '@/hooks/useAnimatedStat';
+import type {
+  AnimatedStatisticViewModel,
+  FeatureViewModel,
+} from '@/types/viewModels/content';
 
 // 3D Tilt Card Component
 function FeatureCard3D({
@@ -26,7 +20,7 @@ function FeatureCard3D({
   isExpanded,
   onToggle,
 }: {
-  feature: Feature;
+  feature: FeatureViewModel;
   index: number;
   isExpanded: boolean;
   onToggle: () => void;
@@ -210,68 +204,20 @@ function FeatureCard3D({
   );
 }
 
-// Stat type definition
-interface Stat {
-  number: string;
-  label: string;
-  description?: string;
-  icon: string;
-  color: string;
-}
-
 // Counter Animation Component
-function AnimatedStat({ stat, index }: { stat: Stat; index: number }) {
-  const [displayValue, setDisplayValue] = useState('0');
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (hasAnimated.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          hasAnimated.current = true;
-          const numericValue = parseInt(stat.number.replace(/\D/g, ''), 10);
-          if (isNaN(numericValue)) {
-            setDisplayValue(stat.number);
-            return;
-          }
-
-          const duration = 2000;
-          const startTime = Date.now();
-
-          const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(numericValue * eased);
-            setDisplayValue(
-              current.toLocaleString('fa-IR') + stat.number.replace(/\d+/g, ''),
-            );
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            } else {
-              setDisplayValue(stat.number);
-            }
-          };
-
-          animate();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-
-    const element = document.querySelector(`.stat-${index}`);
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [stat.number, index]);
+function AnimatedStat({
+  stat,
+  index,
+}: {
+  stat: AnimatedStatisticViewModel;
+  index: number;
+}) {
+  const { elementRef, displayValue } = useAnimatedStat(stat.number);
 
   return (
     <motion.div
-      className="text-center group stat-{index}"
+      ref={elementRef}
+      className="text-center group"
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}

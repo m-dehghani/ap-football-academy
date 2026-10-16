@@ -1,37 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-
-// Types for crawler data
-interface CrawlerArticle {
-  id: string;
-  title: string;
-  content: string;
-  summary: string;
-  source: string;
-  published_at: string;
-  url: string;
-  image_url?: string;
-  category: string;
-  tags: string[];
-  entities: {
-    players: string[];
-    teams: string[];
-    coaches: string[];
-    matches: string[];
-  };
-  sentiment: {
-    score: number;
-    label: string;
-  };
-  is_transfer_news: boolean;
-  importance_score: number;
-}
-
-interface CrawlerResponse {
-  articles: CrawlerArticle[];
-  total: number;
-  page: number;
-  per_page: number;
-}
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { CrawlerArticle, CrawlerArticlePage } from '@/types/api/crawler';
+import { formatPersianDate } from '@/lib/format';
 
 // Transform crawler data to website format
 function transformCrawlerToWebsite(crawlerData: CrawlerArticle[]) {
@@ -70,16 +39,6 @@ function mapCrawlerCategory(category: string): string {
     'coach_news': 'training'
   };
   return categoryMap[category] || 'matches';
-}
-
-function formatPersianDate(isoDate: string): string {
-  const date = new Date(isoDate);
-  const persianDate = new Intl.DateTimeFormat('fa-IR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(date);
-  return persianDate;
 }
 
 function calculateReadTime(content: string): string {
@@ -122,7 +81,7 @@ export default async function handler(
       throw new Error(`Crawler API error: ${response.status}`);
     }
 
-    const crawlerData: CrawlerResponse = await response.json();
+    const crawlerData: CrawlerArticlePage = await response.json();
     const transformedData = transformCrawlerToWebsite(crawlerData.articles);
 
     // Get additional stats

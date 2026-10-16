@@ -3,6 +3,8 @@
  * This data should ideally come from a CMS or database
  */
 
+import type { NewsArticleCardViewModel } from '@/types/viewModels/content';
+
 // Hero Section Data
 export const HERO_SLIDES = [
   {
@@ -336,24 +338,7 @@ export const NEWS_CATEGORIES = [
   { id: 'achievements', name: 'موفقیت‌ها', icon: '🏆' },
 ] as const;
 
-type NewsType = 'news' | 'video' | 'gallery';
-
-export const NEWS_ARTICLES: Array<{
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  date: string;
-  author: string;
-  image: string;
-  tags: string[];
-  readTime: string;
-  likes: number;
-  comments: number;
-  type: NewsType;
-  featured: boolean;
-}> = [
+export const NEWS_ARTICLES: NewsArticleCardViewModel[] = [
   {
     id: 1,
     title: 'قهرمانی تیم نوجوانان در مسابقات منطقه‌ای',

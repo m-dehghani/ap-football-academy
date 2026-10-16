@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   TrophyIcon,
@@ -14,46 +14,15 @@ import {
   SUCCESS_STATISTICS,
   SUCCESS_MILESTONES,
 } from '@/constants/content';
+import { useAnimatedStat } from '@/hooks/useAnimatedStat';
+import type {
+  AnimatedStatisticViewModel,
+  SuccessAchievementViewModel,
+  SuccessMilestoneViewModel,
+  SuccessTestimonialViewModel,
+} from '@/types/viewModels/content';
 
 type TabType = 'achievements' | 'testimonials' | 'statistics';
-
-interface Achievement {
-  id: string | number;
-  playerName: string;
-  age: string | number;
-  date: string;
-  program: string;
-  achievement: string;
-  description: string;
-  quote: string;
-  stats: { goals: number; assists: number; matches: number };
-  coach: string;
-}
-
-interface Testimonial {
-  id: string | number;
-  name: string;
-  role: string;
-  program: string;
-  rating: number;
-  text: string;
-  date: string;
-  improvement: string;
-}
-
-interface Statistic {
-  number: string;
-  label: string;
-  description: string;
-  icon: string;
-  color: string;
-}
-
-interface Milestone {
-  year: string;
-  event: string;
-  description: string;
-}
 
 // Filter Component
 function FilterChips({
@@ -97,7 +66,7 @@ function AchievementCard({
   achievement,
   index,
 }: {
-  achievement: Achievement;
+  achievement: SuccessAchievementViewModel;
   index: number;
 }) {
   return (
@@ -220,7 +189,7 @@ function TestimonialCard({
   testimonial,
   index,
 }: {
-  testimonial: Testimonial;
+  testimonial: SuccessTestimonialViewModel;
   index: number;
 }) {
   return (
@@ -280,54 +249,14 @@ function TestimonialCard({
 }
 
 // Statistic Card Component
-function StatisticCard({ stat, index }: { stat: Statistic; index: number }) {
-  const [displayValue, setDisplayValue] = useState('0');
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (hasAnimated.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          hasAnimated.current = true;
-          const numericValue = parseInt(stat.number.replace(/\D/g, ''), 10);
-          if (isNaN(numericValue)) {
-            setDisplayValue(stat.number);
-            return;
-          }
-
-          const duration = 2000;
-          const startTime = Date.now();
-
-          const animate = () => {
-            const elapsed = Date.now() - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.floor(numericValue * eased);
-            setDisplayValue(
-              current.toLocaleString('fa-IR') + stat.number.replace(/\d+/g, ''),
-            );
-
-            if (progress < 1) {
-              requestAnimationFrame(animate);
-            } else {
-              setDisplayValue(stat.number);
-            }
-          };
-
-          animate();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-
-    const element = document.querySelector(`.stat-card-${index}`);
-    if (element) observer.observe(element);
-
-    return () => observer.disconnect();
-  }, [stat.number, index]);
+function StatisticCard({
+  stat,
+  index,
+}: {
+  stat: AnimatedStatisticViewModel;
+  index: number;
+}) {
+  const { elementRef, displayValue } = useAnimatedStat(stat.number);
 
   const bgColors = [
     'bg-yellow-100',
@@ -338,9 +267,7 @@ function StatisticCard({ stat, index }: { stat: Statistic; index: number }) {
 
   return (
     <motion.div
-      ref={(el) => {
-        if (el) el.classList.add(`stat-card-${index}`);
-      }}
+      ref={elementRef}
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
@@ -371,7 +298,7 @@ function TimelineItem({
   milestone,
   index,
 }: {
-  milestone: Milestone;
+  milestone: SuccessMilestoneViewModel;
   index: number;
 }) {
   return (
@@ -401,10 +328,10 @@ export default function SuccessStories() {
   const [achievementFilter, setAchievementFilter] = useState('all');
   const [testimonialFilter, setTestimonialFilter] = useState('all');
 
-  const achievements = [...SUCCESS_ACHIEVEMENTS] as Achievement[];
-  const testimonials = [...SUCCESS_TESTIMONIALS] as Testimonial[];
-  const statistics = [...SUCCESS_STATISTICS] as Statistic[];
-  const milestones = [...SUCCESS_MILESTONES] as Milestone[];
+  const achievements: SuccessAchievementViewModel[] = [...SUCCESS_ACHIEVEMENTS];
+  const testimonials: SuccessTestimonialViewModel[] = [...SUCCESS_TESTIMONIALS];
+  const statistics: AnimatedStatisticViewModel[] = [...SUCCESS_STATISTICS];
+  const milestones: SuccessMilestoneViewModel[] = [...SUCCESS_MILESTONES];
 
   // Filter functions
   const filteredAchievements =

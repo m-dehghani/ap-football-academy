@@ -3,7 +3,7 @@
  * Standardized API response types
  */
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -11,18 +11,20 @@ export interface ApiResponse<T = any> {
 }
 
 export interface PaginatedResponse<T> extends ApiResponse<T[]> {
-  pagination: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
+  pagination: PaginationMeta;
+}
+
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
 }
 
 export interface ApiError {
   code: string;
   message: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 export interface ValidationError {

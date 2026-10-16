@@ -7,3 +7,5 @@ export * from './coach';
 export * from './program';
 export * from './content';
 export * from './site';
+export * from './admin';
+export * from './student';
