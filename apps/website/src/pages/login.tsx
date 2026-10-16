@@ -8,17 +8,15 @@ import { toast } from 'react-hot-toast';
 import { useAuth } from '@/hooks/useAuth';
 
 const loginSchema = z.object({
-  email: z.string().email('ایمیل نامعتبر است'),
+  identifier: z.string().trim().min(1, 'ایمیل یا شماره تلفن را وارد کنید'),
   password: z.string().min(1, 'رمز عبور الزامی است'),
-  role: z.enum(['STUDENT', 'COACH', 'ADMIN']),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const LoginPage: React.FC = () => {
-  const [selectedRole, setSelectedRole] = useState<'STUDENT' | 'COACH' | 'ADMIN'>('STUDENT');
-    const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuth();
 
   const {
     register,
@@ -26,16 +24,15 @@ const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { role: 'STUDENT' },
   });
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
     try {
-      await login(data.email, data.password, data.role);
+      await login(data.identifier, data.password);
       toast.success('ورود با موفقیت انجام شد');
-    } catch (error: any) {
-      toast.error(error.message || 'خطا در ورود');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : 'خطا در ورود');
     } finally {
       setIsLoading(false);
     }
@@ -63,58 +60,39 @@ const LoginPage: React.FC = () => {
             {/* Form */}
             <div className="p-8">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Role Selection */}
+                {/* Email or phone */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-3">
-                    نوع حساب کاربری
-                  </label>
-                  <div className="grid grid-cols-3 gap-3">
-                    {(['STUDENT', 'COACH', 'ADMIN'] as const).map((role) => (
-                      <button
-                        key={role}
-                        type="button"
-                        onClick={() => setSelectedRole(role)}
-                        className={`p-3 rounded-lg border-2 text-center transition-all ${
-                          selectedRole === role
-                            ? 'border-primary-500 bg-primary-50 text-primary-700'
-                            : 'border-gray-200 text-gray-600 hover:border-gray-300'
-                        }`}
-                      >
-                        <span className="block text-sm font-medium">
-                          {role === 'STUDENT' && 'دانش‌آموز'}
-                          {role === 'COACH' && 'مربی'}
-                          {role === 'ADMIN' && 'مدیر'}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                  <input type="hidden" {...register('role')} value={selectedRole} />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ایمیل *
+                  <label htmlFor="login-identifier" className="block text-sm font-medium text-gray-700 mb-2">
+                    ایمیل یا شماره تلفن *
                   </label>
                   <input
-                    type="email"
-                    {...register('email')}
+                    id="login-identifier"
+                    type="text"
+                    autoComplete="username"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    {...register('identifier')}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                    placeholder="ایمیل خود را وارد کنید"
+                    placeholder="ایمیل یا شماره تلفن خود را وارد کنید"
                   />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                  {errors.identifier && (
+                    <p className="mt-1 text-sm text-red-600">{errors.identifier.message}</p>
                   )}
                 </div>
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 mb-2">
                     رمز عبور *
                   </label>
                   <input
+                    id="login-password"
                     type="password"
+                    autoComplete="current-password"
                     {...register('password')}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                     placeholder="رمز عبور خود را وارد کنید"
                   />

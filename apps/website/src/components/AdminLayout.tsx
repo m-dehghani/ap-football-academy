@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -10,9 +12,24 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children, title = 'پنل مدیریت' }: AdminLayoutProps) {
   const router = useRouter();
   const isAdminRoute = router.pathname.startsWith('/admin');
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (isAdminRoute && !loading && user?.role !== 'ADMIN') {
+      void router.replace('/login');
+    }
+  }, [isAdminRoute, loading, router, user?.role]);
 
   if (!isAdminRoute) {
     return <>{children}</>;
+  }
+
+  if (loading || user?.role !== 'ADMIN') {
+    return (
+      <div className="flex min-h-screen items-center justify-center" role="status">
+        <span className="text-gray-600">در حال بررسی دسترسی...</span>
+      </div>
+    );
   }
 
   return (

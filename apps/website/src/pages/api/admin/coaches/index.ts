@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
+import bcrypt from 'bcryptjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
 
   switch (req.method) {
@@ -12,13 +15,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         orderBy: { displayOrder: 'asc' },
       });
-      return res.status(200).json(coaches);
+      return res.status(200).json(
+        coaches.map(({ password: _, ...coach }) => coach),
+      );
     }
     case 'POST': {
       const {
         firstName,
         lastName,
         email,
+        password,
         phone,
         specialization,
         experience,
@@ -36,11 +42,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         displayOrder,
       } = req.body;
 
+      if (typeof password !== 'string' || password.length < 6) {
+        return res.status(400).json({ error: 'رمز عبور باید حداقل ۶ کاراکتر باشد' });
+      }
+
       const coach = await prisma.coach.create({
         data: {
           firstName,
           lastName,
           email,
+          password: await bcrypt.hash(password, 10),
           phone,
           specialization,
           experience,
@@ -61,7 +72,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           programs: true,
         },
       });
-      return res.status(201).json(coach);
+      const { password: _, ...safeCoach } = coach;
+      return res.status(201).json(safeCoach);
     }
     default:
       return res.status(405).json({ error: 'Method not allowed' });

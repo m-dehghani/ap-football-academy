@@ -11,6 +11,7 @@ const CoachFormPage: React.FC = () => {
     firstName: '',
     lastName: '',
     email: '',
+    password: '',
     phone: '',
     specialization: '',
     experience: '',
@@ -44,6 +45,7 @@ const CoachFormPage: React.FC = () => {
             firstName: coach.firstName,
             lastName: coach.lastName,
             email: coach.email,
+            password: '',
             phone: coach.phone,
             specialization: coach.specialization,
             experience: coach.experience.toString(),
@@ -217,6 +219,24 @@ const CoachFormPage: React.FC = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                 />
               </div>
+              {!isEditing && (
+                <div>
+                  <label htmlFor="coach-password" className="block text-sm font-medium text-gray-700 mb-2">
+                    رمز عبور مربی *
+                  </label>
+                  <input
+                    id="coach-password"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    autoComplete="new-password"
+                    required
+                    minLength={6}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                  />
+                </div>
+              )}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   تخصص *

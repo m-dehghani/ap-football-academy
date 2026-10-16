@@ -42,7 +42,10 @@ export const createCoachRepository = (): CoachRepository => ({
   async create(data: CoachInput) {
     const prisma = await getPrisma();
     const bcrypt = await import('bcryptjs');
-    const hashedPassword = data.password ? await bcrypt.hash(data.password, 10) : await bcrypt.hash('coach123', 10);
+    if (!data.password) {
+      throw new Error('Coach password is required');
+    }
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     
     return prisma.coach.create({
       data: {

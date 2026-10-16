@@ -15,17 +15,18 @@ datasource db {
 
 model User {
   id        String    @id @default(cuid())
-  email     String    @unique
+  email     String?   @unique
   password  String
   firstName String
   lastName  String
-  phone     String?
+  phone     String?   @unique
   birthDate DateTime?
   role      String    @default("STUDENT")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
   // Relations
+  roleDefinition Role             @relation(fields: [role], references: [name])
   registrations Registration[]
   payments      Payment[]
   attendance    Attendance[]
@@ -34,13 +35,22 @@ model User {
   @@map("users")
 }
 
+model Role {
+  name    String   @id
+  users   User[]
+  coaches Coach[]
+
+  @@map("roles")
+}
+
 model Coach {
   id             String   @id @default(cuid())
   firstName      String
   lastName       String
   email          String   @unique
   password       String
-  phone          String
+  phone          String   @unique
+  role           String   @default("COACH")
   specialization String
   experience     Int // Years of experience
   title          String?
@@ -59,6 +69,7 @@ model Coach {
   updatedAt      DateTime @updatedAt
 
   // Relations
+  roleDefinition Role       @relation(fields: [role], references: [name])
   programs       Program[]
   sessions       Session[]
   evaluations    Evaluation[]
@@ -139,14 +150,15 @@ model Registration {
 }
 
 model Payment {
-  id        String   @id @default(cuid())
-  amount    Int
-  currency  String   @default("IRR")
-  status    String   @default("PENDING")
-  method    String   @default("ONLINE")
-  stripeId  String?  // Stripe payment ID
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                String   @id @default(cuid())
+  amount            Int
+  currency          String   @default("IRR")
+  status            String   @default("PENDING")
+  method            String   @default("ONLINE")
+  stripeId          String?
+  providerReference String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   // Relations
   user           User         @relation(fields: [userId], references: [id])
@@ -154,6 +166,7 @@ model Payment {
   registration   Registration @relation(fields: [registrationId], references: [id])
   registrationId String
 
+  @@index([providerReference, method])
   @@map("payments")
 }
 

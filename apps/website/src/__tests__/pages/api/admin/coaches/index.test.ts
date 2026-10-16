@@ -1,6 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import handler from '@/pages/api/admin/coaches/index';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
+
+vi.mock('@/lib/auth', () => ({
+  authorizeAdmin: vi.fn().mockResolvedValue(true),
+}));
 
 // Mock Prisma
 vi.mock('@/lib/db', () => ({
@@ -35,6 +40,7 @@ describe('/api/admin/coaches', () => {
 
   beforeEach(() => {
     vi.resetAllMocks();
+    vi.mocked(authorizeAdmin).mockResolvedValue(true);
     (getPrisma as vi.Mock).mockResolvedValue(mockPrisma);
   });
 
@@ -119,6 +125,7 @@ describe('/api/admin/coaches', () => {
       firstName: 'علی',
       lastName: 'محمدی',
       email: 'ali@example.com',
+      password: 'coach-password',
       phone: '09123456789',
       specialization: 'مربی فیفا',
       experience: 10,
@@ -188,6 +195,7 @@ describe('/api/admin/coaches', () => {
         firstName: 'علی',
         lastName: 'محمدی',
         email: 'ali@example.com',
+        password: 'coach-password',
         phone: '09123456789',
         specialization: 'مربی فیفا',
         experience: 10,

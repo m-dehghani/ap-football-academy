@@ -126,13 +126,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   try {
-    const { jwtVerify } = await import('jose');
-    const JWT_SECRET = new TextEncoder().encode(
-      process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production'
-    );
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const [{ jwtVerify }, { getJwtSecret }] = await Promise.all([
+      import('jose'),
+      import('@/lib/auth'),
+    ]);
+    const { payload } = await jwtVerify(token, getJwtSecret());
 
-    if (payload.role !== 'ADMIN') {
+    if (typeof payload.userId !== 'string') {
       return {
         redirect: {
           destination: '/login',
@@ -145,7 +145,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const db = await getPrisma();
 
     const admin = await db.user.findUnique({
-      where: { id: payload.userId as string },
+      where: { id: payload.userId },
       select: {
         id: true,
         email: true,

@@ -28,6 +28,14 @@ async function clearDatabase() {
 }
 
 async function seedAcademy() {
+  for (const name of ['STUDENT', 'COACH', 'ADMIN']) {
+    await prisma.role.upsert({
+      where: { name },
+      update: {},
+      create: { name },
+    });
+  }
+
   await prisma.academyInfo.create({
     data: {
       id: 'default',

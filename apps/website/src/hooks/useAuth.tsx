@@ -3,18 +3,18 @@ import { useRouter } from 'next/router';
 
 interface User {
   id: string;
-  email: string;
+  email: string | null;
   firstName: string;
   lastName: string;
   role: 'STUDENT' | 'COACH' | 'ADMIN';
   phone?: string;
-  [key: string]: any;
+  birthDate?: string | null;
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  login: (email: string, password: string, role?: 'STUDENT' | 'COACH' | 'ADMIN') => Promise<void>;
+  login: (identifier: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -44,14 +44,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    // fetchUser updates state only after its asynchronous request completes.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchUser();
   }, []);
 
-  const login = async (email: string, password: string, role?: 'STUDENT' | 'COACH' | 'ADMIN') => {
+  const login = async (identifier: string, password: string) => {
     const response = await fetch('/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, role }),
+      body: JSON.stringify({ identifier, password }),
     });
 
     const data = await response.json();

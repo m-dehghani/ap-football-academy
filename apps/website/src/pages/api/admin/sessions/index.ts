@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
 
   switch (req.method) {

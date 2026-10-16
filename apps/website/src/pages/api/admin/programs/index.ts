@@ -1,14 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
 
   switch (req.method) {
     case 'GET': {
       const programs = await prisma.program.findMany({
         include: {
-          coach: true,
+          coach: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              email: true,
+              phone: true,
+              specialization: true,
+              experience: true,
+              title: true,
+              image: true,
+              isActive: true,
+            },
+          },
           schedule: { orderBy: { displayOrder: 'asc' } },
         },
         orderBy: { displayOrder: 'asc' },

@@ -1,18 +1,25 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { getJwtSecret, normalizePhone } from '@/lib/auth';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { SignJWT } from 'jose';
 
-const loginSchema = z.object({
-  email: z.string().email('ایمیل نامعتبر است'),
-  password: z.string().min(1, 'رمز عبور الزامی است'),
-  role: z.enum(['STUDENT', 'COACH', 'ADMIN']).optional(),
-});
-
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production'
-);
+const loginSchema = z
+  .object({
+    identifier: z.string().trim().optional(),
+    email: z.string().trim().optional(),
+    phone: z.string().trim().optional(),
+    password: z.string().min(1, 'رمز عبور الزامی است'),
+  })
+  .refine(
+    ({ identifier, email, phone }) =>
+      [identifier, email, phone].filter((value) => value?.length).length === 1,
+    {
+      message: 'ایمیل یا شماره تلفن را وارد کنید',
+      path: ['identifier'],
+    },
+  );
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,87 +31,100 @@ export default async function handler(
 
   try {
     const validatedData = loginSchema.parse(req.body);
+    const identifier =
+      validatedData.identifier ?? validatedData.email ?? validatedData.phone;
+    if (!identifier) {
+      return res.status(400).json({
+        message: 'ایمیل یا شماره تلفن را وارد کنید',
+      });
+    }
+    const isEmail = identifier.includes('@');
+    const normalizedIdentifier = isEmail
+      ? identifier.toLowerCase()
+      : normalizePhone(identifier);
+
+    if (
+      isEmail
+        ? !z.string().email().safeParse(normalizedIdentifier).success
+        : !/^\+?\d{7,15}$/.test(normalizedIdentifier)
+    ) {
+      return res.status(400).json({
+        message: 'ایمیل یا شماره تلفن معتبر وارد کنید',
+      });
+    }
+
     const db = await getPrisma();
+    const contactValues = [...new Set([identifier, normalizedIdentifier])];
+    const [user, coach] = await Promise.all([
+      db.user.findFirst({
+        where: isEmail
+          ? { email: { equals: normalizedIdentifier, mode: 'insensitive' } }
+          : { phone: { in: contactValues } },
+      }),
+      db.coach.findFirst({
+        where: isEmail
+          ? { email: { equals: normalizedIdentifier, mode: 'insensitive' } }
+          : { phone: { in: contactValues } },
+      }),
+    ]);
 
-    let user = null;
-    let userRole = validatedData.role || 'STUDENT';
+    const candidates = [
+      ...(user && ['STUDENT', 'ADMIN'].includes(user.role) ? [user] : []),
+      ...(coach?.isActive ? [{ ...coach, role: 'COACH' }] : []),
+    ];
+    const matchingUsers = (
+      await Promise.all(
+        candidates.map(async (candidate) =>
+          (await bcrypt.compare(validatedData.password, candidate.password))
+            ? candidate
+            : null,
+        ),
+      )
+    ).filter((candidate) => candidate !== null);
 
-    // Try to find user based on role
-    if (userRole === 'ADMIN') {
-      user = await db.user.findUnique({
-        where: { email: validatedData.email },
-      });
-      if (user && user.role !== 'ADMIN') {
-        return res.status(403).json({ message: 'دسترسی ادمین ندارید' });
-      }
-    } else if (userRole === 'COACH') {
-      const coach = await db.coach.findUnique({
-        where: { email: validatedData.email },
-      });
-      if (coach) {
-        user = {
-          id: coach.id,
-          email: coach.email,
-          password: coach.password,
-          firstName: coach.firstName,
-          lastName: coach.lastName,
-          role: 'COACH',
-        };
-      }
-    } else {
-      // Default to student
-      user = await db.user.findUnique({
-        where: { email: validatedData.email },
+    if (matchingUsers.length !== 1) {
+      return res.status(401).json({
+        message: 'ایمیل، شماره تلفن یا رمز عبور اشتباه است',
       });
     }
 
-    if (!user) {
-      return res.status(401).json({ message: 'ایمیل یا رمز عبور اشتباه است' });
-    }
-
-    // Verify password
-    const isValidPassword = await bcrypt.compare(validatedData.password, user.password);
-    if (!isValidPassword) {
-      return res.status(401).json({ message: 'ایمیل یا رمز عبور اشتباه است' });
-    }
-
-    // Create JWT token
+    const userRecord = matchingUsers[0];
     const token = await new SignJWT({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      userId: userRecord.id,
+      role: userRecord.role,
     })
       .setProtectedHeader({ alg: 'HS256' })
       .setIssuedAt()
       .setExpirationTime('7d')
-      .sign(JWT_SECRET);
+      .sign(getJwtSecret());
 
-    // Set HTTP-only cookie
     res.setHeader('Set-Cookie', [
       `auth_token=${token}; HttpOnly; Path=/; Max-Age=${60 * 60 * 24 * 7}; SameSite=Lax${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`,
     ]);
 
-    // Return user data (without password)
-    const { password: _, ...userWithoutPassword } = user;
-    res.status(200).json({
+    return res.status(200).json({
       message: 'ورود با موفقیت انجام شد',
-      user: userWithoutPassword,
+      user: {
+        id: userRecord.id,
+        email: userRecord.email,
+        phone: userRecord.phone,
+        firstName: userRecord.firstName,
+        lastName: userRecord.lastName,
+        role: userRecord.role,
+      },
     });
   } catch (error) {
-    console.error('Login error:', error);
-
     if (error instanceof z.ZodError) {
       return res.status(400).json({
         message: 'اطلاعات ارسالی نامعتبر است',
-        errors: error.issues.map((e) => ({
-          field: e.path.join('.'),
-          message: e.message,
+        errors: error.issues.map((issue) => ({
+          field: issue.path.join('.'),
+          message: issue.message,
         })),
       });
     }
 
-    res.status(500).json({ message: 'خطا در ورود' });
+    console.error('Login error:', error);
+    return res.status(500).json({ message: 'خطا در ورود' });
   }
 }

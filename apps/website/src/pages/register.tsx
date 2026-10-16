@@ -11,8 +11,14 @@ import { ProgramViewModel } from '@/types/viewModels/program';
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
   lastName: z.string().min(2, 'نام خانوادگی باید حداقل ۲ کاراکتر باشد'),
-  email: z.string().email('ایمیل نامعتبر است'),
-  phone: z.string().min(10, 'شماره تلفن باید حداقل ۱۰ رقم باشد'),
+  email: z.union([z.string().email('ایمیل نامعتبر است'), z.literal('')]).optional(),
+  phone: z
+    .union([
+      z.string().regex(/^\+?[\d۰-۹٠-٩\s().-]{7,20}$/, 'شماره تلفن نامعتبر است'),
+      z.literal(''),
+    ])
+    .optional(),
+  password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد'),
   dateOfBirth: z.string().min(1, 'تاریخ تولد الزامی است'),
   ageGroup: z.enum(['8-12 سال', '13-17 سال', '18-25 سال', '26-35 سال']),
   program: z.string().min(1, 'لطفاً برنامه را انتخاب کنید'),
@@ -30,6 +36,9 @@ const registrationSchema = z.object({
   terms: z.boolean().refine((val) => val === true, {
     message: 'شما باید با شرایط و قوانین موافقت کنید',
   }),
+}).refine((data) => Boolean(data.email?.trim() || data.phone?.trim()), {
+  message: 'وارد کردن ایمیل یا شماره تلفن الزامی است',
+  path: ['email'],
 });
 
 type RegistrationFormData = z.infer<typeof registrationSchema>;
@@ -92,11 +101,11 @@ const RegisterPage: React.FC = () => {
       const apiData = {
         firstName: data.firstName,
         lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
+        email: data.email?.trim() || undefined,
+        phone: data.phone?.trim() || undefined,
         programId: data.program,
         birthDate: data.dateOfBirth,
-        password: `Football${data.ageGroup}${Math.random().toString(36).slice(-8)}`, // Auto-generate password
+        password: data.password,
         emergencyContact: data.emergencyContact,
         medicalConditions: data.medicalConditions,
         previousExperience: data.experience,
@@ -198,14 +207,17 @@ const RegisterPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        آدرس ایمیل *
+                      <label htmlFor="account-email" className="block text-sm font-medium text-gray-700 mb-2">
+                        آدرس ایمیل
                       </label>
                       <input
+                        id="account-email"
                         type="email"
+                        autoComplete="email"
+                        spellCheck={false}
                         {...register('email')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                        placeholder="ایمیل خود را وارد کنید"
+                        placeholder="ایمیل (اختیاری)"
                       />
                       {errors.email && (
                         <p className="mt-1 text-sm text-red-600">
@@ -215,14 +227,16 @@ const RegisterPage: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        شماره تلفن *
+                      <label htmlFor="account-phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        شماره تلفن
                       </label>
                       <input
+                        id="account-phone"
                         type="tel"
+                        autoComplete="tel"
                         {...register('phone')}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                        placeholder="شماره تلفن خود را وارد کنید"
+                        placeholder="شماره تلفن (اختیاری)"
                       />
                       {errors.phone && (
                         <p className="mt-1 text-sm text-red-600">
@@ -230,6 +244,29 @@ const RegisterPage: React.FC = () => {
                         </p>
                       )}
                     </div>
+                    <p className="text-sm text-gray-500 md:col-span-2">
+                      برای ساخت حساب، وارد کردن ایمیل یا شماره تلفن الزامی است؛ می‌توانید هر دو را وارد کنید.
+                    </p>
+                  </div>
+
+                  <div className="mt-6">
+                    <label htmlFor="account-password" className="block text-sm font-medium text-gray-700 mb-2">
+                      رمز عبور *
+                    </label>
+                    <input
+                      id="account-password"
+                      type="password"
+                      autoComplete="new-password"
+                      {...register('password')}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      placeholder="حداقل ۶ کاراکتر"
+                    />
+                    {errors.password && (
+                      <p className="mt-1 text-sm text-red-600">
+                        {errors.password.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -519,4 +556,3 @@ const RegisterPage: React.FC = () => {
 };
 
 export default RegisterPage;
-

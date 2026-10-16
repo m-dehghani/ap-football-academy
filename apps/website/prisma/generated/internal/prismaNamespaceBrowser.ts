@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Role: 'Role',
   Coach: 'Coach',
   Program: 'Program',
   Schedule: 'Schedule',
@@ -107,6 +108,13 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const RoleScalarFieldEnum = {
+  name: 'name'
+} as const
+
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
 export const CoachScalarFieldEnum = {
   id: 'id',
   firstName: 'firstName',
@@ -114,6 +122,7 @@ export const CoachScalarFieldEnum = {
   email: 'email',
   password: 'password',
   phone: 'phone',
+  role: 'role',
   specialization: 'specialization',
   experience: 'experience',
   title: 'title',
@@ -202,6 +211,7 @@ export const PaymentScalarFieldEnum = {
   status: 'status',
   method: 'method',
   stripeId: 'stripeId',
+  providerReference: 'providerReference',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId',

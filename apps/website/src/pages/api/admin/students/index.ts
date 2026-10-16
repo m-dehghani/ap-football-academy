@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
 
   switch (req.method) {
@@ -19,9 +21,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         prisma.registration.findMany({
           where,
           include: {
-            user: true,
+            user: {
+              select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                phone: true,
+                birthDate: true,
+                role: true,
+              },
+            },
             program: {
-              include: { coach: true },
+              include: {
+                coach: {
+                  select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                    phone: true,
+                    specialization: true,
+                    title: true,
+                    image: true,
+                  },
+                },
+              },
             },
             payments: true,
           },

@@ -34,7 +34,13 @@ interface Registration {
       lastName: string;
     } | null;
   };
-  payments: { id: string; amount: number; status: string; createdAt: string }[];
+  payments: {
+    id: string;
+    amount: number;
+    currency: string;
+    status: string;
+    createdAt: string;
+  }[];
 }
 
 const StudentDetailPage: React.FC = () => {
@@ -363,7 +369,11 @@ const StudentDetailPage: React.FC = () => {
                           className="border-t border-gray-200"
                         >
                           <td className="py-2 text-right">
-                            {formatPrice(payment.amount)}
+                            {formatPrice(
+                              payment.currency === 'IRR'
+                                ? payment.amount / 10
+                                : payment.amount,
+                            )}
                           </td>
                           <td className="py-2 text-right">
                             <span

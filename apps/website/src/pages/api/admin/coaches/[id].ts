@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPrisma } from '@/lib/db';
+import { authorizeAdmin } from '@/lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (!(await authorizeAdmin(req, res))) return;
   const prisma = await getPrisma();
   const { id } = req.query;
 
@@ -20,7 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (!coach) {
         return res.status(404).json({ error: 'Coach not found' });
       }
-      return res.status(200).json(coach);
+      const { password: _, ...safeCoach } = coach;
+      return res.status(200).json(safeCoach);
     }
 
     case 'PUT': {
@@ -71,7 +74,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           programs: true,
         },
       });
-      return res.status(200).json(coach);
+      const { password: _, ...safeCoach } = coach;
+      return res.status(200).json(safeCoach);
     }
 
     case 'DELETE': {

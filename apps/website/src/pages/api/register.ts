@@ -3,25 +3,36 @@ import { getPrisma } from '../../lib/db';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { TransactionClient } from '../../../prisma/generated/internal/prismaNamespace';
+import { normalizePhone } from '@/lib/auth';
+import { calculateAge, parseBirthDate } from '@/lib/age';
 
-const registrationSchema = z.object({
-  firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
-  lastName: z.string().min(2, 'نام خانوادگی باید حداقل ۲ کاراکتر باشد'),
-  email: z.string().email('ایمیل نامعتبر است'),
-  phone: z.string().min(10, 'شماره تلفن نامعتبر است'),
-  password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد'),
-  programId: z.string().min(1, 'برنامه آموزشی الزامی است'),
-  birthDate: z.string().min(1, 'تاریخ تولد الزامی است'),
-  emergencyContact: z.string().min(10, 'شماره تماس اضطراری الزامی است'),
-  medicalConditions: z.string().optional(),
-  previousExperience: z.string().optional(),
-});
+const registrationSchema = z
+  .object({
+    firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
+    lastName: z.string().min(2, 'نام خانوادگی باید حداقل ۲ کاراکتر باشد'),
+    email: z.union([z.string().email('ایمیل نامعتبر است'), z.literal('')]).optional(),
+    phone: z
+      .union([
+        z.string().regex(/^\+?[\d۰-۹٠-٩\s().-]{7,20}$/, 'شماره تلفن نامعتبر است'),
+        z.literal(''),
+      ])
+      .optional(),
+    password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد'),
+    programId: z.string().min(1, 'برنامه آموزشی الزامی است'),
+    birthDate: z.string().min(1, 'تاریخ تولد الزامی است'),
+    emergencyContact: z.string().min(10, 'شماره تماس اضطراری نامعتبر است'),
+    medicalConditions: z.string().optional(),
+    previousExperience: z.string().optional(),
+  })
+  .refine((data) => Boolean(data.email?.trim() || data.phone?.trim()), {
+    message: 'وارد کردن ایمیل یا شماره تلفن الزامی است',
+    path: ['email'],
+  });
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const db = await getPrisma();
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -29,16 +40,27 @@ export default async function handler(
   try {
     // Validate request body
     const validatedData = registrationSchema.parse(req.body);
+    const db = await getPrisma();
+    const email = validatedData.email?.trim().toLowerCase() || undefined;
+    const phone = validatedData.phone
+      ? normalizePhone(validatedData.phone)
+      : undefined;
+    const identifiers = [
+      ...(email
+        ? [{ email: { equals: email, mode: 'insensitive' as const } }]
+        : []),
+      ...(phone ? [{ phone }] : []),
+    ];
 
-    // Check if user already exists
-    const existingUser = await db.user.findUnique({
-      where: { email: validatedData.email },
-    });
+    const [existingUser, existingCoach] = await Promise.all([
+      db.user.findFirst({ where: { OR: identifiers } }),
+      db.coach.findFirst({ where: { OR: identifiers } }),
+    ]);
 
-    if (existingUser) {
+    if (existingUser || existingCoach) {
       return res
-        .status(400)
-        .json({ message: 'کاربری با این ایمیل قبلاً ثبت شده است' });
+        .status(409)
+        .json({ message: 'کاربری با این ایمیل یا شماره تلفن قبلاً ثبت شده است' });
     }
 
     // Get program details
@@ -49,6 +71,20 @@ export default async function handler(
 
     if (!program) {
       return res.status(404).json({ message: 'برنامه آموزشی یافت نشد' });
+    }
+    if (!program.isActive) {
+      return res.status(400).json({ message: 'ثبت‌نام در این برنامه امکان‌پذیر نیست' });
+    }
+
+    const birthDate = parseBirthDate(validatedData.birthDate);
+    if (!birthDate) {
+      return res.status(400).json({ message: 'تاریخ تولد معتبر نیست' });
+    }
+    const age = calculateAge(birthDate);
+    if (age < program.minAge || age > program.maxAge) {
+      return res.status(400).json({
+        message: `سن شما باید بین ${program.minAge} تا ${program.maxAge} سال باشد`,
+      });
     }
 
     // Check if program has available slots
@@ -73,11 +109,12 @@ export default async function handler(
       // Create user
       const user = await tx.user.create({
         data: {
-          email: validatedData.email,
+          email: email ?? null,
           password: hashedPassword,
           firstName: validatedData.firstName,
           lastName: validatedData.lastName,
-          phone: validatedData.phone,
+          phone: phone ?? null,
+          birthDate,
           role: 'STUDENT',
         },
       });
@@ -130,6 +167,17 @@ export default async function handler(
           message: e.message,
         })),
       });
+    }
+
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      error.code === 'P2002'
+    ) {
+      return res
+        .status(409)
+        .json({ message: 'کاربری با این ایمیل یا شماره تلفن قبلاً ثبت شده است' });
     }
 
     res.status(500).json({ message: 'خطا در ثبت نام' });

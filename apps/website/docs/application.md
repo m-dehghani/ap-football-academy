@@ -7,7 +7,7 @@
 **Language**: TypeScript
 **Styling**: Tailwind CSS v4
 **Database**: PostgreSQL (via Prisma ORM)
-**Payments**: Stripe
+**Payments**: Zarinpal (student dashboard checkout)
 **Authentication**: Custom session-based auth (bcryptjs)
 **i18n**: Persian (`fa`, default) and English (`en`) — sub-path routing
 **Location**: Shiraz, Iran
@@ -70,11 +70,18 @@ The application uses **Next.js Pages Router** (not App Router). This is the trad
 | Pattern | Scope | Example |
 |---------|-------|---------|
 | `NEXT_PUBLIC_*` | Client + Server | `NEXT_PUBLIC_APP_NAME` |
-| Other names | Server only | `DATABASE_URL`, `STRIPE_SECRET_KEY` |
+| Other names | Server only | `DATABASE_URL`, `JWT_SECRET`, `ZARINPAL_MERCHANT_ID`, `ZARINPAL_SANDBOX` |
 
 Access via `process.env.VARIABLE_NAME`. Defined in `.env.local` (local), `.env.production` (production), or deployment platform.
 
 > **Important**: Variables without `NEXT_PUBLIC_` prefix are **not** available in client-side code.
+
+The student checkout also needs `NEXT_PUBLIC_SITE_URL` (or the existing
+`NEXT_PUBLIC_APP_URL`) set to the public site origin for Zarinpal's callback.
+Set `ZARINPAL_SANDBOX=true` for sandbox requests; otherwise the production
+gateway is used. Keep `ZARINPAL_MERCHANT_ID` server-only. Program prices and
+registration balances are stored in toman and converted to rial when sent to
+Zarinpal. Apply the student-payment Prisma migration before deploying.
 
 ### Internationalization (i18n)
 
@@ -130,11 +137,10 @@ apps/website/
 │   │   ├── terms.tsx        # Terms of service
 │   │   └── api/             # API routes (→ /api/*)
 │   │       ├── crawler-news.ts   # News crawler endpoint
-│   │       ├── get-session.ts    # Session retrieval
 │   │       ├── programs.ts       # Programs API
-│   │       ├── register.ts       # Registration endpoint
-│   │       ├── students.tsx      # Student data API
-│   │       └── webhook.ts        # Stripe webhook
+│   │       ├── register.ts      # Registration endpoint
+│   │       ├── students.tsx     # Legacy program lookup API
+│   │       └── student/         # Authenticated profile, enrollment and payment APIs
 │   ├── services/            # Business logic / service layer
 │   │   └── programs_svc.ts  # Program-related services
 │   └── styles/
