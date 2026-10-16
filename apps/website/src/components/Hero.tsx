@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   TrophyIcon,
-  PlayIcon,
   ArrowLeftIcon,
 } from '@heroicons/react/24/outline';
 import { getIcon } from '@/lib/icons';
@@ -13,18 +12,28 @@ import {
   STAT_LABELS,
 } from '@/constants/content';
 
+const PARTICLE_COLORS = ['rgba(14,165,233,0.6)', 'rgba(249,115,22,0.6)', 'rgba(34,197,94,0.6)'];
+
 // Particle System Component
-function ParticleSystem({ particleCount = 30, colors = ['#0ea5e9', '#f97316', '#22c55e'] }) {
+function ParticleSystem({
+  particleCount = 30,
+  colors = PARTICLE_COLORS,
+  reducedMotion,
+}: {
+  particleCount?: number;
+  colors?: string[];
+  reducedMotion: boolean;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const particlesRef = useRef<Array<{
-    x: number; y: number; vx: number; vy: number; 
+    x: number; y: number; vx: number; vy: number;
     radius: number; color: string; opacity: number;
   }>>([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || reducedMotion || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -77,7 +86,7 @@ function ParticleSystem({ particleCount = 30, colors = ['#0ea5e9', '#f97316', '#
       window.removeEventListener('resize', resize);
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [particleCount, colors]);
+  }, [particleCount, colors, reducedMotion]);
 
   return (
     <canvas
@@ -90,19 +99,28 @@ function ParticleSystem({ particleCount = 30, colors = ['#0ea5e9', '#f97316', '#
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [statsAnimated, setStatsAnimated] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
   const slides = HERO_SLIDES;
   const achievements = HERO_ACHIEVEMENTS;
   const statLabels = STAT_LABELS;
 
   useEffect(() => {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setReducedMotion(motionPreference.matches);
+    updatePreference();
+    motionPreference.addEventListener('change', updatePreference);
+    return () => motionPreference.removeEventListener('change', updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 7000);
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [reducedMotion, slides.length]);
 
   const currentSlideData = slides[currentSlide];
 
@@ -124,9 +142,10 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-mesh opacity-40 animate-gradient-shift" />
         <div className="absolute inset-0 bg-pattern-grid opacity-20" />
         <div className="absolute inset-0 bg-black/25" />
-        <ParticleSystem 
+        <ParticleSystem
           particleCount={40}
-          colors={['rgba(14,165,233,0.6)', 'rgba(249,115,22,0.6)', 'rgba(34,197,94,0.6)']}
+          colors={PARTICLE_COLORS}
+          reducedMotion={reducedMotion}
         />
       </div>
 
@@ -151,7 +170,7 @@ export default function Hero() {
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
                 <div className="space-y-4">
-                  <h1 
+                  <h1
                     id="hero-title"
                     className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight text-balance"
                   >
@@ -191,7 +210,6 @@ export default function Hero() {
                   className="btn-glass group"
                   aria-label={currentSlideData.ctaSecondary.label}
                 >
-                  <PlayIcon className="h-5 w-5" />
                   {currentSlideData.ctaSecondary.label}
                 </Link>
               </motion.div>
@@ -272,15 +290,14 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.8 }}
             className="flex justify-center items-center gap-3 pb-10"
-            role="tablist"
+            role="group"
             aria-label="اسلایدهای هیرو"
           >
             {slides.map((_, index) => (
               <button
                 key={index}
                 type="button"
-                role="tab"
-                aria-selected={index === currentSlide}
+                aria-pressed={index === currentSlide}
                 aria-label={`برو به اسلاید ${index + 1}`}
                 onClick={() => setCurrentSlide(index)}
                 className={`transition-all duration-300 rounded-full ${
@@ -294,42 +311,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {isVideoPlaying && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
-            role="dialog"
-            aria-modal="true"
-            aria-label="ویدئوی معرفی آکادمی"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative aspect-video w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-elegant-2xl"
-            >
-              <button
-                type="button"
-                onClick={() => setIsVideoPlaying(false)}
-                className="absolute top-4 left-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white"
-                aria-label="بستن ویدئو"
-              >
-                ✕
-              </button>
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                title="معرفی آکادمی فوتبال AP"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="h-full w-full"
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

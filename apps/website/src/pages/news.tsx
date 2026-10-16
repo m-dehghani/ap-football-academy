@@ -47,9 +47,15 @@ const NewsPage: React.FC = () => {
         {/* Tab Navigation */}
         <div className="bg-white shadow-sm border-b border-gray-200">
           <div className="container-custom">
-            <div className="flex justify-center space-x-8 space-x-reverse">
+            <div
+              className="flex justify-center space-x-8 space-x-reverse"
+              role="group"
+              aria-label="نمایش اخبار"
+            >
               <button
+                type="button"
                 onClick={() => setActiveTab('mixed')}
+                aria-pressed={activeTab === 'mixed'}
                 className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'mixed'
                     ? 'border-primary-700 text-primary-700'
@@ -62,7 +68,9 @@ const NewsPage: React.FC = () => {
                 </div>
               </button>
               <button
+                type="button"
                 onClick={() => setActiveTab('dashboard')}
+                aria-pressed={activeTab === 'dashboard'}
                 className={`py-4 px-6 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'dashboard'
                     ? 'border-primary-700 text-primary-700'

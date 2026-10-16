@@ -55,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ coaches }) => {
         ]}
       />
 
-      <main>
+      <div>
         <Hero />
         <Features />
         {/* ProgramsPage removed - requires database connection. Add it back when DB is configured. */}
@@ -64,7 +64,7 @@ const HomePage: React.FC<HomePageProps> = ({ coaches }) => {
         <NewsUpdates />
         <Testimonials />
         <CTA />
-      </main>
+      </div>
     </Layout>
   );
 };

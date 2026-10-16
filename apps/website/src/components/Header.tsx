@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,8 +13,16 @@ const Header: React.FC = () => {
 
   const navigation = NAVIGATION.main;
 
+  useEffect(() => {
+    const closeMenu = () => setIsMenuOpen(false);
+    router.events.on('routeChangeStart', closeMenu);
+    return () => router.events.off('routeChangeStart', closeMenu);
+  }, [router.events]);
+
   const isActive = (href: string) =>
-    href === '/' ? router.pathname === '/' : router.pathname.startsWith(href);
+    href === '/'
+      ? router.pathname === '/'
+      : router.pathname === href || router.pathname.startsWith(`${href}/`);
 
   const handleLogout = async () => {
     await logout();
@@ -52,6 +60,7 @@ const Header: React.FC = () => {
                     ? 'bg-primary-50 text-primary-700'
                     : 'text-slate-600 hover:bg-slate-50 hover:text-primary-700'
                 }`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
               >
                 {item.label}
               </Link>
@@ -114,8 +123,9 @@ const Header: React.FC = () => {
             type="button"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="lg:hidden rounded-xl border border-slate-200 p-2.5 text-slate-700 hover:bg-slate-50"
-            aria-label="منوی اصلی"
+            aria-label={isMenuOpen ? 'بستن منوی اصلی' : 'باز کردن منوی اصلی'}
             aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {isMenuOpen ? (
               <XMarkIcon className="h-6 w-6" />
@@ -132,6 +142,7 @@ const Header: React.FC = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden border-t border-slate-200 lg:hidden"
+              id="mobile-navigation"
             >
               <nav className="flex flex-col gap-1 py-4">
                 {navigation.map((item) => (
@@ -144,6 +155,7 @@ const Header: React.FC = () => {
                         ? 'bg-primary-50 text-primary-700'
                         : 'text-slate-700 hover:bg-slate-50'
                     }`}
+                    aria-current={isActive(item.href) ? 'page' : undefined}
                   >
                     {item.label}
                   </Link>

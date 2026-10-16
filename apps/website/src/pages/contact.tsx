@@ -1,9 +1,33 @@
 import React from 'react';
+import { APP_CONFIG } from '@/constants/app';
 import Layout from '../components/Layout';
 import PageHero from '../components/PageHero';
 import { PhoneIcon, EnvelopeIcon, MapPinIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 const ContactPage: React.FC = () => {
+  const handleContactSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = [formData.get('firstName'), formData.get('lastName')]
+      .filter(
+        (part): part is string =>
+          typeof part === 'string' && Boolean(part.trim()),
+      )
+      .join(' ');
+    const subject = encodeURIComponent(`پیام از ${name}`);
+    const body = encodeURIComponent(
+      [
+        `نام: ${name}`,
+        `ایمیل: ${formData.get('email') ?? ''}`,
+        `تلفن: ${formData.get('phone') ?? ''}`,
+        '',
+        String(formData.get('message') ?? ''),
+      ].join('\n'),
+    );
+
+    window.location.href = `mailto:${APP_CONFIG.email}?subject=${subject}&body=${body}`;
+  };
+
   return (
     <Layout
       title="تماس با ما - آکادمی فوتبال AP"
@@ -37,7 +61,7 @@ const ContactPage: React.FC = () => {
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
                 پیام خود را ارسال کنید
               </h2>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleContactSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -46,8 +70,11 @@ const ContactPage: React.FC = () => {
                     <input
                       type="text"
                       id="firstName"
+                      name="firstName"
+                      autoComplete="given-name"
+                      required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                      placeholder="نام شما"
+                      placeholder="نام شما…"
                     />
                   </div>
                   <div>
@@ -57,8 +84,10 @@ const ContactPage: React.FC = () => {
                     <input
                       type="text"
                       id="lastName"
+                      name="lastName"
+                      autoComplete="family-name"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                      placeholder="نام خانوادگی شما"
+                      placeholder="نام خانوادگی شما…"
                     />
                   </div>
                 </div>
@@ -69,8 +98,12 @@ const ContactPage: React.FC = () => {
                   <input
                     type="email"
                     id="email"
+                    name="email"
+                    autoComplete="email"
+                    spellCheck={false}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    placeholder="ایمیل شما"
+                    placeholder="name@example.com"
                   />
                 </div>
                 <div>
@@ -80,8 +113,10 @@ const ContactPage: React.FC = () => {
                   <input
                     type="tel"
                     id="phone"
+                    name="phone"
+                    autoComplete="tel"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    placeholder="شماره تلفن شما"
+                    placeholder="شماره تلفن شما…"
                   />
                 </div>
                 <div>
@@ -90,11 +125,16 @@ const ContactPage: React.FC = () => {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     rows={5}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                    placeholder="پیام شما"
+                    placeholder="پیام خود را بنویسید…"
                   />
                 </div>
+                <p className="text-sm text-gray-600" aria-live="polite">
+                  با ارسال پیام، برنامه ایمیل شما برای ارسال آن به {APP_CONFIG.email} باز می‌شود.
+                </p>
                 <button
                   type="submit"
                   className="w-full btn btn-primary"
@@ -117,7 +157,12 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">تلفن</h3>
-                      <p className="text-gray-600">021-12345678</p>
+                      <a
+                        href={`tel:${APP_CONFIG.phone.replace(/[^\d+]/g, '')}`}
+                        className="text-gray-700 hover:text-primary-700 hover:underline"
+                      >
+                        {APP_CONFIG.phone}
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -126,7 +171,12 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">ایمیل</h3>
-                      <p className="text-gray-600">info@ap-football.com</p>
+                      <a
+                        href={`mailto:${APP_CONFIG.email}`}
+                        className="text-gray-700 hover:text-primary-700 hover:underline"
+                      >
+                        {APP_CONFIG.email}
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -135,7 +185,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">آدرس</h3>
-                      <p className="text-gray-600">تهران، میدان آزادی، مجموعه ورزشی</p>
+                      <p className="text-gray-700">{APP_CONFIG.address}، {APP_CONFIG.city}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -156,9 +206,17 @@ const ContactPage: React.FC = () => {
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   موقعیت مکانی
                 </h2>
-                <div className="bg-linear-to-br from-primary-50 to-primary-100 border-2 border-dashed border-primary-200 rounded-2xl h-64 flex flex-col items-center justify-center gap-3">
-                  <MapPinIcon className="w-10 h-10 text-primary-400" />
-                  <p className="text-primary-500 font-medium">نقشه در اینجا نمایش داده می‌شود</p>
+                <div className="bg-linear-to-br from-primary-50 to-primary-100 border border-primary-200 rounded-2xl min-h-64 p-6 flex flex-col items-center justify-center gap-3 text-center">
+                  <MapPinIcon className="w-10 h-10 text-primary-700" aria-hidden="true" />
+                  <p className="text-gray-800 font-medium">{APP_CONFIG.address}، {APP_CONFIG.city}</p>
+                  <a
+                    href={`https://maps.google.com/?q=${encodeURIComponent(`${APP_CONFIG.address}, ${APP_CONFIG.city}`)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn btn-outline"
+                  >
+                    جست‌وجو در نقشه
+                  </a>
                 </div>
               </div>
             </div>

@@ -83,12 +83,8 @@ export default {
   additionalLinkTags: [
     {
       rel: 'icon',
-      href: '/favicon.ico',
-    },
-    {
-      rel: 'apple-touch-icon',
-      href: '/apple-touch-icon.png',
-      sizes: '180x180',
+      type: 'image/svg+xml',
+      href: '/favicon.svg',
     },
     {
       rel: 'manifest',

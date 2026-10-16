@@ -119,10 +119,10 @@ const LoginPage: React.FC = () => {
                     هنوز حساب کاربری ندارید؟ ثبت نام کنید
                   </Link>
                   <Link
-                    href="/forgot-password"
+                    href="/contact"
                     className="text-primary-600 hover:text-primary-700 text-sm"
                   >
-                    رمز عبور را فراموش کرده‌اید؟
+                    برای بازیابی رمز عبور با آکادمی تماس بگیرید
                   </Link>
                 </div>
               </form>

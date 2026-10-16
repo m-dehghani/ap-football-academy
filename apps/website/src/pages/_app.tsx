@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
+import { MotionConfig } from 'framer-motion';
 import SEO from '../next-seo.config';
 import { SiteProvider } from '@/lib/site-context';
 import { AuthProvider } from '@/hooks/useAuth';
@@ -10,9 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SiteProvider value={pageProps.site ?? null}>
       <AuthProvider>
-        <DefaultSeo {...SEO} />
-        <Component {...pageProps} />
-        <Toaster
+        <MotionConfig reducedMotion="user">
+          <DefaultSeo {...SEO} />
+          <Component {...pageProps} />
+          <Toaster
           position="top-right"
           toastOptions={{
             duration: 4000,
@@ -45,7 +47,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               },
             },
           }}
-        />
+          />
+        </MotionConfig>
       </AuthProvider>
     </SiteProvider>
   );

@@ -47,10 +47,7 @@ export const NAVIGATION = {
       { label: 'تماس با ما', href: '/contact' },
     ],
     programs: [
-      { label: 'برنامه کودکان (۸-۱۲)', href: '/programs#youth' },
-      { label: 'برنامه نوجوانان (۱۳-۱۷)', href: '/programs#teen' },
-      { label: 'برنامه بزرگسالان (۱۸-۲۵)', href: '/programs#adult' },
-      { label: 'برنامه استادان (۲۶-۳۵)', href: '/programs#masters' },
+      { label: 'مشاهده همه برنامه‌ها', href: '/programs' },
     ],
     legal: [
       { label: 'حریم خصوصی', href: '/privacy' },

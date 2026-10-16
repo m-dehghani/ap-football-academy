@@ -15,7 +15,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ admin }) => {
       description="پنل مدیریت آکادمی فوتبال AP برای مدیریت برنامه‌ها، مربیان و دانشجویان"
     >
       <NextSeo noindex={true} nofollow={true} />
-      <main className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50">
         <div className="container-custom py-12">
           {/* Header */}
           <div className="mb-12">
@@ -108,7 +108,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ admin }) => {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </Layout>
   );
 };

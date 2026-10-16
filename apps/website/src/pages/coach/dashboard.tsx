@@ -1,7 +1,6 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { useEffect } from 'react';
 
@@ -59,7 +58,7 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
         </header>
 
         {/* Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Profile Card */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
             <div className="bg-linear-to-r from-green-600 to-green-700 px-6 py-4 rounded-t-lg">
@@ -155,12 +154,6 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
             <div className="bg-linear-to-r from-green-600 to-green-700 px-6 py-4 rounded-t-lg flex justify-between items-center">
               <h2 className="text-white text-lg font-semibold">برنامه‌های آموزشی من</h2>
-              <Link
-                href="/admin/programs/new"
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                افزودن برنامه جدید
-              </Link>
             </div>
             <div className="p-6">
               {programs.length === 0 ? (
@@ -191,12 +184,6 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
                           }`}>
                             {program.isActive ? 'فعال' : 'غیرفعال'}
                           </span>
-                          <Link
-                            href={`/admin/programs/${program.id}`}
-                            className="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
-                          >
-                            مدیریت
-                          </Link>
                         </div>
                       </div>
                     </div>
@@ -210,12 +197,6 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="bg-linear-to-r from-green-600 to-green-700 px-6 py-4 rounded-t-lg flex justify-between items-center">
               <h2 className="text-white text-lg font-semibold">جلسات پیش‌رو</h2>
-              <Link
-                href="/admin/sessions/new"
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                برنامه‌ریزی جلسه جدید
-              </Link>
             </div>
             <div className="p-6">
               {sessions.length === 0 ? (
@@ -242,30 +223,14 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
                               {session.location} • ظرفیت: {session.maxCapacity}
                             </p>
                           </div>
-                          <Link
-                            href={`/admin/sessions/${session.id}`}
-                            className="px-4 py-2 bg-primary-600 text-white rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors"
-                          >
-                            مدیریت
-                          </Link>
                         </div>
                       </div>
                     ))}
-                                      {sessions.filter((s: any) => s.status === 'SCHEDULED').length > 5 && (
-                                        <div className="text-center mt-4">
-                                          <Link
-                                            href="/admin/sessions"
-                                            className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                                          >
-                                            مشاهده همه جلسات
-                                          </Link>
-                                        </div>
-                                      )}
-                                    </div>
+                </div>
               )}
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </Layout>
   );

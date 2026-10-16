@@ -5,8 +5,8 @@ import {
   EnvelopeIcon,
   MapPinIcon,
   ClockIcon,
-  ArrowRightIcon,
   HeartIcon,
+  ArrowLeftIcon,
 } from '@heroicons/react/24/outline';
 import {
   APP_CONFIG,
@@ -65,7 +65,12 @@ const Footer: React.FC = () => {
                     <PhoneIcon className="w-6 h-6 text-primary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">{APP_CONFIG.phone}</p>
+                    <a
+                      href={`tel:${APP_CONFIG.phone.replace(/[^\d+]/g, '')}`}
+                      className="text-white font-medium hover:underline"
+                    >
+                      {APP_CONFIG.phone}
+                    </a>
                     <p className="text-gray-300 text-sm">24 ساعته در دسترس</p>
                   </div>
                 </div>
@@ -75,7 +80,12 @@ const Footer: React.FC = () => {
                     <EnvelopeIcon className="w-6 h-6 text-secondary-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">{APP_CONFIG.email}</p>
+                    <a
+                      href={`mailto:${APP_CONFIG.email}`}
+                      className="text-white font-medium hover:underline"
+                    >
+                      {APP_CONFIG.email}
+                    </a>
                     <p className="text-gray-300 text-sm">پاسخ سریع تضمینی</p>
                   </div>
                 </div>
@@ -111,9 +121,9 @@ const Footer: React.FC = () => {
             {/* Enhanced Quick Links */}
             <div className="space-y-6">
               <h4 className="text-xl font-bold text-white flex items-center">
-                <p className="bg-accent-200 py-0.5 rounded-b-lg px-1 bor text-accent-300">
+                <span className="text-white">
                   لینک‌های سریع
-                </p>
+                </span>
               </h4>
               <ul className="space-y-3">
                 {quickLinks.map((link, index) => (
@@ -133,9 +143,9 @@ const Footer: React.FC = () => {
             {/* Enhanced Programs */}
             <div className="space-y-1">
               <h4 className="text-xl font-bold text-white flex items-center">
-                <p className="bg-accent-200 py-0.5 rounded-b-lg px-1 bor text-accent-300">
+                <span className="text-white">
                   برنامه‌های آموزشی
-                </p>
+                </span>
               </h4>
               <ul className="space-y-3">
                 {programs.map((program, index) => (
@@ -184,18 +194,11 @@ const Footer: React.FC = () => {
                   {CTA_CONTENT.description}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  id="footer-newsletter-email"
-                  name="email"
-                  placeholder="آدرس ایمیل خود را وارد کنید"
-                  className="flex-1 px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300"
-                />
-                <button className="btn btn-secondary shrink-0">
-                  عضویت
-                  <ArrowRightIcon className="w-4 h-4 ml-2" />
-                </button>
+              <div className="flex sm:justify-end">
+                <Link href="/register" className="btn btn-secondary">
+                  مشاهده برنامه‌ها و ثبت‌نام
+                  <ArrowLeftIcon className="w-4 h-4" aria-hidden="true" />
+                </Link>
               </div>
             </div>
           </div>
