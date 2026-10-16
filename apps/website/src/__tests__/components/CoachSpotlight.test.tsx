@@ -141,14 +141,6 @@ describe('CoachSpotlight', () => {
   it('cycles through coaches with indicator dots', () => {
     renderWithProviders(<CoachSpotlight coaches={mockCoaches} />);
 
-    // The indicator dots are buttons with w-3 h-3 rounded-full classes
-    const allButtons = screen.getAllByRole('button');
-    const dots = allButtons.filter(
-      (btn) =>
-        btn.className.includes('w-3') &&
-        btn.className.includes('h-3') &&
-        btn.className.includes('rounded-full'),
-    );
-    expect(dots.length).toBe(3);
+    expect(screen.getAllByRole('tab')).toHaveLength(3);
   });
 });

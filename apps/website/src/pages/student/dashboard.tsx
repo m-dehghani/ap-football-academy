@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import { useAuth } from '@/hooks/useAuth';
+import { calculateAge, parseBirthDate, parsePersianBirthDate } from '@/lib/age';
+import { formatPersianDate, toPersianDigits } from '@/lib/format';
+import PersianDatePicker from '@/components/PersianDatePicker';
 
 interface Registration {
   id: string;
@@ -64,14 +67,15 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
   student,
   programs,
 }) => {
-  const { user, loading, logout, refreshUser } = useAuth();
+  const { user, loading, refreshUser } = useAuth();
   const router = useRouter();
+  const [savedBirthDate, setSavedBirthDate] = useState(student.birthDate);
   const [profile, setProfile] = useState<ProfileForm>({
     firstName: student.firstName,
     lastName: student.lastName,
     email: student.email ?? '',
     phone: student.phone ?? '',
-    birthDate: student.birthDate?.slice(0, 10) ?? '',
+    birthDate: formatPersianDate(student.birthDate),
   });
   const [busyAction, setBusyAction] = useState<string | null>(null);
   const [message, setMessage] = useState('');
@@ -111,9 +115,21 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
   const enrolledProgramIds = new Set(
     activeRegistrations.map((registration) => registration.program.id),
   );
-  const availablePrograms = programs.filter(
-    (program) => !enrolledProgramIds.has(program.id),
-  );
+  const savedBirthDateValue = savedBirthDate
+    ? parseBirthDate(savedBirthDate.slice(0, 10))
+    : null;
+  const studentAge = savedBirthDateValue
+    ? calculateAge(savedBirthDateValue)
+    : null;
+  const availablePrograms =
+    studentAge === null
+      ? []
+      : programs.filter(
+          (program) =>
+            studentAge >= program.minAge &&
+            studentAge <= program.maxAge &&
+            !enrolledProgramIds.has(program.id),
+        );
   const paymentOutcome =
     typeof router.query.payment === 'string' ? router.query.payment : '';
   const paymentMessage =
@@ -131,23 +147,36 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
 
   const handleProfileSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setBusyAction('profile');
     setError('');
     setMessage('');
+    const birthDateText = profile.birthDate.trim();
+    const birthDate = birthDateText
+      ? parsePersianBirthDate(birthDateText)
+      : null;
+    if (birthDateText && !birthDate) {
+      setError('تاریخ تولد را به‌صورت شمسی و معتبر وارد کنید.');
+      return;
+    }
+
+    setBusyAction('profile');
     try {
       const response = await fetch('/api/student/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(profile),
+        body: JSON.stringify({
+          ...profile,
+          birthDate: birthDate?.toISOString().slice(0, 10) ?? '',
+        }),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.message || 'ذخیره پروفایل ناموفق بود');
+      setSavedBirthDate(result.user.birthDate);
       setProfile({
         firstName: result.user.firstName,
         lastName: result.user.lastName,
         email: result.user.email ?? '',
         phone: result.user.phone ?? '',
-        birthDate: result.user.birthDate?.slice(0, 10) ?? '',
+        birthDate: formatPersianDate(result.user.birthDate),
       });
       await refreshUser();
       setMessage('اطلاعات پروفایل ذخیره شد.');
@@ -231,15 +260,6 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (logoutError) {
-      console.error('Student logout error:', logoutError);
-      setError('خروج ناموفق بود؛ لطفاً دوباره تلاش کنید.');
-    }
-  };
-
   return (
     <Layout
       title="پنل دانش‌آموز - آکادمی فوتبال AP"
@@ -255,13 +275,6 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                 <span className="text-gray-700">
                   {profile.firstName} {profile.lastName}
                 </span>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                >
-                  خروج
-                </button>
               </div>
             </div>
           </div>
@@ -302,7 +315,7 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                     onChange={(event) =>
                       setProfile({ ...profile, firstName: event.target.value })
                     }
-                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                    className="mt-1 w-full rounded-lg border border-gray-300 py-2 pl-11 pr-3"
                   />
                 </label>
                 <label className="block text-sm font-medium text-gray-700">
@@ -345,14 +358,18 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                 </label>
                 <label className="block text-sm font-medium text-gray-700">
                   تاریخ تولد (برای ثبت‌نام الزامی است)
-                  <input
-                    type="date"
+                  <PersianDatePicker
+                    id="profile-birth-date"
+                    autoComplete="bday"
                     value={profile.birthDate}
-                    onChange={(event) =>
-                      setProfile({ ...profile, birthDate: event.target.value })
+                    onChange={(birthDate) =>
+                      setProfile({ ...profile, birthDate })
                     }
                     className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
                   />
+                  <span className="mt-1 block text-xs font-normal text-gray-500">
+                    تاریخ را با تقویم شمسی و به‌شکل سال/ماه/روز وارد کنید.
+                  </span>
                 </label>
               </div>
               <button
@@ -368,12 +385,6 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
           <section className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="bg-linear-to-r from-primary-600 to-primary-700 px-6 py-4 rounded-t-lg flex flex-wrap justify-between items-center gap-3">
               <h2 className="text-white text-lg font-semibold">ثبت‌نام‌های من</h2>
-              <Link
-                href="/programs"
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium"
-              >
-                مشاهده همه برنامه‌ها
-              </Link>
             </div>
             <div className="p-6">
               {student.registrations.length === 0 ? (
@@ -453,42 +464,54 @@ const StudentDashboardPage: React.FC<StudentDashboardProps> = ({
                 </div>
               )}
 
-              {availablePrograms.length > 0 && (
-                <div className="mt-8 border-t border-gray-200 pt-6">
+              <div className="mt-8 border-t border-gray-200 pt-6">
+                {studentAge === null ? (
+                  <p className="text-sm text-gray-600">
+                    برای نمایش برنامه‌های متناسب با سن، تاریخ تولد شمسی را در پروفایل ثبت کنید.
+                  </p>
+                ) : (
+                  <>
                   <h3 className="text-lg font-semibold text-gray-900">
-                    ثبت‌نام در برنامه جدید
+                    برنامه‌های مناسب سن شما ({toPersianDigits(studentAge)} سال)
                   </h3>
                   <p className="mt-1 text-sm text-gray-600">
-                    ثبت‌نام بر اساس تاریخ تولد ثبت‌شده بررسی می‌شود و محدوده سنی هر برنامه الزامی است.
+                    فقط برنامه‌هایی نمایش داده می‌شوند که محدوده سنی آن‌ها با تاریخ تولد ثبت‌شده شما سازگار است.
                   </p>
-                  <ul className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    {availablePrograms.map((program) => (
-                      <li
-                        key={program.id}
-                        className="flex items-center justify-between gap-4 rounded-lg border border-gray-200 p-4"
-                      >
-                        <div>
-                          <p className="font-semibold text-gray-900">{program.name}</p>
-                          <p className="text-sm text-gray-600">
-                            {program.minAge} تا {program.maxAge} سال •{' '}
-                            {formatPrice(program.price)}
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          disabled={busyAction === `enroll:${program.id}`}
-                          onClick={() => void handleEnrollment(program.id)}
-                          className="shrink-0 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700 disabled:opacity-60"
+                  {availablePrograms.length > 0 ? (
+                    <ul className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                      {availablePrograms.map((program) => (
+                        <li
+                          key={program.id}
+                          className="flex items-center justify-between gap-4 rounded-lg border border-gray-200 p-4"
                         >
-                          {busyAction === `enroll:${program.id}`
-                            ? 'در حال ثبت‌نام...'
-                            : 'ثبت‌نام'}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+                          <div>
+                            <p className="font-semibold text-gray-900">{program.name}</p>
+                            <p className="text-sm text-gray-600">
+                              {toPersianDigits(program.minAge)} تا {toPersianDigits(program.maxAge)} سال •{' '}
+                              {formatPrice(program.price)}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            disabled={busyAction === `enroll:${program.id}`}
+                            onClick={() => void handleEnrollment(program.id)}
+                            className="shrink-0 rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700 disabled:opacity-60"
+                          >
+                            {busyAction === `enroll:${program.id}`
+                              ? 'در حال ثبت‌نام...'
+                              : 'ثبت‌نام'}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="mt-4 text-sm text-gray-600">
+                      در حال حاضر برنامه فعالی متناسب با سن شما وجود ندارد.
+                    </p>
+                  )}
+                  </>
+                )}
+              </div>
             </div>
           </section>
 

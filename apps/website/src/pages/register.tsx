@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,6 +7,9 @@ import Layout from '@/components/Layout';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { ProgramViewModel } from '@/types/viewModels/program';
+import { calculateAge, parsePersianBirthDate } from '@/lib/age';
+import { toPersianDigits } from '@/lib/format';
+import PersianDatePicker from '@/components/PersianDatePicker';
 
 const registrationSchema = z.object({
   firstName: z.string().min(2, 'نام باید حداقل ۲ کاراکتر باشد'),
@@ -19,8 +22,12 @@ const registrationSchema = z.object({
     ])
     .optional(),
   password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد'),
-  dateOfBirth: z.string().min(1, 'تاریخ تولد الزامی است'),
-  ageGroup: z.enum(['8-12 سال', '13-17 سال', '18-25 سال', '26-35 سال']),
+  dateOfBirth: z
+    .string()
+    .min(1, 'تاریخ تولد الزامی است')
+    .refine((value) => parsePersianBirthDate(value) !== null, {
+      message: 'تاریخ تولد را به‌صورت شمسی وارد کنید',
+    }),
   program: z.string().min(1, 'لطفاً برنامه را انتخاب کنید'),
   experience: z.enum(['beginner', 'intermediate', 'advanced']),
   parentName: z.string().optional(),
@@ -59,16 +66,20 @@ const RegisterPage: React.FC = () => {
     resolver: zodResolver(registrationSchema),
   });
 
-  const watchedAgeGroup = watch('ageGroup');
+  const watchedDateOfBirth = watch('dateOfBirth');
+  const birthDate = watchedDateOfBirth
+    ? parsePersianBirthDate(watchedDateOfBirth)
+    : null;
+  const age = birthDate ? calculateAge(birthDate) : null;
+  const queryProgram =
+    typeof router.query.program === 'string' ? router.query.program : null;
 
-  // Fetch available programs
   useEffect(() => {
     const fetchPrograms = async () => {
       try {
         const response = await fetch('/api/programs');
         if (response.ok) {
           const data = await response.json();
-          // console.log(data.data);
           setPrograms(data.data);
         } else {
           toast.error('خطا در دریافت اطلاعات برنامه‌ها');
@@ -82,21 +93,40 @@ const RegisterPage: React.FC = () => {
     };
 
     fetchPrograms();
+  }, []);
 
-    // Set default program if one is provided in URL
-    if (router.query.program) {
-      setValue('program', router.query.program as string);
-    }
-  }, [router.query.program, setValue]);
-  console.log(watchedAgeGroup);
-
-  // Filter programs by age group
-  const filteredPrograms = programs.filter(
-    (program) => program.ageRange === watchedAgeGroup,
+  const filteredPrograms = useMemo(
+    () =>
+      age === null
+        ? []
+        : programs.filter(
+            (program) => age >= program.minAge && age <= program.maxAge,
+          ),
+    [age, programs],
   );
+
+  useEffect(() => {
+    if (!queryProgram) return;
+    const requestedProgram = programs.find(
+      (program) => program.id === queryProgram,
+    );
+    if (!requestedProgram) return;
+    const isEligible =
+      age !== null &&
+      age >= requestedProgram.minAge &&
+      age <= requestedProgram.maxAge;
+    setValue('program', isEligible ? queryProgram : '');
+  }, [age, programs, queryProgram, setValue]);
+
   const onSubmit = async (data: RegistrationFormData) => {
     setIsSubmitting(true);
     try {
+      const birthDate = parsePersianBirthDate(data.dateOfBirth);
+      if (!birthDate) {
+        toast.error('تاریخ تولد را به‌صورت شمسی و معتبر وارد کنید.');
+        return;
+      }
+
       // Transform data to match API schema
       const apiData = {
         firstName: data.firstName,
@@ -104,7 +134,7 @@ const RegisterPage: React.FC = () => {
         email: data.email?.trim() || undefined,
         phone: data.phone?.trim() || undefined,
         programId: data.program,
-        birthDate: data.dateOfBirth,
+        birthDate: birthDate.toISOString().slice(0, 10),
         password: data.password,
         emergencyContact: data.emergencyContact,
         medicalConditions: data.medicalConditions,
@@ -120,11 +150,9 @@ const RegisterPage: React.FC = () => {
       });
 
       if (response.ok) {
-              const result = await response.json();
-              toast.success('ثبت نام با موفقیت انجام شد!');
-              // Redirect to confirmation page
-              router.push(`/success?registrationId=${result.data.registration.id}`);
-            } else {
+        toast.success('ثبت نام با موفقیت انجام شد!');
+        router.push('/registration-success');
+      } else {
         const error = await response.json();
         toast.error(
           error.message || 'ثبت نام ناموفق بود. لطفاً دوباره تلاش کنید.',
@@ -139,8 +167,7 @@ const RegisterPage: React.FC = () => {
     }
   };
 
-  const isMinor =
-    watchedAgeGroup === '8-12 سال' || watchedAgeGroup === '13-17 سال';
+  const isMinor = age !== null && age < 18;
 
   return (
     <Layout
@@ -271,40 +298,50 @@ const RegisterPage: React.FC = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label htmlFor="date-of-birth" className="block text-sm font-medium text-gray-700 mb-2">
                         تاریخ تولد *
                       </label>
-                      <input
-                        type="date"
-                        {...register('dateOfBirth')}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      <PersianDatePicker
+                        id="date-of-birth"
+                        autoComplete="bday"
+                        required
+                        value={watchedDateOfBirth ?? ''}
+                        onChange={(value) =>
+                          setValue('dateOfBirth', value, {
+                            shouldDirty: true,
+                            shouldValidate: true,
+                          })
+                        }
+                        ariaInvalid={Boolean(errors.dateOfBirth)}
+                        ariaDescribedBy={
+                          errors.dateOfBirth
+                            ? 'birth-date-help birth-date-error'
+                            : 'birth-date-help'
+                        }
+                        className="w-full rounded-lg border border-gray-300 py-3 pl-11 pr-4 focus:border-primary-500 focus:ring-2 focus:ring-primary-500"
                       />
+                      <p id="birth-date-help" className="mt-1 text-sm text-gray-500">
+                        تاریخ را با تقویم شمسی و به‌شکل سال/ماه/روز وارد کنید.
+                      </p>
                       {errors.dateOfBirth && (
-                        <p className="mt-1 text-sm text-red-600">
+                        <p id="birth-date-error" className="mt-1 text-sm text-red-600">
                           {errors.dateOfBirth.message}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        گروه سنی *
-                      </label>
-                      <select
-                        {...register('ageGroup')}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      <span className="block text-sm font-medium text-gray-700 mb-2">
+                        سن محاسبه‌شده
+                      </span>
+                      <p
+                        className="w-full min-h-12 px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700"
+                        aria-live="polite"
                       >
-                        <option value="">گروه سنی را انتخاب کنید</option>
-                        <option value="8-12 سال">کودکان (۸-۱۲ سال)</option>
-                        <option value="13-17 سال">نوجوانان (۱۳-۱۷ سال)</option>
-                        <option value="18-25 سال">بزرگسالان (۱۸-۲۵ سال)</option>
-                        <option value="26-35 سال">استادان (۲۶-۳۰ سال)</option>
-                      </select>
-                      {errors.ageGroup && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.ageGroup.message}
-                        </p>
-                      )}
+                        {age === null
+                          ? 'پس از وارد کردن تاریخ تولد نمایش داده می‌شود'
+                          : `${toPersianDigits(age)} سال`}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -312,76 +349,78 @@ const RegisterPage: React.FC = () => {
                 <hr className="border-gray-100" />
 
                 {/* Program Selection */}
-                {watchedAgeGroup && (
-                  <>
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+                    انتخاب برنامه
+                  </h2>
+                  <div className="space-y-4">
                     <div>
-                      <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-                        انتخاب برنامه
-                      </h2>
-                      <div className="space-y-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            برنامه آموزشی *
-                          </label>
-                          {isLoading ? (
-                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">در حال بارگذاری برنامه‌ها...
-                            </div>
-                          ) : filteredPrograms.length > 0 ? (
-                            <select
-                              {...register('program')}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                            >
-                              <option value="">برنامه را انتخاب کنید</option>
-                              {filteredPrograms.map((program) => (
-                                <option key={program.id} value={program.id}>
-                                  {program.name} -{' '}
-                                  {program.price.toLocaleString()} تومان (
-                                  {program.duration} ماه)
-                                </option>
-                              ))}
-                            </select>
-                          ) : (
-                            <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">برنامه‌ای برای گروه سنی شما یافت نشد
-                            </div>
-                          )}
-                          {errors.program && (
-                            <p className="mt-1 text-sm text-red-600">
-                              {errors.program.message}
-                            </p>
-                          )}
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        برنامه آموزشی *
+                      </label>
+                      {age === null ? (
+                        <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                          برای نمایش برنامه‌های متناسب، ابتدا تاریخ تولد شمسی را وارد کنید.
                         </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">
-                            سطح تجربه *
-                          </label>
-                          <select
-                            {...register('experience')}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                          >
-                            <option value="">سطح تجربه را انتخاب کنید</option>
-                            <option value="beginner">
-                              مبتدی - تازه شروع کرده‌ام
-                            </option>
-                            <option value="intermediate">
-                              متوسط - کمی تجربه دارم
-                            </option>
-                            <option value="advanced">
-                              پیشرفته - بازیکن باتجربه
-                            </option>
-                          </select>
-                          {errors.experience && (
-                            <p className="mt-1 text-sm text-red-600">
-                              {errors.experience.message}
-                            </p>
-                          )}
+                      ) : isLoading ? (
+                        <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                          در حال بارگذاری برنامه‌ها...
                         </div>
-                      </div>
+                      ) : filteredPrograms.length > 0 ? (
+                        <select
+                          {...register('program')}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                        >
+                          <option value="">برنامه را انتخاب کنید</option>
+                          {filteredPrograms.map((program) => (
+                            <option key={program.id} value={program.id}>
+                              {program.name} -{' '}
+                              {program.price.toLocaleString()} تومان (
+                              {program.duration} ماه)
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <div className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-700">
+                          برنامه‌ای برای سن شما یافت نشد.
+                        </div>
+                      )}
+                      {errors.program && (
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.program.message}
+                        </p>
+                      )}
                     </div>
 
-                    <hr className="border-gray-100" />
-                  </>
-                )}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        سطح تجربه *
+                      </label>
+                      <select
+                        {...register('experience')}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                      >
+                        <option value="">سطح تجربه را انتخاب کنید</option>
+                        <option value="beginner">
+                          مبتدی - تازه شروع کرده‌ام
+                        </option>
+                        <option value="intermediate">
+                          متوسط - کمی تجربه دارم
+                        </option>
+                        <option value="advanced">
+                          پیشرفته - بازیکن باتجربه
+                        </option>
+                      </select>
+                      {errors.experience && (
+                        <p className="mt-1 text-sm text-red-600">
+                          {errors.experience.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <hr className="border-gray-100" />
 
                 {/* Parent/Guardian Information (for minors) */}
                 {isMinor && (

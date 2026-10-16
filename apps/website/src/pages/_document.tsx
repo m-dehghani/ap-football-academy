@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang="fa" dir="rtl">
+    <Html lang="fa-IR" dir="rtl">
       <Head>
         <meta name="theme-color" content="#0284c7" />
         <meta name="description" content="آکادمی فوتبال AP - بهترین آموزش فوتبال برای همه سنین" />

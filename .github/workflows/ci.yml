@@ -7,159 +7,133 @@ on:
     branches: [main, develop]
 
 env:
-  NODE_VERSION: '20.x'
-  PNPM_VERSION: '9.x'
+  NODE_VERSION: '22.x'
 
 jobs:
   lint-and-typecheck:
-    name: Lint & TypeCheck
+    name: Website lint and typecheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci --legacy-peer-deps
 
       - name: Run ESLint
-        run: pnpm nx run-many --target=lint --all
+        run: npm exec nx run @ap-football-academy/website:lint
 
       - name: Run TypeScript type check
-        run: pnpm nx run-many --target=typecheck --all
+        run: npm exec nx run @ap-football-academy/website:typecheck
 
   test:
-    name: Tests
+    name: Website tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci --legacy-peer-deps
 
       - name: Run tests
-        run: pnpm nx run-many --target=test --all --coverage=false
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v4
-        if: always()
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/**/coverage-final.json
-          fail_ci_if_error: false
+        run: npm exec nx run @ap-football-academy/website:test
 
   build:
-    name: Build
+    name: Website build
     runs-on: ubuntu-latest
     needs: [lint-and-typecheck, test]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci --legacy-peer-deps
 
-      - name: Build all projects
-        run: pnpm nx run-many --target=build --all
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: |
-            apps/website/.next
-            apps/mobile/.expo
-          retention-days: 7
+      - name: Build website
+        run: npm exec nx run @ap-football-academy/website:build
 
   deploy-preview:
-    name: Deploy Preview
+    name: Deploy website preview
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: build-output
-
-      - name: Deploy to Vercel Preview
+      - name: Deploy preview to Vercel
         uses: amondnet/vercel-action@v25
-        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        if: env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != ''
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.VERCEL_PROJECT_ID }}
           vercel-args: '--prod=false'
-          working-directory: ./build-output/apps/website
+          working-directory: ./apps/website
+
+      - name: Report skipped preview deployment
+        if: env.VERCEL_TOKEN == '' || env.VERCEL_ORG_ID == '' || env.VERCEL_PROJECT_ID == ''
+        run: echo "::notice::Vercel preview deployment skipped because one or more Vercel secrets are not configured."
 
   deploy-production:
-    name: Deploy Production
+    name: Deploy website to production
     runs-on: ubuntu-latest
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment: production
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-output
-          path: build-output
-
-      - name: Deploy to Vercel Production
+      - name: Deploy production to Vercel
         uses: amondnet/vercel-action@v25
-        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        if: env.VERCEL_TOKEN != '' && env.VERCEL_ORG_ID != '' && env.VERCEL_PROJECT_ID != ''
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-token: ${{ env.VERCEL_TOKEN }}
+          vercel-org-id: ${{ env.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ env.VERCEL_PROJECT_ID }}
           vercel-args: '--prod=true'
-          working-directory: ./build-output/apps/website
+          working-directory: ./apps/website
+
+      - name: Report skipped production deployment
+        if: env.VERCEL_TOKEN == '' || env.VERCEL_ORG_ID == '' || env.VERCEL_PROJECT_ID == ''
+        run: echo "::notice::Vercel production deployment skipped because one or more Vercel secrets are not configured."
 
   docker:
-    name: Docker Build
+    name: Build and publish Docker images
     runs-on: ubuntu-latest
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -169,25 +143,31 @@ jobs:
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
-        if: ${{ secrets.DOCKERHUB_TOKEN != '' }}
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build and push website Docker image
         uses: docker/build-push-action@v5
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         with:
           context: ./apps/website
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ap-football-website:${{ github.sha }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/ap-football-website:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Build and push crawler Docker image
         uses: docker/build-push-action@v5
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         with:
           context: ./apps/crawler
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ap-football-crawler:${{ github.sha }}
+          tags: ${{ env.DOCKERHUB_USERNAME }}/ap-football-crawler:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Report skipped Docker publishing
+        if: env.DOCKERHUB_USERNAME == '' || env.DOCKERHUB_TOKEN == ''
+        run: echo "::notice::Docker publishing skipped because Docker Hub credentials are not configured."

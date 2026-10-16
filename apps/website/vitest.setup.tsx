@@ -31,7 +31,8 @@ vi.mock('@heroicons/react/24/outline', () => {
   const icons = [
     'StarIcon', 'TrophyIcon', 'AcademicCapIcon', 'UserGroupIcon',
     'ChevronLeftIcon', 'ChevronRightIcon', 'ArrowLeftIcon', 'PlayIcon',
-    'UsersIcon', 'PlayIcon', 'TrophyIcon', 'StarIcon'
+    'UsersIcon', 'PlayIcon', 'TrophyIcon', 'StarIcon', 'CalendarDaysIcon',
+    'CheckCircleIcon'
   ];
   const mockComponents: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {};
   icons.forEach(name => {
@@ -46,6 +47,9 @@ vi.mock('framer-motion', () => ({
     div: ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div {...props}>{children}</div>,
     span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => <span {...props}>{children}</span>,
     button: ({ children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) => <button {...props}>{children}</button>,
+    h3: ({ children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => <h3 {...props}>{children}</h3>,
+    p: ({ children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => <p {...props}>{children}</p>,
+    a: ({ children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => <a {...props}>{children}</a>,
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));

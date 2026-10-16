@@ -53,12 +53,6 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
                 <span className="text-gray-700">
                   {coach.firstName} {coach.lastName}
                 </span>
-                <button
-                  onClick={() => router.push('/api/auth/logout')}
-                  className="text-primary-600 hover:text-primary-700 text-sm font-medium"
-                >
-                  خروج
-                </button>
               </div>
             </div>
           </div>

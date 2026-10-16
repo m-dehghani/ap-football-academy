@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { TransactionClient } from '../../../prisma/generated/internal/prismaNamespace';
 import { normalizePhone } from '@/lib/auth';
-import { calculateAge, parseBirthDate } from '@/lib/age';
+import { calculateAge, parseBirthDateInput } from '@/lib/age';
 
 const registrationSchema = z
   .object({
@@ -19,7 +19,12 @@ const registrationSchema = z
       .optional(),
     password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد'),
     programId: z.string().min(1, 'برنامه آموزشی الزامی است'),
-    birthDate: z.string().min(1, 'تاریخ تولد الزامی است'),
+    birthDate: z
+      .string()
+      .min(1, 'تاریخ تولد الزامی است')
+      .refine((value) => parseBirthDateInput(value) !== null, {
+        message: 'تاریخ تولد معتبر نیست',
+      }),
     emergencyContact: z.string().min(10, 'شماره تماس اضطراری نامعتبر است'),
     medicalConditions: z.string().optional(),
     previousExperience: z.string().optional(),
@@ -76,7 +81,7 @@ export default async function handler(
       return res.status(400).json({ message: 'ثبت‌نام در این برنامه امکان‌پذیر نیست' });
     }
 
-    const birthDate = parseBirthDate(validatedData.birthDate);
+    const birthDate = parseBirthDateInput(validatedData.birthDate);
     if (!birthDate) {
       return res.status(400).json({ message: 'تاریخ تولد معتبر نیست' });
     }

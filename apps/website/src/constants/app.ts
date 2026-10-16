@@ -34,7 +34,6 @@ export const NAVIGATION = {
     { label: 'خانه', href: '/' },
     { label: 'برنامه‌ها', href: '/programs' },
     { label: 'مربیان', href: '/coaches' },
-    { label: 'داستان‌های موفقیت', href: '/success' },
     { label: 'اخبار', href: '/news' },
     { label: 'تماس', href: '/contact' },
   ],

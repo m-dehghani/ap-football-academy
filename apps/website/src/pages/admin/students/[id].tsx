@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import AdminLayout from '@/components/AdminLayout';
 import { format } from 'date-fns';
 import { faIR } from 'date-fns/locale';
+import { formatPersianDate } from '@/lib/format';
 
 interface Registration {
   id: string;
@@ -225,13 +226,7 @@ const StudentDetailPage: React.FC = () => {
                 <input
                   type="text"
                   value={
-                    registration.user.birthDate
-                      ? format(
-                          new Date(registration.user.birthDate),
-                          'yyyy/MM/dd',
-                          { locale: faIR },
-                        )
-                      : '—'
+                    formatPersianDate(registration.user.birthDate) || '—'
                   }
                   disabled
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50"

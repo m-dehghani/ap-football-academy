@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { calculateAge, parseBirthDate } from '@/lib/age';
+import {
+  calculateAge,
+  parseBirthDate,
+  parsePersianBirthDate,
+} from '@/lib/age';
+import { formatPersianDate } from '@/lib/format';
 
 describe('student age helpers', () => {
   it('rejects invalid and future birth dates', () => {
@@ -17,5 +22,19 @@ describe('student age helpers', () => {
     expect(calculateAge(birthDate, new Date('2025-06-15T00:00:00.000Z'))).toBe(
       15,
     );
+  });
+
+  it('parses Persian calendar dates written with Persian or Arabic digits', () => {
+    for (const value of ['۱۳۹۰/۰۲/۱۵', '١٣٩٠-٠٢-١٥']) {
+      const birthDate = parsePersianBirthDate(value);
+      expect(birthDate).not.toBeNull();
+      expect(formatPersianDate(birthDate?.toISOString())).toBe('۱۳۹۰/۰۲/۱۵');
+    }
+  });
+
+  it('rejects invalid and future Persian calendar dates', () => {
+    expect(parsePersianBirthDate('۱۴۰۲/۱۳/۰۱')).toBeNull();
+    expect(parsePersianBirthDate('۱۴۰۲/۱۲/۳۰')).toBeNull();
+    expect(parsePersianBirthDate('۱۴۰۶/۰۱/۰۱')).toBeNull();
   });
 });

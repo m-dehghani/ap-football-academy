@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 import { authorizeStudent, normalizePhone } from '@/lib/auth';
 import { getPrisma } from '@/lib/db';
-import { parseBirthDate } from '@/lib/age';
+import { parseBirthDateInput } from '@/lib/age';
 
 const profileSchema = z
   .object({
@@ -18,7 +18,7 @@ const profileSchema = z
     birthDate: z
       .union([z.string(), z.literal('')])
       .optional()
-      .refine((value) => !value || parseBirthDate(value) !== null, {
+      .refine((value) => !value || parseBirthDateInput(value) !== null, {
         message: 'تاریخ تولد معتبر نیست',
       }),
   })
@@ -73,7 +73,7 @@ export default async function handler(
         lastName: data.lastName,
         email,
         phone,
-        birthDate: data.birthDate ? parseBirthDate(data.birthDate) : null,
+        birthDate: data.birthDate ? parseBirthDateInput(data.birthDate) : null,
       },
       select: {
         id: true,

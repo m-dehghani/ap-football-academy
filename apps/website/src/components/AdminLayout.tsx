@@ -35,7 +35,7 @@ export default function AdminLayout({ children, title = 'پنل مدیریت' }:
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="fixed inset-y-0 right-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0">
+      <aside className="relative z-50 w-full bg-white shadow-xl lg:fixed lg:inset-y-0 lg:right-0 lg:w-64">
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between h-16 px-6 border-b border-gray-200">
@@ -156,7 +156,7 @@ export default function AdminLayout({ children, title = 'پنل مدیریت' }:
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64">
+      <div className="lg:mr-64">
         {/* Top Bar */}
         <header className="sticky top-0 z-40 bg-white border-b border-gray-200">
           <div className="flex items-center justify-between h-16 px-6">

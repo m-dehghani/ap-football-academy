@@ -3,6 +3,15 @@ import { renderWithProviders, screen, fireEvent, waitFor } from '@/test-utils';
 import CoachesPage from '@/pages/admin/coaches/index';
 import { createMockCoach } from '@/test-utils';
 
+vi.mock('@/hooks/useAuth', () => ({
+  useAuth: () => ({
+    user: { role: 'ADMIN' },
+    loading: false,
+    logout: vi.fn(),
+    refreshUser: vi.fn(),
+  }),
+}));
+
 // Mock fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
