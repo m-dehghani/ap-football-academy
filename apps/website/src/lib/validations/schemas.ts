@@ -5,6 +5,7 @@ export const coachSchema = z.object({
   firstName: z.string().min(1, 'نام الزامی است').max(50, 'نام نباید بیش از ۵۰ کاراکتر باشد'),
   lastName: z.string().min(1, 'نام خانوادگی الزامی است').max(50, 'نام خانوادگی نباید بیش از ۵۰ کاراکتر باشد'),
   email: z.string().email('فرمت ایمیل نامعتبر است'),
+  password: z.string().min(6, 'رمز عبور باید حداقل ۶ کاراکتر باشد').optional(),
   phone: z.string().min(10, 'شماره تلفن نامعتبر است').max(15, 'شماره تلفن نامعتبر است'),
   specialization: z.string().min(1, 'تخصص الزامی است').max(200, 'تخصص نباید بیش از ۲۰۰ کاراکتر باشد'),
   experience: z.coerce.number().int().min(0, 'تجربه نمی‌تواند منفی باشد').max(100, 'تجربه نامعتبر است'),

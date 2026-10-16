@@ -71,7 +71,7 @@ const HomePage: React.FC<HomePageProps> = ({ coaches }) => {
 
 export default HomePage;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const coaches = await getCoaches();
   return {
     props: {

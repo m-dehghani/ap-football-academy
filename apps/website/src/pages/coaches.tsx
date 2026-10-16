@@ -43,7 +43,7 @@ const CoachesPage: React.FC<CoachesPageProps> = ({ coaches }) => {
 
 export default CoachesPage;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const coaches = await getCoaches();
   return {
     props: {

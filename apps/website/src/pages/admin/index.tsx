@@ -1,9 +1,14 @@
 import React from 'react';
+import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 
-const AdminDashboard: React.FC = () => {
+interface AdminDashboardProps {
+  admin: any;
+}
+
+const AdminDashboard: React.FC<AdminDashboardProps> = ({ admin }) => {
   return (
     <Layout
       title="پنل مدیریت - آکادمی فوتبال AP"
@@ -16,6 +21,7 @@ const AdminDashboard: React.FC = () => {
           <div className="mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">پنل مدیریت</h1>
             <p className="text-xl text-gray-600">مدیریت برنامه‌ها، مربیان و دانشجویان آکادمی</p>
+            <p className="text-primary-600 mt-2">خوش آمدید، {admin.firstName} {admin.lastName}</p>
           </div>
 
           {/* Stats Cards */}
@@ -105,6 +111,73 @@ const AdminDashboard: React.FC = () => {
       </main>
     </Layout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = context.req.cookies.auth_token;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+
+  try {
+    const { jwtVerify } = await import('jose');
+    const JWT_SECRET = new TextEncoder().encode(
+      process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production'
+    );
+    const { payload } = await jwtVerify(token, JWT_SECRET);
+
+    if (payload.role !== 'ADMIN') {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      };
+    }
+
+    const { getPrisma } = await import('@/lib/db');
+    const db = await getPrisma();
+
+    const admin = await db.user.findUnique({
+      where: { id: payload.userId as string },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        role: true,
+      },
+    });
+
+    if (!admin || admin.role !== 'ADMIN') {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {
+        admin,
+      },
+    };
+  } catch (error) {
+    console.error('Auth error:', error);
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
 };
 
 export default AdminDashboard;

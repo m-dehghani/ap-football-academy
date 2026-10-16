@@ -41,11 +41,15 @@ export const createCoachRepository = (): CoachRepository => ({
 
   async create(data: CoachInput) {
     const prisma = await getPrisma();
+    const bcrypt = await import('bcryptjs');
+    const hashedPassword = data.password ? await bcrypt.hash(data.password, 10) : await bcrypt.hash('coach123', 10);
+    
     return prisma.coach.create({
       data: {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
+        password: hashedPassword,
         phone: data.phone,
         specialization: data.specialization,
         experience: data.experience,

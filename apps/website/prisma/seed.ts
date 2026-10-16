@@ -117,12 +117,57 @@ async function seedAcademy() {
   });
 }
 
+async function seedDemoUsers(programId: string, programPrice: number, demoPassword: string) {
+  const bcrypt = await import('bcryptjs');
+  const password = await bcrypt.hash(demoPassword, 10);
+
+  await prisma.user.create({
+    data: {
+      email: 'admin.demo@apfootball.com',
+      password,
+      firstName: 'مدیر',
+      lastName: 'آکادمی',
+      role: 'ADMIN',
+    },
+  });
+
+  const student = await prisma.user.create({
+    data: {
+      email: 'player.demo@apfootball.com',
+      password,
+      firstName: 'آرمان',
+      lastName: 'رضایی',
+      phone: '09123456800',
+      birthDate: new Date('2013-01-01'),
+      role: 'STUDENT',
+    },
+  });
+
+  await prisma.registration.create({
+    data: {
+      userId: student.id,
+      programId,
+      totalAmount: programPrice,
+      experienceLevel: 'beginner',
+      parentName: 'مریم رضایی',
+      parentEmail: 'parent.demo@apfootball.com',
+      emergencyContactName: 'مریم رضایی',
+      emergencyContactPhone: '09123456801',
+      medicalConditions: 'ندارد',
+    },
+  });
+}
+
 async function seedCoachesAndPrograms() {
+  const bcrypt = await import('bcryptjs');
+  const defaultPassword = await bcrypt.hash('coach123', 10);
+
   const ali = await prisma.coach.create({
     data: {
       firstName: 'علی',
       lastName: 'احمدی',
       email: 'ali.ahmadi@apfootball.com',
+      password: defaultPassword,
       phone: '09123456789',
       title: 'مربی اصلی و بنیانگذار',
       specialization: 'تکنیک و تاکتیک',
@@ -143,6 +188,7 @@ async function seedCoachesAndPrograms() {
       firstName: 'حسن',
       lastName: 'میرزایی',
       email: 'hassan.mirzaei@apfootball.com',
+      password: defaultPassword,
       phone: '09123456790',
       title: 'مربی آمادگی جسمانی',
       specialization: 'آمادگی جسمانی و توانبخشی',
@@ -163,6 +209,7 @@ async function seedCoachesAndPrograms() {
       firstName: 'محمد',
       lastName: 'کریمی',
       email: 'mohammad.karimi@apfootball.com',
+      password: defaultPassword,
       phone: '09123456791',
       title: 'مربی توسعه بازیکن',
       specialization: 'توسعه مهارت‌های فردی',
@@ -183,6 +230,7 @@ async function seedCoachesAndPrograms() {
       firstName: 'رضا',
       lastName: 'صادقی',
       email: 'reza.sadeghi@apfootball.com',
+      password: defaultPassword,
       phone: '09123456792',
       title: 'مربی تاکتیک و استراتژی',
       specialization: 'تاکتیک و آنالیز بازی',
@@ -381,13 +429,24 @@ async function seedNews() {
 }
 
 async function main() {
+  const demoPassword = process.env.SEED_DEMO_PASSWORD;
+  if (!demoPassword || demoPassword.length < 12) {
+    throw new Error('Set SEED_DEMO_PASSWORD to a value of at least 12 characters before seeding.');
+  }
+  if (process.env.NODE_ENV === 'production' && process.env.ALLOW_DEMO_SEED_USERS !== 'true') {
+    throw new Error('Set ALLOW_DEMO_SEED_USERS=true to seed demo accounts in production.');
+  }
+
   await clearDatabase();
   await seedAcademy();
   const catalog = await seedCoachesAndPrograms();
+  await seedDemoUsers(catalog.programs.kids.id, catalog.programs.kids.price, demoPassword);
   await seedStories(catalog);
   await seedNews();
 
   console.log('Database has been seeded with:');
+  console.log(`- ${await prisma.user.count()} users (${await prisma.user.count({ where: { role: 'ADMIN' } })} admin, ${await prisma.user.count({ where: { role: 'STUDENT' } })} students)`);
+  console.log(`- ${await prisma.registration.count()} registrations`);
   console.log(`- ${await prisma.coach.count()} coaches`);
   console.log(`- ${await prisma.program.count()} programs (${await prisma.schedule.count()} schedule slots)`);
   console.log(`- ${await prisma.testimonial.count()} testimonials, ${await prisma.successStory.count()} success stories`);

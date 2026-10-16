@@ -111,30 +111,10 @@ const RegisterPage: React.FC = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
-        toast.success(
-          'ثبت نام با موفقیت انجام شد! در حال هدایت به صفحه پرداخت...',
-        );
-              // Create Stripe checkout session
-              const checkoutResponse = await fetch('/api/create-checkout-session', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ registrationId: result.data.registration.id }),
-              });
-
-              if (checkoutResponse.ok) {
-                const checkoutResult = await checkoutResponse.json();
-                // Redirect to Stripe checkout
-                window.location.href = checkoutResult.url;
-              } else {
-                const error = await checkoutResponse.json();
-                toast.error(
-                  error.message || 'خطا در ایجاد جلسه پرداخت. لطفاً دوباره تلاش کنید.',
-                );
-                console.error('Checkout session error:', error);
-              }
+              const result = await response.json();
+              toast.success('ثبت نام با موفقیت انجام شد!');
+              // Redirect to confirmation page
+              router.push(`/success?registrationId=${result.data.registration.id}`);
             } else {
         const error = await response.json();
         toast.error(

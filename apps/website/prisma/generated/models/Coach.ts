@@ -45,6 +45,7 @@ export type CoachMinAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   email: string | null
+  password: string | null
   phone: string | null
   specialization: string | null
   experience: number | null
@@ -67,6 +68,7 @@ export type CoachMaxAggregateOutputType = {
   firstName: string | null
   lastName: string | null
   email: string | null
+  password: string | null
   phone: string | null
   specialization: string | null
   experience: number | null
@@ -89,6 +91,7 @@ export type CoachCountAggregateOutputType = {
   firstName: number
   lastName: number
   email: number
+  password: number
   phone: number
   specialization: number
   experience: number
@@ -129,6 +132,7 @@ export type CoachMinAggregateInputType = {
   firstName?: true
   lastName?: true
   email?: true
+  password?: true
   phone?: true
   specialization?: true
   experience?: true
@@ -151,6 +155,7 @@ export type CoachMaxAggregateInputType = {
   firstName?: true
   lastName?: true
   email?: true
+  password?: true
   phone?: true
   specialization?: true
   experience?: true
@@ -173,6 +178,7 @@ export type CoachCountAggregateInputType = {
   firstName?: true
   lastName?: true
   email?: true
+  password?: true
   phone?: true
   specialization?: true
   experience?: true
@@ -284,6 +290,7 @@ export type CoachGroupByOutputType = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -331,6 +338,7 @@ export type CoachWhereInput = {
   firstName?: Prisma.StringFilter<"Coach"> | string
   lastName?: Prisma.StringFilter<"Coach"> | string
   email?: Prisma.StringFilter<"Coach"> | string
+  password?: Prisma.StringFilter<"Coach"> | string
   phone?: Prisma.StringFilter<"Coach"> | string
   specialization?: Prisma.StringFilter<"Coach"> | string
   experience?: Prisma.IntFilter<"Coach"> | number
@@ -359,6 +367,7 @@ export type CoachOrderByWithRelationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
   experience?: Prisma.SortOrder
@@ -390,6 +399,7 @@ export type CoachWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CoachWhereInput | Prisma.CoachWhereInput[]
   firstName?: Prisma.StringFilter<"Coach"> | string
   lastName?: Prisma.StringFilter<"Coach"> | string
+  password?: Prisma.StringFilter<"Coach"> | string
   phone?: Prisma.StringFilter<"Coach"> | string
   specialization?: Prisma.StringFilter<"Coach"> | string
   experience?: Prisma.IntFilter<"Coach"> | number
@@ -418,6 +428,7 @@ export type CoachOrderByWithAggregationInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
   experience?: Prisma.SortOrder
@@ -450,6 +461,7 @@ export type CoachScalarWhereWithAggregatesInput = {
   firstName?: Prisma.StringWithAggregatesFilter<"Coach"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"Coach"> | string
   email?: Prisma.StringWithAggregatesFilter<"Coach"> | string
+  password?: Prisma.StringWithAggregatesFilter<"Coach"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Coach"> | string
   specialization?: Prisma.StringWithAggregatesFilter<"Coach"> | string
   experience?: Prisma.IntWithAggregatesFilter<"Coach"> | number
@@ -474,6 +486,7 @@ export type CoachCreateInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -502,6 +515,7 @@ export type CoachUncheckedCreateInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -530,6 +544,7 @@ export type CoachUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -558,6 +573,7 @@ export type CoachUncheckedUpdateInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -586,6 +602,7 @@ export type CoachCreateManyInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -610,6 +627,7 @@ export type CoachUpdateManyMutationInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -634,6 +652,7 @@ export type CoachUncheckedUpdateManyInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -666,6 +685,7 @@ export type CoachCountOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
   experience?: Prisma.SortOrder
@@ -697,6 +717,7 @@ export type CoachMaxOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
   experience?: Prisma.SortOrder
@@ -719,6 +740,7 @@ export type CoachMinOrderByAggregateInput = {
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   specialization?: Prisma.SortOrder
   experience?: Prisma.SortOrder
@@ -854,6 +876,7 @@ export type CoachCreateWithoutProgramsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -881,6 +904,7 @@ export type CoachUncheckedCreateWithoutProgramsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -924,6 +948,7 @@ export type CoachUpdateWithoutProgramsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -951,6 +976,7 @@ export type CoachUncheckedUpdateWithoutProgramsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -978,6 +1004,7 @@ export type CoachCreateWithoutSessionsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1005,6 +1032,7 @@ export type CoachUncheckedCreateWithoutSessionsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1048,6 +1076,7 @@ export type CoachUpdateWithoutSessionsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1075,6 +1104,7 @@ export type CoachUncheckedUpdateWithoutSessionsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1102,6 +1132,7 @@ export type CoachCreateWithoutEvaluationsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1129,6 +1160,7 @@ export type CoachUncheckedCreateWithoutEvaluationsInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1172,6 +1204,7 @@ export type CoachUpdateWithoutEvaluationsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1199,6 +1232,7 @@ export type CoachUncheckedUpdateWithoutEvaluationsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1226,6 +1260,7 @@ export type CoachCreateWithoutSuccessStoriesInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1253,6 +1288,7 @@ export type CoachUncheckedCreateWithoutSuccessStoriesInput = {
   firstName: string
   lastName: string
   email: string
+  password: string
   phone: string
   specialization: string
   experience: number
@@ -1296,6 +1332,7 @@ export type CoachUpdateWithoutSuccessStoriesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1323,6 +1360,7 @@ export type CoachUncheckedUpdateWithoutSuccessStoriesInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
   specialization?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1408,6 +1446,7 @@ export type CoachSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   firstName?: boolean
   lastName?: boolean
   email?: boolean
+  password?: boolean
   phone?: boolean
   specialization?: boolean
   experience?: boolean
@@ -1437,6 +1476,7 @@ export type CoachSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   firstName?: boolean
   lastName?: boolean
   email?: boolean
+  password?: boolean
   phone?: boolean
   specialization?: boolean
   experience?: boolean
@@ -1461,6 +1501,7 @@ export type CoachSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   firstName?: boolean
   lastName?: boolean
   email?: boolean
+  password?: boolean
   phone?: boolean
   specialization?: boolean
   experience?: boolean
@@ -1485,6 +1526,7 @@ export type CoachSelectScalar = {
   firstName?: boolean
   lastName?: boolean
   email?: boolean
+  password?: boolean
   phone?: boolean
   specialization?: boolean
   experience?: boolean
@@ -1504,7 +1546,7 @@ export type CoachSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CoachOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "phone" | "specialization" | "experience" | "title" | "bio" | "quote" | "certifications" | "achievements" | "rating" | "studentsCount" | "image" | "instagram" | "twitter" | "isActive" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["coach"]>
+export type CoachOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "password" | "phone" | "specialization" | "experience" | "title" | "bio" | "quote" | "certifications" | "achievements" | "rating" | "studentsCount" | "image" | "instagram" | "twitter" | "isActive" | "displayOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["coach"]>
 export type CoachInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   programs?: boolean | Prisma.Coach$programsArgs<ExtArgs>
   sessions?: boolean | Prisma.Coach$sessionsArgs<ExtArgs>
@@ -1528,6 +1570,7 @@ export type $CoachPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     firstName: string
     lastName: string
     email: string
+    password: string
     phone: string
     specialization: string
     experience: number
@@ -1976,6 +2019,7 @@ export interface CoachFieldRefs {
   readonly firstName: Prisma.FieldRef<"Coach", 'String'>
   readonly lastName: Prisma.FieldRef<"Coach", 'String'>
   readonly email: Prisma.FieldRef<"Coach", 'String'>
+  readonly password: Prisma.FieldRef<"Coach", 'String'>
   readonly phone: Prisma.FieldRef<"Coach", 'String'>
   readonly specialization: Prisma.FieldRef<"Coach", 'String'>
   readonly experience: Prisma.FieldRef<"Coach", 'Int'>

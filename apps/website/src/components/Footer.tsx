@@ -7,7 +7,6 @@ import {
   ClockIcon,
   ArrowRightIcon,
   HeartIcon,
-  StarIcon,
 } from '@heroicons/react/24/outline';
 import {
   APP_CONFIG,

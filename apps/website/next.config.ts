@@ -43,6 +43,8 @@ const nextConfig = {
   // Performance optimization
   compress: true,
   poweredByHeader: false,
+  // Skip static generation for pages that need database
+  output: 'standalone',
 };
 
 module.exports = nextConfig;

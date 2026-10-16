@@ -39,6 +39,7 @@ model Coach {
   firstName      String
   lastName       String
   email          String   @unique
+  password       String
   phone          String
   specialization String
   experience     Int // Years of experience
@@ -124,7 +125,6 @@ model Registration {
   emergencyContactName  String?
   emergencyContactPhone String?
   medicalConditions     String?
-  stripeSessionId       String?  @unique
   registeredAt          DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
@@ -141,9 +141,10 @@ model Registration {
 model Payment {
   id        String   @id @default(cuid())
   amount    Int
+  currency  String   @default("IRR")
   status    String   @default("PENDING")
   method    String   @default("ONLINE")
-  stripeId  String? // Stripe payment ID
+  stripeId  String?  // Stripe payment ID
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

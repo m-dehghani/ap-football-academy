@@ -2126,6 +2126,7 @@ export const CoachScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'email',
+  password: 'password',
   phone: 'phone',
   specialization: 'specialization',
   experience: 'experience',
@@ -2199,7 +2200,6 @@ export const RegistrationScalarFieldEnum = {
   emergencyContactName: 'emergencyContactName',
   emergencyContactPhone: 'emergencyContactPhone',
   medicalConditions: 'medicalConditions',
-  stripeSessionId: 'stripeSessionId',
   registeredAt: 'registeredAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
@@ -2212,6 +2212,7 @@ export type RegistrationScalarFieldEnum = (typeof RegistrationScalarFieldEnum)[k
 export const PaymentScalarFieldEnum = {
   id: 'id',
   amount: 'amount',
+  currency: 'currency',
   status: 'status',
   method: 'method',
   stripeId: 'stripeId',
