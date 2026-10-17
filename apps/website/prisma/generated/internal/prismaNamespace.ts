@@ -398,6 +398,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  VerificationChallenge: 'VerificationChallenge',
   Role: 'Role',
   Coach: 'Coach',
   Program: 'Program',
@@ -435,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "role" | "coach" | "program" | "schedule" | "registration" | "payment" | "session" | "attendance" | "evaluation" | "academyInfo" | "openingHour" | "socialLink" | "statistic" | "testimonial" | "successStory" | "milestone" | "staffMember" | "facility" | "newsCategory" | "newsArticle" | "contactMessage" | "newsletterSubscriber"
+    modelProps: "user" | "verificationChallenge" | "role" | "coach" | "program" | "schedule" | "registration" | "payment" | "session" | "attendance" | "evaluation" | "academyInfo" | "openingHour" | "socialLink" | "statistic" | "testimonial" | "successStory" | "milestone" | "staffMember" | "facility" | "newsCategory" | "newsArticle" | "contactMessage" | "newsletterSubscriber"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -510,6 +511,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    VerificationChallenge: {
+      payload: Prisma.$VerificationChallengePayload<ExtArgs>
+      fields: Prisma.VerificationChallengeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VerificationChallengeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VerificationChallengeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        findFirst: {
+          args: Prisma.VerificationChallengeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VerificationChallengeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        findMany: {
+          args: Prisma.VerificationChallengeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>[]
+        }
+        create: {
+          args: Prisma.VerificationChallengeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        createMany: {
+          args: Prisma.VerificationChallengeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VerificationChallengeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>[]
+        }
+        delete: {
+          args: Prisma.VerificationChallengeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        update: {
+          args: Prisma.VerificationChallengeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        deleteMany: {
+          args: Prisma.VerificationChallengeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VerificationChallengeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VerificationChallengeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>[]
+        }
+        upsert: {
+          args: Prisma.VerificationChallengeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VerificationChallengePayload>
+        }
+        aggregate: {
+          args: Prisma.VerificationChallengeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVerificationChallenge>
+        }
+        groupBy: {
+          args: Prisma.VerificationChallengeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationChallengeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VerificationChallengeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VerificationChallengeCountAggregateOutputType> | number
         }
       }
     }
@@ -2189,11 +2264,31 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   birthDate: 'birthDate',
   role: 'role',
+  emailVerifiedAt: 'emailVerifiedAt',
+  phoneVerifiedAt: 'phoneVerifiedAt',
+  marketingOptIn: 'marketingOptIn',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const VerificationChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  channel: 'channel',
+  target: 'target',
+  codeHash: 'codeHash',
+  passwordHash: 'passwordHash',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type VerificationChallengeScalarFieldEnum = (typeof VerificationChallengeScalarFieldEnum)[keyof typeof VerificationChallengeScalarFieldEnum]
 
 
 export const RoleScalarFieldEnum = {
@@ -2601,6 +2696,13 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -2625,13 +2727,6 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 /**
@@ -2786,6 +2881,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  verificationChallenge?: Prisma.VerificationChallengeOmit
   role?: Prisma.RoleOmit
   coach?: Prisma.CoachOmit
   program?: Prisma.ProgramOmit

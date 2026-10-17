@@ -22,6 +22,9 @@ model User {
   phone     String?   @unique
   birthDate DateTime?
   role      String    @default("STUDENT")
+  emailVerifiedAt DateTime?
+  phoneVerifiedAt DateTime?
+  marketingOptIn Boolean @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -31,8 +34,28 @@ model User {
   payments      Payment[]
   attendance    Attendance[]
   evaluations   Evaluation[]
+  verificationChallenges VerificationChallenge[]
 
   @@map("users")
+}
+
+model VerificationChallenge {
+  id           String   @id @default(cuid())
+  userId       String
+  purpose      String
+  channel      String
+  target       String
+  codeHash     String
+  passwordHash String?
+  attempts     Int      @default(0)
+  expiresAt    DateTime
+  consumedAt   DateTime?
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose, createdAt])
+  @@map("verification_challenges")
 }
 
 model Role {

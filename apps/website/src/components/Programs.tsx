@@ -2,6 +2,8 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from 'react-hot-toast';
 import {
   CalendarDaysIcon,
   UserGroupIcon,
@@ -198,6 +200,33 @@ function CoachCard({ coach, program }: { coach: ProgramViewModel['coach']; progr
 }
 
 function EnrollmentCTA({ program }: { program: ProgramViewModel }) {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [isEnrolling, setIsEnrolling] = useState(false);
+
+  const enroll = async () => {
+    setIsEnrolling(true);
+    try {
+      const response = await fetch('/api/student/registrations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ programId: program.id }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'ثبت‌نام ناموفق بود');
+      }
+      toast.success('درخواست ثبت‌نام شما ارسال شد.');
+      await router.push('/student/dashboard');
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'ثبت‌نام ناموفق بود',
+      );
+    } finally {
+      setIsEnrolling(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -213,15 +242,29 @@ function EnrollmentCTA({ program }: { program: ProgramViewModel }) {
       <div className="relative z-10 text-center">
         <h3 className="text-2xl font-bold text-gray-900 mb-4">آماده پیوستن هستید؟</h3>
         <p className="text-gray-600 mb-6">سفر فوتبالی خود را با {program.name} شروع کنید!</p>
-        <Link
-          href={`/register?program=${program.id}`}
-          className="w-full btn btn-primary shadow-elegant-lg inline-flex items-center justify-center"
-        >
-          <span className="flex items-center justify-center">
-            ثبت نام در {program.name}
-            <ArrowRightIcon className="w-5 h-5 ml-2" />
-          </span>
-        </Link>
+        {user?.role === 'STUDENT' ? (
+          <button
+            type="button"
+            onClick={() => void enroll()}
+            disabled={isEnrolling}
+            className="w-full btn btn-primary shadow-elegant-lg inline-flex items-center justify-center disabled:cursor-wait disabled:opacity-60"
+          >
+            <span className="flex items-center justify-center">
+              {isEnrolling ? 'در حال ثبت‌نام...' : `ثبت نام در ${program.name}`}
+              <ArrowRightIcon className="w-5 h-5 ml-2" />
+            </span>
+          </button>
+        ) : (
+          <Link
+            href={`/register?program=${program.id}`}
+            className="w-full btn btn-primary shadow-elegant-lg inline-flex items-center justify-center"
+          >
+            <span className="flex items-center justify-center">
+              ثبت نام در {program.name}
+              <ArrowRightIcon className="w-5 h-5 ml-2" />
+            </span>
+          </Link>
+        )}
         <div className="mt-4 flex items-center justify-center gap-6 text-sm text-gray-500">
           <span className="flex items-center gap-1">
             <HeartIcon className="w-4 h-4 text-red-500" />

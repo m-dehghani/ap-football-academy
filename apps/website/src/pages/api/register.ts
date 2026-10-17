@@ -26,8 +26,11 @@ const registrationSchema = z
         message: 'تاریخ تولد معتبر نیست',
       }),
     emergencyContact: z.string().min(10, 'شماره تماس اضطراری نامعتبر است'),
+    emergencyContactName: z.string().min(2).max(100).optional(),
+    parentName: z.string().trim().max(100).optional(),
+    parentEmail: z.union([z.string().trim().email(), z.literal('')]).optional(),
     medicalConditions: z.string().optional(),
-    previousExperience: z.string().optional(),
+    previousExperience: z.enum(['beginner', 'intermediate', 'advanced']).optional(),
   })
   .refine((data) => Boolean(data.email?.trim() || data.phone?.trim()), {
     message: 'وارد کردن ایمیل یا شماره تلفن الزامی است',
@@ -131,6 +134,12 @@ export default async function handler(
           programId: validatedData.programId,
           totalAmount: program.price,
           status: 'PENDING',
+          experienceLevel: validatedData.previousExperience ?? null,
+          parentName: validatedData.parentName?.trim() || null,
+          parentEmail: validatedData.parentEmail?.trim().toLowerCase() || null,
+          emergencyContactName: validatedData.emergencyContactName?.trim() || null,
+          emergencyContactPhone: normalizePhone(validatedData.emergencyContact),
+          medicalConditions: validatedData.medicalConditions?.trim() || null,
         },
       });
 

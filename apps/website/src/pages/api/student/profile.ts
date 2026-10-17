@@ -4,28 +4,47 @@ import { authorizeStudent, normalizePhone } from '@/lib/auth';
 import { getPrisma } from '@/lib/db';
 import { parseBirthDateInput } from '@/lib/age';
 
+const registrationProfileSchema = z.object({
+  id: z.string().min(1),
+  experienceLevel: z.union([
+    z.enum(['beginner', 'intermediate', 'advanced']),
+    z.literal(''),
+    z.null(),
+  ]),
+  parentName: z.string().trim().max(100),
+  parentEmail: z.union([z.string().trim().email(), z.literal('')]),
+  emergencyContactName: z.string().trim().max(100),
+  emergencyContactPhone: z
+    .union([z.string().regex(/^\+?[\d۰-۹٠-٩\s().-]{7,20}$/), z.literal('')]),
+  medicalConditions: z.string().trim().max(2000),
+});
+
 const profileSchema = z
   .object({
-    firstName: z.string().trim().min(2).max(100),
-    lastName: z.string().trim().min(2).max(100),
-    email: z.union([z.string().trim().email(), z.literal('')]).optional(),
-    phone: z
-      .union([
-        z.string().regex(/^\+?[\d۰-۹٠-٩\s().-]{7,20}$/),
-        z.literal(''),
-      ])
-      .optional(),
+    firstName: z.string().trim().min(2).max(100).optional(),
+    lastName: z.string().trim().min(2).max(100).optional(),
     birthDate: z
       .union([z.string(), z.literal('')])
       .optional()
       .refine((value) => !value || parseBirthDateInput(value) !== null, {
         message: 'تاریخ تولد معتبر نیست',
       }),
+    marketingOptIn: z.boolean().optional(),
+    registrations: z.array(registrationProfileSchema).max(30).optional(),
   })
-  .refine((data) => Boolean(data.email?.trim() || data.phone?.trim()), {
-    message: 'وارد کردن ایمیل یا شماره تلفن الزامی است',
-    path: ['email'],
-  });
+  .refine(
+    (data) =>
+      (data.firstName === undefined) === (data.lastName === undefined),
+    { message: 'نام و نام خانوادگی را با هم وارد کنید' },
+  )
+  .refine(
+    (data) =>
+      data.firstName !== undefined ||
+      data.birthDate !== undefined ||
+      data.marketingOptIn !== undefined ||
+      Boolean(data.registrations?.length),
+    { message: 'اطلاعاتی برای ذخیره وارد نشده است' },
+  );
 
 export default async function handler(
   req: NextApiRequest,
@@ -41,50 +60,66 @@ export default async function handler(
     if (!userId) return;
 
     const data = profileSchema.parse(req.body);
-    const email = data.email?.trim().toLowerCase() || null;
-    const phone = data.phone?.trim() ? normalizePhone(data.phone) : null;
-    const identifiers = [
-      ...(email
-        ? [{ email: { equals: email, mode: 'insensitive' as const } }]
-        : []),
-      ...(phone ? [{ phone }] : []),
-    ];
     const db = await getPrisma();
-    const [existingUser, existingCoach] = await Promise.all([
-      db.user.findFirst({
-        where: { OR: identifiers, NOT: { id: userId } },
-        select: { id: true },
-      }),
-      db.coach.findFirst({
-        where: { OR: identifiers },
-        select: { id: true },
-      }),
-    ]);
-    if (existingUser || existingCoach) {
-      return res
-        .status(409)
-        .json({ message: 'این ایمیل یا شماره تلفن قبلاً استفاده شده است' });
-    }
+    const user = await db.$transaction(async (tx) => {
+      let updatedUser = null;
+      if (
+        data.firstName !== undefined ||
+        data.birthDate !== undefined ||
+        data.marketingOptIn !== undefined
+      ) {
+        updatedUser = await tx.user.update({
+          where: { id: userId },
+          data: {
+            ...(data.firstName === undefined
+              ? {}
+              : { firstName: data.firstName, lastName: data.lastName }),
+            ...(data.birthDate === undefined
+              ? {}
+              : {
+                  birthDate: data.birthDate
+                    ? parseBirthDateInput(data.birthDate)
+                    : null,
+                }),
+            ...(data.marketingOptIn === undefined
+              ? {}
+              : { marketingOptIn: data.marketingOptIn }),
+          },
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            birthDate: true,
+            marketingOptIn: true,
+          },
+        });
+      }
 
-    const user = await db.user.update({
-      where: { id: userId },
-      data: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email,
-        phone,
-        birthDate: data.birthDate ? parseBirthDateInput(data.birthDate) : null,
-      },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        phone: true,
-        birthDate: true,
-      },
+      for (const registration of data.registrations ?? []) {
+        const result = await tx.registration.updateMany({
+          where: { id: registration.id, userId },
+          data: {
+            experienceLevel: registration.experienceLevel || null,
+            parentName: registration.parentName || null,
+            parentEmail: registration.parentEmail?.trim().toLowerCase() || null,
+            emergencyContactName: registration.emergencyContactName || null,
+            emergencyContactPhone: registration.emergencyContactPhone
+              ? normalizePhone(registration.emergencyContactPhone)
+              : null,
+            medicalConditions: registration.medicalConditions || null,
+          },
+        });
+        if (result.count !== 1) {
+          throw new Error('STUDENT_REGISTRATION_NOT_FOUND');
+        }
+      }
+      return updatedUser;
     });
-    return res.status(200).json({ user });
+    return res
+      .status(200)
+      .json({ user, registrations: data.registrations ?? [] });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({
@@ -104,6 +139,9 @@ export default async function handler(
       return res
         .status(409)
         .json({ message: 'این ایمیل یا شماره تلفن قبلاً استفاده شده است' });
+    }
+    if (error instanceof Error && error.message === 'STUDENT_REGISTRATION_NOT_FOUND') {
+      return res.status(404).json({ message: 'اطلاعات ثبت‌نام یافت نشد' });
     }
     console.error('Student profile update error:', error);
     return res.status(500).json({ message: 'خطا در ذخیره اطلاعات پروفایل' });

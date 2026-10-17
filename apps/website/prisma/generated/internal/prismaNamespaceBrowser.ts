@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  VerificationChallenge: 'VerificationChallenge',
   Role: 'Role',
   Coach: 'Coach',
   Program: 'Program',
@@ -101,11 +102,31 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   birthDate: 'birthDate',
   role: 'role',
+  emailVerifiedAt: 'emailVerifiedAt',
+  phoneVerifiedAt: 'phoneVerifiedAt',
+  marketingOptIn: 'marketingOptIn',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const VerificationChallengeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  purpose: 'purpose',
+  channel: 'channel',
+  target: 'target',
+  codeHash: 'codeHash',
+  passwordHash: 'passwordHash',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  consumedAt: 'consumedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type VerificationChallengeScalarFieldEnum = (typeof VerificationChallengeScalarFieldEnum)[keyof typeof VerificationChallengeScalarFieldEnum]
 
 
 export const RoleScalarFieldEnum = {

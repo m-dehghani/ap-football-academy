@@ -137,6 +137,9 @@ const RegisterPage: React.FC = () => {
         birthDate: birthDate.toISOString().slice(0, 10),
         password: data.password,
         emergencyContact: data.emergencyContact,
+        emergencyContactName: data.emergencyContactName,
+        parentName: data.parentName,
+        parentEmail: data.parentEmail?.trim() || undefined,
         medicalConditions: data.medicalConditions,
         previousExperience: data.experience,
       };

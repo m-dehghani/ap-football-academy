@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model VerificationChallenge
+ * 
+ */
+export type VerificationChallenge = Prisma.VerificationChallengeModel
+/**
  * Model Role
  * 
  */

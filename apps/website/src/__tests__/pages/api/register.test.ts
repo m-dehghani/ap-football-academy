@@ -145,6 +145,37 @@ describe('/api/register', () => {
     expect(res.status).toHaveBeenCalledWith(201);
   });
 
+  it('stores the submitted registration contact and health details', async () => {
+    const req = createRequest({
+      firstName: 'Student',
+      lastName: 'User',
+      phone: '09123456789',
+      password: 'secret123',
+      programId: 'program-1',
+      birthDate: '2012-01-01',
+      emergencyContact: '09123456780',
+      emergencyContactName: 'Parent',
+      parentName: 'Guardian',
+      parentEmail: 'PARENT@example.com',
+      medicalConditions: 'Asthma',
+      previousExperience: 'intermediate',
+    });
+    const res = createResponse();
+
+    await handler(req, res as never);
+
+    expect(transaction.registration.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        experienceLevel: 'intermediate',
+        parentName: 'Guardian',
+        parentEmail: 'parent@example.com',
+        emergencyContactName: 'Parent',
+        emergencyContactPhone: '09123456780',
+        medicalConditions: 'Asthma',
+      }),
+    });
+  });
+
   it('rejects registration when persisted birth date is outside the program age range', async () => {
     mockPrisma.program.findUnique.mockResolvedValue({
       id: 'program-1',

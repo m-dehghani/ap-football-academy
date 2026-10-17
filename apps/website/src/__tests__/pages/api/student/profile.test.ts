@@ -14,6 +14,8 @@ vi.mock('@/lib/db', () => ({ getPrisma: vi.fn() }));
 const mockPrisma = {
   user: { findFirst: vi.fn(), update: vi.fn() },
   coach: { findFirst: vi.fn() },
+  registration: { updateMany: vi.fn() },
+  $transaction: vi.fn(),
 };
 
 const request = (body: Record<string, unknown>) =>
@@ -44,18 +46,21 @@ describe('/api/student/profile', () => {
       phone: '09123456789',
       birthDate: new Date('2012-01-01T00:00:00.000Z'),
     });
+    mockPrisma.registration.updateMany.mockResolvedValue({ count: 1 });
+    mockPrisma.$transaction.mockImplementation((callback) =>
+      (callback as (tx: typeof mockPrisma) => Promise<unknown>)(mockPrisma),
+    );
   });
 
-  it('updates profile fields and normalizes the phone number', async () => {
+  it('updates profile details and marketing consent', async () => {
     const res = response();
 
     await handler(
       request({
         firstName: 'Student',
         lastName: 'User',
-        email: 'STUDENT@example.com',
-        phone: '0912 345 6789',
         birthDate: '2012-01-01',
+        marketingOptIn: true,
       }),
       res as never,
     );
@@ -64,30 +69,59 @@ describe('/api/student/profile', () => {
       expect.objectContaining({
         where: { id: 'student-1' },
         data: expect.objectContaining({
-          email: 'student@example.com',
-          phone: '09123456789',
           birthDate: new Date('2012-01-01T00:00:00.000Z'),
+          marketingOptIn: true,
         }),
       }),
     );
     expect(res.status).toHaveBeenCalledWith(200);
   });
 
-  it('requires at least an email address or phone number', async () => {
+  it('rejects an invalid birth date', async () => {
     const res = response();
 
     await handler(
       request({
         firstName: 'Student',
         lastName: 'User',
-        email: '',
-        phone: '',
-        birthDate: '',
+        birthDate: 'not-a-date',
       }),
       res as never,
     );
 
     expect(res.status).toHaveBeenCalledWith(400);
     expect(mockPrisma.user.update).not.toHaveBeenCalled();
+  });
+
+  it('updates registration-specific safety and experience information', async () => {
+    const res = response();
+
+    await handler(
+      request({
+        registrations: [
+          {
+            id: 'registration-1',
+            experienceLevel: 'intermediate',
+            parentName: 'Parent',
+            parentEmail: 'PARENT@example.com',
+            emergencyContactName: 'Contact',
+            emergencyContactPhone: '0912 345 6789',
+            medicalConditions: 'Asthma',
+          },
+        ],
+      }),
+      res as never,
+    );
+
+    expect(mockPrisma.registration.updateMany).toHaveBeenCalledWith({
+      where: { id: 'registration-1', userId: 'student-1' },
+      data: expect.objectContaining({
+        experienceLevel: 'intermediate',
+        parentEmail: 'parent@example.com',
+        emergencyContactPhone: '09123456789',
+        medicalConditions: 'Asthma',
+      }),
+    });
+    expect(res.status).toHaveBeenCalledWith(200);
   });
 });

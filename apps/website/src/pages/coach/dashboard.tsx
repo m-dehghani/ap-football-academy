@@ -2,6 +2,7 @@ import React from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '@/components/Layout';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 interface CoachDashboardProps {
@@ -49,6 +50,12 @@ const CoachDashboardPage: React.FC<CoachDashboardProps> = ({ coach }) => {
                 <h1 className="text-xl font-bold text-gray-900">پنل مربی</h1>
               </div>
               <div className="flex items-center space-x-4">
+                <Link
+                  href="/staff/notifications"
+                  className="rounded-lg bg-green-50 px-3 py-2 text-sm font-medium text-green-800 hover:bg-green-100"
+                >
+                  ارسال پیام
+                </Link>
                 <span className="text-gray-700">
                   {coach.firstName} {coach.lastName}
                 </span>

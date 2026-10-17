@@ -88,6 +88,51 @@ export async function authorizeAdmin(
   return true;
 }
 
+export type StaffSession = {
+  id: string;
+  role: 'ADMIN' | 'COACH';
+};
+
+export async function authorizeStaff(
+  req: NextApiRequest,
+  res: NextApiResponse,
+): Promise<StaffSession | null> {
+  const token = req.cookies.auth_token;
+  if (!token) {
+    res.status(401).json({ message: 'احراز هویت نشده' });
+    return null;
+  }
+
+  let userId: string;
+  try {
+    const { payload } = await jwtVerify(token, getJwtSecret());
+    if (typeof payload.userId !== 'string') {
+      res.status(401).json({ message: 'توکن نامعتبر است' });
+      return null;
+    }
+    userId = payload.userId;
+  } catch {
+    res.status(401).json({ message: 'توکن نامعتبر یا منقضی شده' });
+    return null;
+  }
+
+  const db = await getPrisma();
+  const user = await db.user.findUnique({
+    where: { id: userId },
+    select: { id: true, role: true },
+  });
+  if (user?.role === 'ADMIN') return { id: user.id, role: 'ADMIN' };
+
+  const coach = await db.coach.findUnique({
+    where: { id: userId },
+    select: { id: true, isActive: true },
+  });
+  if (coach?.isActive) return { id: coach.id, role: 'COACH' };
+
+  res.status(403).json({ message: 'دسترسی مجاز نیست' });
+  return null;
+}
+
 export function normalizePhone(value: string): string {
   const latinDigits = value
     .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 1776))

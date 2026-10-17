@@ -2,10 +2,28 @@ import type { AdminRegistrationViewModel } from './admin';
 
 export type StudentRegistrationViewModel = Pick<
   AdminRegistrationViewModel,
-  'id' | 'status' | 'totalAmount' | 'paidAmount'
+  | 'id'
+  | 'status'
+  | 'totalAmount'
+  | 'paidAmount'
+  | 'experienceLevel'
+  | 'parentName'
+  | 'parentEmail'
+  | 'emergencyContactName'
+  | 'emergencyContactPhone'
+  | 'medicalConditions'
 > & {
   payments: Pick<AdminRegistrationViewModel['payments'][number], 'status'>[];
   program: Pick<AdminRegistrationViewModel['program'], 'id' | 'name' | 'coach'>;
+};
+
+export type StudentRegistrationProfileFormValues = {
+  experienceLevel: string;
+  parentName: string;
+  parentEmail: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  medicalConditions: string;
 };
 
 export interface StudentDashboardStudentViewModel {
@@ -15,6 +33,7 @@ export interface StudentDashboardStudentViewModel {
   lastName: string;
   phone: string | null;
   birthDate: string | null;
+  marketingOptIn: boolean;
   registrations: StudentRegistrationViewModel[];
 }
 
@@ -37,4 +56,5 @@ export interface StudentProfileFormValues {
   email: string;
   phone: string;
   birthDate: string;
+  marketingOptIn: boolean;
 }

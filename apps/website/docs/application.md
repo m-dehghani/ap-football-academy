@@ -83,6 +83,26 @@ gateway is used. Keep `ZARINPAL_MERCHANT_ID` server-only. Program prices and
 registration balances are stored in toman and converted to rial when sent to
 Zarinpal. Apply the student-payment Prisma migration before deploying.
 
+### Student verification and staff messaging
+
+Profile email, phone, and password changes use one-time codes sent with
+Kavenegar (SMS) and Resend (email). Staff email/SMS notifications use the same
+providers. Configure these server-only variables before enabling those
+workflows:
+
+| Variable | Purpose |
+|----------|---------|
+| `KAVENEGAR_API_KEY` | Kavenegar SMS API key |
+| `KAVENEGAR_SENDER` | Optional registered sender number |
+| `RESEND_API_KEY` | Resend API key |
+| `RESEND_FROM` | Verified sender, for example `AP Academy <notify@example.com>` |
+
+Missing provider configuration is returned to the user as an explicit delivery
+error; messages and verification codes are never logged. Apply the latest
+profile-verification Prisma migration before deploying. Marketing campaigns are
+limited to students who opted in through their profile; coaches can only
+message students in their own programs.
+
 ### Internationalization (i18n)
 
 - **Locales**: `fa` (default), `en`

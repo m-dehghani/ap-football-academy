@@ -10,6 +10,7 @@ import PersianDatePicker from '@/components/PersianDatePicker';
 import type {
   StudentDashboardViewModel,
   StudentProfileFormValues,
+  StudentRegistrationProfileFormValues,
 } from '@/types/viewModels/student';
 
 const activeStatuses = new Set(['PENDING', 'APPROVED']);
@@ -34,6 +35,39 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
     email: student.email ?? '',
     phone: student.phone ?? '',
     birthDate: formatPersianDate(student.birthDate),
+    marketingOptIn: student.marketingOptIn,
+  });
+  const [currentContact, setCurrentContact] = useState({
+    email: student.email ?? '',
+    phone: student.phone ?? '',
+  });
+  const [registrationProfiles, setRegistrationProfiles] = useState<
+    Record<string, StudentRegistrationProfileFormValues>
+  >(() =>
+    Object.fromEntries(
+      student.registrations.map((registration) => [
+        registration.id,
+        {
+          experienceLevel: registration.experienceLevel ?? '',
+          parentName: registration.parentName ?? '',
+          parentEmail: registration.parentEmail ?? '',
+          emergencyContactName: registration.emergencyContactName ?? '',
+          emergencyContactPhone: registration.emergencyContactPhone ?? '',
+          medicalConditions: registration.medicalConditions ?? '',
+        },
+      ]),
+    ),
+  );
+  const [verificationCodes, setVerificationCodes] = useState({
+    email: '',
+    phone: '',
+  });
+  const [passwordForm, setPasswordForm] = useState({
+    channel: student.email ? 'email' : 'phone',
+    password: '',
+    confirmPassword: '',
+    code: '',
+    codeRequested: false,
   });
   const [busyAction, setBusyAction] = useState<string | null>(null);
   const [message, setMessage] = useState('');
@@ -122,8 +156,10 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...profile,
+          firstName: profile.firstName,
+          lastName: profile.lastName,
           birthDate: birthDate?.toISOString().slice(0, 10) ?? '',
+          marketingOptIn: profile.marketingOptIn,
         }),
       });
       const result = await response.json();
@@ -135,6 +171,7 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
         email: result.user.email ?? '',
         phone: result.user.phone ?? '',
         birthDate: formatPersianDate(result.user.birthDate),
+        marketingOptIn: result.user.marketingOptIn,
       });
       await refreshUser();
       setMessage('اطلاعات پروفایل ذخیره شد.');
@@ -143,6 +180,159 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
         requestError instanceof Error
           ? requestError.message
           : 'ذخیره پروفایل ناموفق بود',
+      );
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const handleRegistrationProfileSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+    registrationId: string,
+  ) => {
+    event.preventDefault();
+    setError('');
+    setMessage('');
+    setBusyAction(`registration-profile:${registrationId}`);
+    try {
+      const response = await fetch('/api/student/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          registrations: [
+            { id: registrationId, ...registrationProfiles[registrationId] },
+          ],
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'ذخیره اطلاعات ثبت‌نام ناموفق بود');
+      }
+      setMessage('اطلاعات ثبت‌نام به‌روزرسانی شد.');
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : 'ذخیره اطلاعات ثبت‌نام ناموفق بود',
+      );
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const requestContactVerification = async (channel: 'email' | 'phone') => {
+    setError('');
+    setMessage('');
+    setBusyAction(`verify:${channel}`);
+    try {
+      const response = await fetch('/api/student/profile/verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'request-contact',
+          channel,
+          value: profile[channel],
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || 'ارسال کد ناموفق بود');
+      setMessage(result.message);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : 'ارسال کد ناموفق بود',
+      );
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const confirmContactVerification = async (channel: 'email' | 'phone') => {
+    setError('');
+    setMessage('');
+    setBusyAction(`confirm:${channel}`);
+    try {
+      const response = await fetch('/api/student/profile/verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verify-contact',
+          channel,
+          code: verificationCodes[channel],
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || 'تأیید کد ناموفق بود');
+      setMessage(result.message);
+      setVerificationCodes({ ...verificationCodes, [channel]: '' });
+      setCurrentContact({ ...currentContact, [channel]: profile[channel] });
+      await refreshUser();
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : 'تأیید کد ناموفق بود',
+      );
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const requestPasswordVerification = async () => {
+    setError('');
+    setMessage('');
+    if (passwordForm.password !== passwordForm.confirmPassword) {
+      setError('تکرار رمز عبور با رمز جدید مطابقت ندارد.');
+      return;
+    }
+    setBusyAction('password-request');
+    try {
+      const response = await fetch('/api/student/profile/verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'request-password',
+          channel: passwordForm.channel,
+          password: passwordForm.password,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || 'ارسال کد ناموفق بود');
+      setPasswordForm({ ...passwordForm, codeRequested: true });
+      setMessage(result.message);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : 'ارسال کد ناموفق بود',
+      );
+    } finally {
+      setBusyAction(null);
+    }
+  };
+
+  const confirmPasswordVerification = async () => {
+    setError('');
+    setMessage('');
+    setBusyAction('password-confirm');
+    try {
+      const response = await fetch('/api/student/profile/verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verify-password',
+          channel: passwordForm.channel,
+          code: passwordForm.code,
+        }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.message || 'تأیید کد ناموفق بود');
+      setPasswordForm({
+        ...passwordForm,
+        password: '',
+        confirmPassword: '',
+        code: '',
+        codeRequested: false,
+      });
+      setMessage(result.message);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : 'تأیید کد ناموفق بود',
       );
     } finally {
       setBusyAction(null);
@@ -291,7 +481,7 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                   />
                 </label>
                 <label className="block text-sm font-medium text-gray-700">
-                  ایمیل (حداقل ایمیل یا تلفن لازم است)
+                  ایمیل
                   <input
                     type="email"
                     autoComplete="email"
@@ -302,8 +492,42 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                     className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
                   />
                 </label>
+                <div className="flex flex-wrap items-end gap-2">
+                  <button
+                    type="button"
+                    disabled={!profile.email || busyAction === 'verify:email'}
+                    onClick={() => void requestContactVerification('email')}
+                    className="rounded-lg border border-primary-600 px-3 py-2 text-sm text-primary-700 disabled:opacity-50"
+                  >
+                    {busyAction === 'verify:email' ? 'در حال ارسال...' : 'ارسال کد ایمیل'}
+                  </button>
+                  <label className="flex-1 text-sm text-gray-700">
+                    کد ایمیل
+                    <input
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      maxLength={6}
+                      value={verificationCodes.email}
+                      onChange={(event) =>
+                        setVerificationCodes({
+                          ...verificationCodes,
+                          email: event.target.value.replace(/\D/g, ''),
+                        })
+                      }
+                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    disabled={verificationCodes.email.length !== 6 || busyAction === 'confirm:email'}
+                    onClick={() => void confirmContactVerification('email')}
+                    className="rounded-lg bg-primary-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+                  >
+                    تأیید ایمیل
+                  </button>
+                </div>
                 <label className="block text-sm font-medium text-gray-700">
-                  تلفن (حداقل ایمیل یا تلفن لازم است)
+                  تلفن
                   <input
                     type="tel"
                     autoComplete="tel"
@@ -314,6 +538,40 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                     className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
                   />
                 </label>
+                <div className="flex flex-wrap items-end gap-2">
+                  <button
+                    type="button"
+                    disabled={!profile.phone || busyAction === 'verify:phone'}
+                    onClick={() => void requestContactVerification('phone')}
+                    className="rounded-lg border border-primary-600 px-3 py-2 text-sm text-primary-700 disabled:opacity-50"
+                  >
+                    {busyAction === 'verify:phone' ? 'در حال ارسال...' : 'ارسال کد پیامکی'}
+                  </button>
+                  <label className="flex-1 text-sm text-gray-700">
+                    کد پیامکی
+                    <input
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      maxLength={6}
+                      value={verificationCodes.phone}
+                      onChange={(event) =>
+                        setVerificationCodes({
+                          ...verificationCodes,
+                          phone: event.target.value.replace(/\D/g, ''),
+                        })
+                      }
+                      className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    disabled={verificationCodes.phone.length !== 6 || busyAction === 'confirm:phone'}
+                    onClick={() => void confirmContactVerification('phone')}
+                    className="rounded-lg bg-primary-600 px-3 py-2 text-sm text-white disabled:opacity-50"
+                  >
+                    تأیید تلفن
+                  </button>
+                </div>
                 <label className="block text-sm font-medium text-gray-700">
                   تاریخ تولد (برای ثبت‌نام الزامی است)
                   <PersianDatePicker
@@ -330,6 +588,20 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                   </span>
                 </label>
               </div>
+              <label className="mt-5 flex items-start gap-3 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={profile.marketingOptIn}
+                  onChange={(event) =>
+                    setProfile({ ...profile, marketingOptIn: event.target.checked })
+                  }
+                  className="mt-1"
+                />
+                <span>
+                  مایلم اخبار و پیشنهادهای بازاریابی آکادمی را از طریق ایمیل یا پیامک دریافت کنم.
+                  هر زمان بخواهم می‌توانم این رضایت را لغو کنم.
+                </span>
+              </label>
               <button
                 type="submit"
                 disabled={busyAction === 'profile'}
@@ -338,6 +610,102 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                 {busyAction === 'profile' ? 'در حال ذخیره...' : 'ذخیره اطلاعات'}
               </button>
             </form>
+          </section>
+
+          <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900">تغییر رمز عبور</h2>
+            <p className="mt-1 text-sm text-gray-600">
+              برای نهایی‌کردن تغییر رمز، کد تأیید به ایمیل یا تلفن فعلی شما ارسال می‌شود.
+            </p>
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+              <label className="text-sm font-medium text-gray-700">
+                روش دریافت کد
+                <select
+                  value={passwordForm.channel}
+                  onChange={(event) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      channel: event.target.value,
+                    })
+                  }
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                >
+                  {currentContact.email && <option value="email">ایمیل فعلی</option>}
+                  {currentContact.phone && <option value="phone">تلفن فعلی</option>}
+                  {!currentContact.email && !currentContact.phone && (
+                    <option value="phone">ابتدا ایمیل یا تلفن ثبت کنید</option>
+                  )}
+                </select>
+              </label>
+              <label className="text-sm font-medium text-gray-700">
+                رمز عبور جدید
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  maxLength={128}
+                  value={passwordForm.password}
+                  onChange={(event) =>
+                    setPasswordForm({ ...passwordForm, password: event.target.value })
+                  }
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                />
+              </label>
+              <label className="text-sm font-medium text-gray-700">
+                تکرار رمز عبور جدید
+                <input
+                  type="password"
+                  autoComplete="new-password"
+                  minLength={8}
+                  maxLength={128}
+                  value={passwordForm.confirmPassword}
+                  onChange={(event) =>
+                    setPasswordForm({
+                      ...passwordForm,
+                      confirmPassword: event.target.value,
+                    })
+                  }
+                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                />
+              </label>
+              {passwordForm.codeRequested && (
+                <label className="text-sm font-medium text-gray-700">
+                  کد تأیید
+                  <input
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    maxLength={6}
+                    value={passwordForm.code}
+                    onChange={(event) =>
+                      setPasswordForm({
+                        ...passwordForm,
+                        code: event.target.value.replace(/\D/g, ''),
+                      })
+                    }
+                    className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                  />
+                </label>
+              )}
+            </div>
+            {passwordForm.codeRequested ? (
+              <button
+                type="button"
+                disabled={passwordForm.code.length !== 6 || busyAction === 'password-confirm'}
+                onClick={() => void confirmPasswordVerification()}
+                className="mt-4 rounded-lg bg-primary-600 px-5 py-2 text-white disabled:opacity-50"
+              >
+                تأیید کد و تغییر رمز
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled={!passwordForm.password || busyAction === 'password-request'}
+                onClick={() => void requestPasswordVerification()}
+                className="mt-4 rounded-lg bg-primary-600 px-5 py-2 text-white disabled:opacity-50"
+              >
+                {busyAction === 'password-request' ? 'در حال ارسال...' : 'ارسال کد تأیید'}
+              </button>
+            )}
           </section>
 
           <section className="bg-white rounded-lg shadow-sm border border-gray-200">
@@ -352,6 +720,18 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
               ) : (
                 <div className="space-y-4">
                   {student.registrations.map((registration) => {
+                    const registrationProfile = registrationProfiles[registration.id];
+                    const updateRegistrationProfile = (
+                      field: keyof StudentRegistrationProfileFormValues,
+                      value: string,
+                    ) =>
+                      setRegistrationProfiles((current) => ({
+                        ...current,
+                        [registration.id]: {
+                          ...current[registration.id],
+                          [field]: value,
+                        },
+                      }));
                     const due = Math.max(
                       registration.status === 'CANCELLED'
                         ? 0
@@ -416,6 +796,119 @@ const StudentDashboardPage: React.FC<StudentDashboardViewModel> = ({
                             .
                           </p>
                         )}
+                        <details className="mt-4 border-t border-gray-100 pt-3">
+                          <summary className="cursor-pointer text-sm font-medium text-primary-700">
+                            ویرایش اطلاعات این ثبت‌نام
+                          </summary>
+                          <form
+                            onSubmit={(event) =>
+                              void handleRegistrationProfileSubmit(
+                                event,
+                                registration.id,
+                              )
+                            }
+                            className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2"
+                          >
+                            <label className="text-sm font-medium text-gray-700">
+                              سطح تجربه
+                              <select
+                                value={registrationProfile.experienceLevel}
+                                onChange={(event) =>
+                                  updateRegistrationProfile(
+                                    'experienceLevel',
+                                    event.target.value,
+                                  )
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              >
+                                <option value="">انتخاب نشده</option>
+                                <option value="beginner">مبتدی</option>
+                                <option value="intermediate">متوسط</option>
+                                <option value="advanced">پیشرفته</option>
+                              </select>
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              نام والد یا سرپرست
+                              <input
+                                maxLength={100}
+                                value={registrationProfile.parentName}
+                                onChange={(event) =>
+                                  updateRegistrationProfile('parentName', event.target.value)
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              ایمیل والد یا سرپرست
+                              <input
+                                type="email"
+                                maxLength={254}
+                                value={registrationProfile.parentEmail}
+                                onChange={(event) =>
+                                  updateRegistrationProfile('parentEmail', event.target.value)
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              نام تماس اضطراری
+                              <input
+                                maxLength={100}
+                                value={registrationProfile.emergencyContactName}
+                                onChange={(event) =>
+                                  updateRegistrationProfile(
+                                    'emergencyContactName',
+                                    event.target.value,
+                                  )
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              تلفن تماس اضطراری
+                              <input
+                                type="tel"
+                                maxLength={20}
+                                value={registrationProfile.emergencyContactPhone}
+                                onChange={(event) =>
+                                  updateRegistrationProfile(
+                                    'emergencyContactPhone',
+                                    event.target.value,
+                                  )
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              />
+                            </label>
+                            <label className="text-sm font-medium text-gray-700">
+                              شرایط پزشکی
+                              <textarea
+                                maxLength={2000}
+                                rows={3}
+                                value={registrationProfile.medicalConditions}
+                                onChange={(event) =>
+                                  updateRegistrationProfile(
+                                    'medicalConditions',
+                                    event.target.value,
+                                  )
+                                }
+                                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+                              />
+                            </label>
+                            <button
+                              type="submit"
+                              disabled={
+                                busyAction ===
+                                `registration-profile:${registration.id}`
+                              }
+                              className="w-fit rounded-lg bg-primary-600 px-4 py-2 text-sm text-white disabled:opacity-60"
+                            >
+                              {busyAction ===
+                              `registration-profile:${registration.id}`
+                                ? 'در حال ذخیره...'
+                                : 'ذخیره اطلاعات'}
+                            </button>
+                          </form>
+                        </details>
                       </article>
                     );
                   })}
@@ -530,6 +1023,7 @@ export const getServerSideProps: GetServerSideProps<
           lastName: true,
           phone: true,
           birthDate: true,
+          marketingOptIn: true,
           role: true,
           registrations: {
             select: {
@@ -537,6 +1031,12 @@ export const getServerSideProps: GetServerSideProps<
               status: true,
               totalAmount: true,
               paidAmount: true,
+              experienceLevel: true,
+              parentName: true,
+              parentEmail: true,
+              emergencyContactName: true,
+              emergencyContactPhone: true,
+              medicalConditions: true,
               payments: { select: { status: true } },
               program: {
                 select: {
